@@ -1,0 +1,315 @@
+#home {
+  position: relative;
+  overflow-x: hidden;
+  height: 100vh;
+  padding: 48px 20px 24px;
+  background-color: var(--lavander-mist);
+}
+
+/* Container */
+
+#home > .container {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+/* Heading */
+
+#home > .container > h1 {
+  margin-bottom: 8px;
+  font-family: 'SFProDisplay-Bold';
+  font-weight: 800;
+}
+
+/* Guests */
+
+#home > .container > .guests {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 40px;
+  padding: 24px 16px 60px;
+  background: linear-gradient(248.74deg, #5CB950 1.04%, #28A419 101.33%);
+}
+
+#home > .container > .guests > *:not(:first-child) {
+  z-index: 1;
+}
+
+#home > .container > .guests > .vector {
+  position: absolute;
+  top: 13.25%;
+  bottom: -54.27%;
+  left: 33.85%;
+  right: -20.26%;
+}
+
+#home > .container > .guests > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#home > .container > .guests > div .input-field {
+  padding: 2px 8px;
+  border-bottom: 0;
+  border-radius: 100px;
+  background-color: var(--white);
+}
+
+#home > .container > .guests > div .input-field > input {
+  width: 96px;
+  font-size: 12px;
+}
+
+#home > .container > .guests > div > .btn > span {
+  color: var(--white) !important;
+}
+
+#home > .container > .guests > p {
+  display: grid;
+}
+
+#home > .container > .guests > p > span {
+  color: var(--white);
+  font-weight: 800;
+}
+
+#home > .container > .guests > p > span:first-child {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 40px;
+}
+
+#home > .container > .guests > p > span:last-child {
+  font-size: 24px;
+}
+
+/* Announcements */
+
+#home > .container > .announcements {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+#home > .container > .announcements > .stack:first-child {
+  position: absolute;
+  top: 24px;
+  z-index: 1;
+  display: grid;
+  gap: 32px;
+  padding: 16px 16px 24px;
+  background-color: var(--white);
+}
+
+#home > .container > .announcements > .stack:nth-child(2) {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  height: 200px;
+  background-color: #E8E8E8;
+}
+
+#home > .container > .announcements > .stack:nth-child(3) {
+  width: 90%;
+  height: 200px;
+  margin: 0 auto;
+  background-color: #D4D4D4;
+}
+
+#home > .container > .announcements > .stack > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#home > .container > .announcements > .stack > .header > h2 {
+  display: flex;
+  align-items: center;
+  font-family: 'SFProDisplay-Bold';
+  font-size: 18px;
+  font-weight: 800;
+}
+
+#home > .container > .announcements > .stack > .header > h2 > img {
+  width: 20px;
+  margin-left: 8px;
+}
+
+#home > .container > .announcements > .stack > .header > div {
+  display: flex;
+  align-items: center;
+}
+
+#home > .container > .announcements > .stack > .header > div > *:not(:first-child) {
+  margin-left: 8px;
+}
+
+#home > .container > .announcements > .stack > .content {
+  display: grid;
+  gap: 16px;
+}
+
+#home > .container > .announcements > .stack > .content > .titleAndDate {
+  display: grid;
+  gap: 4px;
+}
+
+#home > .container > .announcements > .stack > .content > .titleAndDate > .title {
+  font-size: 16px;
+}
+
+#home > .container > .announcements > .stack > .content > .titleAndDate > .date {
+  color: var(--carbon-grey);
+  font-size: 12px;
+}
+
+#home > .container > .announcements > .stack > .content > p {
+  color: var(--carbon-grey);
+  font-size: 14px;
+}
+
+/* Notifications */
+
+#home > .container > .notifications {
+  display: grid;
+  gap: 32px;
+  padding: 16px 16px 24px;
+  background-color: var(--white);
+}
+
+#home > .container > .notifications > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#home > .container > .notifications > .header > h2 {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 18px;
+  font-weight: 800;
+}
+
+#home > .container > .notifications > .header > div {
+  display: flex;
+  align-items: center;
+}
+
+#home > .container > .notifications > .header > div > .btn {
+  margin-left: 8px;
+}
+
+#home > .container > .notifications > .list {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+}
+
+#home > .container > .notifications > .list > .item {
+  display: flex;
+  width: 100%;
+}
+
+#home > .container > .notifications > .list > .item > .badge {
+  width: 36px;
+  height: 32px;
+  margin-right: 12px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+#home > .container > .notifications > .list > .item > div {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+}
+
+#home > .container > .notifications > .list > .item > div > .titleAndDate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#home > .container > .notifications > .list > .item > div > .titleAndDate > .title {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#home > .container > .notifications > .list > .item > div > .titleAndDate > .date {
+  color: var(--carbon-grey);
+  font-size: 12px;
+}
+
+#home > .container > .notifications > .list > .item > div > p {
+  color: var(--carbon-grey);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Screen Width: 390px */
+
+@media only screen and (min-width: 390px) {
+  /* Container */
+
+  #home > .container {
+    margin-top: 48px;
+  }
+
+  /* Heading */
+
+  #home > .container > h1 {
+    font-size: 26px;
+  }
+
+  /* Guests */
+
+  #home > .container > .guests > div .input-field {
+    padding: 4px 16px;
+    border-bottom: 0;
+    border-radius: 100px;
+    background-color: var(--white);
+  }
+  
+  #home > .container > .guests > div .input-field > .suffix {
+    margin-right: 4px;
+  }
+
+  #home > .container > .guests > p > span:first-child {
+    font-family: 'SFProDisplay-Bold';
+    font-size: 40px;
+  }
+  
+  #home > .container > .guests > p > span:last-child {
+    font-size: 24px;
+  }
+}
+
+/* Screen Width: 410px */
+
+@media only screen and (min-width: 410px) {
+  /* Heading */
+
+  #home > .container > h1 {
+    font-size: 28px;
+  }
+
+  /* Announcments */
+
+  #home > .container > .announcements > .stack > .header > h2 {
+    font-size: 20px;
+  }
+
+  #home > .container > .announcements > .stack > .header > h2 > img {
+    width: 24px;
+  }
+
+  /* Notifications */
+
+  #home > .container > .notifications > .header > h2 {
+    font-size: 20px;
+  }
+}

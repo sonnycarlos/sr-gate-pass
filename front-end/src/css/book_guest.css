@@ -1,0 +1,52 @@
+#book_guest {
+  position: relative;
+  overflow-x: hidden;
+  padding: 24px 20px 24px;
+  background-color: var(--white);
+}
+
+/* Heading */
+
+#book_guest > h1 {
+  margin-top: 24px;
+  font-family: 'SFProDisplay-Bold';
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Form */
+
+#book_guest > form {
+  display: grid;
+  gap: 64px;
+  margin-top: 24px;
+}
+
+#book_guest > form > .inputFields {
+  display: grid;
+  gap: 32px;
+}
+
+#book_guest > form > .btn {
+  width: 100%;
+}
+
+/* Screen Width: 390px */
+
+@media only screen and (min-width: 390px) {
+  /* Heading */
+
+  #book_guest > h1 {
+    font-size: 24px;
+  }
+
+  /* Form */
+
+  #book_guest > form {
+    gap: 80px;
+  }
+
+  #book_guest > form > .inputFields {
+    gap: 40px;
+  }
+}

@@ -1,0 +1,104 @@
+#guest_history {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  padding: 24px 20px 24px;
+  background-color: var(--white);
+}
+
+/* Heading */
+
+#guest_history > h1 {
+  margin-top: 24px;
+  font-family: 'SFProDisplay-Bold';
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Tabs */
+
+#guest_history > #tabs {
+  margin: 24px 0 40px;
+}
+
+/* List */
+
+#guest_history > .list {
+  overflow-y: auto;
+  display: grid;
+  gap: 16px;
+  height: 60vh;
+  padding-bottom: 24px;
+}
+
+#guest_history > .list.hidden {
+  display: none;
+}
+
+#guest_history > .list > .item,
+#guest_history > .list > .item > .dateAndTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#guest_history > .list > .item .date {
+  font-family: 'SFProDisplay-Bold';
+  font-weight: 800;
+}
+
+#guest_history > .list > .item .time {
+  font-family: 'SFProDisplay-Medium';
+}
+
+#guest_history > .logsHistory.list > .item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#guest_history > .logsHistory.list > .item > .logs {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+#guest_history > .logsHistory.list > .item > .logs > .time {
+  justify-self: end;
+  font-family: 'SFProDisplay-Regular';
+}
+
+/* Screen Width: 390px */
+
+@media only screen and (min-width: 390px) {
+  /* Heading */
+
+  #guest_history > h1 {
+    font-size: 24px;
+  }
+
+  /* List */
+
+  #guest_history > .list {
+    gap: 24px;
+    height: 65vh;
+    padding-bottom: 0;
+  }
+}
+
+/* Screen Width: 410px */
+
+@media only screen and (min-width: 410px) {
+  /* List  */
+
+  #guest_history > .list {
+    height: 68vh;
+  }
+
+  #guest_history > .list > .item > .date,
+  #guest_history > .list > .item > .time {
+    font-size: 18px;
+  }
+}
