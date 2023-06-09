@@ -3,10 +3,12 @@
  ** We will usually do this to have cleaner import statements
 **/
 
+import emailTemplate from './emailTemplate.js'
 import generateOtp from './generateOtp.js'
 import mailer from './mailer.js'
 
 export {
+  emailTemplate,
   generateOtp,
   mailer
 }

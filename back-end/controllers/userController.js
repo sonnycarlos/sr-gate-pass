@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import passwordValidator from 'password-validator'
 
-import { generateOtp, mailer } from '../utils/index.js'
+import { emailTemplate, generateOtp, mailer } from '../utils/index.js'
 
 import User from '../models/userModel.js'
 
@@ -124,14 +124,11 @@ const signUp = asyncHandler(async (req, res) => {
 // @route   GET /api/verification
 // @access  Public
 const requestOtp = asyncHandler(async (req, res) => {
+  var action = req.body.action
   var otpCode = generateOtp()
   var receiver = req.body.emailAddress
   var subject = 'Verify Email Address'
-  var body = `Hello!
-              <br><br>
-              A sign in attempt requires further verification. To complete the sign in, enter the verification code.
-              <br><br>
-              Your verification code is <b>${otpCode}</b>.`
+  var body = emailTemplate(otpCode, action)
 
   await mailer({ receiver, subject, body })
     .then(() => {
