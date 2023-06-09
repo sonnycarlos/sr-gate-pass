@@ -4,12 +4,14 @@ import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import passwordValidator from 'password-validator'
 
+import { generateOtp, mailer } from '../utils/index.js'
+
 import User from '../models/userModel.js'
 
 dotenv.config()
 
-// @desc    Authenticate user
-// @route   POST /api/users/login
+// @desc    Log in user
+// @route   POST /api/login
 // @access  Public
 const signIn = asyncHandler(async (req, res) => {
   const { emailAddress, password } = req.body
@@ -28,12 +30,10 @@ const signIn = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Invalid credentials.')
   }
-
-  res.status(200).json({ message: 'Log in' })
 })
 
 // @desc    Register user
-// @route   POST /api/users
+// @route   POST /api/registration
 // @access  Public
 const signUp = asyncHandler(async (req, res) => {
   const { type, username, emailAddress, password } = req.body
@@ -120,6 +120,43 @@ const signUp = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Generate OTP code
+// @route   GET /api/verification
+// @access  Public
+const requestOtp = asyncHandler(async (req, res) => {
+  var otpCode = generateOtp()
+  var receiver = req.body.emailAddress
+  var subject = 'Verify Email Address'
+  var body = `Hello!
+              <br><br>
+              A sign in attempt requires further verification. To complete the sign in, enter the verification code.
+              <br><br>
+              Your verification code is <b>${otpCode}</b>.`
+
+  await mailer({ receiver, subject, body })
+    .then(() => {
+      res.status(200).json({ isSuccess: true })
+    })
+    .catch(error => {
+      res.status(400)
+      throw new Error(error)
+    })
+})
+
+// @desc    Verify OTP code
+// @route   GET /api/generate-otp
+// @access  Public
+const verifyOtp = asyncHandler(async (req, res) => {
+  let { otpCode, input } = req.body
+
+  if (otpCode == input) {
+    res.status(200).json({ isVerify: true })
+  } else {
+    res.status(400)
+    throw new Error('Invalid code.')
+  }
+})
+
 // @desc    Get user data
 // @route   GET /api/users/me
 // @access  Private
@@ -141,7 +178,9 @@ const generateToken = (id) => {
 }
 
 export {
-  getUser,
   signIn,
-  signUp
+  signUp,
+  requestOtp,
+  verifyOtp,
+  getUser
 }

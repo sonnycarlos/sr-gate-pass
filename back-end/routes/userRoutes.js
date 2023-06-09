@@ -1,9 +1,11 @@
 import express from 'express'
 
 import { 
-  getUser,
   signIn, 
-  signUp 
+  signUp, 
+  requestOtp,
+  verifyOtp,
+  getUser
 } from '../controllers/userController.js'
 import {
   protect
@@ -11,8 +13,10 @@ import {
 
 const router = express.Router()
 
-router.post('/logIn', signIn)
-router.post('/register', signUp)
+router.post('/login', signIn)
+router.post('/registration', signUp)
+router.post('/generate-otp', requestOtp)
+router.post('/verification', verifyOtp)
 router.post('/me', protect, getUser)
 
 export default router

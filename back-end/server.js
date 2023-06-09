@@ -15,7 +15,7 @@ dbConnect()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/api/user', userRoutes)
+app.use('/api', userRoutes)
 
 app.get('/api/hello', (req, res) => {
   res.status(200).json({ message: 'Hello World' })
