@@ -490,6 +490,20 @@ select {
   background-color: var(--boring-green);
 }
 
+/* Error Message */
+
+#error-message > p {
+  color: var(--error);
+  font-family: 'SFProDisplay-Medium';
+  font-size: 14px;
+}
+
+#error-message > p > .btn.text {
+  display: inline;
+  margin-left: 2px;
+  color: var(--boring-green);
+}
+
 /* Menu */
 
 #menu {

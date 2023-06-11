@@ -25,14 +25,14 @@ const signIn = asyncHandler(async (req, res) => {
 
     console.log(`Email address -> ${userEmailAddress}`)
     
-    res.json({
+    res.status(200).json({
       _id: user._id,
       username: user.username,
       emailAddress: user.emailAddress,
       token: generateToken(user._id)
     })
   } else {
-    res.status(400)
+    res.status(400).json({ errorMessage: 'Invalid username or password.' })
     throw new Error('Invalid credentials.')
   }
 })

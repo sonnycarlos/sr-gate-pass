@@ -15,6 +15,7 @@ import ChevronDown from './icons/ChevronDown'
 import Close from './icons/Close'
 import Copy from './icons/Copy'
 import Edit from './icons/Edit'
+import EyeOff from './icons/EyeOff'
 import EyeOn from './icons/EyeOn'
 import Image from './icons/Image'
 import Megaphone from './icons/Megaphone'
@@ -44,6 +45,7 @@ export {
   Close,
   Copy,
   Edit,
+  EyeOff,
   EyeOn,
   Image,
   Megaphone,

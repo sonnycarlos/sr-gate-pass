@@ -34,11 +34,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 24px 0 64px;
+  margin: 24px 0 0 !important;
+}
+
+#login_and_registration > form > #error-message {
+  display: none;
+  margin-top: 24px;
 }
 
 #login_and_registration > form > .btn-container {
-  margin-bottom: 40px;
+  margin: 80px 0 40px;
 }
 
 #login_and_registration > form > .registrationLink {

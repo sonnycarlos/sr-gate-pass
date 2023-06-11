@@ -7,14 +7,18 @@ export async function logInUser(dispatch, payload) {
   const { emailAddress, password } = payload
 
   try {
-    let res = await Axios.post('/login', { emailAddress, password })
+    let res = await Axios.post('/user/login', { emailAddress, password })
 
     if (res) {
-      dispatch({ type: LOG_IN_USER, payload: res.data?.data })
-      return res.data
+      dispatch({ type: LOG_IN_USER, payload: res.data })
+      return res
     }
   } catch (error) {
-    throw new Error(`Unhandled action type: ${error}`)
+    console.error(`Unhandled action type: ${error}`)
+    return {
+      status: error.response.status,
+      errorMessage: error.response.data.errorMessage
+    }
   }
 }
 
