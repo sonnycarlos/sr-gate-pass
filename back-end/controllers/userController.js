@@ -2,9 +2,8 @@ import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
-import passwordValidator from 'password-validator'
 
-import { emailTemplate, generateOtp, mailer } from '../utils/index.js'
+import { emailTemplate, generateOtp, mailer, validatePassword } from '../utils/index.js'
 
 import User from '../models/userModel.js'
 
@@ -43,9 +42,9 @@ const signIn = asyncHandler(async (req, res) => {
 // @route   POST /api/registration
 // @access  Public
 const signUp = asyncHandler(async (req, res) => {
-  const { type, username, emailAddress, password } = req.body
+  const { type, emailAddress, password } = req.body
 
-  if (!type || !username || !emailAddress || !password) {
+  if (!type || !emailAddress || !password) {
     res.status(400)
     throw new Error('Input all the fields.')
   }
@@ -58,52 +57,14 @@ const signUp = asyncHandler(async (req, res) => {
     throw new Error('User already exists.')
   }
 
-  // Validate password using NIST policy
-  const schema = new passwordValidator()
-
-  if (!schema.is().min(8).validate(password)) {
-    res.status(400)
-    throw new Error('Password must be minimum of 8 characters')
-  }
-
-  if (!schema.is().max(100).validate(password)) {
-    res.status(400)
-    throw new Error('Password must be maximum of 24 characters')
-  }
-
-  if (!schema.has().lowercase().validate(password)) {
-    res.status(400)
-    throw new Error('Password must have at least one lowercase letter')
-  }
-
-  if (!schema.has().uppercase().validate(password)) {
-    res.status(400)
-    throw new Error('Password must have at least one uppercase letter')
-  }
-
-  if (!schema.has().digits().validate(password)) {
-    res.status(400)
-    throw new Error('Password must have at least one digit')
-  }
-
-  if (!schema.has().symbols().validate(password)) {
-    res.status(400)
-    throw new Error('Password must have at least one special character')
-  }
-
-  if (!schema.has().not().spaces().validate(password)) {
-    res.status(400)
-    throw new Error('Password should not contain spaces')
-  }
-
-  if (schema.validate(password)) {
+  // Validate password with NIST policy
+  if (validatePassword(password)) {
      // Hash password
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
     // Create user
     const user = await User.create({
-      username,
       type: 'resident',
       emailAddress,
       password: hashedPassword,
@@ -115,7 +76,6 @@ const signUp = asyncHandler(async (req, res) => {
 
       res.status(201).json({
         _id: user._id,
-        username: user.username,
         emailAddress: user.emailAddress,
         token: generateToken(user._id)
       })

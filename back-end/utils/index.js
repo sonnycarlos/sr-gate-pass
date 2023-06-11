@@ -6,9 +6,11 @@
 import emailTemplate from './emailTemplate.js'
 import generateOtp from './generateOtp.js'
 import mailer from './mailer.js'
+import validatePassword from './validatePassword.js'
 
 export {
   emailTemplate,
   generateOtp,
-  mailer
+  mailer,
+  validatePassword
 }
