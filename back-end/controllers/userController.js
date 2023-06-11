@@ -10,6 +10,9 @@ import User from '../models/userModel.js'
 
 dotenv.config()
 
+var otpCode
+var userEmailAddress
+
 // @desc    Log in user
 // @route   POST /api/login
 // @access  Public
@@ -20,6 +23,10 @@ const signIn = asyncHandler(async (req, res) => {
   const user = await User.findOne({ emailAddress })
 
   if (user && (await bcrypt.compare(password, user.password[0]))) {
+    userEmailAddress = emailAddress
+
+    console.log(`Email address -> ${userEmailAddress}`)
+    
     res.json({
       _id: user._id,
       username: user.username,
@@ -104,6 +111,8 @@ const signUp = asyncHandler(async (req, res) => {
     })
 
     if (user) {
+      userEmailAddress = emailAddress
+
       res.status(201).json({
         _id: user._id,
         username: user.username,
@@ -125,14 +134,17 @@ const signUp = asyncHandler(async (req, res) => {
 // @access  Public
 const requestOtp = asyncHandler(async (req, res) => {
   var action = req.body.action
-  var otpCode = generateOtp()
+  otpCode = generateOtp()
   var receiver = req.body.emailAddress
   var subject = 'Verify Email Address'
   var body = emailTemplate(otpCode, action)
 
   await mailer({ receiver, subject, body })
     .then(() => {
-      res.status(200).json({ isSuccess: true })
+      res.status(200).json({ 
+        status: 'success',
+        otpCode: otpCode 
+      })
     })
     .catch(error => {
       res.status(400)
@@ -144,13 +156,13 @@ const requestOtp = asyncHandler(async (req, res) => {
 // @route   GET /api/generate-otp
 // @access  Public
 const verifyOtp = asyncHandler(async (req, res) => {
-  let { otpCode, input } = req.body
+  let { emailAddressInput, otpCodeInput } = req.body
 
-  if (otpCode == input) {
-    res.status(200).json({ isVerify: true })
+  if (otpCodeInput == otpCode && emailAddressInput === userEmailAddress) {
+    res.status(200).json({ status: 'success' })
   } else {
     res.status(400)
-    throw new Error('Invalid code.')
+    throw new Error('Invalid input.')
   }
 })
 
