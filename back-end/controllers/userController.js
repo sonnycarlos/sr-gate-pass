@@ -4,8 +4,7 @@ import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 
 import { emailTemplate, generateOtp, mailer, validatePassword } from '../utils/index.js'
-
-import User from '../models/userModel.js'
+import { User } from '../models/index.js'
 
 dotenv.config()
 

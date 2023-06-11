@@ -56,7 +56,7 @@ const residentSchema = new mongoose.Schema({
   },
   landCertificate: [String],
   validId: [String],
-  numOfGuests: number
+  numOfGuests: Number
 })
 
 export default mongoose.model('Resident', residentSchema)

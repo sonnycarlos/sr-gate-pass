@@ -3,7 +3,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 
 import dbConnect from './config/database.js'
-import userRoutes from './routes/userRoutes.js'
+import { userRoutes } from './routes/index.js'
 
 dotenv.config()
 
@@ -15,7 +15,7 @@ dbConnect()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/api', userRoutes)
+app.use('/api/user', userRoutes)
 
 app.get('/api/hello', (req, res) => {
   res.status(200).json({ message: 'Hello World' })
