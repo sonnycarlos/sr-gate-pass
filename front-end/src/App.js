@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { Routes, Route } from 'react-router-dom'
 import { routes } from './config/index'
 
 function App() {

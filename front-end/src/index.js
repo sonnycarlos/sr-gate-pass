@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-
+import { SrProvider, initialState, reducer } from './context/index'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
@@ -9,9 +9,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <SrProvider initialState={initialState} reducer={reducer}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </SrProvider>
   </React.StrictMode>
 )
 
