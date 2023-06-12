@@ -37,11 +37,14 @@
 /* Form */
 
 #verification > form > .resendCodeLink {
+  display: flex;
   margin-top: 24px;
+  font-family: 'SFProDisplay-Medium' !important;
   font-size: 14px;
 }
 
-#verification > form > .resendCodeLink > button {
+#verification > form > .resendCodeLink > .btn {
+  display: inline-flex !important;
   margin-left: 4px;
   color: var(--boring-green);
 }

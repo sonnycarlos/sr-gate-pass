@@ -233,6 +233,20 @@ select {
   margin-left: 20px;
 }
 
+.inputStyleError {
+  width: 100% !important;
+  height: 40px;
+  margin-top: 4px;
+  padding: 0 !important;
+  border-bottom: 1px solid var(--error) !important;
+  text-align: center;
+  font-size: 20px !important;
+}
+
+.inputStyleError:not(:first-child) {
+  margin-left: 20px;
+}
+
 /* Form Group */
 
 .form-group {

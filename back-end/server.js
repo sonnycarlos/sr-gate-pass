@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -14,14 +15,18 @@ const port = process.env.PORT || 5000
 dbConnect()
 
 // Middleware
-app.use(cors())
+app.use(cors({
+  origin: true,
+  credentials: true
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 // User Routes
 app.use('/api/user', userRoutes)
 
-app.get('/api/hello', (req, res) => {
+app.get('/api/hello', (res) => {
   res.status(200).json({ message: 'Hello World' })
 })
 

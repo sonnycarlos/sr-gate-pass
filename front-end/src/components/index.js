@@ -5,8 +5,10 @@
 
 import Menu from './Menu'
 import NavigationBar from './NavigationBar'
+import Timer from './Timer'
 
 export {
   Menu,
-  NavigationBar
+  NavigationBar,
+  Timer
 }

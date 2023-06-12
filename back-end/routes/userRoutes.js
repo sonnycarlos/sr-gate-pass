@@ -5,7 +5,7 @@ import {
   signUp, 
   requestOtp,
   verifyOtp,
-  getUser
+  validateUser
 } from '../controllers/userController.js'
 
 import { protect } from '../middlewares/authMiddleware.js'
@@ -16,6 +16,6 @@ router.post('/login', signIn)
 router.post('/registration', signUp)
 router.post('/generate-otp', requestOtp)
 router.post('/verification', verifyOtp)
-router.post('/me', protect, getUser)
+router.post('/validate-user', protect, validateUser)
 
 export default router

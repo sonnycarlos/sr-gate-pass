@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import {
   useSrContext,
-  logInUser
+  KEEP_ME_LOGGED_IN,
+  logInUser,
+  requestOtp,
+  validateUser
 } from '../../context/index'
 
 import { 
@@ -20,24 +23,49 @@ function Login() {
   const [credentials, setCredentials] = useState({ emailAddress: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState({ isError: false, errorMessage: '' })
+  const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false)
   const [, dispatch] = useSrContext()
 
   const navigate = useNavigate()
 
   // On Submit
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
     let res = await logInUser(dispatch, { emailAddress: credentials.emailAddress, password: credentials.password })
 
     if (res.status === 200) {
-      navigate('/home')
+      if (keepMeLoggedIn) {
+        dispatch({ type: KEEP_ME_LOGGED_IN })
+      }
+
+      console.log(res)
+
+      await requestOtp({ action: 'verification', receiver: credentials.emailAddress })
+      navigate('/verification')
     }
 
     if (res.status === 400) {
       setError( { isError: true, errorMessage: res.errorMessage })
     }
   }
+  
+  // Use Effect
+  useEffect(() => {
+    async function validate() {
+      let loggedIn = window.localStorage.getItem('loggedIn')
+
+      if (loggedIn) {
+        let res = await validateUser()
+
+        if (res?.status === 200) {
+          navigate('/home')
+        }
+      }
+    }
+
+    validate()
+  }, [])
 
   return (
     <section id='login_and_registration'>
@@ -51,7 +79,7 @@ function Login() {
       </header>
 
       {/* Form */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div className='inputFields'>
           <div className='form-group'>
             <label>Email Address</label>
@@ -89,7 +117,11 @@ function Login() {
 
         <div>
           <div className='form-check'>
-            <input type='checkbox' />
+            <input 
+              type='checkbox' 
+              checked={keepMeLoggedIn}
+              onChange={() => setKeepMeLoggedIn(!keepMeLoggedIn)}
+            />
             <p>Keep me sign in</p>
           </div>
 
@@ -101,7 +133,7 @@ function Login() {
           style={{ display: `${error.isError ? 'block' : 'none'}` }}
         >
           <p>
-            {error.errorMessage}. If you don’t remember your credentials,
+            {error.errorMessage} If you don’t remember your credentials,
             <a href='#' className='text btn'>reset it now.</a>
           </p>
         </div>

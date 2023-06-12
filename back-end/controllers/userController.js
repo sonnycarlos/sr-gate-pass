@@ -22,18 +22,19 @@ const signIn = asyncHandler(async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password[0]))) {
     userEmailAddress = emailAddress
+    let token = generateToken(user._id)
 
-    console.log(`Email address -> ${userEmailAddress}`)
+    res.cookie('token', token)
     
     res.status(200).json({
       _id: user._id,
       username: user.username,
       emailAddress: user.emailAddress,
-      token: generateToken(user._id)
+      token
     })
   } else {
     res.status(400).json({ errorMessage: 'Invalid username or password.' })
-    throw new Error('Invalid credentials.')
+    throw new Error('Invalid username or password.')
   }
 })
 
@@ -92,9 +93,10 @@ const signUp = asyncHandler(async (req, res) => {
 // @route   GET /api/verification
 // @access  Public
 const requestOtp = asyncHandler(async (req, res) => {
-  var action = req.body.action
   otpCode = generateOtp()
-  var receiver = req.body.emailAddress
+
+  var action = req.body.action
+  var receiver = req.body.receiver
   var subject = 'Verify Email Address'
   var body = emailTemplate(otpCode, action)
 
@@ -117,18 +119,18 @@ const requestOtp = asyncHandler(async (req, res) => {
 const verifyOtp = asyncHandler(async (req, res) => {
   let { emailAddressInput, otpCodeInput } = req.body
 
-  if (otpCodeInput == otpCode && emailAddressInput === userEmailAddress) {
+  if (otpCodeInput == otpCode && emailAddressInput == userEmailAddress) {
     res.status(200).json({ status: 'success' })
   } else {
-    res.status(400)
-    throw new Error('Invalid input.')
+    res.status(400).json({ errorMessage: 'Invalid code.' })
+    throw new Error('Invalid code.')
   }
 })
 
 // @desc    Get user data
-// @route   GET /api/users/me
+// @route   GET /api/users/validate
 // @access  Private
-const getUser = asyncHandler(async (req, res) => {
+const validateUser = asyncHandler(async (req, res) => {
   const { _id, username, emailAddress } = await User.findById(req.user._id)
 
   res.status(200).json({
@@ -141,7 +143,7 @@ const getUser = asyncHandler(async (req, res) => {
 // Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d'
+    expiresIn: '14d'
   })
 }
 
@@ -150,5 +152,5 @@ export {
   signUp,
   requestOtp,
   verifyOtp,
-  getUser
+  validateUser
 }

@@ -8,6 +8,9 @@ import { useSrContext, SrProvider } from './context'
 import {
   logInUser,
   registerUser,
+  requestOtp,
+  verifyOtp,
+  validateUser
 } from './actions'
 
 import {
@@ -15,6 +18,7 @@ import {
   LOG_IN_USER,
   REGISTER_USER,
   SET_COUNTDOWN_START,
+  KEEP_ME_LOGGED_IN,
   initialState,
   reducer
 } from './reducer'
@@ -26,8 +30,12 @@ export {
   LOG_IN_USER,
   REGISTER_USER,
   SET_COUNTDOWN_START,
+  KEEP_ME_LOGGED_IN,
   initialState,
   reducer,
   logInUser,
-  registerUser
+  registerUser,
+  requestOtp,
+  verifyOtp,
+  validateUser
 }

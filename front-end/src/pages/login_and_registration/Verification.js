@@ -1,6 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import OtpInput from 'react-otp-input'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { Timer } from '../../components/index'
+import { renderer } from '../../utils/index'
+
+import {
+  useSrContext,
+  COUNTDOWN,
+  SET_COUNTDOWN_START,
+  requestOtp,
+  verifyOtp
+} from '../../context/index'
 
 import {
   BrandLogo,
@@ -11,6 +22,46 @@ import '../../css/verification.css'
 
 function Verification() {
   const [otp, setOtp] = useState('');
+  const [error, setError] = useState({ isError: false, errorMessage: '' })
+  const [initialState, dispatch] = useSrContext()
+
+  const navigate = useNavigate()
+
+  // Resend OTP Code
+  const resendOtpCode = async (e) => {
+    e.preventDefault()
+    dispatch({ type: SET_COUNTDOWN_START, payload: true })
+    await requestOtp({ action: 'verification', receiver: initialState.user.emailAddress })
+  }
+
+  // On Change
+  const onChange = (otp) => setOtp(otp)
+
+  // On Submit
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    let res = await verifyOtp({ emailAddress: initialState?.user?.emailAddress, otpCode: otp })
+
+    if (res?.status === 200) {
+      if (initialState?.keepMeLoggedIn) {
+        window.localStorage.setItem('loggedIn', true)
+      }
+      
+      navigate('/home')
+    }
+
+    if (res?.status === 400) {
+      setError( { isError: true, errorMessage: res.errorMessage + ' ' })
+    }
+  }
+
+  // Use Effect
+  useEffect(() => {
+    if (localStorage.getItem('otp_resend_countdown') != null) {
+      dispatch({ type: SET_COUNTDOWN_START, payload: true })
+    }
+  }, [])
   
   return (
     <section id='verification'>
@@ -18,7 +69,7 @@ function Verification() {
       <img src={BrandLogo} alt='Brand Logo' />
 
       {/* Back Button */}
-      <Link to='./login' className='text btn'>
+      <Link to='../login' className='text btn'>
         <Back />
         <span>Back</span>
       </Link>
@@ -30,7 +81,7 @@ function Verification() {
       </header>
 
       {/* Form */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label>
             OTP Code
@@ -40,8 +91,8 @@ function Verification() {
           <div>
             <OtpInput
               value={otp}
-              onChange={setOtp}
-              inputStyle='inputStyle'
+              onChange={onChange}
+              inputStyle={`${error.isError ? 'inputStyleError' : 'inputStyle'}`}
               numInputs={6}
               separator={<span></span>}
               renderInput={(props) => <input {...props} />}
@@ -49,9 +100,25 @@ function Verification() {
           </div>
         </div>
 
-        <p className='resendCodeLink'>
+        <p 
+          className='resendCodeLink'
+          style={{ color: `${error.isError && '#C01F28'}` }}
+        >
+          {error.isError && error.errorMessage} 
           Didn't get the code? 
-          <button className='text btn'>Resend it now.</button>
+          
+          {initialState.countdownStart
+            ?
+          <Timer 
+                countdownName='otp_resend_countdown' 
+                delay={COUNTDOWN} 
+                renderer={renderer} 
+                start={initialState.countdownStart} 
+                dispatch={dispatch}
+              /> 
+                : 
+          <a onClick={resendOtpCode} className='text btn'>Resend it now.</a>
+          }
         </p>
 
         <input type='submit' value='Login' className='solid btn' />
