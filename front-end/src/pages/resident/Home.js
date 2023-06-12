@@ -26,6 +26,7 @@ function Home() {
 
   // Use Effect
   useEffect(() => {
+    document.title = 'Home'
   }, [])
   
   return (

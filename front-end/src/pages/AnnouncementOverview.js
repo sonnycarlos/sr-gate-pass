@@ -13,8 +13,9 @@ import '../css/announcement_overview.css'
 function AnnouncementOverview() {
   // Use Effect
   useEffect(() => {
-    // Set the height of images
+    document.title = 'Announcement Overview'
 
+    // Set the height of images
     let imagesContainer = document.getElementsByClassName('imageContainer')
     let width = parseInt(document.getElementById('images').offsetWidth) / 2
     

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import OtpInput from 'react-otp-input'
 
 import {
@@ -12,6 +12,11 @@ import '../../css/reset_password.css'
 function ResetPasswordOtp() {
   const [otp, setOtp] = useState('');
   
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Reset Password'
+  }, [])
+
   return (
     <section id='reset_password'>
       {/* Brand Logo */}

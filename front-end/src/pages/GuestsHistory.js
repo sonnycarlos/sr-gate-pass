@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Back, Plus } from '../assets/svg/index'
@@ -23,6 +23,11 @@ function GuestsHistory() {
     { date: 'September 11', count: 26 },
     { date: 'September 10', count: 19 }
   ])
+
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Guests History'
+  }, [])
 
   return (
     <section id='guests_history'>

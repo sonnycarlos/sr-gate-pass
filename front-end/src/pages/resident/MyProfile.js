@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Menu, NavigationBar } from '../../components/index'
@@ -8,6 +8,11 @@ import { Edit } from '../../assets/svg/index'
 import '../../css/my_profile.css'
 
 function MyProfile() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'My Profile'
+  }, [])
+
   return (
     <section id='my_profile'>
       {/* Menu */}

@@ -70,6 +70,8 @@ function OnBoardingStep2() {
   
   // Use Effect
   useEffect(() => {
+    document.title = 'On Boarding'
+
     window.addEventListener('scroll', handleScroll)
 
     return () => {

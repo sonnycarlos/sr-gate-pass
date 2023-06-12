@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Back, Copy } from '../assets/svg/index'
@@ -6,6 +6,11 @@ import { Back, Copy } from '../assets/svg/index'
 import '../css/guest_overview.css'
 
 function GuestOverview() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Guest Overview'
+  }, [])
+
   return (
     <section id='guest_overview'>
       {/* Back Button */}

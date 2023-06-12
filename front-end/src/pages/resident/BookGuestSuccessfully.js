@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { 
@@ -8,6 +8,11 @@ import {
 import '../../css/status.css'
 
 function BookGuestSuccessfully() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Booking Guest Successfully'
+  }, [])
+
   return (
     <section id='status'>
       <img src={BadgeCheck} alt='Badge' />

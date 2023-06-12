@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Menu, NavigationBar } from '../../components/index'
@@ -26,6 +26,11 @@ function MyGuests() {
       guestsCount: 6,
     }
   ])
+
+  // Use Effect
+  useEffect(() => {
+    document.title = 'My Guests'
+  }, [])
 
   return (
     <section id='my_guests'>

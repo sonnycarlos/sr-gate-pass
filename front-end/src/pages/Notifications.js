@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Menu, NavigationBar } from '../components/index'
@@ -11,6 +11,11 @@ import '../css/notifications.css'
 
 function Notifications() {
   const items = Array(20).fill(null)
+
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Notifications'
+  }, [])
 
   return (
     <section id='notifications'>

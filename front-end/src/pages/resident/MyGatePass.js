@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Back } from '../../assets/svg/index'
@@ -7,6 +7,11 @@ import QRCode from '../../assets/images/qr-code.png'
 import '../../css/my_gate_pass.css'
 
 function MyGatePass() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'My Gate Pass'
+  }, [])
+
   return (
     <section id='my_gate_pass'>
       {/* Back Button */}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Back, Search } from '../assets/svg/index'
@@ -6,6 +6,11 @@ import { Back, Search } from '../assets/svg/index'
 import '../css/search_guest.css'
 
 function SearchGuest() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Search Guest'
+  }, [])
+
   return (
     <section id='search_guest'>
       {/* Back Button */}

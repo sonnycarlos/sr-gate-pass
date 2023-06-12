@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { 
@@ -9,6 +9,11 @@ import '../../css/status.css'
 import '../../css/style.css'
 
 function ResetPasswordSuccessfully() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Reset Password Successfully'
+  }, [])
+
   return (
     <section id='reset_password_successfully'>
       <img src={BadgeCheck} alt='Badge' />

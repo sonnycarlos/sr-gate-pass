@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { 
@@ -11,6 +11,11 @@ import '../../css/reset_password.css'
 import '../../css/style.css'
 
 function ResetPassword() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Reset Password'
+  }, [])
+
   return (
     <section id='reset_password'>
       {/* Brand Logo */}

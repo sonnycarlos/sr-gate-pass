@@ -52,6 +52,8 @@ function Login() {
   
   // Use Effect
   useEffect(() => {
+    document.title = 'Login'
+
     async function validate() {
       let loggedIn = window.localStorage.getItem('loggedIn')
 

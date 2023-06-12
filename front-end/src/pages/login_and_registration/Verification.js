@@ -47,7 +47,7 @@ function Verification() {
       if (initialState?.keepMeLoggedIn) {
         window.localStorage.setItem('loggedIn', true)
       }
-      
+
       navigate('/home')
     }
 
@@ -58,6 +58,8 @@ function Verification() {
 
   // Use Effect
   useEffect(() => {
+    document.title = 'Verification'
+
     if (localStorage.getItem('otp_resend_countdown') != null) {
       dispatch({ type: SET_COUNTDOWN_START, payload: true })
     }

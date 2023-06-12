@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { 
@@ -11,6 +11,11 @@ import '../../css/login_and_registration.css'
 import '../../css/style.css'
 
 function Registration() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Registration'
+  }, [])
+
   return (
     <section id='login_and_registration'>
       {/* Brand Logo */}

@@ -29,6 +29,8 @@ function EditProfileStep1() {
 
   // Use Effect
   useEffect(() => {
+    document.title = 'Edit Profile'
+
     window.addEventListener('scroll', handleScroll)
 
     return () => {

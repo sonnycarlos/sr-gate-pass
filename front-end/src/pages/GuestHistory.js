@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { ArrowDownRight, Back } from '../assets/svg/index'
@@ -59,6 +59,11 @@ function GuestHistory() {
       logs: ['9:24 PM']
     }
   ])
+
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Guest History'
+  }, [])
 
   return (
     <section id='guest_history'>

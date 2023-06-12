@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Back, Calendar } from '../../assets/svg/index'
@@ -6,6 +6,11 @@ import { Back, Calendar } from '../../assets/svg/index'
 import '../../css/book_guest.css'
 
 function BookGuest() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Book Guest'
+  }, [])
+
   return (
     <section id='book_guest'>
       {/* Back Button */}

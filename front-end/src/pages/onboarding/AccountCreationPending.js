@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { 
@@ -9,6 +9,11 @@ import '../../css/status.css'
 import '../../css/style.css'
 
 function AccountCreationPending() {
+  // Use Effect
+  useEffect(() => {
+    document.title = 'Pending Account'
+  }, [])
+
   return (
     <section id='status'>
       <img src={BadgeAmazed} alt='Badge' />
