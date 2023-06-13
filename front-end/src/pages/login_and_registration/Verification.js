@@ -61,9 +61,10 @@ function Verification() {
   useEffect(() => {
     document.title = 'Verification'
 
-    console.log(initialState?.routeHistory)
-    console.log(`../${initialState?.routeHistory[initialState?.routeHistory.length - 1]}`)
-    
+    if (!window.localStorage.getItem('verification')) {
+      navigate('/login')
+    }
+
     if (localStorage.getItem('otp_resend_countdown') != null) {
       dispatch({ type: SET_COUNTDOWN_START, payload: true })
     }

@@ -37,9 +37,11 @@ function Registration() {
 
     if (res.status === 201) {
       console.log(res)
-      dispatch({ type: SET_AUTH_ROUTE_DEST, payload: '/login' })
+      window.localStorage.setItem('verification', true)
 
+      dispatch({ type: SET_AUTH_ROUTE_DEST, payload: '/login' })
       await requestOtp({ action: 'registration', receiver: credentials.emailAddress })
+      
       navigate('/verification')
     }
 
@@ -51,6 +53,8 @@ function Registration() {
   // Use Effect
   useEffect(() => {
     document.title = 'Registration'
+
+    localStorage.removeItem('verification')
 
     let routeHistory = initialState?.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'registration'] })

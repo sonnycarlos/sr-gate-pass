@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { validateUser } from '../../context/index'
 
 import { Menu, NavigationBar } from '../../components/index'
 
@@ -19,6 +21,8 @@ function Home() {
   const today = new Date().toISOString().split('T')[0]
   const [selectedDate, setSelectedDate] = useState(today)
 
+  const navigate = useNavigate()
+
   // Handle Date Change
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value)
@@ -27,6 +31,16 @@ function Home() {
   // Use Effect
   useEffect(() => {
     document.title = 'Home'
+
+    async function validate() {
+      let res = await validateUser()
+
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
+
+    validate()
   }, [])
   
   return (

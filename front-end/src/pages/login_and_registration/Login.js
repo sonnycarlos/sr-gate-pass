@@ -42,9 +42,11 @@ function Login() {
       }
 
       console.log(res)
-      dispatch({ type: SET_AUTH_ROUTE_DEST, payload: '/home' })
+      window.localStorage.setItem('verification', true)
 
-      await requestOtp({ action: 'registration', receiver: credentials.emailAddress })
+      dispatch({ type: SET_AUTH_ROUTE_DEST, payload: '/home' })
+      await requestOtp({ action: 'log in', receiver: credentials.emailAddress })
+      
       navigate('/verification')
     }
 
@@ -56,6 +58,8 @@ function Login() {
   // Use Effect
   useEffect(() => {
     document.title = 'Login'
+
+    localStorage.removeItem('verification')
 
     let routeHistory = initialState?.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'login'] })
@@ -69,6 +73,8 @@ function Login() {
         if (res?.status === 200) {
           navigate('/home')
         }
+      } else {
+        document.cookie = 'token=; Max-Age=0;secure'
       }
     }
 
