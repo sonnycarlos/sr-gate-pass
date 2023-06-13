@@ -7,6 +7,7 @@ import {
   INSERT_ROUTE,
   registerUser,
   requestOtp,
+  validateUser
 } from '../../context/index'
 
 import { 
@@ -41,7 +42,7 @@ function Registration() {
 
       dispatch({ type: SET_AUTH_ROUTE_DEST, payload: '/login' })
       await requestOtp({ action: 'registration', receiver: credentials.emailAddress })
-      
+
       navigate('/verification')
     }
 
@@ -58,6 +59,22 @@ function Registration() {
 
     let routeHistory = initialState?.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'registration'] })
+
+    async function validate() {
+      let loggedIn = window.localStorage.getItem('loggedIn')
+
+      if (loggedIn) {
+        let res = await validateUser()
+
+        if (res?.status === 200) {
+          navigate('/home')
+        }
+      } else {
+        document.cookie = 'token=; Max-Age=0;secure'
+      }
+    }
+
+    validate()
   }, [])
 
   return (
