@@ -9,6 +9,7 @@ import {
   useSrContext,
   COUNTDOWN,
   SET_COUNTDOWN_START,
+  INSERT_ROUTE,
   requestOtp,
   verifyOtp
 } from '../../context/index'
@@ -60,6 +61,9 @@ function Verification() {
   useEffect(() => {
     document.title = 'Verification'
 
+    console.log(initialState?.routeHistory)
+    console.log(`../${initialState?.routeHistory[initialState?.routeHistory.length - 1]}`)
+    
     if (localStorage.getItem('otp_resend_countdown') != null) {
       dispatch({ type: SET_COUNTDOWN_START, payload: true })
     }
@@ -71,7 +75,7 @@ function Verification() {
       <img src={BrandLogo} alt='Brand Logo' />
 
       {/* Back Button */}
-      <Link to='../login' className='text btn'>
+      <Link to={`../${initialState?.routeHistory[initialState?.routeHistory.length - 1]}`} className='text btn'>
         <Back />
         <span>Back</span>
       </Link>

@@ -5,6 +5,7 @@ import {
   useSrContext,
   KEEP_ME_LOGGED_IN,
   SET_AUTH_ROUTE_DEST,
+  INSERT_ROUTE,
   logInUser,
   requestOtp,
   validateUser
@@ -25,7 +26,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState({ isError: false, errorMessage: '' })
   const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false)
-  const [, dispatch] = useSrContext()
+  const [initialState, dispatch] = useSrContext()
 
   const navigate = useNavigate()
 
@@ -55,6 +56,9 @@ function Login() {
   // Use Effect
   useEffect(() => {
     document.title = 'Login'
+
+    let routeHistory = initialState?.routeHistory
+    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'login'] })
 
     async function validate() {
       let loggedIn = window.localStorage.getItem('loggedIn')

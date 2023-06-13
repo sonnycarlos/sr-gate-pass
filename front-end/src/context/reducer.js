@@ -7,6 +7,7 @@ export const REGISTER_USER = 'REGISTER_USER'
 export const SET_COUNTDOWN_START = 'SET_COUNTDOWN_START'
 export const KEEP_ME_LOGGED_IN = 'KEEP_ME_LOGGED_IN'
 export const SET_AUTH_ROUTE_DEST = 'SET_AUTH_ROUTE_DEST'
+export const INSERT_ROUTE = 'INSERT_ROUTE'
 
 // Initial State
 export const initialState = {
@@ -14,7 +15,8 @@ export const initialState = {
   otpCountdown: '',
   countdownStart: false,
   keepMeLoggedIn: false,
-  authRouteDest: ''
+  authRouteDest: '',
+  routeHistory: []
 }
 
 // Reducer
@@ -44,6 +46,11 @@ export const reducer = (initialState, action) => {
       return {
         ...initialState,
         authRouteDest: action.payload
+      }
+    case INSERT_ROUTE:
+      return {
+        ...initialState,
+        routeHistory: action.payload
       }
     default:
       throw new Error(`Unhandled action type: ${action.type}`)

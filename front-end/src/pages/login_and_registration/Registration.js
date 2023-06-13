@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
   useSrContext,
   SET_AUTH_ROUTE_DEST,
+  INSERT_ROUTE,
   registerUser,
   requestOtp,
 } from '../../context/index'
@@ -22,7 +23,7 @@ function Registration() {
   const [credentials, setCredentials] = useState({ emailAddress: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const [, dispatch] = useSrContext()
+  const [initialState, dispatch] = useSrContext()
 
   const navigate = useNavigate()
 
@@ -50,6 +51,9 @@ function Registration() {
   // Use Effect
   useEffect(() => {
     document.title = 'Registration'
+
+    let routeHistory = initialState?.routeHistory
+    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'registration'] })
   }, [])
 
   return (
