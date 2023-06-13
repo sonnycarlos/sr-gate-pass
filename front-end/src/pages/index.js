@@ -27,8 +27,9 @@ import OnBoardingStep2 from './onboarding/OnBoardingStep2'
 import OnBoardingStep3 from './onboarding/OnBoardingStep3'
 import OnBoardingSuccessfully from './onboarding/OnBoardingSuccessfully'
 import Registration from './login_and_registration/Registration'
-import ResetPassword from './login_and_registration/ResetPassword'
-import ResetPasswordOtp from './login_and_registration/ResetPasswordOtp'
+import ResetPasswordStep1 from './login_and_registration/ResetPasswordStep1'
+import ResetPasswordStep2 from './login_and_registration/ResetPasswordStep2'
+import ResetPasswordStep3 from './login_and_registration/ResetPasswordStep3'
 import ResetPasswordSuccessfully from './login_and_registration/ResetPasswordSuccessfully'
 import SearchGuest from './SearchGuest'
 import Verification from './login_and_registration/Verification'
@@ -58,8 +59,9 @@ export {
   OnBoardingStep3,
   OnBoardingSuccessfully,
   Registration,
-  ResetPassword,
-  ResetPasswordOtp,
+  ResetPasswordStep1,
+  ResetPasswordStep2,
+  ResetPasswordStep3,
   ResetPasswordSuccessfully,
   SearchGuest,
   Verification

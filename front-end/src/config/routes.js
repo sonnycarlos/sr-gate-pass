@@ -28,8 +28,9 @@ import {
   OnBoardingStep3,
   OnBoardingSuccessfully,
   Registration,
-  ResetPassword,
-  ResetPasswordOtp,
+  ResetPasswordStep1,
+  ResetPasswordStep2,
+  ResetPasswordStep3,
   ResetPasswordSuccessfully,
   SearchGuest,
   Verification
@@ -53,12 +54,16 @@ const routes = [
     component: <Verification />
   },
   {
-    path: '/reset-password-otp',
-    component: <ResetPasswordOtp />
+    path: '/forgot-password',
+    component: <ResetPasswordStep1 />
+  },
+  {
+    path: '/forgot-password-otp',
+    component: <ResetPasswordStep2 />
   },
   {
     path: '/reset-password',
-    component: <ResetPassword />
+    component: <ResetPasswordStep3 />
   },
   {
     path: '/reset-password-successfully',

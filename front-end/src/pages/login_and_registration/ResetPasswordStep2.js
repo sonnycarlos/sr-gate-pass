@@ -15,12 +15,13 @@ import {
 
 import {
   BrandLogo,
+  ArrowRight,
   Back
 } from '../../assets/svg/index'
 
-import '../../css/verification.css'
+import '../../css/reset_password.css'
 
-function Verification() {
+function ResetPasswordStep2() {
   const [otp, setOtp] = useState('');
   const [error, setError] = useState({ isError: false, errorMessage: '' })
   const [initialState, dispatch] = useSrContext()
@@ -44,12 +45,7 @@ function Verification() {
     let res = await verifyOtp({ emailAddress: initialState?.user?.emailAddress, otpCode: otp })
 
     if (res?.status === 200) {
-      if (initialState?.keepMeLoggedIn) {
-        window.localStorage.setItem('loggedIn', true)
-        window.localStorage.setItem('user', initialState?.user?.token)
-      }
-
-      navigate(initialState?.authRouteDest)
+      navigate('/reset-password')
     }
 
     if (res?.status === 400) {
@@ -59,8 +55,9 @@ function Verification() {
 
   // Use Effect
   useEffect(() => {
-    document.title = 'Verification'
-    
+    document.title = 'Reset Password'
+
+    console.log(initialState)
     if (!window.localStorage.getItem('verification')) {
       navigate('/login')
     }
@@ -76,15 +73,15 @@ function Verification() {
       <img src={BrandLogo} alt='Brand Logo' />
 
       {/* Back Button */}
-      <Link to={`../${initialState?.routeHistory[initialState?.routeHistory.length - 1]}`} className='text btn'>
+      <Link to={'/forgot-password'} className='text btn'>
         <Back />
         <span>Back</span>
       </Link>
 
       {/* Header */}
       <header>
-        <h1>Verification</h1>
-        <p>Check your email address and input the OTP code to login.</p>
+        <h1>Reset Password</h1>
+        <p>Enter the OTP code we sent to <span>{initialState?.user?.emailAddress}</span>.</p>
       </header>
 
       {/* Form */}
@@ -128,10 +125,13 @@ function Verification() {
           }
         </p>
 
-        <input type='submit' value='Login' className='solid btn' />
+        <div className='btn-container'>
+          <input type='submit' value='Continue' className='solid btn' />
+          <ArrowRight color='#FFF' />
+        </div>
       </form>
     </section>
   )
 }
 
-export default Verification
+export default ResetPasswordStep2

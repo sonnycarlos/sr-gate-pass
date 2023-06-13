@@ -172,7 +172,7 @@ const requestOtp = asyncHandler(async (req, res) => {
 // @route   GET /api/generate-otp
 // @access  Public
 const verifyOtp = asyncHandler(async (req, res) => {
-  let { emailAddressInput, otpCodeInput } = req.body
+  const { emailAddressInput, otpCodeInput } = req.body
 
   if (otpCodeInput == otpCode && emailAddressInput == userEmailAddress) {
     res.status(200).json({ status: 'success' })
@@ -184,7 +184,7 @@ const verifyOtp = asyncHandler(async (req, res) => {
 
 // @desc    Get user data
 // @route   GET /api/users/validate
-// @access  Private
+// @access  Public
 const validateUser = asyncHandler(async (req, res) => {
   const { _id, username, emailAddress } = await User.findById(req.user._id)
 
@@ -195,6 +195,22 @@ const validateUser = asyncHandler(async (req, res) => {
   })
 })
 
+// @desc    Check if user exists
+// @route   GET /api/users/check-user
+// @access  Public
+const checkUser = asyncHandler(async (req, res) => {
+  const { emailAddress } = req.body
+  const user = await User.findOne({ emailAddress })
+  userEmailAddress = req.body.emailAddress
+
+  if (user) {
+    res.status(200).json(user)
+  } else {
+    res.status(400).json({ errorMessage: `User doesn't exist.` })
+    throw new Error(`User doesn't exist.`)
+  }
+})
+
 // Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -203,10 +219,11 @@ const generateToken = (id) => {
 }
 
 export {
-  signIn,
-  signUp,
+  checkUser,
   forgotPassword,
   requestOtp,
-  verifyOtp,
-  validateUser
+  signIn,
+  signUp,
+  validateUser,
+  verifyOtp
 }

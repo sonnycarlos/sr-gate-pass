@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { validateUser } from '../../context/index'
+import { 
+  useSrContext,
+  INSERT_ROUTE,
+  validateUser 
+} from '../../context/index'
 
 import { Menu, NavigationBar } from '../../components/index'
 
@@ -20,6 +24,7 @@ import '../../css/home.css'
 function Home() {
   const today = new Date().toISOString().split('T')[0]
   const [selectedDate, setSelectedDate] = useState(today)
+  const [initialState, dispatch] = useSrContext()
 
   const navigate = useNavigate()
 
@@ -31,6 +36,9 @@ function Home() {
   // Use Effect
   useEffect(() => {
     document.title = 'Home'
+
+    let routeHistory = initialState?.routeHistory
+    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'home'] })
 
     async function validate() {
       let token = window.localStorage.getItem('user')

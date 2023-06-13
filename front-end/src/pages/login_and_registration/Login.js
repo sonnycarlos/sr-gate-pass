@@ -142,7 +142,7 @@ function Login() {
             <p>Keep me sign in</p>
           </div>
 
-          <Link to='#'>Forgot Password</Link>
+          <Link to='/forgot-password'>Forgot Password</Link>
         </div>
 
         <div 
@@ -151,7 +151,7 @@ function Login() {
         >
           <p>
             {error.errorMessage} If you don’t remember your credentials,
-            <a href='#' className='text btn'>reset it now.</a>
+            <Link to='/reset-password' className='text btn'>reset it now.</Link>
           </p>
         </div>
 

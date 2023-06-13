@@ -10,13 +10,16 @@ import {
   registerUser,
   requestOtp,
   verifyOtp,
-  validateUser
+  validateUser,
+  resetPassword,
+  checkUser
 } from './actions'
 
 import {
   COUNTDOWN,
   LOG_IN_USER,
   REGISTER_USER,
+  FORGOT_PASSWORD,
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
   SET_AUTH_ROUTE_DEST,
@@ -31,6 +34,7 @@ export {
   COUNTDOWN,
   LOG_IN_USER,
   REGISTER_USER,
+  FORGOT_PASSWORD,
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
   SET_AUTH_ROUTE_DEST,
@@ -39,7 +43,9 @@ export {
   reducer,
   logInUser,
   registerUser,
+  resetPassword,
   requestOtp,
   verifyOtp,
-  validateUser
+  validateUser,
+  checkUser
 }

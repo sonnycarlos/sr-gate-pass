@@ -92,7 +92,10 @@ function Registration() {
       <form onSubmit={handleSubmit}>
         <div className='inputFields'>
           <div className='form-group'>
-            <label>Email Address</label>
+            <label>
+              Email Address
+              <span className='required-symbol'>*</span>
+            </label>
 
             <input 
               type='email'
@@ -105,7 +108,10 @@ function Registration() {
           </div>
 
           <div className='form-group'>
-            <label>Password</label>
+            <label>
+              Password
+              <span className='required-symbol'>*</span>
+            </label>
             
             <div 
               className='input-field'

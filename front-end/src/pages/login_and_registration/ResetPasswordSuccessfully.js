@@ -15,7 +15,7 @@ function ResetPasswordSuccessfully() {
   }, [])
 
   return (
-    <section id='reset_password_successfully'>
+    <section id='status'>
       <img src={BadgeCheck} alt='Badge' />
 
       <div>
@@ -23,7 +23,7 @@ function ResetPasswordSuccessfully() {
         <p>Click the button below to proceed to login.</p>
       </div>
 
-      <Link to='./login' className='solid btn'>Continue to login</Link>
+      <Link to='/login' className='solid btn'>Continue to login</Link>
     </section>
   )
 }
