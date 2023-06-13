@@ -47,6 +47,7 @@ function Verification() {
     if (res?.status === 200) {
       if (initialState?.keepMeLoggedIn) {
         window.localStorage.setItem('loggedIn', true)
+        window.localStorage.setItem('user', initialState?.user?.token)
       }
 
       navigate(initialState?.authRouteDest)

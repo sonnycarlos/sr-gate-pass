@@ -66,15 +66,17 @@ function Login() {
 
     async function validate() {
       let loggedIn = window.localStorage.getItem('loggedIn')
+      let token = window.localStorage.getItem('user')
 
       if (loggedIn) {
-        let res = await validateUser()
+        let res = await validateUser({ token })
 
         if (res?.status === 200) {
           navigate('/home')
         }
       } else {
-        document.cookie = 'token=; Max-Age=0;secure'
+        document.cookie = 'token=; Max-Age=0; secure'
+        localStorage.removeItem('user')
       }
     }
 

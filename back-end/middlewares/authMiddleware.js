@@ -7,12 +7,15 @@ import User from '../models/userModel.js'
 dotenv.config()
 
 const protect = asyncHandler(async (req, res, next) => {
-  let token
+  // Get token
+  let token = req.cookies.token || req.body.token
 
-  if (req.cookies.token) {
+  if (token) {
     try {
-      // Get token
-      token = req.cookies.token
+
+      if (typeof token === undefined) {
+        console.log('Undefined')
+      }
 
       // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET)

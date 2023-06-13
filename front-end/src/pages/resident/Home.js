@@ -33,7 +33,8 @@ function Home() {
     document.title = 'Home'
 
     async function validate() {
-      let res = await validateUser()
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser({ token })
 
       if (res?.status === 401) {
         navigate('/login')

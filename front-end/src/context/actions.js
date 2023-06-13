@@ -90,9 +90,11 @@ export async function verifyOtp(payload) {
 }
 
 // Validate User
-export async function validateUser() {
+export async function validateUser(payload) {
+  const { token } = payload
+
   try {
-    let res = await Axios.post('/user/validate-user')
+    let res = await Axios.post('/user/validate-user', { token })
 
     return res
   } catch (error) {
