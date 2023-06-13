@@ -2,6 +2,7 @@ import Axios from 'axios'
 
 import { 
   LOG_IN_USER,
+  REGISTER_USER
 } from './reducer'
 
 // Log In
@@ -27,16 +28,22 @@ export async function logInUser(dispatch, payload) {
 
 // Register
 export async function registerUser(dispatch, payload) {
-  const { emailAddress, password } = payload
+  const { type, emailAddress, password } = payload
 
   try {
-    let res = await Axios.post('/registration', { emailAddress, password })
+    let res = await Axios.post('/user/registration', { type, emailAddress, password })
 
     if (res) {
-      return res.data
+      dispatch({ type: REGISTER_USER, payload: res.data })
+      return res
     }
   } catch (error) {
-    throw new Error(`Unhandled action type: ${error}`)
+    console.error(`Unhandled action type: ${error}`)
+
+    return {
+      status: error.response.status,
+      errorMessage: error.response.data.errorMessage
+    }
   }
 }
 
@@ -63,8 +70,6 @@ export async function requestOtp(payload) {
 // Verify OTP code
 export async function verifyOtp(payload) {
   const { emailAddress, otpCode } = payload
-
-  console.log(`Input -> ${otpCode}`)
 
   try {
     let res = await Axios.post('/user/verification', { emailAddressInput: emailAddress, otpCodeInput: otpCode })

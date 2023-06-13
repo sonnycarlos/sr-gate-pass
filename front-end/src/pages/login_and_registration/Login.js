@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
   useSrContext,
   KEEP_ME_LOGGED_IN,
+  SET_AUTH_ROUTE_DEST,
   logInUser,
   requestOtp,
   validateUser
@@ -29,7 +30,7 @@ function Login() {
   const navigate = useNavigate()
 
   // On Submit
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     let res = await logInUser(dispatch, { emailAddress: credentials.emailAddress, password: credentials.password })
@@ -40,8 +41,9 @@ function Login() {
       }
 
       console.log(res)
+      dispatch({ type: SET_AUTH_ROUTE_DEST, payload: '/home' })
 
-      await requestOtp({ action: 'verification', receiver: credentials.emailAddress })
+      await requestOtp({ action: 'registration', receiver: credentials.emailAddress })
       navigate('/verification')
     }
 
@@ -81,10 +83,11 @@ function Login() {
       </header>
 
       {/* Form */}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className='inputFields'>
           <div className='form-group'>
             <label>Email Address</label>
+            
             <input 
               type='email'
               name='emailAddress'
@@ -146,7 +149,7 @@ function Login() {
         </div>
 
         <div className='registrationLink'>
-          <p>Don't have an account? <Link to='#'>Register for free!</Link></p>
+          <p>Don't have an account? <Link to='/registration'>Register for free!</Link></p>
         </div>
       </form>
     </section>

@@ -53,12 +53,14 @@ const signUp = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ emailAddress })
 
   if (userExists) {
-    res.status(400)
+    res.status(400).json({ errorMessage: 'User already exists.' })
     throw new Error('User already exists.')
   }
 
+  let { isValidate, errorMessage } = validatePassword(password)
+
   // Validate password with NIST policy
-  if (validatePassword(password)) {
+  if (isValidate) {
      // Hash password
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
@@ -68,7 +70,8 @@ const signUp = asyncHandler(async (req, res) => {
       type: 'resident',
       emailAddress,
       password: hashedPassword,
-      dateCreated: Date.now()
+      dateCreated: Date.now(),
+      isVerify: false
     })
 
     if (user) {
@@ -80,12 +83,12 @@ const signUp = asyncHandler(async (req, res) => {
         token: generateToken(user._id)
       })
     } else {
-      res.status(400)
+      res.status(400).json({ errorMessage: 'Invalid user data.' })
       throw new Error('Invalid user data.')
     }
   } else {
-    res.status(400)
-    throw new Error('Invalid password')
+    res.status(400).json({ errorMessage })
+    throw new Error(errorMessage)
   }
 })
 
@@ -98,7 +101,7 @@ const requestOtp = asyncHandler(async (req, res) => {
   var action = req.body.action
   var receiver = req.body.receiver
   var subject = 'Verify Email Address'
-  var body = emailTemplate(otpCode, action)
+  var body = emailTemplate(action, otpCode)
 
   await mailer({ receiver, subject, body })
     .then(() => {

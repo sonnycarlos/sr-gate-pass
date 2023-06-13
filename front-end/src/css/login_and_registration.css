@@ -46,11 +46,13 @@
   margin: 80px 0 40px;
 }
 
+#login_and_registration > form > .loginLink,
 #login_and_registration > form > .registrationLink {
   text-align: center;
   font-size: 14px;
 }
 
+#login_and_registration > form > .loginLink > p > a,
 #login_and_registration > form > .registrationLink > p > a {
   color: var(--boring-green);
 }

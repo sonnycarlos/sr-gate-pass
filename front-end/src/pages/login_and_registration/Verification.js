@@ -48,7 +48,7 @@ function Verification() {
         window.localStorage.setItem('loggedIn', true)
       }
 
-      navigate('/home')
+      navigate(initialState?.authRouteDest)
     }
 
     if (res?.status === 400) {

@@ -1,4 +1,4 @@
-const emailTemplate = (otpCode, action) => {
+const emailTemplate = (action, otpCode) => {
   return `<html>
             <head>
               <style>
@@ -97,7 +97,7 @@ const emailTemplate = (otpCode, action) => {
 
                   <div class='header'>
                     <h1>Hello!</h1>
-                    <p>A sign in attempt requires further verification. To complete the sign in, enter the verification code.</p>
+                    <p>A ${action} attempt requires further verification. To complete the ${action}, enter the verification code.</p>
                   </div>
 
                   <div class='code'>
@@ -105,7 +105,7 @@ const emailTemplate = (otpCode, action) => {
                   </div>
 
                   <div>
-                    <p>This mail was generated because of a ${action} attempt from a web app.<p/>
+                    <p>This mail was generated because of a verification attempt from a web app.<p/>
                     <br><br>
                     <p>The one-time passcode is necessary to finish the verification. No one can access your account without also having access to this email address.<p/>
                     <br><br>

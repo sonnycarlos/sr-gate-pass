@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
   dateCreated: {
     type: Date,
     required: true
+  },
+  isVerify: {
+    type: Boolean,
+    required: true
   }
 })
 

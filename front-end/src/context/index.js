@@ -19,6 +19,7 @@ import {
   REGISTER_USER,
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
+  SET_AUTH_ROUTE_DEST,
   initialState,
   reducer
 } from './reducer'
@@ -31,6 +32,7 @@ export {
   REGISTER_USER,
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
+  SET_AUTH_ROUTE_DEST,
   initialState,
   reducer,
   logInUser,
