@@ -20,7 +20,7 @@ const signIn = asyncHandler(async (req, res) => {
   // Check if user exists
   const user = await User.findOne({ emailAddress })
 
-  if (user && (await bcrypt.compare(password, user.password[0]))) {
+  if (user && (await bcrypt.compare(password, user.password[user?.password?.length - 1]))) {
     userEmailAddress = emailAddress
     let token = generateToken(user._id)
 
@@ -92,6 +92,58 @@ const signUp = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Forgot password
+// @route   GET /api/forgot-password
+// @access  Public
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { emailAddress, password } = req.body
+
+  if (!emailAddress || !password) {
+    res.status(400)
+    throw new Error('Input all the fields.')
+  }
+  
+  // Check if user exists
+  const userExists = await User.findOne({ emailAddress })
+
+  if (!userExists) {
+    res.status(400).json({ errorMessage: `User doesn't exist.` })
+    throw new Error(`User doesn't exist.`)
+  }
+
+  //  Check if the user used one of the old passwords
+  for (let i = 0; i < userExists?.password?.length; i++) {
+    if (await bcrypt.compare(password, userExists?.password[i])) {
+      res.status(400).json({ errorMessage: 'Your new password cannot be the same as your current or old password.' })
+      throw new Error('Your new password cannot be the same as your current or old password.')
+    }
+  }
+
+  let { isValidate, errorMessage } = validatePassword(password)
+
+  // Validate password with NIST policy
+  if (isValidate) {
+     // Hash password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    // Update user
+    const user = await User.updateOne({ emailAddress }, { $push: {['password']: hashedPassword} })
+
+    if (user) {
+      userEmailAddress = emailAddress
+
+      res.status(200).json(user)
+    } else {
+      res.status(400).json({ errorMessage: 'Invalid user data.' })
+      throw new Error('Invalid user data.')
+    }
+  } else {
+    res.status(400).json({ errorMessage })
+    throw new Error(errorMessage)
+  }
+})
+
 // @desc    Generate OTP code
 // @route   GET /api/verification
 // @access  Public
@@ -153,6 +205,7 @@ const generateToken = (id) => {
 export {
   signIn,
   signUp,
+  forgotPassword,
   requestOtp,
   verifyOtp,
   validateUser
