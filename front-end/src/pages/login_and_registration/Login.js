@@ -58,6 +58,8 @@ function Login() {
   // Use Effect
   useEffect(() => {
     document.title = 'Login'
+    
+    document.cookie = 'routesHistory=login'
 
     localStorage.removeItem('verification')
 

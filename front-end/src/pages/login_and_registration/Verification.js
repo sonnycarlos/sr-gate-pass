@@ -9,6 +9,7 @@ import {
   useSrContext,
   COUNTDOWN,
   SET_COUNTDOWN_START,
+  INSERT_ROUTE,
   requestOtp,
   verifyOtp
 } from '../../context/index'
@@ -60,6 +61,11 @@ function Verification() {
   // Use Effect
   useEffect(() => {
     document.title = 'Verification'
+
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const routeHistory = cookie?.split(',')
+
+    dispatch({ type: INSERT_ROUTE, payload: routeHistory })
     
     if (!window.localStorage.getItem('verification')) {
       navigate('/login')

@@ -52,8 +52,10 @@ function ResetPasswordStep1() {
   useEffect(() => {
     document.title = 'Reset Password'
 
-    let routeHistory = initialState?.routeHistory
-    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'forgot-password'] })
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const routeHistory = cookie?.split(',')
+
+    dispatch({ type: INSERT_ROUTE, payload: routeHistory })
   }, [])
 
   return (
@@ -62,7 +64,7 @@ function ResetPasswordStep1() {
       <img src={BrandLogo} alt='Brand Logo' />
 
       {/* Back Button */}
-      <Link to='/login' className='text btn'>
+      <Link to={`../${initialState?.routeHistory[initialState?.routeHistory?.length - 1]}`} className='text btn'>
         <Back />
         <span>Back</span>
       </Link>

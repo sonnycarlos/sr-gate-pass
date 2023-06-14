@@ -57,8 +57,13 @@ function Registration() {
 
     localStorage.removeItem('verification')
 
-    let routeHistory = initialState?.routeHistory
-    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'registration'] })
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const routeHistory = cookie?.split(',')
+
+    routeHistory.push('registration')
+    document.cookie = `routesHistory=${routeHistory}`
+
+    dispatch({ type: INSERT_ROUTE, payload: routeHistory })
 
     async function validate() {
       let loggedIn = window.localStorage.getItem('loggedIn')
