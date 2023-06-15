@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../../components/index'
+import { Menu, NavigationBar } from '../../components'
 
 import {
   ArrowRight,
@@ -9,7 +9,7 @@ import {
   Calendar,
   Camera,
   ChevronDown
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/edit_profile.css'
 

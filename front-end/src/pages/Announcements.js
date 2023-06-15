@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../components/index'
+import { Menu, NavigationBar } from '../components'
 
-import { Pin } from '../assets/svg/index'
+import { Pin } from '../assets/svg'
 
 import '../css/announcements.css'
 

@@ -2,25 +2,25 @@ import React, { useEffect, useState } from 'react'
 import OtpInput from 'react-otp-input'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Timer } from '../../components/index'
+import { Timer } from '../../components'
 
 import {
   useSrContext,
   COUNTDOWN,
   SET_COUNTDOWN_START,
   INSERT_ROUTE
-} from '../../context/index'
+} from '../../context'
 
 import { 
   renderer, 
   requestOtp,
   verifyOtp 
-} from '../../utils/index'
+} from '../../utils'
 
 import {
   BrandLogo,
   Back
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/verification.css'
 

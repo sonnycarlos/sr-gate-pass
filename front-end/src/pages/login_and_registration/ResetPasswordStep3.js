@@ -4,9 +4,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
   useSrContext,
   INSERT_ROUTE
-} from '../../context/index'
+} from '../../context'
 
-import { resetPassword } from '../../utils/index'
+import { resetPassword } from '../../utils'
 
 import { 
   BrandLogo,
@@ -14,7 +14,7 @@ import {
   Back,
   EyeOff,
   EyeOn
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/reset_password.css'
 import '../../css/style.css'

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Back, Copy } from '../assets/svg/index'
+import { Back, Copy } from '../assets/svg'
 
 import '../css/guest_overview.css'
 

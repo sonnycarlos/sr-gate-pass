@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Back, Search } from '../assets/svg/index'
+import { Back, Search } from '../assets/svg'
 
 import '../css/search_guest.css'
 

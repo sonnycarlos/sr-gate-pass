@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../../components/index'
+import { Menu, NavigationBar } from '../../components'
 
 import {
   ArrowDownRight,
   Plus,
   Search
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/my_guests.css'
 

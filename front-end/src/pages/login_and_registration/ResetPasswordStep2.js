@@ -8,19 +8,19 @@ import {
   useSrContext,
   COUNTDOWN,
   SET_COUNTDOWN_START
-} from '../../context/index'
+} from '../../context'
 
 import { 
   renderer, 
   requestOtp, 
   verifyOtp 
-} from '../../utils/index'
+} from '../../utils'
 
 import {
   BrandLogo,
   ArrowRight,
   Back
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/reset_password.css'
 

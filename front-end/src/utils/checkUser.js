@@ -2,7 +2,7 @@
  ** This function checks the user on the database
 **/
 
-import Axios from '../config/axios'
+import { Axios } from '../config'
 
 export default async function checkUser(payload) {
   const { emailAddress } = payload

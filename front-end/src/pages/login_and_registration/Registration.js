@@ -6,16 +6,16 @@ import {
   SET_AUTH_ROUTE_DEST,
   INSERT_ROUTE,
   registerUser
-} from '../../context/index'
+} from '../../context'
 
-import { requestOtp, validateUser } from '../../utils/index'
+import { requestOtp, validateUser } from '../../utils'
 
 import { 
   BrandLogo,
   ArrowRight,
   EyeOff,
   EyeOn
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/login_and_registration.css'
 import '../../css/style.css'

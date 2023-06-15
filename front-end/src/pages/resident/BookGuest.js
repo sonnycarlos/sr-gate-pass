@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Back, Calendar } from '../../assets/svg/index'
+import { Back, Calendar } from '../../assets/svg'
 
 import '../../css/book_guest.css'
 

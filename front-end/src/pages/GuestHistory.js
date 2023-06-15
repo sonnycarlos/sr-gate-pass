@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { ArrowDownRight, Back } from '../assets/svg/index'
+import { ArrowDownRight, Back } from '../assets/svg'
 
 import '../css/guest_history.css'
 

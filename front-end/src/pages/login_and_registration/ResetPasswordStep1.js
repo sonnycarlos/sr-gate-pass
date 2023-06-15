@@ -4,15 +4,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
   useSrContext,
   FORGOT_PASSWORD,
-  INSERT_ROUTE} from '../../context/index'
+  INSERT_ROUTE} from '../../context'
 
-import { checkUser, requestOtp } from '../../utils/index'
+import { checkUser, requestOtp } from '../../utils'
 
 import { 
   BrandLogo,
   ArrowRight,
   Back,
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/reset_password.css'
 import '../../css/style.css'

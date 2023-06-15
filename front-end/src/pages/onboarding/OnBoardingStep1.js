@@ -5,7 +5,7 @@ import {
   BrandLogo,
   ArrowRight,
   Calendar
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/onboarding.css'
 import '../../css/style.css'

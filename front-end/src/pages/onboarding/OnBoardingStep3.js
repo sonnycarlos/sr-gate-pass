@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Axios } from '../../config'
 
 import {
   BrandLogo,
@@ -9,14 +10,31 @@ import {
   PDF,
   Remove,
   Upload
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/onboarding.css'
 import '../../css/style.css'
 
-function OnBoardingStep2() {
+function OnBoardingStep3() {
+  const [fileSelected, setFileSelected] = useState('')
   const [headingFontSize, setHeadingFontSize] = useState(40)
   const [paragraphFontSize, setParagraphFontSize] = useState(20)
+
+  // Handle Upload
+  const handleUpload = (e, file) => {
+    const formData = new FormData()
+    formData.append('file', fileSelected)
+    formData.append('upload_preset', 'kfaije1j')
+
+    e.preventDefault()
+
+    Axios
+      .post('https://api.cloudinary.com/v1_1/dfc3s2kfc/raw/upload', formData, { withCredentials: false })
+      .then(res => {
+        console.log(res)
+        console.log(res.data.public_id)
+      })
+  }
 
   // Handle Scroll
   const handleScroll = () => {
@@ -110,7 +128,7 @@ function OnBoardingStep2() {
       </div>
 
       {/* Form */}
-      <form>
+      <form onSubmit={handleUpload}>
         <h2>Proof of Residency</h2>
 
         <div className='inputFields'>
@@ -122,7 +140,11 @@ function OnBoardingStep2() {
             </label>
 
             <div className='input-image-field'>
-              <input type='file' accept='application/pdf' />
+              <input 
+                type='file' 
+                accept='application/pdf' 
+                onChange={(e) => setFileSelected(e.target.files[0])}
+              />
               
               <Upload />
 
@@ -251,4 +273,4 @@ function OnBoardingStep2() {
   )
 }
 
-export default OnBoardingStep2
+export default OnBoardingStep3

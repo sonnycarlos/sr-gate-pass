@@ -4,11 +4,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { 
   useSrContext,
   INSERT_ROUTE 
-} from '../../context/index'
+} from '../../context'
 
-import { Menu, NavigationBar } from '../../components/index'
+import { Menu, NavigationBar } from '../../components'
 
-import { validateUser } from '../../utils/index'
+import { validateUser } from '../../utils'
 
 import {
   Guest,
@@ -18,7 +18,7 @@ import {
   Pin,
   Megaphone,
   Users
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/home.css'
 

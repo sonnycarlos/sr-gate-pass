@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Back } from '../../assets/svg/index'
+import { Back } from '../../assets/svg'
 import QRCode from '../../assets/images/qr-code.png'
 
 import '../../css/my_gate_pass.css'

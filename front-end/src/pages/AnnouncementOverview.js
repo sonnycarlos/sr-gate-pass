@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../components/index'
+import { Menu, NavigationBar } from '../components'
 
 import {
   Back,
   Pin
-} from '../assets/svg/index'
+} from '../assets/svg'
 
 import '../css/announcement_overview.css'
 

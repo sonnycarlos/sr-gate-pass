@@ -2,7 +2,7 @@
  ** This function verifies the OTP code sent to user's email address
 **/
 
-import Axios from '../config/axios'
+import { Axios } from '../config'
 
 export default async function verifyOtp(payload) {
   const { emailAddress, otpCode } = payload

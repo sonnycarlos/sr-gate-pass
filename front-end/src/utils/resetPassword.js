@@ -2,7 +2,7 @@
  ** This function resets the user's password
 **/
 
-import Axios from '../config/axios'
+import { Axios } from '../config'
 
 export default async function resetPassword(payload) {
   const { emailAddress, password } = payload

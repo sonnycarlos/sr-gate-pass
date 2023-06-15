@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { 
   BadgeAmazed
-} from '../../assets/svg/index'
+} from '../../assets/svg'
 
 import '../../css/status.css'
 import '../../css/style.css'

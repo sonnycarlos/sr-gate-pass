@@ -2,7 +2,7 @@
  ** This function requests OTP code from the server
 **/
 
-import Axios from '../config/axios'
+import { Axios } from '../config'
 
 export default async function requestOtp(payload) {
   const { action, receiver } = payload

@@ -2,7 +2,7 @@
  ** This function validates the user's token
 **/
 
-import Axios from '../config/axios'
+import { Axios } from '../config'
 
 export default async function validateUser(payload) {
   const { token } = payload

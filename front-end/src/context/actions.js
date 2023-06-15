@@ -1,4 +1,4 @@
-import { Axios } from '../config/index'
+import { Axios } from '../config/'
 
 import { 
   LOG_IN_USER,
