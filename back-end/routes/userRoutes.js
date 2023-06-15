@@ -1,6 +1,7 @@
 import express from 'express'
 
 import { 
+  checkResident,
   checkUser,
   createResidentProfile,
   forgotPassword,
@@ -22,6 +23,7 @@ router.post('/generate-otp', requestOtp)
 router.post('/verification', verifyOtp)
 router.post('/validate-user', protect, validateUser)
 router.post('/check-user', checkUser)
+router.post('/check-resident-username', checkResident)
 router.post('/create-resident-profile', protect, createResidentProfile)
 
 export default router

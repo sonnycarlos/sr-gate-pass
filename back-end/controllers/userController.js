@@ -211,6 +211,21 @@ const checkUser = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Check if resident's username already exists
+// @route   GET /api/users/check-resident-username
+// @access  Public
+const checkResident = asyncHandler(async (req, res) => {
+  const { username } = req.body
+  const resident = await Resident.findOne({ username })
+
+  if (resident) {
+    res.status(200).json(resident)
+  } else {
+    res.status(400).json({ errorMessage: `Resident's username already exist.` })
+    throw new Error(`Resident's username already exist.`)
+  }
+})
+
 // @desc    Create resident profile
 // @route   GET /api/users/create-resident-profile
 // @access  Public
@@ -295,5 +310,6 @@ export {
   verifyOtp,
   validateUser,
   checkUser,
+  checkResident,
   createResidentProfile
 }
