@@ -3,7 +3,6 @@ import OtpInput from 'react-otp-input'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Timer } from '../../components/index'
-import { renderer } from '../../utils/index'
 
 import {
   useSrContext,
@@ -11,8 +10,9 @@ import {
   SET_COUNTDOWN_START,
   INSERT_ROUTE,
   requestOtp,
-  verifyOtp
 } from '../../context/index'
+
+import { renderer, verifyOtp } from '../../utils/index'
 
 import {
   BrandLogo,

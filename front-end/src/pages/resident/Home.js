@@ -3,11 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { 
   useSrContext,
-  INSERT_ROUTE,
-  validateUser 
+  INSERT_ROUTE 
 } from '../../context/index'
 
 import { Menu, NavigationBar } from '../../components/index'
+
+import { validateUser } from '../../utils/index'
 
 import {
   Guest,

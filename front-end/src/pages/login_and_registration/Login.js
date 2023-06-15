@@ -7,9 +7,10 @@ import {
   SET_AUTH_ROUTE_DEST,
   INSERT_ROUTE,
   logInUser,
-  requestOtp,
-  validateUser
+  requestOtp
 } from '../../context/index'
+
+import { validateUser } from '../../utils/index'
 
 import { 
   BrandLogo,

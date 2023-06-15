@@ -6,9 +6,10 @@ import {
   SET_AUTH_ROUTE_DEST,
   INSERT_ROUTE,
   registerUser,
-  requestOtp,
-  validateUser
+  requestOtp
 } from '../../context/index'
+
+import { validateUser } from '../../utils/index'
 
 import { 
   BrandLogo,
@@ -24,7 +25,7 @@ function Registration() {
   const [credentials, setCredentials] = useState({ emailAddress: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const [initialState, dispatch] = useSrContext()
+  const [, dispatch] = useSrContext()
 
   const navigate = useNavigate()
 

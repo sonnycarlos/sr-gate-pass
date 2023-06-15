@@ -4,7 +4,11 @@
 **/
 
 import renderer from './renderer'
+import validateUser from './validateUser'
+import verifyOtp from './verifyOtp'
 
 export {
-  renderer
+  renderer,
+  verifyOtp,
+  validateUser
 }

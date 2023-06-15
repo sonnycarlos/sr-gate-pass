@@ -9,8 +9,6 @@ import {
   logInUser,
   registerUser,
   requestOtp,
-  verifyOtp,
-  validateUser,
   resetPassword,
   checkUser
 } from './actions'
@@ -45,7 +43,5 @@ export {
   registerUser,
   resetPassword,
   requestOtp,
-  verifyOtp,
-  validateUser,
   checkUser
 }
