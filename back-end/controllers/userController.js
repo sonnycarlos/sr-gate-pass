@@ -214,7 +214,7 @@ const checkUser = asyncHandler(async (req, res) => {
 // @desc    Check if resident's username already exists
 // @route   GET /api/users/check-resident-username
 // @access  Public
-const checkResident = asyncHandler(async (req, res) => {
+const checkResidentUsername = asyncHandler(async (req, res) => {
   const { username } = req.body
   const resident = await Resident.findOne({ username })
 
@@ -310,6 +310,6 @@ export {
   verifyOtp,
   validateUser,
   checkUser,
-  checkResident,
+  checkResidentUsername,
   createResidentProfile
 }
