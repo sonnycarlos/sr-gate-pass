@@ -1,14 +1,14 @@
 /**
- ** This function verifies the OTP code sent to user's email address
+ ** This function requests OTP code from the server
 **/
 
 import Axios from '../config/axios'
 
-export default async function verifyOtp(payload) {
-  const { emailAddress, otpCode } = payload
+export default async function requestOtp(payload) {
+  const { action, receiver } = payload
 
   try {
-    let res = await Axios.post('/user/verification', { emailAddressInput: emailAddress, otpCodeInput: otpCode })
+    let res = await Axios.post('/user/generate-otp', { action, receiver })
 
     if (res) {
       return res

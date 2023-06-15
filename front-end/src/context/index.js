@@ -7,10 +7,7 @@ import { useSrContext, SrProvider } from './context'
 
 import {
   logInUser,
-  registerUser,
-  requestOtp,
-  resetPassword,
-  checkUser
+  registerUser
 } from './actions'
 
 import {
@@ -40,8 +37,5 @@ export {
   initialState,
   reducer,
   logInUser,
-  registerUser,
-  resetPassword,
-  requestOtp,
-  checkUser
+  registerUser
 }

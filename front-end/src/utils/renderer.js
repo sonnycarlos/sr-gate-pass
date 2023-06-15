@@ -1,6 +1,6 @@
 /**
- ** This function will output the countdown timer for the resend OTP code link
- ** We will usually use this as the argument of the renderer parameter of Timer component
+ ** This function outputs the countdown timer for the resend OTP code link
+ ** We usually use this as the argument of the renderer parameter of Timer component
 **/
 
 export default function renderer({ minutes, seconds }) {

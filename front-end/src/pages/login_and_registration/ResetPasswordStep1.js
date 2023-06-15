@@ -4,10 +4,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
   useSrContext,
   FORGOT_PASSWORD,
-  INSERT_ROUTE,
-  requestOtp,
-  checkUser
-} from '../../context/index'
+  INSERT_ROUTE} from '../../context/index'
+
+import { checkUser, requestOtp } from '../../utils/index'
 
 import { 
   BrandLogo,

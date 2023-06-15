@@ -1,5 +1,5 @@
 /**
- ** This function will validate the user's token
+ ** This function validates the user's token
 **/
 
 import Axios from '../config/axios'

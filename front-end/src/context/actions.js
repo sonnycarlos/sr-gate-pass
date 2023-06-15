@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import { Axios } from '../config/index'
 
 import { 
   LOG_IN_USER,
@@ -39,64 +39,6 @@ export async function registerUser(dispatch, payload) {
     }
   } catch (error) {
     console.error(`Unhandled action type: ${error}`)
-
-    return {
-      status: error.response.status,
-      errorMessage: error.response.data.errorMessage
-    }
-  }
-}
-
-// Reset Password
-export async function resetPassword(payload) {
-  const { emailAddress, password } = payload
-
-  try {
-    let res = await Axios.post('/user/forgot-password', { emailAddress, password })
-
-    if (res) {
-      return res
-    }
-  } catch (error) {
-    console.log(`Unhandled action type: ${error}`)
-
-    return {
-      status: error.response.status,
-      errorMessage: error.response.data.errorMessage
-    }
-  }
-}
-
-// Request OTP code
-export async function requestOtp(payload) {
-  const { action, receiver } = payload
-
-  try {
-    let res = await Axios.post('/user/generate-otp', { action, receiver })
-
-    if (res) {
-      return res
-    }
-  } catch (error) {
-    console.error(`Unhandled action type: ${error}`)
-
-    return {
-      status: error.response.status,
-      errorMessage: error.response.data.errorMessage
-    }
-  }
-}
-
-// Check User
-export async function checkUser(payload) {
-  const { emailAddress } = payload
-  
-  try {
-    let res = await Axios.post('/user/check-user', { emailAddress })
-
-    return res
-  } catch (error) {
-    console.log(`Unhandled action type: ${error}`)
 
     return {
       status: error.response.status,

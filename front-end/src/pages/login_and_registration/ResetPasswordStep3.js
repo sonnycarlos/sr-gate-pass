@@ -3,11 +3,10 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import {
   useSrContext,
-  SET_AUTH_ROUTE_DEST,
-  INSERT_ROUTE,
-  resetPassword,
-  requestOtp
+  INSERT_ROUTE
 } from '../../context/index'
+
+import { resetPassword } from '../../utils/index'
 
 import { 
   BrandLogo,

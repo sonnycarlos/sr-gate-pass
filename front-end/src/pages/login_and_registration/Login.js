@@ -6,11 +6,10 @@ import {
   KEEP_ME_LOGGED_IN,
   SET_AUTH_ROUTE_DEST,
   INSERT_ROUTE,
-  logInUser,
-  requestOtp
+  logInUser
 } from '../../context/index'
 
-import { validateUser } from '../../utils/index'
+import { requestOtp, validateUser } from '../../utils/index'
 
 import { 
   BrandLogo,

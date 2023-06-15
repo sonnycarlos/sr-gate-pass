@@ -8,11 +8,14 @@ import {
   useSrContext,
   COUNTDOWN,
   SET_COUNTDOWN_START,
-  INSERT_ROUTE,
-  requestOtp,
+  INSERT_ROUTE
 } from '../../context/index'
 
-import { renderer, verifyOtp } from '../../utils/index'
+import { 
+  renderer, 
+  requestOtp,
+  verifyOtp 
+} from '../../utils/index'
 
 import {
   BrandLogo,

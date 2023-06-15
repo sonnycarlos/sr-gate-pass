@@ -7,11 +7,14 @@ import { Timer } from '../../components/index'
 import {
   useSrContext,
   COUNTDOWN,
-  SET_COUNTDOWN_START,
-  requestOtp,
+  SET_COUNTDOWN_START
 } from '../../context/index'
 
-import { renderer, verifyOtp } from '../../utils/index'
+import { 
+  renderer, 
+  requestOtp, 
+  verifyOtp 
+} from '../../utils/index'
 
 import {
   BrandLogo,

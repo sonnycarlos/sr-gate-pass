@@ -5,11 +5,10 @@ import {
   useSrContext,
   SET_AUTH_ROUTE_DEST,
   INSERT_ROUTE,
-  registerUser,
-  requestOtp
+  registerUser
 } from '../../context/index'
 
-import { validateUser } from '../../utils/index'
+import { requestOtp, validateUser } from '../../utils/index'
 
 import { 
   BrandLogo,
