@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 
 import { emailTemplate, generateOtp, mailer, validatePassword } from '../utils/index.js'
-import { User } from '../models/index.js'
+import { Resident, User } from '../models/index.js'
 
 dotenv.config()
 
@@ -211,6 +211,75 @@ const checkUser = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Create resident profile
+// @route   GET /api/users/create-resident-profile
+// @access  Public
+const createResidentProfile = asyncHandler(async (req, res) => {
+  const { 
+    firstName,
+    lastName,
+    birthdate,
+    gender,
+    address,
+    phoneNumber,
+    emailAddress,
+    username,
+    type,
+    landCertificate,
+    validId,
+    picture
+  } = req.body
+
+  // Check if resident profile and username already exists
+  const user = await User.findOne({ emailAddress })
+  const residentExists = await Resident.findOne({ username })
+
+  if (user) {
+    if (user.isVerify) {
+      res.status(400).json({ errorMessage: 'User already has a profile.' })
+      return
+    }
+
+    if (type !== 'homeowner' && type !== 'tenant') {
+      res.status(400).json({ errorMessage: 'Invalid resident type.' })
+      return
+    }
+
+    if (residentExists) {
+      res.status(400).json({ errorMessage: 'Username already exists.' })
+      return
+    }
+
+    await User.updateOne({ emailAddress }, { $set: { isVerify: true } })
+    const resident = await Resident.create({
+      userId: user._id,
+      firstName,
+      lastName,
+      birthdate,
+      gender,
+      address,
+      phoneNumber,
+      type,
+      emailAddress,
+      username,
+      dateCreated: Date.now(),
+      landCertificate,
+      validId,
+      picture
+    })
+
+    if (resident) {
+      res.status(201).json(resident)
+    } else {
+      res.status(400).json({ errorMessage: 'Error.' })
+      throw new Error('Error.')
+    }
+  } else {
+    res.status(400).json({ errorMessage: `User doesn't exist.` })
+    throw new Error(`User doesn't exist.`)
+  }
+})
+
 // Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -219,11 +288,12 @@ const generateToken = (id) => {
 }
 
 export {
-  checkUser,
-  forgotPassword,
-  requestOtp,
   signIn,
   signUp,
+  forgotPassword,
+  requestOtp,
+  verifyOtp,
   validateUser,
-  verifyOtp
+  checkUser,
+  createResidentProfile
 }

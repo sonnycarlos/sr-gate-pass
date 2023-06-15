@@ -3,11 +3,11 @@ import mongoose from 'mongoose'
 const residentSchema = new mongoose.Schema({
   id: {
     type: String,
-    required: true
+    required: false
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
+    required: false,
     ref: 'User'
   },
   firstName: {
@@ -29,8 +29,8 @@ const residentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  phoneNum: {
-    type: Number,
+  phoneNumber: {
+    type: String,
     required: true
   },
   address: {
@@ -49,13 +49,22 @@ const residentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  password: [String],
   dateCreated: {
     type: Date,
     required: true
   },
-  landCertificate: [String],
-  validId: [String],
+  landCertificate: {
+    type: [String],
+    required: true
+  },
+  validId: {
+    type: [String],
+    required: true
+  },
+  picture: {
+    type: String,
+    required: true
+  },
   numOfGuests: Number
 })
 
