@@ -240,7 +240,7 @@ const createResidentProfile = asyncHandler(async (req, res) => {
       return
     }
 
-    if (type !== 'homeowner' && type !== 'tenant') {
+    if (type !== 'Homeowner' && type !== 'Tenant') {
       res.status(400).json({ errorMessage: 'Invalid resident type.' })
       return
     }
