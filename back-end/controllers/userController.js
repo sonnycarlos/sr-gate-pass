@@ -221,8 +221,8 @@ const checkResidentUsername = asyncHandler(async (req, res) => {
   if (!resident) {
     res.status(200).json({ message: 'Successfull' })
   } else {
-    res.status(400).json({ errorMessage: `Resident's username already exist.` })
-    throw new Error(`Resident's username already exist.`)
+    res.status(400).json({ errorMessage: `Username already exist.` })
+    throw new Error(`Username already exist.`)
   }
 })
 
