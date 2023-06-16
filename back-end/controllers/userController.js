@@ -76,7 +76,6 @@ const signUp = asyncHandler(async (req, res) => {
       dateCreated: Date.now(),
       isVerify: false,
       isValidate: false,
-      isRegistrationComplete: false
     })
 
     if (user) {

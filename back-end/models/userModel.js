@@ -25,10 +25,6 @@ const userSchema = new mongoose.Schema({
   isValidate: {
     type: Boolean,
     required: true
-  },
-  isRegistrationComplete: {
-    type: Boolean,
-    required: true
   }
 })
 
