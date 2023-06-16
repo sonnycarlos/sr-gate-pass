@@ -30,6 +30,9 @@ const signIn = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       emailAddress: user.emailAddress,
+      isVerify: user.isVerify,
+      isValidate: user.isValidate,
+      isRegistrationComplete: user.isRegistrationComplete,
       token
     })
   } else {
@@ -71,7 +74,9 @@ const signUp = asyncHandler(async (req, res) => {
       emailAddress,
       password: hashedPassword,
       dateCreated: Date.now(),
-      isVerify: false
+      isVerify: false,
+      isValidate: false,
+      isRegistrationComplete: false
     })
 
     if (user) {
