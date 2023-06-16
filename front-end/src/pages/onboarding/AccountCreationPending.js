@@ -25,7 +25,7 @@ function AccountCreationPending() {
 
       <div className='actions'>
         <Link to='#' className='solid btn'>Edit application</Link>
-        <Link to='./login' className='outline btn'>Log out</Link>
+        <Link to='/login' className='outline btn'>Log out</Link>
       </div>
     </section>
   )

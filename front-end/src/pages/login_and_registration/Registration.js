@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import {
   useSrContext,
-  SET_AUTH_ROUTE_DEST,
+  SET_ACTION,
   INSERT_ROUTE,
   registerUser
 } from '../../context'
@@ -33,6 +33,7 @@ function Registration() {
     e.preventDefault()
 
     let res = await registerUser(dispatch, { type: 'resident', emailAddress: credentials.emailAddress, password: credentials.password })
+    dispatch({ type: SET_ACTION, payload: 'Register' })
 
     console.log(res)
 
@@ -40,7 +41,6 @@ function Registration() {
       console.log(res)
       window.localStorage.setItem('verification', true)
 
-      dispatch({ type: SET_AUTH_ROUTE_DEST, payload: '/login' })
       await requestOtp({ action: 'registration', receiver: credentials.emailAddress })
 
       navigate('/verification')

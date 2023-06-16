@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import {
   useSrContext,
+  SET_ACTION,
   KEEP_ME_LOGGED_IN,
-  SET_AUTH_ROUTE_DEST,
   INSERT_ROUTE,
   logInUser
 } from '../../context'
@@ -35,6 +35,7 @@ function Login() {
     e.preventDefault()
 
     let res = await logInUser(dispatch, { emailAddress: credentials.emailAddress, password: credentials.password })
+    dispatch({ type: SET_ACTION, payload: 'Log in' })
 
     if (res.status === 200) {
       if (keepMeLoggedIn) {
@@ -44,7 +45,6 @@ function Login() {
       console.log(res)
       window.localStorage.setItem('verification', true)
 
-      dispatch({ type: SET_AUTH_ROUTE_DEST, payload: '/home' })
       await requestOtp({ action: 'log in', receiver: credentials.emailAddress })
       
       navigate('/verification')

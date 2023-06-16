@@ -53,7 +53,21 @@ function Verification() {
         window.localStorage.setItem('user', initialState?.user?.token)
       }
 
-      navigate(initialState?.authRouteDest)
+      if (initialState?.action === 'Log in') {
+        if (initialState?.user?.isRegistrationComplete) {
+          if (initialState?.user?.isValidate) {
+            return navigate('/home')
+          } else {
+            return navigate('/account-creation-pending')
+          }
+        }
+
+        return navigate('/onboarding-step-1')
+      }
+
+      if (initialState?.action === 'Register') {
+        return navigate('/login')
+      }
     }
 
     if (res?.status === 400) {
@@ -64,6 +78,8 @@ function Verification() {
   // Use Effect
   useEffect(() => {
     document.title = 'Verification'
+
+    console.log(initialState)
 
     const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
@@ -137,7 +153,7 @@ function Verification() {
           }
         </p>
 
-        <input type='submit' value='Login' className='solid btn' />
+        <input type='submit' value={initialState?.action} className='solid btn' />
       </form>
     </section>
   )

@@ -5,18 +5,19 @@ export const COUNTDOWN = 60000
 export const LOG_IN_USER = 'LOG_IN_USER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
+export const ON_BOARDING_TO_PROFILE = 'ON_BOARDING_TO_PROFILE'
+export const SET_ACTION = 'SET_ACTION'
 export const SET_COUNTDOWN_START = 'SET_COUNTDOWN_START'
 export const KEEP_ME_LOGGED_IN = 'KEEP_ME_LOGGED_IN'
-export const SET_AUTH_ROUTE_DEST = 'SET_AUTH_ROUTE_DEST'
 export const INSERT_ROUTE = 'INSERT_ROUTE'
 
 // Initial State
 export const initialState = {
   user: {},
+  action: '',
   otpCountdown: '',
   countdownStart: false,
   keepMeLoggedIn: false,
-  authRouteDest: '',
   routeHistory: []
 }
 
@@ -41,6 +42,19 @@ export const reducer = (initialState, action) => {
           emailAddress: action.payload
         }
       }
+    case ON_BOARDING_TO_PROFILE:
+      return {
+        ...initialState,
+        user: {
+          ...initialState.user,
+          ...action.payload
+        }
+      }
+    case SET_ACTION:
+      return {
+        ...initialState,
+        action: action.payload
+      }
     case SET_COUNTDOWN_START:
       return {
         ...initialState,
@@ -50,11 +64,6 @@ export const reducer = (initialState, action) => {
       return {
         ...initialState,
         keepMeLoggedIn: true
-      }
-    case SET_AUTH_ROUTE_DEST:
-      return {
-        ...initialState,
-        authRouteDest: action.payload
       }
     case INSERT_ROUTE:
       return {
