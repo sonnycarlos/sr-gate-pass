@@ -230,10 +230,10 @@ const checkResidentUsername = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Create resident profile
-// @route   GET /api/users/create-resident-profile
+// @desc    Verify user (create resident profile)
+// @route   GET /api/users/verify-user
 // @access  Public
-const createResidentProfile = asyncHandler(async (req, res) => {
+const verifyUser = asyncHandler(async (req, res) => {
   const { 
     firstName,
     lastName,
@@ -315,5 +315,5 @@ export {
   validateUser,
   checkUser,
   checkResidentUsername,
-  createResidentProfile
+  verifyUser
 }

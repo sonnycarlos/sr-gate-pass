@@ -3,13 +3,13 @@ import express from 'express'
 import { 
   checkResidentUsername,
   checkUser,
-  createResidentProfile,
   forgotPassword,
   requestOtp,
   signIn, 
   signUp, 
   validateUser,
-  verifyOtp
+  verifyOtp,
+  verifyUser
 } from '../controllers/userController.js'
 
 import { protect } from '../middlewares/authMiddleware.js'
@@ -24,6 +24,6 @@ router.post('/verification', verifyOtp)
 router.post('/validate-user', protect, validateUser)
 router.post('/check-user', checkUser)
 router.post('/check-resident-username', checkResidentUsername)
-router.post('/create-resident-profile', protect, createResidentProfile)
+router.post('/verify-user', protect, verifyUser)
 
 export default router
