@@ -75,7 +75,7 @@ const signUp = asyncHandler(async (req, res) => {
       password: hashedPassword,
       dateCreated: Date.now(),
       isVerify: false,
-      isValidate: false,
+      isApprove: false,
     })
 
     if (user) {
