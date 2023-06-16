@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
-  isValidate: {
+  isApprove: {
     type: Boolean,
     required: true
   }
