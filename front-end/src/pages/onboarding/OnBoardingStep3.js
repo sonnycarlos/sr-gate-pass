@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Axios } from '../../config'
 
+import { 
+  useSrContext, 
+  ON_BOARDING_TO_PROFILE 
+} from '../../context'
+
+import { uploadFile, formatBytes, verifyUser } from '../../utils'
+
 import {
   BrandLogo,
   ArrowRight,
   Back,
-  Image,
   PDF,
+  Picture,
   Remove,
   Upload
 } from '../../assets/svg'
@@ -16,24 +23,57 @@ import '../../css/onboarding.css'
 import '../../css/style.css'
 
 function OnBoardingStep3() {
-  const [fileSelected, setFileSelected] = useState('')
+  const [files, setFiles] = useState({
+    landCertificate: [],
+    validId: [],
+    picture: []
+  })
   const [headingFontSize, setHeadingFontSize] = useState(40)
   const [paragraphFontSize, setParagraphFontSize] = useState(20)
+  const [initialState, dispatch] = useSrContext()
+
+  const navigate = useNavigate()
 
   // Handle Upload
-  const handleUpload = (e, file) => {
-    const formData = new FormData()
-    formData.append('file', fileSelected)
-    formData.append('upload_preset', 'kfaije1j')
-
+  const handleUpload = async (e) => {
     e.preventDefault()
+    
+    dispatch({ type: ON_BOARDING_TO_PROFILE, payload: { 
+      landCertificate: files.landCertificate, 
+      validId: files.validId, 
+      picture: files.picture[0] 
+    } })
 
-    Axios
-      .post('https://api.cloudinary.com/v1_1/dfc3s2kfc/raw/upload', formData, { withCredentials: false })
-      .then(res => {
-        console.log(res)
-        console.log(res.data.public_id)
-      })
+    console.log(initialState?.user)
+
+    files.landCertificate.map((file) => uploadFile(file))
+    files.validId.map((file) => uploadFile(file))
+    uploadFile(files.picture[0])
+
+    let res = await verifyUser(initialState?.user)
+
+    console.log(res)
+
+    if (res.status === 200) {
+      setTimeout(() => {
+        navigate('/account-creation-pending')
+      }, 2000)
+    }
+  }
+
+  // Handle File
+  const handleFile = (e, prop) => {
+    const selectedFiles = e.target.files
+    const selectedFileArray = Array.from(selectedFiles)
+    setFiles({ ...files, [prop]: selectedFileArray })
+  }
+
+  // Remove File
+  const removeFile = (i, prop) => {
+    const updatedFiles = [...files[prop]]
+    updatedFiles.splice(i, 1)
+
+    setFiles({ ...files, [prop]: updatedFiles })
   }
 
   // Handle Scroll
@@ -93,6 +133,8 @@ function OnBoardingStep3() {
   useEffect(() => {
     document.title = 'On Boarding'
 
+    console.log(initialState)
+
     window.addEventListener('scroll', handleScroll)
 
     return () => {
@@ -109,7 +151,7 @@ function OnBoardingStep3() {
       <img src={BrandLogo} alt='Brand Logo' id='brandLogo' />
 
       {/* Back Button */}
-      <Link to='./login' id='backBtn' className='text btn'>
+      <Link to='/onboarding-step-2' id='backBtn' className='text btn'>
         <Back />
         <span>Back</span>
       </Link>
@@ -142,8 +184,11 @@ function OnBoardingStep3() {
             <div className='input-image-field'>
               <input 
                 type='file' 
+                name='landCertificate'
                 accept='application/pdf' 
-                onChange={(e) => setFileSelected(e.target.files[0])}
+                onChange={(e) => handleFile(e, 'landCertificate')}
+                multiple
+                required
               />
               
               <Upload />
@@ -155,43 +200,43 @@ function OnBoardingStep3() {
             </div>
           </div>
 
-          <div className='files'>
-            <div className='file'>
-              <div className='icon-and-info'>
-                <PDF />
+          <div 
+            className='files'
+            style={{ display: `${files.landCertificate.length !== 0 ? 'grid' : 'none'}` }}
+          >
+            {files.landCertificate.map((file, i) => (
+              <div key={i} className='file'>
+                <div className='icon-and-info'>
+                  <PDF />
 
-                <div className='info'>
-                  <p className='name'>land-certificate-contract-to-sell.pdf</p>
-                  <p className='size'>2 MB</p>
+                  <div className='info'>
+                    <p className='name'>{file?.name}</p>
+                    <p className='size'>{formatBytes(file?.size)}</p>
+                  </div>
                 </div>
+
+                <a onClick={() => removeFile(i, 'landCertificate')}>
+                  <Remove />
+                </a>
               </div>
-
-              <button>
-                <Remove />
-              </button>
-            </div>
-
-            <div className='file'>
-              <div className='icon-and-info'>
-                <PDF />
-
-                <div className='info'>
-                  <p className='name'>land-certificate-contract-to-sell.pdf</p>
-                  <p className='size'>2 MB</p>
-                </div>
-              </div>
-
-              <button>
-                <Remove />
-              </button>
-            </div>
+            ))}
           </div>
 
           <div className='form-group'>
-            <label>Valid ID</label>
+            <label>
+              Valid ID
+              <span className='required-symbol'>*</span>
+              <span className='guide'>(front and back)</span>
+            </label>
 
             <div className='input-image-field'>
-              <input type='file' accept='application/pdf' />
+              <input 
+                type='file' 
+                accept='image/*' 
+                onChange={(e) => handleFile(e, 'validId')}
+                multiple
+                required
+              />
               
               <Upload />
 
@@ -202,21 +247,26 @@ function OnBoardingStep3() {
             </div>
           </div>
 
-          <div className='files'>
-            <div className='file'>
-              <div className='icon-and-info'>
-                <Image />
+          <div 
+            className='files'
+            style={{ display: `${files.validId.length !== 0 ? 'grid' : 'none'}` }}
+          >
+            {files.validId.map((file, i) => (
+              <div key={i} className='file'>
+                <div className='icon-and-info'>
+                  <Picture />
 
-                <div className='info'>
-                  <p className='name'>my-valid-id.png</p>
-                  <p className='size'>2 MB</p>
+                  <div className='info'>
+                    <p className='name'>{file?.name}</p>
+                    <p className='size'>{formatBytes(file?.size)}</p>
+                  </div>
                 </div>
-              </div>
 
-              <button>
-                <Remove />
-              </button>
-            </div>
+                <a onClick={() => removeFile(i, 'validId')}>
+                  <Remove />
+                </a>
+              </div>
+            ))}
           </div>
 
           <div className='form-group'>
@@ -227,7 +277,12 @@ function OnBoardingStep3() {
             </label>
 
             <div className='input-image-field'>
-              <input type='file' accept='application/pdf' />
+              <input
+                type='file' 
+                accept='image/*' 
+                onChange={(e) => handleFile(e, 'picture')}
+                required
+              />
               
               <Upload />
 
@@ -238,21 +293,26 @@ function OnBoardingStep3() {
             </div>
           </div>
 
-          <div className='files'>
-            <div className='file'>
-              <div className='icon-and-info'>
-                <Image />
+          <div 
+            className='files'
+            style={{ display: `${files.picture.length !== 0 ? 'grid' : 'none'}` }}
+          >
+            {files.picture.map((file, i) => (
+              <div key={i} className='file'>
+                <div className='icon-and-info'>
+                  <Picture />
 
-                <div className='info'>
-                  <p className='name'>my-2x2-picture.pdf</p>
-                  <p className='size'>2 MB</p>
+                  <div className='info'>
+                    <p className='name'>{file?.name}</p>
+                    <p className='size'>{formatBytes(file?.size)}</p>
+                  </div>
                 </div>
-              </div>
 
-              <button>
-                <Remove />
-              </button>
-            </div>
+                <a onClick={() => removeFile(i, 'picture')}>
+                  <Remove />
+                </a>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -262,7 +322,7 @@ function OnBoardingStep3() {
             <ArrowRight color='#FFF' />
           </div>
 
-          <Link to='./login' className='outline btn'>Try it later and log out</Link>
+          <Link to='/login' className='outline btn'>Try it later and log out</Link>
         </div>
       </form>
 

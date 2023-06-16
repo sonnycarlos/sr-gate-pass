@@ -25,6 +25,10 @@ const signIn = asyncHandler(async (req, res) => {
     let token = generateToken(user._id)
 
     res.cookie('token', token)
+
+    // ################################## //
+    // const resident = await Resident.findOne({ emailAddress })
+    // res.status(200).json({resident})
     
     res.status(200).json({
       _id: user._id,
@@ -249,6 +253,10 @@ const verifyUser = asyncHandler(async (req, res) => {
     picture
   } = req.body
 
+  // ################################## //
+  console.log(req.body)
+  console.log(req.body.landCertificate)
+
   // Check if resident profile and username already exists
   const user = await User.findOne({ emailAddress })
   const residentExists = await Resident.findOne({ username })
@@ -269,7 +277,6 @@ const verifyUser = asyncHandler(async (req, res) => {
       return
     }
 
-    await User.updateOne({ emailAddress }, { $set: { isVerify: true } })
     const resident = await Resident.create({
       userId: user._id,
       firstName,
@@ -286,9 +293,10 @@ const verifyUser = asyncHandler(async (req, res) => {
       validId,
       picture
     })
+    await User.updateOne({ emailAddress }, { $set: { isVerify: true } })
 
     if (resident) {
-      res.status(201).json(resident)
+      res.status(201).json(req.body)
     } else {
       res.status(400).json({ errorMessage: 'Error.' })
       throw new Error('Error.')

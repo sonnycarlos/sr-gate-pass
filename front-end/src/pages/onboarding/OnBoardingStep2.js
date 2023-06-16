@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { useSrContext, ON_BOARDING_TO_PROFILE } from '../../context'
+
 import {
   BrandLogo,
   ArrowRight,
@@ -12,8 +14,20 @@ import '../../css/onboarding.css'
 import '../../css/style.css'
 
 function OnBoardingStep2() {
+  const [inputs, setInputs] = useState({ type: 'homeowner', address: '' })
+  const [error, setError] = useState({ isError: false, errorMessage: '' })
   const [headingFontSize, setHeadingFontSize] = useState(40)
   const [paragraphFontSize, setParagraphFontSize] = useState(20)
+  const [initialState, dispatch] = useSrContext()
+
+  const navigate = useNavigate()
+
+  // Hande Submit
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    dispatch({ type: ON_BOARDING_TO_PROFILE, payload: inputs })
+    navigate('/onboarding-step-3')
+  }
 
   // Handle Scroll
   const handleScroll = () => {
@@ -30,7 +44,6 @@ function OnBoardingStep2() {
       
       ghostHeader.style.visibility = 'visible'
       brandLogo.style.marginBottom = '41.15px'
-
       backBtn.style.position = 'fixed'
       backBtn.style.top = '24px'
 
@@ -54,10 +67,10 @@ function OnBoardingStep2() {
 
       ghostHeader.style.visibility = 'hidden'
       brandLogo.style.marginBottom = '80px'
-      
+
       backBtn.style.position = 'relative'
       backBtn.style.top = '0'
-
+      
       progressBar.style.position = 'relative'
       progressBar.style.top = '0'
       progressBar.style.left = '0'
@@ -80,7 +93,7 @@ function OnBoardingStep2() {
   }, [])
 
   return (
-    <section style={{ marginBottom: '24px' }} id='onboarding'>
+    <section style={{ marginBottom: '80px' }} id='onboarding'>
       {/* Ghost Back And Progress Bar */}
       <div id='ghostHeader'></div>
 
@@ -88,7 +101,7 @@ function OnBoardingStep2() {
       <img src={BrandLogo} alt='Brand Logo' id='brandLogo' />
 
       {/* Back Button */}
-      <Link to='./login' id='backBtn' className='text btn'>
+      <Link to='/onboarding-step-1' id='backBtn' className='text btn'>
         <Back />
         <span>Back</span>
       </Link>
@@ -107,7 +120,7 @@ function OnBoardingStep2() {
       </div>
 
       {/* Form */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Property Information</h2>
 
         <div className='inputFields'>
@@ -118,7 +131,10 @@ function OnBoardingStep2() {
             </label>
 
             <div className='select input-field'>
-              <select name='residentType'>
+              <select 
+                name='residentType'
+                onChange={e => setInputs({ ...inputs, type: e.target.value })}
+              >
                 <option value='homeowner'>Homeowner</option>
                 <option value='tenant'>Tenant</option>
               </select>
@@ -138,6 +154,8 @@ function OnBoardingStep2() {
             <input 
               type='text'
               placeholder='Your home address here'
+              onChange={e => setInputs({ ...inputs, address: e.target.value })}
+              required
             />
           </div>
         </div>
@@ -148,7 +166,7 @@ function OnBoardingStep2() {
             <ArrowRight color='#FFF' />
           </div>
 
-          <Link to='./login' className='outline btn'>Try it later and log out</Link>
+          <Link to='/login' className='outline btn'>Try it later and log out</Link>
         </div>
       </form>
 

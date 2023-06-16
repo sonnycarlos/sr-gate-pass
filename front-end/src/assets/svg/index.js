@@ -17,10 +17,10 @@ import Copy from './icons/Copy'
 import Edit from './icons/Edit'
 import EyeOff from './icons/EyeOff'
 import EyeOn from './icons/EyeOn'
-import Image from './icons/Image'
 import Megaphone from './icons/Megaphone'
 import Menu from './icons/Menu'
 import PDF from './icons/PDF'
+import Picture from './icons/Picture'
 import Pin from './icons/Pin'
 import Plus from './icons/Plus'
 import Remove from './icons/Remove'
@@ -47,10 +47,10 @@ export {
   Edit,
   EyeOff,
   EyeOn,
-  Image,
   Megaphone,
   Menu,
   PDF,
+  Picture,
   Pin,
   Plus,
   Remove,

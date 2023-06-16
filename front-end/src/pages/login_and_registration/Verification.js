@@ -54,7 +54,7 @@ function Verification() {
       }
 
       if (initialState?.action === 'Log in') {
-        if (initialState?.user?.isRegistrationComplete) {
+        if (initialState?.user?.isVerify) {
           if (initialState?.user?.isValidate) {
             return navigate('/home')
           } else {

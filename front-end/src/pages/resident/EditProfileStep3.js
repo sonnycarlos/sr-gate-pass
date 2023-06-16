@@ -7,8 +7,8 @@ import {
   ArrowRight,
   Back,
   ChevronDown,
-  Image,
   PDF,
+  Picture,
   Remove,
   Upload
 } from '../../assets/svg'
@@ -147,7 +147,7 @@ function EditProfileStep3() {
         <div className='files'>
           <div className='file'>
             <div className='icon-and-info'>
-              <Image />
+              <Picture />
 
               <div className='info'>
                 <p className='name'>my-valid-id.pdf</p>

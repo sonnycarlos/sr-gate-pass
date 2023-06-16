@@ -72,12 +72,22 @@
 #onboarding > form > .inputFields {
   display: grid;
   gap: 32px;
-  margin: 48px 0 64px;
+  margin: 48px 0 0;
+}
+
+#onboarding > form > .inputFields > .files {
+  display: none;
+}
+
+#onboarding > form > #error-message {
+  display: none;
+  margin-top: 24px;
 }
 
 #onboarding > form > .actions {
   display: grid;
   gap: 12px;
+  margin-top: 80px;
 }
 
 #onboarding > form > .actions > * {
@@ -107,7 +117,6 @@
 
   #onboarding > form > .inputFields {
     gap: 40px;
-    margin-bottom: 80px;
   }
 
   #onboarding > .privacyPolicy {

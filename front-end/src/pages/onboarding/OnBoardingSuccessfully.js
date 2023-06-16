@@ -22,7 +22,7 @@ function OnBoardingSuccessfully() {
         <p>Your request to register your account has been approved by the admin. Welcome!</p>
       </div>
 
-      <Link to='./homepage' className='solid btn'>Continue to homepage</Link>
+      <Link to='/login' className='solid btn'>Continue to homepage</Link>
     </section>
   )
 }

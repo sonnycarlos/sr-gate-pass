@@ -53,16 +53,13 @@ const residentSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  landCertificate: {
-    type: [String],
-    required: true
-  },
+  landCertificate: [mongoose.Schema.Types.Mixed],
   validId: {
-    type: [String],
+    type: [Object],
     required: true
   },
   picture: {
-    type: String,
+    type: Object,
     required: true
   },
   numOfGuests: Number

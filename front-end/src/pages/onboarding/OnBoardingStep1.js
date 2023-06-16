@@ -1,18 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { useSrContext, ON_BOARDING_TO_PROFILE, initialState } from '../../context'
+
+import { checkResidentUsername } from '../../utils'
+
 import {
   BrandLogo,
   ArrowRight,
-  Calendar
+  Calendar,
+  ChevronDown
 } from '../../assets/svg'
 
 import '../../css/onboarding.css'
 import '../../css/style.css'
 
 function OnBoardingStep1() {
+  const [inputs, setInputs] = useState({
+    firstName: '',
+    lastName: '',
+    gender: 'male',
+    birthdate: '',
+    phoneNumber: '',
+    username: ''
+  })
+  const [error, setError] = useState({ isError: false, errorMessage: '' })
   const [headingFontSize, setHeadingFontSize] = useState(40)
   const [paragraphFontSize, setParagraphFontSize] = useState(20)
+  const [, dispatch] = useSrContext()
+
+  const navigate = useNavigate()
+
+  // Hande Submit
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    let res = await checkResidentUsername({ username: inputs.username })
+
+    if (res.status === 200) {
+      dispatch({ type: ON_BOARDING_TO_PROFILE, payload: inputs })
+      navigate('/onboarding-step-2')
+    }
+
+    if (res.status === 400) {
+      setError({ isError: true, errorMessage: res.errorMessage })
+    }
+  }
 
   // Handle Scroll
   const handleScroll = () => {
@@ -93,7 +126,7 @@ function OnBoardingStep1() {
       </div>
 
       {/* Form */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Personal Information</h2>
 
         <div className='inputFields'>
@@ -105,7 +138,11 @@ function OnBoardingStep1() {
 
             <input 
               type='text'
+              name='forename'
               placeholder='Your first name here'
+              value={inputs.firstName}
+              onChange={e => setInputs({ ...inputs, firstName: e.target.value })}
+              required
             />
           </div>
 
@@ -117,8 +154,34 @@ function OnBoardingStep1() {
 
             <input 
               type='text'
+              name='surname'
               placeholder='Your last name here'
+              value={inputs.lastName}
+              onChange={e => setInputs({ ...inputs, lastName: e.target.value })}
+              required
             />
+          </div>
+          
+          <div className='form-group'>
+            <label>
+              Gender
+              <span className='required-symbol'>*</span>
+            </label>
+
+            <div className='select input-field'>
+              <select 
+                name='gender'
+                onChange={e => setInputs({ ...inputs, gender: e.target.value })}
+              >
+                <option value='Male'>Male</option>
+                <option value='Female'>Female</option>
+                <option value='Other'>Other</option>
+              </select>
+
+              <span className='suffix'>
+                <ChevronDown color='#99A8BA' />
+              </span>
+            </div>
           </div>
 
           <div className='form-group'>
@@ -130,6 +193,10 @@ function OnBoardingStep1() {
             <div className='date input-field'>
               <input 
                 type='date'
+                name='birthdate'
+                value={inputs.birthdate}
+                onChange={e => setInputs({ ...inputs, birthdate: e.target.value })}
+                required
               />
 
               <span className='suffix'>
@@ -146,9 +213,37 @@ function OnBoardingStep1() {
 
             <input 
               type='text'
+              name='phoneNumber'
               placeholder='Your phone number here'
+              value={inputs.phoneNumber}
+              onChange={e => setInputs({ ...inputs, phoneNumber: e.target.value })}
+              required
             />
           </div>
+
+          <div className='form-group'>
+            <label>
+              Username
+              <span className='required-symbol'>*</span>
+            </label>
+
+            <input 
+              type='text'
+              name='username'
+              placeholder='Your username here'
+              value={inputs.username}
+              onChange={e => setInputs({ ...inputs, username: e.target.value })}
+              style={{ borderBottom: `${error.isError && '1px solid #C01F28'}` }}
+              required
+            />
+          </div>
+        </div>
+
+        <div 
+          id='error-message'
+          style={{ display: `${error.isError ? 'block' : 'none'}` }}
+        >
+          <p>{error.errorMessage}</p>
         </div>
 
         <div className='actions'>
@@ -157,7 +252,7 @@ function OnBoardingStep1() {
             <ArrowRight color='#FFF' />
           </div>
 
-          <Link to='./login' className='outline btn'>Try it later and log out</Link>
+          <Link to='/login' className='outline btn'>Try it later and log out</Link>
         </div>
       </form>
 
