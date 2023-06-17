@@ -22,12 +22,12 @@ import {
   MyGatePass,
   MyGuests,
   MyProfile,
-  NoPage,
   Notifications,
   OnBoardingStep1,
   OnBoardingStep2,
   OnBoardingStep3,
   OnBoardingSuccessfully,
+  PageNotFound,
   Registration,
   RegistrationSuccessfully,
   ResetPasswordStep1,
@@ -169,7 +169,7 @@ const routes = [
   },
   {
     path: '/*',
-    component: <NoPage />
+    component: <PageNotFound />
   }
 ]
 

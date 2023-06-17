@@ -21,12 +21,12 @@ import Login from './login_and_registration/Login'
 import MyGatePass from './resident/MyGatePass'
 import MyGuests from './resident/MyGuests'
 import MyProfile from './resident/MyProfile'
-import NoPage from './NoPage'
 import Notifications from './Notifications'
 import OnBoardingStep1 from './onboarding/OnBoardingStep1'
 import OnBoardingStep2 from './onboarding/OnBoardingStep2'
 import OnBoardingStep3 from './onboarding/OnBoardingStep3'
 import OnBoardingSuccessfully from './onboarding/OnBoardingSuccessfully'
+import PageNotFound from './PageNotFound'
 import Registration from './login_and_registration/Registration'
 import RegistrationSuccessfully from './login_and_registration/RegistrationSuccessfully'
 import ResetPasswordStep1 from './login_and_registration/ResetPasswordStep1'
@@ -38,6 +38,7 @@ import Verification from './login_and_registration/Verification'
 
 export {
   AccountRegistrationPending,
+  AccountRegistrationSuccessfully,
   Announcements,
   AnnouncementOverview,
   BookGuest,
@@ -54,13 +55,12 @@ export {
   MyGatePass,
   MyGuests,
   MyProfile,
-  NoPage,
   Notifications,
   OnBoardingStep1,
   OnBoardingStep2,
   OnBoardingStep3,
   OnBoardingSuccessfully,
-  AccountRegistrationSuccessfully,
+  PageNotFound,
   Registration,
   RegistrationSuccessfully,
   ResetPasswordStep1,

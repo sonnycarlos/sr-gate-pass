@@ -1,6 +1,7 @@
 import BadgeAmazed from './badge_amaze.svg'
 import BadgeCheck from './badge_check.svg'
 import BadgeHappy from './badge_happy.svg'
+import BadgeSad from './badge_sad.svg'
 import BrandLogo from './brand-logo.svg'
 import Guest from './guest.svg'
 import MegaphoneEmoji from './megaphone_emoji.svg'
@@ -32,6 +33,7 @@ import Users from './icons/Users'
 export {
   BadgeAmazed,
   BadgeCheck,
+  BadgeSad,
   BadgeHappy,
   BrandLogo,
   MegaphoneEmoji,
