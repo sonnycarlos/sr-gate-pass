@@ -8,6 +8,7 @@ import checkUser from './checkUser'
 import formatBytes from './formatBytes'
 import onBoarding from './onBoarding'
 import renderer from './renderer'
+import removeNavBar from './removeNavBar'
 import resetPassword from './resetPassword'
 import requestOtp from './requestOtp'
 import uploadFile from './uploadFile'
@@ -21,6 +22,7 @@ export {
   formatBytes,
   onBoarding,
   renderer,
+  removeNavBar,
   resetPassword,
   requestOtp,
   uploadFile,

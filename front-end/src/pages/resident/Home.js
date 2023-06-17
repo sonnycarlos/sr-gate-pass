@@ -6,7 +6,7 @@ import {
   INSERT_ROUTE 
 } from '../../context'
 
-import { Menu, NavigationBar } from '../../components'
+import { Menu } from '../../components'
 
 import { validateUser } from '../../utils'
 
@@ -38,8 +38,10 @@ function Home() {
   useEffect(() => {
     document.title = 'Home'
 
-    let routeHistory = initialState?.routeHistory
+    let routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'home'] })
+
+    window.localStorage.removeItem('verification')
 
     async function validate() {
       let token = window.localStorage.getItem('user')
@@ -56,10 +58,7 @@ function Home() {
   return (
     <section id='home'>
       {/* Menu */}
-      {/* <Menu /> */}
-      
-      {/* Navigation Bar */}
-      <NavigationBar />
+      {initialState.isMenuOpen && <Menu />}
 
       <div className='container'>
         {/* Heading */}

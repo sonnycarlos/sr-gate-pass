@@ -1,17 +1,28 @@
 import React, { useState } from 'react'
+
 import {
   BrandLogo,
   Bell,
   Menu
 } from '../assets/svg/index'
 
+import { useSrContext, TOGGLE_NAV } from '../context'
+
 function NavigationBar() {
   const [notificationCount, setNotificationCount] = useState(4)
+  const [, dispatch] = useSrContext()
+
+  // Handle click
+  const handleClick = () => {
+    dispatch({ type: TOGGLE_NAV })
+  }
 
   return (
     <section id='navigation-bar'>
       {/* Menu Icon */}
-      <Menu />
+      <a onClick={handleClick}>
+        <Menu />
+      </a>
 
       {/* Brand Logo */}
       <img src={BrandLogo} alt='Brand Logo' id='brand-logo' />

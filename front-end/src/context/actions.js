@@ -12,7 +12,6 @@ export async function logInUser(dispatch, payload) {
     let res = await Axios.post('/user/login', { emailAddress, password })
 
     if (res) {
-      console.log(res)
       dispatch({ type: LOG_IN_USER, payload: res.data })
       return res
     }

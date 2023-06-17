@@ -1,12 +1,24 @@
 import React from 'react'
+
 import { Link } from 'react-router-dom'
 import { Close } from '../assets/svg/index'
 
+import { useSrContext, TOGGLE_NAV } from '../context'
+
 function Menu() {
+  const [, dispatch] = useSrContext()
+
+  // Handle click
+  const handleClick = () => {
+    dispatch({ type: TOGGLE_NAV })
+  }
+
   return (
     <section id='menu'>
       {/* Close Button */}
-      <Close />
+      <a onClick={handleClick}>
+        <Close />
+      </a>
 
       {/* Links */}
       <div className='links'>

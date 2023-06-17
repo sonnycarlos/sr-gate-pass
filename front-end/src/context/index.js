@@ -20,6 +20,7 @@ import {
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
   INSERT_ROUTE,
+  TOGGLE_NAV,
   initialState,
   reducer
 } from './reducer'
@@ -36,6 +37,7 @@ export {
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
   INSERT_ROUTE,
+  TOGGLE_NAV,
   initialState,
   reducer,
   logInUser,

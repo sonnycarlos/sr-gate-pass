@@ -10,6 +10,7 @@ export const SET_ACTION = 'SET_ACTION'
 export const SET_COUNTDOWN_START = 'SET_COUNTDOWN_START'
 export const KEEP_ME_LOGGED_IN = 'KEEP_ME_LOGGED_IN'
 export const INSERT_ROUTE = 'INSERT_ROUTE'
+export const TOGGLE_NAV = 'TOGGLE_NAV'
 
 // Initial state
 export const initialState = {
@@ -18,7 +19,8 @@ export const initialState = {
   otpCountdown: '',
   countdownStart: false,
   keepMeLoggedIn: false,
-  routeHistory: []
+  routeHistory: [],
+  isMenuOpen: false
 }
 
 // Reducer
@@ -69,6 +71,11 @@ export const reducer = (initialState, action) => {
       return {
         ...initialState,
         routeHistory: action.payload
+      }
+    case TOGGLE_NAV:
+      return {
+        ...initialState,
+        isMenuOpen: !initialState.isMenuOpen
       }
     default:
       throw new Error(`Unhandled action type: ${action.type}`)

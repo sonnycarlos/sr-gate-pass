@@ -144,12 +144,12 @@ const routes = [
     component: <MyGuests />
   },
   {
-    path: '/guest-history',
-    component: <GuestHistory />
-  },
-  {
     path: '/guest-overview',
     component: <GuestOverview />
+  },
+  {
+    path: '/guest-history',
+    component: <GuestHistory />
   },
   {
     path: '/search-guest',
