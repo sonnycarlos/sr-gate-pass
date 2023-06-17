@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom'
 import { Menu, NavigationBar } from '../../components'
 
 import {
-  ArrowRight,
   Back,
-  ChevronDown,
   PDF,
   Picture,
   Remove,
@@ -16,7 +14,7 @@ import {
 import '../../css/edit_profile.css'
 
 function EditProfileStep3() {
-  // Handle Scroll
+  // Handle scroll
   const handleScroll = () => {
     const header = document.getElementById('header')
 
@@ -29,7 +27,7 @@ function EditProfileStep3() {
     }
   }
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Edit Profile'
 

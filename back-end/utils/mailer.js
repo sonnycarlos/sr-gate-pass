@@ -1,3 +1,7 @@
+/**
+ ** This function sends the mail to the email address of the user
+**/
+
 import dotenv from 'dotenv'
 import nodemailer from 'nodemailer'
 

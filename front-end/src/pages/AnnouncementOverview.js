@@ -11,7 +11,7 @@ import {
 import '../css/announcement_overview.css'
 
 function AnnouncementOverview() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Announcement Overview'
 

@@ -11,6 +11,7 @@ export default async function verifyOtp(payload) {
     let res = await Axios.post('/user/verification', { emailAddressInput: emailAddress, otpCodeInput: otpCode })
 
     if (res) {
+      console.log(res)
       return res
     }
   } catch (error) {

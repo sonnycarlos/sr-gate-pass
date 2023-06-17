@@ -3,7 +3,12 @@ import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 
-import { emailTemplate, generateOtp, mailer, validatePassword } from '../utils/index.js'
+import { 
+  emailTemplate, 
+  generateOtp, 
+  mailer, 
+  validatePassword 
+} from '../utils/index.js'
 import { Resident, User } from '../models/index.js'
 
 dotenv.config()
@@ -26,16 +31,10 @@ const signIn = asyncHandler(async (req, res) => {
 
     res.cookie('token', token)
 
-    // ################################## //
-    // const resident = await Resident.findOne({ emailAddress })
-    // res.status(200).json({resident})
-    
     res.status(200).json({
-      _id: user._id,
-      username: user.username,
       emailAddress: user.emailAddress,
       isVerify: user.isVerify,
-      isValidate: user.isValidate,
+      isApprove: user.isApprove,
       isRegistrationComplete: user.isRegistrationComplete,
       token
     })
@@ -51,6 +50,7 @@ const signIn = asyncHandler(async (req, res) => {
 const signUp = asyncHandler(async (req, res) => {
   const { type, emailAddress, password } = req.body
 
+  // Check if one of the fields is empty
   if (!type || !emailAddress || !password) {
     res.status(400)
     throw new Error('Input all the fields.')
@@ -135,7 +135,6 @@ const forgotPassword = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    // Update user
     const user = await User.updateOne({ emailAddress }, { $push: {['password']: hashedPassword} })
 
     if (user) {
@@ -250,6 +249,7 @@ const verifyUser = asyncHandler(async (req, res) => {
     type
   } = req.body
 
+  // Copy landCertificate values into an array
   const landCertificateArr = Object.keys(req.body)
   .reduce((arr, key) => {
     const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/);
@@ -268,6 +268,7 @@ const verifyUser = asyncHandler(async (req, res) => {
     return arr;
   }, []);
 
+  // Copy validId values into an array
   const validIdArr = Object.keys(req.body)
   .reduce((arr, key) => {
     const match = key.match(/validId\[(\d+)\]\[(\w+)\]/);
@@ -286,6 +287,7 @@ const verifyUser = asyncHandler(async (req, res) => {
     return arr;
   }, []);
 
+  // Copy pictureArr values into an array
   const pictureArr = Object.keys(req.body)
   .reduce((arr, key) => {
     const match = key.match(/picture\[(\d+)\]\[(\w+)\]/);

@@ -27,7 +27,7 @@ function MyGuests() {
     }
   ])
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'My Guests'
   }, [])

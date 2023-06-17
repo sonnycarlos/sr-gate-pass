@@ -30,7 +30,7 @@ function Login() {
 
   const navigate = useNavigate()
 
-  // On Submit
+  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -55,7 +55,7 @@ function Login() {
     }
   }
   
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Login'
     

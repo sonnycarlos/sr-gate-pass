@@ -6,7 +6,7 @@ import { Back, Calendar } from '../../assets/svg'
 import '../../css/book_guest.css'
 
 function BookGuest() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Book Guest'
   }, [])

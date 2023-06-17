@@ -31,7 +31,7 @@ function OnBoardingStep1() {
 
   const navigate = useNavigate()
 
-  // Hande Submit
+  // Hande submit
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -47,7 +47,7 @@ function OnBoardingStep1() {
     }
   }
 
-  // Handle Scroll
+  // Handle scroll
   const handleScroll = () => {
     const ghostHeader = document.getElementById('ghostHeader')
     const brandLogo = document.getElementById('brandLogo')
@@ -93,7 +93,7 @@ function OnBoardingStep1() {
     }
   }
   
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'On Boarding'
 

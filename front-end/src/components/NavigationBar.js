@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import {
   BrandLogo,
   Bell,
@@ -11,9 +10,13 @@ function NavigationBar() {
 
   return (
     <section id='navigation-bar'>
+      {/* Menu Icon */}
       <Menu />
+
+      {/* Brand Logo */}
       <img src={BrandLogo} alt='Brand Logo' id='brand-logo' />
       
+      {/* Bell Icon */}
       <div id='notification-container'>
         <Bell />
 

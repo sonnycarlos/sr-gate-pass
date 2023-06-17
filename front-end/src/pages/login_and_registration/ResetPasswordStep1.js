@@ -24,13 +24,11 @@ function ResetPasswordStep1() {
 
   const navigate = useNavigate()
 
-  // On Submit
+  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     let res = await checkUser({ emailAddress })
-
-    console.log(res)
 
     if (res.status === 200) {
       console.log(res)
@@ -47,7 +45,7 @@ function ResetPasswordStep1() {
     }
   }
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Reset Password'
 

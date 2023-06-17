@@ -21,14 +21,14 @@ function OnBoardingStep2() {
 
   const navigate = useNavigate()
 
-  // Hande Submit
+  // Hande submit
   const handleSubmit = async (e) => {
     e.preventDefault()
     dispatch({ type: ON_BOARDING_TO_PROFILE, payload: inputs })
     navigate('/onboarding-step-3')
   }
 
-  // Handle Scroll
+  // Handle scroll
   const handleScroll = () => {
     const ghostHeader = document.getElementById('ghostHeader')
     const brandLogo = document.getElementById('brandLogo')
@@ -80,7 +80,7 @@ function OnBoardingStep2() {
     }
   }
   
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'On Boarding'
 

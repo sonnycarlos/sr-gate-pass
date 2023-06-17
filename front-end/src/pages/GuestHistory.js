@@ -60,7 +60,7 @@ function GuestHistory() {
     }
   ])
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Guest History'
   }, [])

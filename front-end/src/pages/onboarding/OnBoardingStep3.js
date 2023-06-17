@@ -35,7 +35,7 @@ function OnBoardingStep3() {
 
   const navigate = useNavigate()
 
-  // Handle Upload
+  // Handle upload
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -59,7 +59,7 @@ function OnBoardingStep3() {
     }
   }
 
-  // Handle File
+  // Handle file
   const handleFile = (e, prop) => {
     const selectedFiles = e.target.files
     const selectedFileArray = Array.from(selectedFiles)
@@ -73,7 +73,7 @@ function OnBoardingStep3() {
     setFilesToUpload({ ...filesToUpload, [prop]: selectedFileArray })
   }
 
-  // Remove File
+  // Remove rile
   const removeFile = (i, prop) => {
     const updatedFiles = [...files[prop]]
     updatedFiles.splice(i, 1)
@@ -81,7 +81,7 @@ function OnBoardingStep3() {
     setFiles({ ...files, [prop]: updatedFiles })
   }
 
-  // Handle Scroll
+  // Handle scroll
   const handleScroll = () => {
     const ghostHeader = document.getElementById('ghostHeader')
     const brandLogo = document.getElementById('brandLogo')
@@ -134,7 +134,7 @@ function OnBoardingStep3() {
     }
   }
   
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'On Boarding'
 

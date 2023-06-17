@@ -24,7 +24,7 @@ function GuestsHistory() {
     { date: 'September 10', count: 19 }
   ])
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Guests History'
   }, [])

@@ -14,7 +14,7 @@ import {
 import '../../css/edit_profile.css'
 
 function EditProfileStep1() {
-  // Handle Scroll
+  // Handle scroll
   const handleScroll = () => {
     const header = document.getElementById('header')
 
@@ -27,7 +27,7 @@ function EditProfileStep1() {
     }
   }
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Edit Profile'
 

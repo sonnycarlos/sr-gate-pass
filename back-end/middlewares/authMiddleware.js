@@ -12,11 +12,6 @@ const protect = asyncHandler(async (req, res, next) => {
 
   if (token) {
     try {
-
-      if (typeof token === undefined) {
-        console.log('Undefined')
-      }
-
       // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
 

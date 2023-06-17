@@ -8,7 +8,7 @@ import { Pin } from '../assets/svg'
 import '../css/announcements.css'
 
 function Announcements() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Announcements'
 

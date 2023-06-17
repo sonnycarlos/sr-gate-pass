@@ -61,9 +61,10 @@ const residentSchema = new mongoose.Schema({
     name: String,
     size: Number
   }],
-  picture: {
-    type: Object,
-  },
+  picture: [{
+    name: String,
+    size: Number
+  }],
   numOfGuests: Number
 })
 

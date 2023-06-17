@@ -6,7 +6,7 @@ import { Back, Search } from '../assets/svg'
 import '../css/search_guest.css'
 
 function SearchGuest() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Search Guest'
   }, [])

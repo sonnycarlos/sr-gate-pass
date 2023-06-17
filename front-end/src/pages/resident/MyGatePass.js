@@ -7,7 +7,7 @@ import QRCode from '../../assets/images/qr-code.png'
 import '../../css/my_gate_pass.css'
 
 function MyGatePass() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'My Gate Pass'
   }, [])

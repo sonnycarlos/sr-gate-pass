@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000
 // Database Connection
 dbConnect()
 
-// Middleware
+// Middlewares
 app.use(cors({
   origin: true,
   credentials: true

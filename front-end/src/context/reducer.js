@@ -1,7 +1,7 @@
-// Global Variables
+// Global variables
 export const COUNTDOWN = 60000
 
-// Action Types
+// Action yypes
 export const LOG_IN_USER = 'LOG_IN_USER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
@@ -11,7 +11,7 @@ export const SET_COUNTDOWN_START = 'SET_COUNTDOWN_START'
 export const KEEP_ME_LOGGED_IN = 'KEEP_ME_LOGGED_IN'
 export const INSERT_ROUTE = 'INSERT_ROUTE'
 
-// Initial State
+// Initial state
 export const initialState = {
   user: {},
   action: '',

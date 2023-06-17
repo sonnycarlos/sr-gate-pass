@@ -1,3 +1,7 @@
+/**
+ ** This function creates email template that will be sent to the email address of users
+**/
+
 const emailTemplate = (action, otpCode) => {
   return `<html>
             <head>

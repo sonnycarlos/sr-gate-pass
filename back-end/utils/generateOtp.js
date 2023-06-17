@@ -1,3 +1,7 @@
+/**
+ ** This function generates 6 random numbers to be used as the OTP code
+**/
+
 const generateOtp = () => {
   var otp = []
 

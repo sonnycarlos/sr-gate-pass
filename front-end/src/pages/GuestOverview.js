@@ -6,7 +6,7 @@ import { Back, Copy } from '../assets/svg'
 import '../css/guest_overview.css'
 
 function GuestOverview() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Guest Overview'
   }, [])

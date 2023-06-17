@@ -9,7 +9,7 @@ import '../../css/status.css'
 import '../../css/style.css'
 
 function AccountCreationPending() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Pending Account'
   }, [])

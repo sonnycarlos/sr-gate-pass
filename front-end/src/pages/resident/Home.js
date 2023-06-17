@@ -29,12 +29,12 @@ function Home() {
 
   const navigate = useNavigate()
 
-  // Handle Date Change
+  // Handle date change
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value)
   }
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Home'
 

@@ -28,7 +28,7 @@ function Registration() {
 
   const navigate = useNavigate()
 
-  // On Submit
+  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -51,7 +51,7 @@ function Registration() {
     }
   }
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Registration'
 

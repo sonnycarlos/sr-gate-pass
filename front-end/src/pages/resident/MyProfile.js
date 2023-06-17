@@ -8,7 +8,7 @@ import { Edit } from '../../assets/svg'
 import '../../css/my_profile.css'
 
 function MyProfile() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'My Profile'
   }, [])

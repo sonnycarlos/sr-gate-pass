@@ -8,20 +8,23 @@ import {
 import '../../css/status.css'
 
 function OnBoardingSuccessfully() {
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'On Boarding Successfully'
   }, [])
   
   return (
     <section id='status'>
+      {/* Bage */}
       <img src={BadgeCheck} alt='Badge' />
 
+      {/* Heading & Paragraph */}
       <div>
         <h1>You’re ready to go!</h1>
         <p>Your request to register your account has been approved by the admin. Welcome!</p>
       </div>
 
+      {/* Action */}
       <Link to='/login' className='solid btn'>Continue to homepage</Link>
     </section>
   )

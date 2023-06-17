@@ -31,21 +31,23 @@ function Verification() {
 
   const navigate = useNavigate()
 
-  // Resend OTP Code
+  // Resend OTP code
   const resendOtpCode = async (e) => {
     e.preventDefault()
     dispatch({ type: SET_COUNTDOWN_START, payload: true })
     await requestOtp({ action: 'verification', receiver: initialState.user.emailAddress })
   }
 
-  // On Change
-  const onChange = (otp) => setOtp(otp)
+  // Handle change
+  const handleChange = (otp) => setOtp(otp)
 
-  // On Submit
+  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     let res = await verifyOtp({ emailAddress: initialState?.user?.emailAddress, otpCode: otp })
+    
+    console.log(initialState?.user)
 
     if (res?.status === 200) {
       if (initialState?.keepMeLoggedIn) {
@@ -55,7 +57,7 @@ function Verification() {
 
       if (initialState?.action === 'Log in') {
         if (initialState?.user?.isVerify) {
-          if (initialState?.user?.isValidate) {
+          if (initialState?.user?.isApprove) {
             return navigate('/home')
           } else {
             return navigate('/account-creation-pending')
@@ -75,7 +77,7 @@ function Verification() {
     }
   }
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Verification'
 
@@ -123,7 +125,7 @@ function Verification() {
           <div>
             <OtpInput
               value={otp}
-              onChange={onChange}
+              onChange={handleChange}
               inputStyle={`${error.isError ? 'inputStyleError' : 'inputStyle'}`}
               numInputs={6}
               separator={<span></span>}

@@ -34,7 +34,7 @@ import {
   ResetPasswordSuccessfully,
   SearchGuest,
   Verification
-} from '../pages/index'
+} from '../pages'
 
 const routes = [
   {

@@ -31,17 +31,17 @@ function ResetPasswordStep2() {
 
   const navigate = useNavigate()
 
-  // Resend OTP Code
+  // Resend OTP code
   const resendOtpCode = async (e) => {
     e.preventDefault()
     dispatch({ type: SET_COUNTDOWN_START, payload: true })
     await requestOtp({ action: 'verification', receiver: initialState.user.emailAddress })
   }
 
-  // On Change
-  const onChange = (otp) => setOtp(otp)
+  // Handle change
+  const handleChange = (otp) => setOtp(otp)
 
-  // On Submit
+  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -56,11 +56,10 @@ function ResetPasswordStep2() {
     }
   }
 
-  // Use Effect
+  // Use effect
   useEffect(() => {
     document.title = 'Reset Password'
 
-    console.log(initialState)
     if (!window.localStorage.getItem('verification')) {
       navigate('/login')
     }
@@ -98,7 +97,7 @@ function ResetPasswordStep2() {
           <div>
             <OtpInput
               value={otp}
-              onChange={onChange}
+              onChange={handleChange}
               inputStyle={`${error.isError ? 'inputStyleError' : 'inputStyle'}`}
               numInputs={6}
               separator={<span></span>}

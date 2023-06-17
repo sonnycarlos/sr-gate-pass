@@ -1,6 +1,6 @@
 /**
  ** This file is where we export all the utilities
- ** We will usually do this to have cleaner import statements
+ ** We will usually do this to have cleaner import statements.
 **/
 
 import emailTemplate from './emailTemplate.js'
