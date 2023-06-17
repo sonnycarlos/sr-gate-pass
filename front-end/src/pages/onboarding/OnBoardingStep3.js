@@ -54,7 +54,7 @@ function OnBoardingStep3() {
 
     if (res.status === 201) {
       setTimeout(() => {
-        navigate('/account-creation-pending')
+        navigate('/onboarding-successfully')
       }, 2000)
     }
   }

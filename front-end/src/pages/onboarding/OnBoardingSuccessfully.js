@@ -6,26 +6,27 @@ import {
 } from '../../assets/svg'
 
 import '../../css/status.css'
+import '../../css/style.css'
 
 function OnBoardingSuccessfully() {
   // Use effect
   useEffect(() => {
     document.title = 'On Boarding Successfully'
   }, [])
-  
+
   return (
     <section id='status'>
-      {/* Bage */}
       <img src={BadgeCheck} alt='Badge' />
 
-      {/* Heading & Paragraph */}
       <div>
-        <h1>You’re ready to go!</h1>
-        <p>Your request to register your account has been approved by the admin. Welcome!</p>
+        <h1>Your request to register your profile has been sent!</h1>
+        <p>Thank you! Your request will be reviewed by the admin. Just wait for a while and you will receive a text message and email for the response of your request.</p>
       </div>
 
-      {/* Action */}
-      <Link to='/login' className='solid btn'>Continue to homepage</Link>
+      <div className='actions'>
+        <Link to='#' className='solid btn'>Edit application</Link>
+        <Link to='/login' className='outline btn'>Log out</Link>
+      </div>
     </section>
   )
 }

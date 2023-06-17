@@ -4,15 +4,16 @@
 **/
 
 import {
-  AccountCreationPending,
+  AccountRegistrationPending,
+  AccountRegistrationSuccessfully,
   Announcements,
   AnnouncementOverview,
   BookGuest,
   BookGuestSuccessfully,
+  EditProfilePending,
   EditProfileStep1,
   EditProfileStep2,
   EditProfileStep3,
-  EditProfileSuccessfully,
   GuestHistory,
   GuestOverview,
   GuestsHistory,
@@ -28,6 +29,7 @@ import {
   OnBoardingStep3,
   OnBoardingSuccessfully,
   Registration,
+  RegistrationSuccessfully,
   ResetPasswordStep1,
   ResetPasswordStep2,
   ResetPasswordStep3,
@@ -48,6 +50,10 @@ const routes = [
   {
     path: '/registration',
     component: <Registration />
+  },
+  {
+    path: '/registration-successfully',
+    component: <RegistrationSuccessfully />
   },
   {
     path: '/verification',
@@ -86,8 +92,12 @@ const routes = [
     component: <OnBoardingSuccessfully />
   },
   {
-    path: '/account-creation-pending',
-    component: <AccountCreationPending />
+    path: '/account-registration-pending',
+    component: <AccountRegistrationPending />
+  },
+  {
+    path: '/account-registration-successfully',
+    component: <AccountRegistrationSuccessfully />
   },
   {
     path: '/home',
@@ -114,8 +124,8 @@ const routes = [
     component: <EditProfileStep3 />
   },
   {
-    path: '/edit-profile-successfully',
-    component: <EditProfileSuccessfully />
+    path: '/edit-profile-pending',
+    component: <EditProfilePending />
   },
   {
     path: '/my-gate-pass',

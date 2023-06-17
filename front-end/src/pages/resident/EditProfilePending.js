@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { 
-  BadgeCheck
+  BadgeHappy
 } from '../../assets/svg'
 
 import '../../css/status.css'
 
-function EditProfileSuccessfully() {
+function EditProfilePending() {
   // Use effect
   useEffect(() => {
     document.title = 'Editing Profile Successfully'
@@ -16,7 +16,7 @@ function EditProfileSuccessfully() {
   return (
     <section id='status'>
       {/* Badge */}
-      <img src={BadgeCheck} alt='Badge' />
+      <img src={BadgeHappy} alt='Badge' />
 
       {/* Heading & Paragraph */}
       <div>
@@ -30,4 +30,4 @@ function EditProfileSuccessfully() {
   )
 }
 
-export default EditProfileSuccessfully
+export default EditProfilePending

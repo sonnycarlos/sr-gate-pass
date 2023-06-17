@@ -60,7 +60,7 @@ function Verification() {
           if (initialState?.user?.isApprove) {
             return navigate('/home')
           } else {
-            return navigate('/account-creation-pending')
+            return navigate('/account-registration-pending')
           }
         }
 
@@ -68,7 +68,7 @@ function Verification() {
       }
 
       if (initialState?.action === 'Register') {
-        return navigate('/login')
+        return navigate('/registration-successfully')
       }
     }
 
