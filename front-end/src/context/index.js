@@ -21,6 +21,7 @@ import {
   KEEP_ME_LOGGED_IN,
   INSERT_ROUTE,
   TOGGLE_NAV,
+  SET_ACTIVE_PAGE,
   initialState,
   reducer
 } from './reducer'
@@ -38,6 +39,7 @@ export {
   KEEP_ME_LOGGED_IN,
   INSERT_ROUTE,
   TOGGLE_NAV,
+  SET_ACTIVE_PAGE,
   initialState,
   reducer,
   logInUser,

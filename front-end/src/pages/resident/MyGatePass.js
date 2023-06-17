@@ -15,7 +15,7 @@ function MyGatePass() {
   return (
     <section id='my_gate_pass'>
       {/* Back Button */}
-      <Link to='#' className='text btn'>
+      <Link to='/home' className='text btn'>
         <Back />
         <span>Back</span>
       </Link>

@@ -3,10 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { 
   useSrContext,
-  INSERT_ROUTE 
+  INSERT_ROUTE,
+  SET_ACTIVE_PAGE
 } from '../../context'
-
-import { Menu } from '../../components'
 
 import { validateUser } from '../../utils'
 
@@ -40,6 +39,7 @@ function Home() {
 
     let routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'home'] })
+    dispatch({ type: SET_ACTIVE_PAGE, payload: 'home' })
 
     window.localStorage.removeItem('verification')
 
@@ -57,9 +57,6 @@ function Home() {
   
   return (
     <section id='home'>
-      {/* Menu */}
-      {initialState.isMenuOpen && <Menu />}
-
       <div className='container'>
         {/* Heading */}
         <h1>Welcome, Sonny!</h1>
