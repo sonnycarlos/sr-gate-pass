@@ -247,15 +247,62 @@ const verifyUser = asyncHandler(async (req, res) => {
     phoneNumber,
     emailAddress,
     username,
-    type,
-    landCertificate,
-    validId,
-    picture
+    type
   } = req.body
 
-  // ################################## //
-  console.log(req.body)
-  console.log(req.body.landCertificate)
+  const landCertificateArr = Object.keys(req.body)
+  .reduce((arr, key) => {
+    const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/);
+
+    if (match) {
+      const index = Number(match[1]);
+      const property = match[2];
+
+      if (!arr[index]) {
+        arr[index] = {};
+      }
+
+      arr[index][property] = req.body[key];
+    }
+
+    return arr;
+  }, []);
+
+  const validIdArr = Object.keys(req.body)
+  .reduce((arr, key) => {
+    const match = key.match(/validId\[(\d+)\]\[(\w+)\]/);
+
+    if (match) {
+      const index = Number(match[1]);
+      const property = match[2];
+
+      if (!arr[index]) {
+        arr[index] = {};
+      }
+
+      arr[index][property] = req.body[key];
+    }
+
+    return arr;
+  }, []);
+
+  const pictureArr = Object.keys(req.body)
+  .reduce((arr, key) => {
+    const match = key.match(/picture\[(\d+)\]\[(\w+)\]/);
+
+    if (match) {
+      const index = Number(match[1]);
+      const property = match[2];
+
+      if (!arr[index]) {
+        arr[index] = {};
+      }
+
+      arr[index][property] = req.body[key];
+    }
+
+    return arr;
+  }, []);
 
   // Check if resident profile and username already exists
   const user = await User.findOne({ emailAddress })
@@ -289,9 +336,9 @@ const verifyUser = asyncHandler(async (req, res) => {
       emailAddress,
       username,
       dateCreated: Date.now(),
-      landCertificate,
-      validId,
-      picture
+      landCertificate: landCertificateArr,
+      validId: validIdArr,
+      picture: pictureArr
     })
     await User.updateOne({ emailAddress }, { $set: { isVerify: true } })
 

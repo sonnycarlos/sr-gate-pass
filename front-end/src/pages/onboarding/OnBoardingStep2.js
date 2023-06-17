@@ -15,7 +15,6 @@ import '../../css/style.css'
 
 function OnBoardingStep2() {
   const [inputs, setInputs] = useState({ type: 'homeowner', address: '' })
-  const [error, setError] = useState({ isError: false, errorMessage: '' })
   const [headingFontSize, setHeadingFontSize] = useState(40)
   const [paragraphFontSize, setParagraphFontSize] = useState(20)
   const [initialState, dispatch] = useSrContext()

@@ -23,7 +23,8 @@ import '../../css/onboarding.css'
 import '../../css/style.css'
 
 function OnBoardingStep3() {
-  const [files, setFiles] = useState({
+  const [files, setFiles] = useState({})
+  const [filesToUpload, setFilesToUpload] = useState({
     landCertificate: [],
     validId: [],
     picture: []
@@ -35,26 +36,23 @@ function OnBoardingStep3() {
   const navigate = useNavigate()
 
   // Handle Upload
-  const handleUpload = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    
-    dispatch({ type: ON_BOARDING_TO_PROFILE, payload: { 
-      landCertificate: files.landCertificate, 
-      validId: files.validId, 
-      picture: files.picture[0] 
-    } })
 
-    console.log(initialState?.user)
+    dispatch({ type: ON_BOARDING_TO_PROFILE, payload: files })
 
-    files.landCertificate.map((file) => uploadFile(file))
-    files.validId.map((file) => uploadFile(file))
-    uploadFile(files.picture[0])
+    filesToUpload.landCertificate.map((file) => uploadFile(file))
+    filesToUpload.validId.map((file) => uploadFile(file))
+    uploadFile(filesToUpload.picture[0])
 
-    let res = await verifyUser(initialState?.user)
+    let res = await verifyUser({
+      ...initialState?.user,
+      landCertificate: files?.landCertificate,
+      validId: files?.validId,
+      picture: files?.picture
+    })
 
-    console.log(res)
-
-    if (res.status === 200) {
+    if (res.status === 201) {
       setTimeout(() => {
         navigate('/account-creation-pending')
       }, 2000)
@@ -65,7 +63,14 @@ function OnBoardingStep3() {
   const handleFile = (e, prop) => {
     const selectedFiles = e.target.files
     const selectedFileArray = Array.from(selectedFiles)
-    setFiles({ ...files, [prop]: selectedFileArray })
+
+    const newArr = selectedFileArray.map(file => ({
+      name: file.name,
+      size: file.size
+    }))
+
+    setFiles({ ...files, [prop]: newArr })
+    setFilesToUpload({ ...filesToUpload, [prop]: selectedFileArray })
   }
 
   // Remove File
@@ -170,7 +175,7 @@ function OnBoardingStep3() {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleUpload}>
+      <form onSubmit={handleSubmit}>
         <h2>Proof of Residency</h2>
 
         <div className='inputFields'>
@@ -202,9 +207,9 @@ function OnBoardingStep3() {
 
           <div 
             className='files'
-            style={{ display: `${files.landCertificate.length !== 0 ? 'grid' : 'none'}` }}
+            style={{ display: `${files.landCertificate?.length !== 0 ? 'grid' : 'none'}` }}
           >
-            {files.landCertificate.map((file, i) => (
+            {files.landCertificate?.map((file, i) => (
               <div key={i} className='file'>
                 <div className='icon-and-info'>
                   <PDF />
@@ -249,9 +254,9 @@ function OnBoardingStep3() {
 
           <div 
             className='files'
-            style={{ display: `${files.validId.length !== 0 ? 'grid' : 'none'}` }}
+            style={{ display: `${files.validId?.length !== 0 ? 'grid' : 'none'}` }}
           >
-            {files.validId.map((file, i) => (
+            {files.validId?.map((file, i) => (
               <div key={i} className='file'>
                 <div className='icon-and-info'>
                   <Picture />
@@ -295,9 +300,9 @@ function OnBoardingStep3() {
 
           <div 
             className='files'
-            style={{ display: `${files.picture.length !== 0 ? 'grid' : 'none'}` }}
+            style={{ display: `${files.picture?.length !== 0 ? 'grid' : 'none'}` }}
           >
-            {files.picture.map((file, i) => (
+            {files.picture?.map((file, i) => (
               <div key={i} className='file'>
                 <div className='icon-and-info'>
                   <Picture />
