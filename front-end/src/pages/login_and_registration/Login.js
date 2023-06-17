@@ -66,7 +66,7 @@ function Login() {
     window.localStorage.removeItem('onboarding')
     window.localStorage.removeItem('forgotPassword')
 
-    let routeHistory = initialState?.routeHistory
+    let routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'login'] })
 
     async function validate() {

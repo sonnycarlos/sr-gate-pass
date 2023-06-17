@@ -36,7 +36,7 @@ function ResetPasswordStep3() {
       return
     }
 
-    let res = await resetPassword({ emailAddress: initialState?.user?.emailAddress, password: credentials.input1 })
+    let res = await resetPassword({ emailAddress: initialState.user?.emailAddress, password: credentials.input1 })
 
     if (res.status === 200) {
       console.log(res)
@@ -52,7 +52,7 @@ function ResetPasswordStep3() {
   useEffect(() => {
     document.title = 'Reset Password'
 
-    let routeHistory = initialState?.routeHistory
+    let routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'forgot-password'] })
 
     if (!window.localStorage.getItem('forgotPassword')) {

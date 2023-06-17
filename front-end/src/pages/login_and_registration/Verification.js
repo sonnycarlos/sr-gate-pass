@@ -45,21 +45,21 @@ function Verification() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    let res = await verifyOtp({ emailAddress: initialState?.user?.emailAddress, otpCode: otp })
+    let res = await verifyOtp({ emailAddress: initialState.user?.emailAddress, otpCode: otp })
     
-    console.log(initialState?.user)
+    console.log(initialState.user)
 
     if (res?.status === 200) {
-      if (initialState?.keepMeLoggedIn) {
+      if (initialState.keepMeLoggedIn) {
         window.localStorage.setItem('loggedIn', true)
-        window.localStorage.setItem('user', initialState?.user?.token)
+        window.localStorage.setItem('user', initialState.user?.token)
       }
 
-      if (initialState?.action === 'Log in') {
+      if (initialState.action === 'Log in') {
         window.localStorage.setItem('onboarding', true)
 
-        if (initialState?.user?.isVerify) {
-          if (initialState?.user?.isApprove) {
+        if (initialState.user?.isVerify) {
+          if (initialState.user?.isApprove) {
             return navigate('/home')
           } else {
             return navigate('/account-registration-pending')
@@ -69,7 +69,7 @@ function Verification() {
         return navigate('/onboarding-step-1')
       }
 
-      if (initialState?.action === 'Register') {
+      if (initialState.action === 'Register') {
         window.localStorage.setItem('registration', true)
         return navigate('/registration-successfully')
       }
@@ -106,7 +106,7 @@ function Verification() {
       <img src={BrandLogo} alt='Brand Logo' />
 
       {/* Back Button */}
-      <Link to={`../${initialState?.routeHistory[initialState?.routeHistory.length - 1]}`} className='text btn'>
+      <Link to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} className='text btn'>
         <Back />
         <span>Back</span>
       </Link>
@@ -158,7 +158,7 @@ function Verification() {
           }
         </p>
 
-        <input type='submit' value={initialState?.action} className='solid btn' />
+        <input type='submit' value={initialState.action} className='solid btn' />
       </form>
     </section>
   )

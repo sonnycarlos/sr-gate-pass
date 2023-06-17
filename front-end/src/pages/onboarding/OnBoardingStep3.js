@@ -46,7 +46,7 @@ function OnBoardingStep3() {
     uploadFile(filesToUpload.picture[0])
 
     let res = await verifyUser({
-      ...initialState?.user,
+      ...initialState.user,
       landCertificate: files?.landCertificate,
       validId: files?.validId,
       picture: files?.picture

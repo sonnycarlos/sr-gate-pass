@@ -31,6 +31,21 @@ const signIn = asyncHandler(async (req, res) => {
 
     res.cookie('token', token)
 
+    if (user.isApprove) {
+      const resident = await Resident.findOne({ userId: user._id })
+
+      if (resident) {
+        res.status(200).json({
+          emailAddress: user.emailAddress,
+          isVerify: user.isVerify,
+          isApprove: user.isApprove,
+          isRegistrationComplete: user.isRegistrationComplete,
+          token,
+          ...resident
+        })
+      }
+    }
+
     res.status(200).json({
       emailAddress: user.emailAddress,
       isVerify: user.isVerify,

@@ -45,7 +45,7 @@ function ResetPasswordStep2() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    let res = await verifyOtp({ emailAddress: initialState?.user?.emailAddress, otpCode: otp })
+    let res = await verifyOtp({ emailAddress: initialState.user?.emailAddress, otpCode: otp })
 
     if (res?.status === 200) {
       navigate('/reset-password')
@@ -87,7 +87,7 @@ function ResetPasswordStep2() {
       {/* Header */}
       <header>
         <h1>Reset Password</h1>
-        <p>Enter the OTP code we sent to <span>{initialState?.user?.emailAddress}</span>.</p>
+        <p>Enter the OTP code we sent to <span>{initialState.user?.emailAddress}</span>.</p>
       </header>
 
       {/* Form */}
