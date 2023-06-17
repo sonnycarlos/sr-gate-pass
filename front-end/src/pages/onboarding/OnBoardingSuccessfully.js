@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { 
   BadgeCheck
@@ -9,9 +9,15 @@ import '../../css/status.css'
 import '../../css/style.css'
 
 function OnBoardingSuccessfully() {
+  const navigate = useNavigate()
+  
   // Use effect
   useEffect(() => {
     document.title = 'On Boarding Successfully'
+
+    if (!window.localStorage.getItem('onboarding')) {
+      navigate('/login')
+    }
   }, [])
 
   return (

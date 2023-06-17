@@ -61,7 +61,10 @@ function Login() {
     
     document.cookie = 'routesHistory=login'
 
-    localStorage.removeItem('verification')
+    window.localStorage.removeItem('verification')
+    window.localStorage.removeItem('registration')
+    window.localStorage.removeItem('onboarding')
+    window.localStorage.removeItem('forgotPassword')
 
     let routeHistory = initialState?.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'login'] })

@@ -32,7 +32,9 @@ function ResetPasswordStep1() {
 
     if (res.status === 200) {
       console.log(res)
+      
       window.localStorage.setItem('verification', true)
+      window.localStorage.setItem('forgotPassword', true)
 
       await dispatch({ type: FORGOT_PASSWORD, payload: emailAddress })
       await requestOtp({ action: 'reset password', receiver: emailAddress })

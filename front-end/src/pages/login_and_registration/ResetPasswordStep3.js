@@ -54,6 +54,10 @@ function ResetPasswordStep3() {
 
     let routeHistory = initialState?.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'forgot-password'] })
+
+    if (!window.localStorage.getItem('forgotPassword')) {
+      navigate('/login')
+    }
   }, [])
 
   return (

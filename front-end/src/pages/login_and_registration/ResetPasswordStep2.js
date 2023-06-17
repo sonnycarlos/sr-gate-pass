@@ -64,6 +64,10 @@ function ResetPasswordStep2() {
       navigate('/login')
     }
 
+    if (!window.localStorage.getItem('forgotPassword')) {
+      navigate('/login')
+    }
+
     if (localStorage.getItem('otp_resend_countdown') != null) {
       dispatch({ type: SET_COUNTDOWN_START, payload: true })
     }

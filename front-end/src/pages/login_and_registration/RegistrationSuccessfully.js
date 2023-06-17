@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { 
   BadgeAmazed
@@ -8,9 +8,15 @@ import {
 import '../../css/status.css'
 
 function RegistrationSuccessfully() {
+  const navigate = useNavigate()
+
   // Use effect
   useEffect(() => {
     document.title = 'Registration Successfully'
+
+    if (!window.localStorage.getItem('registration')) {
+      navigate('/login')
+    }
   }, [])
   
   return (

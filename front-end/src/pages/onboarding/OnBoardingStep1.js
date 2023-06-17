@@ -97,6 +97,10 @@ function OnBoardingStep1() {
   useEffect(() => {
     document.title = 'On Boarding'
 
+    if (!window.localStorage.getItem('onboarding')) {
+      navigate('/login')
+    }
+
     window.addEventListener('scroll', handleScroll)
 
     return () => {

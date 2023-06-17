@@ -56,6 +56,8 @@ function Verification() {
       }
 
       if (initialState?.action === 'Log in') {
+        window.localStorage.setItem('onboarding', true)
+
         if (initialState?.user?.isVerify) {
           if (initialState?.user?.isApprove) {
             return navigate('/home')
@@ -68,6 +70,7 @@ function Verification() {
       }
 
       if (initialState?.action === 'Register') {
+        window.localStorage.setItem('registration', true)
         return navigate('/registration-successfully')
       }
     }
