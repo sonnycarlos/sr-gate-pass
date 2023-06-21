@@ -30,9 +30,8 @@
   justify-self: center;
   width: 72px;
   height: 72px;
-  border: 2px solid var(--romance);
+  border: 2px solid var(--lavander-mist);
   border-radius: 50%;
-  background: url('../assets/images/avatar.png');
   background-size: cover;
 }
 
@@ -42,7 +41,7 @@
   display: grid;
   place-content: center;
   gap: 8px;
-  margin: 24px 0 40px;
+  margin: 24px 0 16px;
 }
 
 #my_gate_pass > .container > .nameAndAddress > * {
@@ -56,10 +55,11 @@
 
 /* QR Code */
 
-#my_gate_pass > .container > .qrCode {
+#my_gate_pass > .container > .qrCodeImage {
   justify-self: center;
-  width: 230px;
-  height: 230px;
+  width: 275px;
+  height: 275px;
+  background-size: cover;
 }
 
 /* Greetings */
@@ -68,7 +68,7 @@
   display: grid;
   place-content: center;
   gap: 8px;
-  margin-top: 40px;
+  margin-top: 24px;
 }
 
 #my_gate_pass > .container > .greetings > * {
@@ -100,14 +100,14 @@
   /* Profile Picture */
 
   #my_gate_pass > .container > .profilePicture {
-    width: 80px;
-    height: 80px;
+    width: 96px;
+    height: 96px;
   }
 
   /* Name & Address */
 
   #my_gate_pass > .container > .nameAndAddress {
-    margin: 24px 0 56px;
+    margin: 24px 0;
   }
   
   #my_gate_pass > .container > .nameAndAddress > .name {
@@ -116,15 +116,15 @@
 
   /* QR Code */
 
-  #my_gate_pass > .container > .qrCode {
-    width: 250px;
-    height: 250px;
+  #my_gate_pass > .container > .qrCodeImage {
+    width: 325px;
+    height: 325px;
   }
 
   /* Greetings */
 
   #my_gate_pass > .container > .greetings {
-    margin-top: 56px;
+    margin-top: 40px;
   }
 }
 
@@ -139,13 +139,6 @@
 
   #my_gate_pass > .container > .nameAndAddress > .address {
     font-size: 18px
-  }
-
-  /* QR Code */
-
-  #my_gate_pass > .container > .qrCode {
-    width: 300px;
-    height: 300px;
   }
 
   /* Greetings */

@@ -39,7 +39,6 @@ function MyProfile() {
     }
 
     validate()
-    console.log(initialState)
   }, [])
 
   return (
