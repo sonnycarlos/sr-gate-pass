@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { useSrContext, ON_BOARDING_TO_PROFILE, initialState } from '../../context'
+import { useSrContext, UPDATE_PROFILE_DETAILS } from '../../context'
 
 import { checkResidentUsername } from '../../utils'
 
@@ -38,7 +38,7 @@ function OnBoardingStep1() {
     let res = await checkResidentUsername({ username: inputs.username })
 
     if (res.status === 200) {
-      dispatch({ type: ON_BOARDING_TO_PROFILE, payload: inputs })
+      dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
       navigate('/onboarding-step-2')
     }
 

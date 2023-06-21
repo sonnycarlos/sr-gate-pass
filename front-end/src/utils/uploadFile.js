@@ -6,6 +6,7 @@ import { Axios } from '../config'
 
 export default async function uploadFile(files) {
   const formData = new FormData()
+  
   formData.append('file', files)
   formData.append('upload_preset', 'kfaije1j')
 

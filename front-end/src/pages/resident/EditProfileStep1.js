@@ -1,7 +1,15 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../../components'
+import { 
+  useSrContext,
+  UPDATE_PROFILE_DETAILS,
+  INSERT_ROUTE,
+  SET_ACTIVE_PAGE,
+  validateUser
+} from '../../context'
+
+import { checkResidentUsername } from '../../utils'
 
 import {
   ArrowRight,
@@ -14,6 +22,42 @@ import {
 import '../../css/edit_profile.css'
 
 function EditProfileStep1() {
+  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const [inputs, setInputs] = useState({
+    firstName: details?.firstName,
+    middleName: details?.middleName,
+    lastName: details?.lastName,
+    gender: details?.gender,
+    birthdate: details?.birthdate,
+    phoneNumber: details?.phoneNumber,
+    username: details?.username
+  })
+  const [initialState, dispatch] = useSrContext()
+  const [error, setError] = useState({ isError: false, errorMessage: '' })
+
+  const navigate = useNavigate()
+
+  // Hande submit
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (inputs.username !== initialState.user?.profile?.username) {
+      let res = await checkResidentUsername({ username: inputs.username })
+
+      if (res.status === 200) {
+        dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
+        navigate('/edit-profile-step-2')
+      }
+
+      if (res.status === 400) {
+        setError({ isError: true, errorMessage: res.errorMessage })
+      }
+    }
+    
+    dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
+    navigate('/edit-profile-step-2')
+  }
+
   // Handle scroll
   const handleScroll = () => {
     const header = document.getElementById('header')
@@ -31,6 +75,23 @@ function EditProfileStep1() {
   useEffect(() => {
     document.title = 'Edit Profile'
 
+    let routeHistory = initialState.routeHistory
+    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-1'] })
+    dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
+
+    async function validate() {
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser(dispatch, { token })
+
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
+
+    validate()
+
+    console.log(initialState)
+
     window.addEventListener('scroll', handleScroll)
 
     return () => {
@@ -40,16 +101,10 @@ function EditProfileStep1() {
 
   return (
     <section id='edit_profile'>
-      {/* Menu */}
-      {/* <Menu /> */}
-
-      {/* Navigation Bar */}
-      <NavigationBar />
-
       <header id='header'>
         <div>
           {/* Back Button */}
-          <Link to='#' className='text btn'>
+          <Link to='/my-profile' className='text btn'>
             <Back />
             <span>Back</span>
           </Link>
@@ -67,28 +122,10 @@ function EditProfileStep1() {
       <h1>Edit Profile</h1>
 
       {/* Form */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Personal Information</h2>
 
         <div className='inputFields'>
-          <div className='form-group'>
-            <label>
-              Profile Picture 
-              <span className='required-symbol'>*</span>
-              <span className='guide'>(must be hd and updated)</span>
-            </label>
-
-            <div className='avatar-container'>
-              <div className='avatar'></div>
-
-              <input type='file' accept='image/*' />
-
-              <span>
-                <Camera color='#FFF' />
-              </span>
-            </div>
-          </div>
-
           <div className='form-group'>
             <label>
               First Name 
@@ -97,7 +134,11 @@ function EditProfileStep1() {
 
             <input 
               type='text'
+              name='firstName'
               placeholder='Your first name here'
+              value={inputs.firstName}
+              onChange={e => setInputs({ ...inputs, firstName: e.target.value })}
+              required
             />
           </div>
 
@@ -106,7 +147,10 @@ function EditProfileStep1() {
 
             <input 
               type='text'
+              name='middleName'
               placeholder='Your middle name here'
+              value={inputs.middleName}
+              onChange={e => setInputs({ ...inputs, middleName: e.target.value })}
             />
           </div>
 
@@ -118,19 +162,11 @@ function EditProfileStep1() {
 
             <input 
               type='text'
+              name='lastName'
               placeholder='Your last name here'
-            />
-          </div>
-
-          <div className='form-group'>
-            <label>
-              Username
-              <span className='required-symbol'>*</span>
-            </label>
-
-            <input 
-              type='text'
-              placeholder='Your username here'
+              value={inputs.lastName}
+              onChange={e => setInputs({ ...inputs, lastName: e.target.value })}
+              required
             />
           </div>
 
@@ -143,6 +179,10 @@ function EditProfileStep1() {
             <div className='date input-field'>
               <input 
                 type='date'
+                name='birthdate'
+                value={inputs.birthdate}
+                onChange={e => setInputs({ ...inputs, birthdate: e.target.value })}
+                required
               />
 
               <span className='suffix'>
@@ -158,7 +198,10 @@ function EditProfileStep1() {
             </label>
 
             <div className='select input-field'>
-              <select name='gender'>
+              <select 
+                name='gender'
+                onChange={e => setInputs({ ...inputs, gender: e.target.value })}
+              >
                 <option value='male'>Male</option>
                 <option value='female'>Female</option>
                 <option value='other'>Other</option>
@@ -178,14 +221,45 @@ function EditProfileStep1() {
 
             <input 
               type='text'
+              name='phoneNumber'
               placeholder='Your phone number here'
+              value={inputs.phoneNumber}
+              onChange={e => setInputs({ ...inputs, phoneNumber: e.target.value })}
+              required
+            />
+          </div>
+
+          <div className='form-group'>
+            <label>
+              Username
+              <span className='required-symbol'>*</span>
+            </label>
+
+            <input 
+              type='text'
+              name='username'
+              placeholder='Your username here'
+              value={inputs.username}
+              onChange={e => setInputs({ ...inputs, username: e.target.value })}
+              required
             />
           </div>
         </div>
 
-        <div className='btn-container'>
-          <input type='submit' value='Continue' className='solid btn' />
-          <ArrowRight color='#FFF' />
+        <div 
+          id='error-message'
+          style={{ display: `${error.isError ? 'block' : 'none'}` }}
+        >
+          <p>{error.errorMessage}</p>
+        </div>
+
+        <div className='actions'>
+          <div className='btn-container'>
+            <input type='submit' value='Continue' className='solid btn' />
+            <ArrowRight color='#FFF' />
+          </div>
+
+          <Link to='/my-profile' className='outline btn'>Cancel</Link>
         </div>
       </form>
     </section>

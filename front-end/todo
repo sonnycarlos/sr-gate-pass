@@ -1,7 +1,8 @@
 * Phone number input field must be numbers only
 * File size upload
-* Remove scroll
 * Responsiveness
-* Code cleaning - remove console logs
-* Account pending page
-* Registration successfully page
+* Fix email template bug
+* Button loading animation
+* Proper load of data using setTimeout()
+* Replace localStorage to sessionStorage
+* Style bug when try to log out

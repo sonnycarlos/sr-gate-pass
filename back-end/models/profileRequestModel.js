@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const residentSchema = new mongoose.Schema({
+const profileRequestSchema = new mongoose.Schema({
   id: {
     type: String,
     required: false
@@ -49,13 +49,10 @@ const residentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  dateRegistered: {
+  dateRequested: {
     type: Date,
     required: true
   },
-  dateEdited: [{
-    type: String
-  }],
   landCertificate: [{
     type: Object,
     size: Number
@@ -70,14 +67,17 @@ const residentSchema = new mongoose.Schema({
     size: Number,
     required: true,
   }],
-  qrCodeImage: {
+  action: {
     type: String,
     required: true
   },
-  numOfGuests: {
-    type: Number,
-    required: false
-  }
+  isApprove: {
+    type: Boolean,
+    required: true
+  },
+  dateApproved: [{
+    type: Object
+  }]
 })
 
-export default mongoose.model('Resident', residentSchema)
+export default mongoose.model('ProfileRequest', profileRequestSchema)

@@ -1,10 +1,10 @@
 /**
- ** This function creates resident profile
+ ** This function completes user registration
 **/
 
 import { Axios } from '../config'
 
-export default async function onBoarding(payload) {
+export default async function registerUser(payload) {
   const { 
     firstName,
     lastName,
@@ -19,9 +19,11 @@ export default async function onBoarding(payload) {
     validId,
     picture
   } = payload
+  
+  console.log(payload)
 
   try {
-    let res = await Axios.post('/user/register-user', { 
+    let res = await Axios.post('/user/register-user', {
       firstName,
       lastName,
       birthdate,
@@ -36,9 +38,7 @@ export default async function onBoarding(payload) {
       picture
     })
 
-    if (res) {
-      return res
-    }
+    return res
   } catch (error) {
     console.error(`Unhandled action type: ${error}`)
 

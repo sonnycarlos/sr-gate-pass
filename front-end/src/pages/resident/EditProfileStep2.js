@@ -1,7 +1,13 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../../components'
+import { 
+  useSrContext,
+  UPDATE_PROFILE_DETAILS,
+  INSERT_ROUTE,
+  SET_ACTIVE_PAGE,
+  validateUser
+} from '../../context'
 
 import {
   ArrowRight,
@@ -12,6 +18,19 @@ import {
 import '../../css/edit_profile.css'
 
 function EditProfileStep2() {
+  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const [inputs, setInputs] = useState({ address: details?.address })
+  const [initialState, dispatch] = useSrContext()
+
+  const navigate = useNavigate()
+
+  // Hande submit
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
+    navigate('/edit-profile-step-3')
+  }
+
   // Handle scroll
   const handleScroll = () => {
     const header = document.getElementById('header')
@@ -29,6 +48,23 @@ function EditProfileStep2() {
   useEffect(() => {
     document.title = 'Edit Profile'
 
+    console.log(initialState)
+
+    let routeHistory = initialState.routeHistory
+    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-2'] })
+    dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
+
+    async function validate() {
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser(dispatch, { token })
+
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
+
+    validate()
+
     window.addEventListener('scroll', handleScroll)
 
     return () => {
@@ -38,16 +74,10 @@ function EditProfileStep2() {
 
   return (
     <section id='edit_profile'>
-      {/* Menu */}
-      {/* <Menu /> */}
-
-      {/* Navigation Bar */}
-      <NavigationBar />
-
       <header id='header'>
         <div>
           {/* Back Button */}
-          <Link to='#' className='text btn'>
+          <Link to='/edit-profile-step-1' className='text btn'>
             <Back />
             <span>Back</span>
           </Link>
@@ -65,28 +95,10 @@ function EditProfileStep2() {
       <h1>Edit Profile</h1>
 
       {/* Form */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Property Information</h2>
 
         <div className='inputFields'>
-          <div className='form-group'>
-            <label>
-              Resident Type 
-              <span className='required-symbol'>*</span>
-            </label>
-
-            <div className='select input-field'>
-              <select name='residentType'>
-                <option value='homeowner'>Homeowner</option>
-                <option value='tenant'>Tenant</option>
-              </select>
-
-              <span className='suffix'>
-                <ChevronDown color='#99A8BA' />
-              </span>
-            </div>
-          </div>
-
           <div className='form-group'>
             <label>
               Home Address 
@@ -96,13 +108,20 @@ function EditProfileStep2() {
             <input 
               type='text'
               placeholder='Your home address here'
+              value={inputs.address}
+              onChange={e => setInputs({ ...inputs, address: e.target.value })}
+              required
             />
           </div>
         </div>
 
-        <div className='btn-container'>
-          <input type='submit' value='Continue' className='solid btn' />
-          <ArrowRight color='#FFF' />
+        <div className='actions'>
+          <div className='btn-container'>
+            <input type='submit' value='Continue' className='solid btn' />
+            <ArrowRight color='#FFF' />
+          </div>
+
+          <Link to='/my-profile' className='outline btn'>Cancel</Link>
         </div>
       </form>
     </section>

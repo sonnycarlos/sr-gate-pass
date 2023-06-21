@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  isVerify: {
+  isRegistrationComplete: {
     type: Boolean,
     required: true
   },

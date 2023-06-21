@@ -4,10 +4,10 @@ import { Axios } from '../../config'
 
 import { 
   useSrContext, 
-  ON_BOARDING_TO_PROFILE 
+  UPDATE_PROFILE_DETAILS 
 } from '../../context'
 
-import { uploadFile, formatBytes, verifyUser } from '../../utils'
+import { uploadFile, formatBytes, registerUser } from '../../utils'
 
 import {
   BrandLogo,
@@ -35,27 +35,81 @@ function OnBoardingStep3() {
 
   const navigate = useNavigate()
 
-  // Handle upload
+  // Handle submit
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+  
+    dispatch({ type: UPDATE_PROFILE_DETAILS, payload: files });
+  
+    try {
+      // Land Certificate
+      const uploadLandCertificatePromises = filesToUpload.landCertificate.map(async (file, i) => {
+        const res = await uploadFile(file);
+        const fileName = res?.data?.public_id;
+        const newLandCertificateArr = [...files.landCertificate];
 
-    dispatch({ type: ON_BOARDING_TO_PROFILE, payload: files })
+        newLandCertificateArr[i].name = fileName;
 
-    filesToUpload.landCertificate.map((file) => uploadFile(file))
-    filesToUpload.validId.map((file) => uploadFile(file))
-    uploadFile(filesToUpload.picture[0])
+        return newLandCertificateArr;
+      })
+  
+      const updatedLandCertificatesArr = await Promise.all(uploadLandCertificatePromises);
+  
+      setFiles((prevFiles) => ({
+        ...prevFiles,
+        landCertificate: updatedLandCertificatesArr,
+      }))
 
-    let res = await verifyUser({
-      ...initialState.user,
-      landCertificate: files?.landCertificate,
-      validId: files?.validId,
-      picture: files?.picture
-    })
+      // Valid ID
+      const uploadValidIdPromises = filesToUpload.validId.map(async (file, i) => {
+        const res = await uploadFile(file);
+        const fileName = res?.data?.public_id;
+        const newValidIdArr = [...files.validId];
 
-    if (res.status === 201) {
-      setTimeout(() => {
-        navigate('/onboarding-successfully')
-      }, 2000)
+        newValidIdArr[i].name = fileName;
+
+        return newValidIdArr;
+      })
+  
+      const updatedValidIdArr = await Promise.all(uploadValidIdPromises);
+  
+      setFiles((prevFiles) => ({
+        ...prevFiles,
+        validId: updatedValidIdArr,
+      }))
+
+      // 2x2 Picture
+      const uploadPicturePromises = filesToUpload.picture.map(async (file, i) => {
+        const res = await uploadFile(file);
+        const fileName = res?.data?.public_id;
+        const newPictureArr = [...files.picture];
+
+        newPictureArr[i].name = fileName;
+
+        return newPictureArr;
+      })
+  
+      const updatedPictureArr = await Promise.all(uploadPicturePromises);
+  
+      setFiles((prevFiles) => ({
+        ...prevFiles,
+        picture: updatedPictureArr,
+      }))
+  
+      let res = await registerUser({
+        ...initialState.userDetails,
+        emailAddress: initialState.user?.emailAddress,
+        landCertificate: files?.landCertificate,
+        validId: files?.validId,
+        picture: files?.picture,
+      })
+  
+      if (res.status === 201) {
+        navigate('/onboarding-successfully');
+      }
+    } catch (error) {
+      console.log(error)
+      throw new Error(error)
     }
   }
 

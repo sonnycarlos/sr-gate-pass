@@ -6,16 +6,18 @@
 import { useSrContext, SrProvider } from './context'
 
 import {
+  validateUser,
   logInUser,
   registerUser
 } from './actions'
 
 import {
   COUNTDOWN,
+  VALIDATE_USER,
   LOG_IN_USER,
   REGISTER_USER,
   FORGOT_PASSWORD,
-  ON_BOARDING_TO_PROFILE,
+  UPDATE_PROFILE_DETAILS,
   SET_ACTION,
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
@@ -30,10 +32,11 @@ export {
   useSrContext,
   SrProvider,
   COUNTDOWN,
+  VALIDATE_USER,
   LOG_IN_USER,
   REGISTER_USER,
   FORGOT_PASSWORD,
-  ON_BOARDING_TO_PROFILE,
+  UPDATE_PROFILE_DETAILS,
   SET_ACTION,
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
@@ -42,6 +45,7 @@ export {
   SET_ACTIVE_PAGE,
   initialState,
   reducer,
+  validateUser,
   logInUser,
   registerUser
 }

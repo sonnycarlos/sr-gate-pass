@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { useSrContext, ON_BOARDING_TO_PROFILE } from '../../context'
+import { useSrContext, UPDATE_PROFILE_DETAILS } from '../../context'
 
 import {
   BrandLogo,
@@ -24,7 +24,7 @@ function OnBoardingStep2() {
   // Hande submit
   const handleSubmit = async (e) => {
     e.preventDefault()
-    dispatch({ type: ON_BOARDING_TO_PROFILE, payload: inputs })
+    dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
     navigate('/onboarding-step-3')
   }
 

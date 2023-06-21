@@ -6,10 +6,11 @@ import {
   SET_ACTION,
   KEEP_ME_LOGGED_IN,
   INSERT_ROUTE,
+  validateUser,
   logInUser
 } from '../../context'
 
-import { requestOtp, validateUser } from '../../utils'
+import { requestOtp } from '../../utils'
 
 import { 
   BrandLogo,
@@ -65,6 +66,7 @@ function Login() {
     window.localStorage.removeItem('registration')
     window.localStorage.removeItem('onboarding')
     window.localStorage.removeItem('forgotPassword')
+    window.localStorage.removeItem('profile')
 
     let routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'login'] })
@@ -74,7 +76,7 @@ function Login() {
       let token = window.localStorage.getItem('user')
 
       if (loggedIn) {
-        let res = await validateUser({ token })
+        let res = await validateUser(dispatch, { token })
 
         if (res?.status === 200) {
           navigate('/home')

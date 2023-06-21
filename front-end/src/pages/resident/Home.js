@@ -4,10 +4,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { 
   useSrContext,
   INSERT_ROUTE,
-  SET_ACTIVE_PAGE
+  SET_ACTIVE_PAGE,
+  validateUser
 } from '../../context'
-
-import { validateUser } from '../../utils'
 
 import {
   Guest,
@@ -45,7 +44,10 @@ function Home() {
 
     async function validate() {
       let token = window.localStorage.getItem('user')
-      let res = await validateUser({ token })
+      let res = await validateUser(dispatch, { token })
+
+      console.log(token)
+      console.log(res)
 
       if (res?.status === 401) {
         navigate('/login')
@@ -53,13 +55,15 @@ function Home() {
     }
 
     validate()
+
+    console.log(initialState)
   }, [])
   
   return (
     <section id='home'>
       <div className='container'>
         {/* Heading */}
-        <h1>Welcome, Sonny!</h1>
+        <h1>Welcome, {initialState.user?.profile?.firstName}!</h1>
 
         {/* Guests */}
         <div className='guests stack'>

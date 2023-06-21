@@ -1,15 +1,17 @@
 import express from 'express'
 
 import { 
+  approveUser,
   checkResidentUsername,
   checkUser,
   forgotPassword,
+  registerUser,
   requestOtp,
   signIn, 
   signUp, 
+  updateUser,
   validateUser,
-  verifyOtp,
-  verifyUser
+  verifyOtp
 } from '../controllers/userController.js'
 
 import { protect } from '../middlewares/authMiddleware.js'
@@ -24,6 +26,8 @@ router.post('/verification', verifyOtp)
 router.post('/validate-user', protect, validateUser)
 router.post('/check-user', checkUser)
 router.post('/check-resident-username', checkResidentUsername)
-router.post('/verify-user', protect, verifyUser)
+router.post('/register-user', protect, registerUser)
+router.post('/update-user', protect, updateUser)
+router.post('/approve-user', protect, approveUser)
 
 export default router

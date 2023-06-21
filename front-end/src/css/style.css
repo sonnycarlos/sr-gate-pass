@@ -513,6 +513,30 @@ select {
   background-color: var(--boring-green);
 }
 
+/* Note */
+
+#note {
+  display: grid;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: #DEF1DC;
+}
+
+#note > p {
+  color: var(--boring-green);
+}
+
+#note > p:first-child {
+  font-family: 'SFProDisplay-Bold';
+  font-weight: 800;
+}
+
+#note > p:nth-child(2) {
+  font-family: 'SFProDisplay-Medium';
+  font-size: 14px;
+}
+
 /* Error Message */
 
 #error-message > p {

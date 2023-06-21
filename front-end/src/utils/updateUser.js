@@ -1,13 +1,14 @@
 /**
- ** This function verifies user
- ** Creates resident profiles
+ ** This function updates user profile
 **/
 
 import { Axios } from '../config'
 
-export default async function verifyUser(payload) {
+export default async function updateUser(payload) {
   const { 
+    id,
     firstName,
+    middleName,
     lastName,
     birthdate,
     gender,
@@ -15,17 +16,16 @@ export default async function verifyUser(payload) {
     phoneNumber,
     emailAddress,
     username,
-    type,
     landCertificate,
     validId,
     picture
   } = payload
   
-  console.log(payload)
-
   try {
-    let res = await Axios.post('/user/verify-user', {
+    let res = await Axios.post('/user/update-user', {
+      id,
       firstName,
+      middleName,
       lastName,
       birthdate,
       gender,
@@ -33,7 +33,6 @@ export default async function verifyUser(payload) {
       phoneNumber,
       emailAddress,
       username,
-      type,
       landCertificate,
       validId,
       picture

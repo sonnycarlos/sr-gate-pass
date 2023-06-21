@@ -35,6 +35,7 @@ import ResetPasswordStep3 from './login_and_registration/ResetPasswordStep3'
 import ResetPasswordSuccessfully from './login_and_registration/ResetPasswordSuccessfully'
 import SearchGuest from './SearchGuest'
 import Verification from './login_and_registration/Verification'
+import ApproveUser from './admin/ApproveUser'
 
 export {
   AccountRegistrationPending,
@@ -68,5 +69,6 @@ export {
   ResetPasswordStep3,
   ResetPasswordSuccessfully,
   SearchGuest,
-  Verification
+  Verification,
+  ApproveUser
 }

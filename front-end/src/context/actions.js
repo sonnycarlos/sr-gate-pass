@@ -1,8 +1,31 @@
 import { Axios } from '../config/'
 import { 
+  VALIDATE_USER,
   LOG_IN_USER,
   REGISTER_USER
 } from './reducer'
+
+// Validate user
+export async function validateUser(dispatch, payload) {
+  const { token } = payload
+
+  try {
+    let res = await Axios.post('/user/validate-user', { token })
+
+    dispatch({ type: VALIDATE_USER, payload: res.data })
+
+    console.log(res)
+
+    return res
+  } catch (error) {
+    console.error(`Unhandled action type: ${error}`)
+
+    return {
+      status: error.response.status,
+      errorMessage: error.response.data.errorMessage
+    }
+  }
+}
 
 // Log in
 export async function logInUser(dispatch, payload) {

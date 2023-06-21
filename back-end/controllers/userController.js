@@ -9,7 +9,12 @@ import {
   mailer, 
   validatePassword 
 } from '../utils/index.js'
-import { Resident, User } from '../models/index.js'
+
+import { 
+  ProfileRequest,
+  Resident, 
+  User 
+} from '../models/index.js'
 
 dotenv.config()
 
@@ -22,35 +27,36 @@ var userEmailAddress
 const signIn = asyncHandler(async (req, res) => {
   const { emailAddress, password } = req.body
 
-  // Check if user exists
+  // Check if user exists and password matches
   const user = await User.findOne({ emailAddress })
 
   if (user && (await bcrypt.compare(password, user.password[user?.password?.length - 1]))) {
     userEmailAddress = emailAddress
-    let token = generateToken(user._id)
+    const token = generateToken(user._id)
 
     res.cookie('token', token)
 
     if (user.isApprove) {
-      const resident = await Resident.findOne({ userId: user._id })
+      const profileReq = await ProfileRequest.findOne({ userId: user._id })
+      const profile = await Resident.findOne({ userId: user._id })
 
-      if (resident) {
-        res.status(200).json({
-          emailAddress: user.emailAddress,
-          isVerify: user.isVerify,
-          isApprove: user.isApprove,
-          isRegistrationComplete: user.isRegistrationComplete,
-          token,
-          ...resident
-        })
-      }
+      res.status(200).json({
+        id: user._id,
+        type: user.type,
+        emailAddress: user.emailAddress,
+        isRegistrationComplete: user.isRegistrationComplete,
+        isApprove: user.isApprove,
+        profile,
+        isProfileRequestApprove: profileReq.isApprove,
+        token
+      })
     }
 
     res.status(200).json({
+      id: user._id,
+      type: user.type,
       emailAddress: user.emailAddress,
-      isVerify: user.isVerify,
       isApprove: user.isApprove,
-      isRegistrationComplete: user.isRegistrationComplete,
       token
     })
   } else {
@@ -79,7 +85,7 @@ const signUp = asyncHandler(async (req, res) => {
     throw new Error('User already exists.')
   }
 
-  let { isValidate, errorMessage } = validatePassword(password)
+  const { isValidate, errorMessage } = validatePassword(password)
 
   // Validate password with NIST policy
   if (isValidate) {
@@ -93,7 +99,7 @@ const signUp = asyncHandler(async (req, res) => {
       emailAddress,
       password: hashedPassword,
       dateCreated: Date.now(),
-      isVerify: false,
+      isRegistrationComplete: false,
       isApprove: false,
     })
 
@@ -142,7 +148,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     }
   }
 
-  let { isValidate, errorMessage } = validatePassword(password)
+  const { isValidate, errorMessage } = validatePassword(password)
 
   // Validate password with NIST policy
   if (isValidate) {
@@ -150,7 +156,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    const user = await User.updateOne({ emailAddress }, { $push: {['password']: hashedPassword} })
+    const user = await User.updateOne({ emailAddress }, { $push: { ['password']: hashedPassword } })
 
     if (user) {
       userEmailAddress = emailAddress
@@ -167,7 +173,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 })
 
 // @desc    Generate OTP code
-// @route   GET /api/verification
+// @route   GET /api/generate-otp
 // @access  Public
 const requestOtp = asyncHandler(async (req, res) => {
   otpCode = generateOtp()
@@ -191,7 +197,7 @@ const requestOtp = asyncHandler(async (req, res) => {
 })
 
 // @desc    Verify OTP code
-// @route   GET /api/generate-otp
+// @route   GET /api/verification
 // @access  Public
 const verifyOtp = asyncHandler(async (req, res) => {
   const { emailAddressInput, otpCodeInput } = req.body
@@ -205,10 +211,22 @@ const verifyOtp = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get user data
-// @route   GET /api/users/validate
+// @route   GET /api/users/validate-user
 // @access  Public
 const validateUser = asyncHandler(async (req, res) => {
-  const { _id, username, emailAddress } = await User.findById(req.user._id)
+  const { _id, username, emailAddress, isApprove } = await User.findById(req.user._id)
+
+  if (isApprove) {
+    const profileRequest = await ProfileRequest.findOne({ userId: _id })
+    const profile = await Resident.findOne({ userId: _id })
+
+    if (profile) {
+      res.status(200).json({
+        profile,
+        isProfileRequestApprove: profileRequest.isApprove
+      })
+    }
+  }
 
   res.status(200).json({
     _id,
@@ -248,10 +266,10 @@ const checkResidentUsername = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Verify user (create resident profile)
-// @route   GET /api/users/verify-user
+// @desc    Register user (complete user registration)
+// @route   GET /api/users/register-user
 // @access  Public
-const verifyUser = asyncHandler(async (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
   const { 
     firstName,
     lastName,
@@ -323,10 +341,10 @@ const verifyUser = asyncHandler(async (req, res) => {
 
   // Check if resident profile and username already exists
   const user = await User.findOne({ emailAddress })
-  const residentExists = await Resident.findOne({ username })
+  const profileExists = await ProfileRequest.findOne({ username })
 
   if (user) {
-    if (user.isVerify) {
+    if (user.isApprove) {
       res.status(400).json({ errorMessage: 'User already has a profile.' })
       return
     }
@@ -336,14 +354,15 @@ const verifyUser = asyncHandler(async (req, res) => {
       return
     }
 
-    if (residentExists) {
+    if (profileExists) {
       res.status(400).json({ errorMessage: 'Username already exists.' })
       return
     }
 
-    const resident = await Resident.create({
+    const profile = await ProfileRequest.create({
       userId: user._id,
       firstName,
+      middleName: '',
       lastName,
       birthdate,
       gender,
@@ -352,14 +371,16 @@ const verifyUser = asyncHandler(async (req, res) => {
       type,
       emailAddress,
       username,
-      dateCreated: Date.now(),
+      dateRequested: Date.now(),
       landCertificate: landCertificateArr,
       validId: validIdArr,
-      picture: pictureArr
+      picture: pictureArr,
+      isApprove: false,
+      action: 'register'
     })
-    await User.updateOne({ emailAddress }, { $set: { isVerify: true } })
+    await User.updateOne({ emailAddress }, { $set: { isRegistrationComplete: true } })
 
-    if (resident) {
+    if (profile) {
       res.status(201).json(req.body)
     } else {
       res.status(400).json({ errorMessage: 'Error.' })
@@ -369,6 +390,213 @@ const verifyUser = asyncHandler(async (req, res) => {
     res.status(400).json({ errorMessage: `User doesn't exist.` })
     throw new Error(`User doesn't exist.`)
   }
+})
+
+// @desc    Update user (update user profile)
+// @route   GET /api/users/update-user
+// @access  Public
+const updateUser = asyncHandler(async (req, res) => {
+  const { 
+    id,
+    firstName,
+    middleName,
+    lastName,
+    birthdate,
+    gender,
+    address,
+    phoneNumber,
+    emailAddress,
+    username
+  } = req.body
+
+  // Copy landCertificate values into an array
+  const landCertificateArr = Object.keys(req.body)
+  .reduce((arr, key) => {
+    const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/);
+
+    if (match) {
+      const index = Number(match[1]);
+      const property = match[2];
+
+      if (!arr[index]) {
+        arr[index] = {};
+      }
+
+      arr[index][property] = req.body[key];
+    }
+
+    return arr;
+  }, []);
+
+  // Copy validId values into an array
+  const validIdArr = Object.keys(req.body)
+  .reduce((arr, key) => {
+    const match = key.match(/validId\[(\d+)\]\[(\w+)\]/);
+
+    if (match) {
+      const index = Number(match[1]);
+      const property = match[2];
+
+      if (!arr[index]) {
+        arr[index] = {};
+      }
+
+      arr[index][property] = req.body[key];
+    }
+
+    return arr;
+  }, []);
+
+  // Copy pictureArr values into an array
+  const pictureArr = Object.keys(req.body)
+  .reduce((arr, key) => {
+    const match = key.match(/picture\[(\d+)\]\[(\w+)\]/);
+
+    if (match) {
+      const index = Number(match[1]);
+      const property = match[2];
+
+      if (!arr[index]) {
+        arr[index] = {};
+      }
+
+      arr[index][property] = req.body[key];
+    }
+
+    return arr;
+  }, []);
+
+  // Check if resident profile and username already exists
+  const user = await User.findOne({ emailAddress })
+
+  if (user) {
+    const profile = await ProfileRequest.updateOne(
+      { userId: id },
+      {
+        $set: {
+          firstName,
+          middleName,
+          lastName,
+          birthdate,
+          gender,
+          address,
+          phoneNumber,
+          emailAddress,
+          username,
+          dateRequested: Date.now(),
+          landCertificate: landCertificateArr,
+          validId: validIdArr,
+          picture: pictureArr,
+          isApprove: false,
+          action: 'edit'
+        }
+      }
+    )
+    await Resident.updateOne(
+      { userId: id}, 
+      { 
+        $push: { ['dateEdited']: Date.now() }
+      }
+    )
+
+    if (profile) {
+      res.status(201).json(profile)
+    } else {
+      res.status(400).json({ errorMessage: 'Error.' })
+      throw new Error('Error.')
+    }
+  } else {
+    res.status(400).json({ errorMessage: `User doesn't exist.` })
+    throw new Error(`User doesn't exist.`)
+  }
+})
+
+// @desc    Approve user
+// @route   GET /api/users/approve-user
+// @access  Public
+const approveUser = asyncHandler(async (req, res) => {
+  const { 
+    id, 
+    action,
+    qrCodeImage
+  } = req.body
+
+  // Check if profile exists
+  const profileRequest = await ProfileRequest.findOne({ _id: id })
+
+  if (profileRequest) {
+    // If action is register
+    if (action === 'register') {
+      const residentProfile = await Resident.create({
+        userId: profileRequest.userId,
+        firstName: profileRequest.firstName,
+        middleName: profileRequest.middleName,
+        lastName: profileRequest.lastName,
+        birthdate: profileRequest.birthdate,
+        gender: profileRequest.gender,
+        address: profileRequest.address,
+        phoneNumber: profileRequest.phoneNumber,
+        type: profileRequest.type,
+        emailAddress: profileRequest.emailAddress,
+        username: profileRequest.username,
+        dateRegistered: Date.now(),
+        landCertificate: profileRequest.landCertificate,
+        validId: profileRequest.validId,
+        picture: profileRequest.picture,
+        qrCodeImage
+      })
+
+      if (residentProfile) {
+        await ProfileRequest.updateOne(
+          { _id: id }, 
+          { 
+            $set: { isApprove: true },
+            $push: { ['dateApproved']: { date: Date.now(), action: 'register' } }
+          }
+        )
+        await User.updateOne({ _id: profileRequest.userId }, { $set: { isApprove: true } })
+      }
+
+      res.status(201).json({ message: 'Register resident profile uccessfully' })
+    }
+
+    // If action is edit
+    if (action === 'edit') {
+      await ProfileRequest.updateOne(
+        { _id: id }, 
+        { 
+          $set: { isApprove: true },
+          $push: { ['dateApproved']: { date: Date.now(), action: 'edit' } }
+        }
+      )
+      await Resident.updateOne(
+        { userId: profileRequest.userId }, 
+        { 
+          $set: { 
+            firstName: profileRequest.firstName,
+            middleName: profileRequest.middleName,
+            lastName: profileRequest.lastName,
+            birthdate: profileRequest.birthdate,
+            gender: profileRequest.gender,
+            address: profileRequest.address,
+            phoneNumber: profileRequest.phoneNumber,
+            username: profileRequest.username,
+            landCertificate: profileRequest.landCertificate,
+            validId: profileRequest.validId,
+            picture: profileRequest.picture,
+          }
+        }
+      )
+
+      res.status(200).json({ message: 'Edit resident profile successfully.' })
+    }
+
+    res.status(400).json({ errorMessage: 'Invalid action.' })
+    throw new Error('Invalid action.')
+  }
+
+  res.status(400).json({ errorMessage: 'Profile request not found.' })
+  throw new Error('Profile request not found.')
 })
 
 // Generate token
@@ -387,5 +615,7 @@ export {
   validateUser,
   checkUser,
   checkResidentUsername,
-  verifyUser
+  registerUser,
+  updateUser,
+  approveUser
 }

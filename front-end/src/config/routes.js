@@ -35,7 +35,8 @@ import {
   ResetPasswordStep3,
   ResetPasswordSuccessfully,
   SearchGuest,
-  Verification
+  Verification,
+  ApproveUser
 } from '../pages'
 
 const routes = [
@@ -170,6 +171,10 @@ const routes = [
   {
     path: '/*',
     component: <PageNotFound />
+  },
+  {
+    path: '/approve-user',
+    component: <ApproveUser />
   }
 ]
 

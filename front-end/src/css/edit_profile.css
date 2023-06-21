@@ -1,7 +1,7 @@
 #edit_profile {
   position: relative;
   overflow-x: hidden;
-  padding: 48px 20px 24px;
+  padding: 0 20px 80px;
   background-color: var(--white);
 }
 
@@ -9,7 +9,7 @@
 
 #edit_profile > header {
   position: fixed;
-  top: 60px;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 1;
@@ -26,13 +26,13 @@
 
 #edit_profile > header > div > .btn {
   position: fixed;
-  top: 86px;
+  top: 24px;
   left: 20px;
 }
 
 #edit_profile > header > div > .progress-bar {
   position: fixed;
-  top: 94px;
+  top: 32px;
 }
 
 #edit_profile > header > div > .progress-bar > .bar {
@@ -65,17 +65,14 @@
   gap: 32px;
 }
 
-#edit_profile > form > .inputFields > .form-group > .avatar-container > .avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: url('../assets/images/avatar.png');
+#edit_profile > form > .actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 40px;
 }
 
-#edit_profile > form > .btn-container,
-#edit_profile > form > .btn {
+#edit_profile > form > .actions > * {
   width: 100%;
-  margin: 40px 0;
 }
 
 /* Screen Width: 390px */
@@ -84,19 +81,19 @@
   /* Header */
 
   #edit_profile > header {
-    top: 64px;
+    top: 0;
     height: 74px;
   }
 
   #edit_profile > header > div > .btn {
     position: fixed;
-    top: 94px;
+    top: 30px;
     left: 20px;
   }
   
   #edit_profile > header > div > .progress-bar {
     position: fixed;
-    top: 102px;
+    top: 38px;
   }
 
   #edit_profile > h1 {

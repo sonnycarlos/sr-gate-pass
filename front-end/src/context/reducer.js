@@ -1,11 +1,12 @@
 // Global variables
 export const COUNTDOWN = 60000
 
-// Action yypes
+// Action types
+export const VALIDATE_USER = 'VALIDATE_USER'
 export const LOG_IN_USER = 'LOG_IN_USER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
-export const ON_BOARDING_TO_PROFILE = 'ON_BOARDING_TO_PROFILE'
+export const UPDATE_PROFILE_DETAILS = 'UPDATE_PROFILE_DETAILS'
 export const SET_ACTION = 'SET_ACTION'
 export const SET_COUNTDOWN_START = 'SET_COUNTDOWN_START'
 export const KEEP_ME_LOGGED_IN = 'KEEP_ME_LOGGED_IN'
@@ -16,6 +17,7 @@ export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE'
 // Initial state
 export const initialState = {
   user: {},
+  userDetails: {},
   action: '',
   otpCountdown: '',
   countdownStart: false,
@@ -28,6 +30,14 @@ export const initialState = {
 // Reducer
 export const reducer = (initialState, action) => {
   switch (action.type) {
+    case VALIDATE_USER:
+      return {
+        ...initialState,
+        user: {
+          ...initialState.user,
+          ...action.payload
+        }
+      }
     case LOG_IN_USER:
       return {
         ...initialState,
@@ -46,11 +56,11 @@ export const reducer = (initialState, action) => {
           emailAddress: action.payload
         }
       }
-    case ON_BOARDING_TO_PROFILE:
+    case UPDATE_PROFILE_DETAILS:
       return {
         ...initialState,
-        user: {
-          ...initialState.user,
+        userDetails: {
+          ...initialState.userDetails,
           ...action.payload
         }
       }

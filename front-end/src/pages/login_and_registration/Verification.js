@@ -52,14 +52,15 @@ function Verification() {
     if (res?.status === 200) {
       if (initialState.keepMeLoggedIn) {
         window.localStorage.setItem('loggedIn', true)
-        window.localStorage.setItem('user', initialState.user?.token)
       }
 
       if (initialState.action === 'Log in') {
+        window.localStorage.setItem('user', initialState.user?.token)
         window.localStorage.setItem('onboarding', true)
 
-        if (initialState.user?.isVerify) {
+        if (initialState.user?.isRegistrationComplete) {
           if (initialState.user?.isApprove) {
+            window.localStorage.setItem('profile', JSON.stringify(initialState.user?.profile))
             return navigate('/home')
           } else {
             return navigate('/account-registration-pending')

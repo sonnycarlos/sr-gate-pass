@@ -4,11 +4,13 @@
 **/
 
 import Guest from './guestModel.js'
+import ProfileRequest from './profileRequestModel.js'
 import Resident from './residentModel.js'
 import User from './userModel.js'
 
 export {
   Guest,
+  ProfileRequest,
   Resident,
   User
 }

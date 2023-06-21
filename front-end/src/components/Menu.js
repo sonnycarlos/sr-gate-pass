@@ -17,6 +17,12 @@ function Menu() {
     dispatch({ type: TOGGLE_NAV })
   }
 
+  // Log out user
+  const logOut = () => {
+    window.localStorage.removeItem('loggedIn')
+    dispatch({ type: TOGGLE_NAV })
+  }
+
   return (
     <section id='menu'>
       {/* Close Button */}
@@ -92,7 +98,7 @@ function Menu() {
         <Link 
           to='/login' 
           className={`${initialState.activePage === 'logOut' && 'active'}`}
-          onClick={() => dispatch({ type: TOGGLE_NAV })}
+          onClick={logOut}
         >
           Log Out
         </Link>
