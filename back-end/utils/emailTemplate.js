@@ -85,11 +85,16 @@ const emailTemplate = (action, otpCode) => {
                 }
 
                 @media screen and (max-device-width: 767px), screen and (max-width: 767px) {
+                  img {
+                    height: 24px;
+                  }
+
                   section {
                     padding: 0;
                   }
 
                   section > div {
+                    width: 100%;
                     padding: 24px; 
                     border-radius: 0;
                   }
