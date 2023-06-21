@@ -13,6 +13,7 @@ import { Back } from '../../assets/svg'
 import '../../css/my_gate_pass.css'
 
 function MyGatePass() {
+  const [greetText, setGreetText] = useState('')
   const [currentDate, setCurrentDate] = useState(new Date())
   const [currentTime, setCurrentTime] = useState(new Date())
   const [initialState, dispatch] = useSrContext()
@@ -45,6 +46,23 @@ function MyGatePass() {
     }
 
     validate()
+
+    const determineTimeOfDay = () => {
+      const currentHour = new Date().getHours()
+      let greetText
+
+      if (currentHour >= 5 && currentHour < 12) {
+        greetText = 'Good morning'
+      } else if (currentHour >= 12 && currentHour < 18) {
+        greetText = 'Good afternoon'
+      } else {
+        greetText = 'Good evening'
+      }
+
+      setGreetText(greetText)
+    };
+
+    determineTimeOfDay()
 
     const interval = setInterval(() => {
       setCurrentDate(new Date())
@@ -87,7 +105,7 @@ function MyGatePass() {
 
         {/* Greeting */}
         <div className='greetings'>
-          <p className='greet'>Good morning!</p>
+          <p className='greet'>{`${greetText}!`}</p>
           <p className='time'>{currentTime.toLocaleTimeString()}</p>
           <p className='date'>{formattedDate}</p>
         </div>
