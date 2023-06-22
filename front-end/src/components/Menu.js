@@ -19,8 +19,10 @@ function Menu() {
 
   // Log out user
   const logOut = () => {
-    window.localStorage.removeItem('loggedIn')
     dispatch({ type: TOGGLE_NAV })
+    window.localStorage.removeItem('loggedIn')
+    window.location.href = window.location.href
+    window.location.assign('/login')
   }
 
   return (

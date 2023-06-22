@@ -6,7 +6,7 @@ import {
   UPDATE_PROFILE_DETAILS
 } from '../../context'
 
-import { checkResidentUsername } from '../../utils'
+import { checkResidentUsername, logOut } from '../../utils'
 
 import {
   BrandLogo,
@@ -97,11 +97,7 @@ function OnBoardingStep1() {
     }
   }
 
-  // Log out
-  const logOut = () => {
-    window.location.href = window.location.href
-    window.location.assign('/login')
-  }
+  
   
   // Use effect
   useEffect(() => {
@@ -128,7 +124,7 @@ function OnBoardingStep1() {
 
       {/* Header */}
       <header id='header'>
-        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold', fontSize: headingFontSize }}>
           You're almost there!
         </h1>
 

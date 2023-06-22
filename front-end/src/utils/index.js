@@ -7,6 +7,7 @@ import checkResidentUsername from './checkResidentUsername'
 import checkUser from './checkUser'
 import formatBirthdate from './formatBirthdate'
 import formatBytes from './formatBytes'
+import logOut from './logOut'
 import onBoarding from './onBoarding'
 import registerUser from './registerUser'
 import updateUser from './updateUser'
@@ -23,6 +24,7 @@ export {
   checkUser,
   formatBirthdate,
   formatBytes,
+  logOut,
   onBoarding,
   registerUser,
   updateUser,
