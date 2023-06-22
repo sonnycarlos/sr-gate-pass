@@ -24,6 +24,7 @@ import {
   INSERT_ROUTE,
   TOGGLE_NAV,
   SET_ACTIVE_PAGE,
+  CHECK_IF_IOS_DEVICE,
   initialState,
   reducer
 } from './reducer'
@@ -43,6 +44,7 @@ export {
   INSERT_ROUTE,
   TOGGLE_NAV,
   SET_ACTIVE_PAGE,
+  CHECK_IF_IOS_DEVICE,
   initialState,
   reducer,
   validateUser,

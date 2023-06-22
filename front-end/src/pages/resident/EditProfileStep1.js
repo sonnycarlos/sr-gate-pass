@@ -15,7 +15,6 @@ import {
   ArrowRight,
   Back,
   Calendar,
-  Camera,
   ChevronDown
 } from '../../assets/svg'
 
@@ -119,15 +118,19 @@ function EditProfileStep1() {
       </header>
 
       {/* Heading */}
-      <h1>Edit Profile</h1>
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        Edit Profile
+      </h1>
 
       {/* Form */}
       <form onSubmit={handleSubmit}>
-        <h2>Personal Information</h2>
+        <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Personal Information
+        </h2>
 
         <div className='inputFields'>
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               First Name 
               <span className='required-symbol'>*</span>
             </label>
@@ -143,7 +146,7 @@ function EditProfileStep1() {
           </div>
 
           <div className='form-group'>
-            <label>Middle Name</label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Middle Name</label>
 
             <input 
               type='text'
@@ -155,7 +158,7 @@ function EditProfileStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Last Name 
               <span className='required-symbol'>*</span>
             </label>
@@ -171,7 +174,7 @@ function EditProfileStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Date of Birth 
               <span className='required-symbol'>*</span>
             </label>
@@ -192,7 +195,7 @@ function EditProfileStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Gender 
               <span className='required-symbol'>*</span>
             </label>
@@ -214,7 +217,7 @@ function EditProfileStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Phone Number
               <span className='required-symbol'>*</span>
             </label>
@@ -230,7 +233,7 @@ function EditProfileStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Username
               <span className='required-symbol'>*</span>
             </label>

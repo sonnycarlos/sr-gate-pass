@@ -27,7 +27,6 @@
 #announcement_overview > .container > header > h1 {
   font-family: 'SFProDisplay-Bold';
   font-size: 22px;
-  font-weight: 800;
 }
 
 #announcement_overview > .container > .content {
@@ -43,7 +42,6 @@
 #announcement_overview > .container > .content > .titleAndDate > .title {
   font-family: 'SFProDisplay-Bold';
   font-size: 20px;
-  font-weight: 800;
 }
 
 #announcement_overview > .container > .content > .titleAndDate > .date {

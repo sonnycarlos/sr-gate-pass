@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../components'
+import { useSrContext } from '../context'
 
 import {
   Back,
@@ -11,6 +11,8 @@ import {
 import '../css/announcement_overview.css'
 
 function AnnouncementOverview() {
+  const [initialState, dispatch] = useSrContext()
+  
   // Use effect
   useEffect(() => {
     document.title = 'Announcement Overview'
@@ -26,12 +28,6 @@ function AnnouncementOverview() {
 
   return (
     <section id='announcement_overview'>
-      {/* Menu */}
-      {/* <Menu /> */}
-      
-      {/* Navigation Bar */}
-      <NavigationBar />
-
       <div className='container'>
         {/* Back Button */}
         <Link to='#' className='text btn'>
@@ -41,7 +37,9 @@ function AnnouncementOverview() {
 
         {/* Header */}
         <header>
-          <h1>Announcement</h1>
+          <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+            Announcement
+          </h1>
 
           <div className='pin'>
             <Pin />
@@ -51,7 +49,13 @@ function AnnouncementOverview() {
         {/* Content */}
         <div className='content'>
           <div className='titleAndDate'>
-            <h2 className='title'>Vivamus vulputate aliquet quam, nec</h2>
+            <h2 
+              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+              className='title'
+            >
+              Vivamus vulputate aliquet quam, nec
+            </h2>
+
             <p className='date'>Yesterday at 10:00 AM</p>
           </div>
 

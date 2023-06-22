@@ -51,7 +51,10 @@ function EditProfilePending() {
 
       {/* Heading & Paragraph */}
       <div>
-        <h1>Your request to edit your profile has been sent!</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Your request to edit your profile has been sent!
+        </h1>
+        
         <p>Thank you! Your request will be reviewed by the admin. Just wait for a while and you will receive a text message and email for the response of your request.</p>
       </div>
 

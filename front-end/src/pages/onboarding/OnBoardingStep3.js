@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Axios } from '../../config'
 
 import { 
   useSrContext, 
-  UPDATE_PROFILE_DETAILS 
+  UPDATE_PROFILE_DETAILS
 } from '../../context'
 
 import { uploadFile, formatBytes, registerUser } from '../../utils'
@@ -219,7 +218,10 @@ function OnBoardingStep3() {
 
       {/* Header */}
       <header id='header'>
-        <h1 style={{ fontSize: `${headingFontSize}px` }} >You're almost there!</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          You're almost there!
+        </h1>
+        
         <p style={{ fontSize: `${paragraphFontSize}px` }}>This won't take long so don't worry.</p>
       </header>
 
@@ -232,11 +234,13 @@ function OnBoardingStep3() {
 
       {/* Form */}
       <form onSubmit={handleSubmit}>
-        <h2>Proof of Residency</h2>
+        <h2 style={{ fontFamily: initialState.isiOSDevice ? 'SFProDisplay-Medium' : 'SFProDisplay-Bold' }}>
+          Proof of Residency
+        </h2>
 
         <div className='inputFields'>
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Land Certificate 
               <span className='required-symbol'>*</span>
               <span className='guide'>(or any document to prove)</span>
@@ -284,7 +288,7 @@ function OnBoardingStep3() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Valid ID
               <span className='required-symbol'>*</span>
               <span className='guide'>(front and back)</span>
@@ -331,7 +335,7 @@ function OnBoardingStep3() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               2x2 Picture 
               <span className='required-symbol'>*</span>
               <span className='guide'>(must be hd and updated)</span>

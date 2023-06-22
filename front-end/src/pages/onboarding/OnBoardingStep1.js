@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { useSrContext, UPDATE_PROFILE_DETAILS } from '../../context'
+import { 
+  useSrContext, 
+  UPDATE_PROFILE_DETAILS
+} from '../../context'
 
 import { checkResidentUsername } from '../../utils'
 
@@ -16,18 +19,19 @@ import '../../css/onboarding.css'
 import '../../css/style.css'
 
 function OnBoardingStep1() {
+  const today = new Date().toISOString().split('T')[0]
   const [inputs, setInputs] = useState({
     firstName: '',
     lastName: '',
     gender: 'male',
-    birthdate: '',
+    birthdate: today,
     phoneNumber: '',
     username: ''
   })
   const [error, setError] = useState({ isError: false, errorMessage: '' })
   const [headingFontSize, setHeadingFontSize] = useState(40)
   const [paragraphFontSize, setParagraphFontSize] = useState(20)
-  const [, dispatch] = useSrContext()
+  const [initialState, dispatch] = useSrContext()
 
   const navigate = useNavigate()
 
@@ -118,7 +122,10 @@ function OnBoardingStep1() {
 
       {/* Header */}
       <header id='header'>
-        <h1 style={{ fontSize: `${headingFontSize}px` }} >You're almost there!</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          You're almost there!
+        </h1>
+
         <p style={{ fontSize: `${paragraphFontSize}px` }}>This won't take long so don't worry.</p>
       </header>
 
@@ -131,11 +138,13 @@ function OnBoardingStep1() {
 
       {/* Form */}
       <form onSubmit={handleSubmit}>
-        <h2>Personal Information</h2>
+        <h2 style={{ fontFamily: initialState.isiOSDevice ? 'SFProDisplay-Medium' : 'SFProDisplay-Bold' }}>
+          Personal Information
+        </h2>
 
         <div className='inputFields'>
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               First Name 
               <span className='required-symbol'>*</span>
             </label>
@@ -151,7 +160,7 @@ function OnBoardingStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Last Name 
               <span className='required-symbol'>*</span>
             </label>
@@ -167,7 +176,7 @@ function OnBoardingStep1() {
           </div>
           
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Gender
               <span className='required-symbol'>*</span>
             </label>
@@ -189,7 +198,7 @@ function OnBoardingStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Date of Birth 
               <span className='required-symbol'>*</span>
             </label>
@@ -210,7 +219,7 @@ function OnBoardingStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Phone Number 
               <span className='required-symbol'>*</span>
             </label>
@@ -226,7 +235,7 @@ function OnBoardingStep1() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Username
               <span className='required-symbol'>*</span>
             </label>

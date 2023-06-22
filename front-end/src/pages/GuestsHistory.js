@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useSrContext } from '../context'
+
 import { Back, Plus } from '../assets/svg'
 
 import '../css/guests_history.css'
@@ -23,6 +25,7 @@ function GuestsHistory() {
     { date: 'September 11', count: 26 },
     { date: 'September 10', count: 19 }
   ])
+  const [initialState, dispatch] = useSrContext()
 
   // Use effect
   useEffect(() => {
@@ -38,19 +41,35 @@ function GuestsHistory() {
       </Link>
 
       {/* Heading */}
-      <h1>Guests History</h1>
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        Guests History
+      </h1>
 
       {/* Number of Guests */}
       <div className='numOfGuests'>
-        <p className='count'>40 guests</p>
-        <p>as of today</p>
+        <p 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+          className='count'
+        >
+          40 guests
+        </p>
+        
+        <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          as of today
+        </p>
       </div>
 
       {/* List */}
       <div className='list'>
         {items.map(({ date, count}) => (
           <div className='item'>
-            <p className='date'>{date}</p>
+            <p 
+              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+              className='date'
+            >
+              {date}
+            </p>
+            
             <p className='count'>{count}</p>
           </div>
         ))}

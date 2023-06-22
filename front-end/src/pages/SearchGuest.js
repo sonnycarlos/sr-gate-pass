@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useSrContext } from '../context'
+
 import { Back, Search } from '../assets/svg'
 
 import '../css/search_guest.css'
 
 function SearchGuest() {
+  const [initialState, dispatch] = useSrContext()
+
   // Use effect
   useEffect(() => {
     document.title = 'Search Guest'
@@ -20,7 +24,9 @@ function SearchGuest() {
       </Link>
 
       {/* Heading */}
-      <h1>Search Guest</h1>
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        Search Guest
+      </h1>
 
       {/* Search Bar */}
       <div className='searchBar form-group'>
@@ -39,20 +45,42 @@ function SearchGuest() {
       <div className='result'>
         <div className='item'>
           <div className='nameAndContactNum'>
-            <p className='name'>Tony Parker</p>
+            <p 
+              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+              className='name'
+            >
+              Tony Parker
+            </p>
+            
             <p className='contactNum'>09123456789</p>
           </div>
 
-          <p className='log'>Yesterday at 10:00 AM</p>
+          <p 
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+            className='log'
+          >
+            Yesterday at 10:00 AM
+          </p>
         </div>
 
         <div className='item'>
-          <div className='nameAndContactNum'>
-            <p className='name'>Tony Parker</p>
+        <div className='nameAndContactNum'>
+            <p 
+              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+              className='name'
+            >
+              Tony Parker
+            </p>
+            
             <p className='contactNum'>09123456789</p>
           </div>
 
-          <p className='log'>Jul 12 at 12:00 PM</p>
+          <p 
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+            className='log'
+          >
+            Yesterday at 10:00 AM
+          </p>
         </div>
       </div>
     </section>

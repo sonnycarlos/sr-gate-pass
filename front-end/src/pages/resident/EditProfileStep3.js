@@ -204,15 +204,19 @@ function EditProfileStep3() {
       </header>
 
       {/* Heading */}
-      <h1>Edit Profile</h1>
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        Edit Profile
+      </h1>
 
       {/* Form */}
       <form onSubmit={handleSubmit}>
-        <h2>Proof of Residency</h2>
+        <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Proof of Residency
+        </h2>
 
         <div className='inputFields'>
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Land Certificate 
               <span className='required-symbol'>*</span>
               <span className='guide'>(or any document to prove)</span>
@@ -260,7 +264,7 @@ function EditProfileStep3() {
         </div>
 
         <div className='form-group'>
-          <label>
+          <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
             Valid ID 
             <span className='required-symbol'>*</span>
             <span className='guide'>(or any document to prove)</span>
@@ -301,49 +305,49 @@ function EditProfileStep3() {
         </div>
 
         <div className='form-group'>
-            <label>
-              2x2 Picture 
-              <span className='required-symbol'>*</span>
-              <span className='guide'>(must be hd and updated)</span>
-            </label>
+          <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+            2x2 Picture 
+            <span className='required-symbol'>*</span>
+            <span className='guide'>(must be hd and updated)</span>
+          </label>
 
-            <div className='input-image-field'>
-              <input
-                type='file' 
-                accept='image/*' 
-                onChange={(e) => handleFile(e, 'picture')}
-              />
-              
-              <Upload />
+          <div className='input-image-field'>
+            <input
+              type='file' 
+              accept='image/*' 
+              onChange={(e) => handleFile(e, 'picture')}
+            />
+            
+            <Upload />
 
-              <div>
-                <p>Click to upload</p>
-                <p>5 mb maximum file size</p>
-              </div>
+            <div>
+              <p>Click to upload</p>
+              <p>5 mb maximum file size</p>
             </div>
           </div>
+        </div>
 
-          <div 
-            className='files'
-            style={{ display: `${files.picture?.length !== 0 ? 'grid' : 'none'}` }}
-          >
-            {files.picture?.map((file, i) => (
-              <div key={i} className='file'>
-                <div className='icon-and-info'>
-                  <Picture />
+        <div 
+          className='files'
+          style={{ display: `${files.picture?.length !== 0 ? 'grid' : 'none'}` }}
+        >
+          {files.picture?.map((file, i) => (
+            <div key={i} className='file'>
+              <div className='icon-and-info'>
+                <Picture />
 
-                  <div className='info'>
-                    <p className='name'>{file?.name}</p>
-                    <p className='size'>{formatBytes(file?.size)}</p>
-                  </div>
+                <div className='info'>
+                  <p className='name'>{file?.name}</p>
+                  <p className='size'>{formatBytes(file?.size)}</p>
                 </div>
-
-                <a onClick={() => removeFile(i, 'picture')}>
-                  <Remove />
-                </a>
               </div>
-            ))}
-          </div>
+
+              <a onClick={() => removeFile(i, 'picture')}>
+                <Remove />
+              </a>
+            </div>
+          ))}
+        </div>
 
         <div className='actions'>
           <input type='submit' value='Save' className='solid btn' />

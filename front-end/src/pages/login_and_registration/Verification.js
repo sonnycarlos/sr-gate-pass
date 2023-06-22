@@ -114,14 +114,17 @@ function Verification() {
 
       {/* Header */}
       <header>
-        <h1>Verification</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Verification
+        </h1>
+        
         <p>Check your email address and input the OTP code to login.</p>
       </header>
 
       {/* Form */}
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
-          <label>
+          <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
             OTP Code
             <span className='required-symbol'>*</span>
           </label>

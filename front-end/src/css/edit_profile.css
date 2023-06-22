@@ -43,7 +43,6 @@
   margin-top: 88px;
   font-family: 'SFProDisplay-Bold';
   font-size: 20px;
-  font-weight: 800;
 }
 
 /* Form */
@@ -57,7 +56,6 @@
 #edit_profile > form > h2 {
   font-family: 'SFProDisplay-Bold';
   font-size: 18px;
-  font-weight: 800;
 }
 
 #edit_profile > form > .inputFields {

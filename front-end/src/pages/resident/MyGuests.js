@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../../components'
+import { 
+  useSrContext
+} from '../../context'
 
 import {
   ArrowDownRight,
@@ -12,6 +14,8 @@ import {
 import '../../css/my_guests.css'
 
 function MyGuests() {
+  const [initialState, dispatch] = useSrContext()
+
   const [items, setItems] = useState([
     {
       date: 'November 2',
@@ -34,19 +38,20 @@ function MyGuests() {
 
   return (
     <section id='my_guests'>
-      {/* Menu */}
-      {/* <Menu /> */}
-
-      {/* Navigation Bar */}
-      <NavigationBar />
-
       {/* Heading */}
-      <h1 id='heading'>My Guests</h1>
+      <h1 
+        style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+        id='heading'
+      >
+        My Guests
+      </h1>
 
       {/* List */}
       <div className='list'>
         <div>
-          <h2>This week</h2>
+          <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+            This week
+          </h2>
 
           <div className='items'>
             <div className='item'>
@@ -100,7 +105,7 @@ function MyGuests() {
         </div>
 
         <div>
-          <h2>Last week</h2>
+          <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Last week</h2>
 
           <div className='items'>
             {items.map(({date, guestsCount}) => (

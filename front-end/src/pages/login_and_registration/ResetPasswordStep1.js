@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
   useSrContext,
   FORGOT_PASSWORD,
-  INSERT_ROUTE} from '../../context'
+  INSERT_ROUTE
+} from '../../context'
 
 import { checkUser, requestOtp } from '../../utils'
 
@@ -55,6 +56,10 @@ function ResetPasswordStep1() {
     const routeHistory = cookie?.split(',')
 
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
+
+    if (!window.localStorage.getItem('registration')) {
+      navigate('/login')
+    }
   }, [])
 
   return (
@@ -70,7 +75,10 @@ function ResetPasswordStep1() {
 
       {/* Header */}
       <header>
-        <h1>Reset Password</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Reset Password
+        </h1>
+        
         <p>Get started by entering the email address you registered.</p>
       </header>
 
@@ -81,7 +89,7 @@ function ResetPasswordStep1() {
             className='form-group'
             style={{ borderBottom: `${error.isError && '1px solid #C01F28'}` }}
           >
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Email Address
               <span className='required-symbol'>*</span>
             </label>

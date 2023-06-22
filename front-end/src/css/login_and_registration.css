@@ -13,9 +13,8 @@
 }
 
 #login_and_registration > header > h1 {
-  font-family: 'SFProDisplay-Bold';
+  font-family: 'SFProDisplay';
   font-size: 40px;
-  font-weight: 800;
 }
 
 #login_and_registration > header > p {

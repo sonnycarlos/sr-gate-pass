@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../components'
+import { useSrContext } from '../context'
 
 import {
   Users
@@ -10,6 +10,7 @@ import {
 import '../css/notifications.css'
 
 function Notifications() {
+  const [initialState, dispatch] = useSrContext()
   const items = Array(20).fill(null)
 
   // Use effect
@@ -19,15 +20,11 @@ function Notifications() {
 
   return (
     <section id='notifications'>
-      {/* Menu */}
-      {/* <Menu /> */}
-
-      {/* Navigation Bar */}
-      <NavigationBar />
-
       <div className='container'>
         {/* Heading */}
-        <h1>Notifications</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Notifications
+        </h1>
       
         {/* List */}
         <div className='list'>
@@ -39,7 +36,13 @@ function Notifications() {
 
               <div>
                 <div className='titleAndDate'>
-                  <h3 className='title'>Your Guest</h3>
+                  <h3 
+                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                    className='title'
+                  >
+                    Your Guest
+                  </h3>
+
                   <p className='date'>Today at 9:10 AM</p>
                 </div>
                 

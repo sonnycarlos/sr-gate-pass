@@ -86,7 +86,10 @@ function ResetPasswordStep2() {
 
       {/* Header */}
       <header>
-        <h1>Reset Password</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Reset Password
+        </h1>
+
         <p>Enter the OTP code we sent to <span>{initialState.user?.emailAddress}</span>.</p>
       </header>
 

@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import {
+  useSrContext
+} from '../../context'
+
 import { 
   BadgeAmazed
 } from '../../assets/svg'
@@ -8,6 +12,7 @@ import {
 import '../../css/status.css'
 
 function AccountRegistrationSuccessfully() {
+  const [initialState] = useSrContext()
   const navigate = useNavigate()
 
   // Use effect
@@ -26,7 +31,10 @@ function AccountRegistrationSuccessfully() {
 
       {/* Heading & Paragraph */}
       <div>
-        <h1>You’re ready to go!</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          You’re ready to go!
+        </h1>
+        
         <p>Your request to register your account has been approved by the admin. Welcome!</p>
       </div>
 

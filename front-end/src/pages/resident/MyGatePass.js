@@ -92,7 +92,13 @@ function MyGatePass() {
 
         {/* Name & Address */}
         <div className='nameAndAddress'>
-          <h1 className='name'>{`${initialState.user?.profile?.firstName} ${initialState.user?.profile?.lastName}`}</h1>
+          <h1 
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+            className='name'
+          >
+            {`${initialState.user?.profile?.firstName} ${initialState.user?.profile?.lastName}`}
+          </h1>
+          
           <p className='address'>{initialState.user?.profile?.address}</p>
         </div>
 

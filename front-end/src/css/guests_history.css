@@ -22,7 +22,6 @@
   margin-top: 24px;
   font-family: 'SFProDisplay-Bold';
   font-size: 20px;
-  font-weight: 800;
 }
 
 /* Number of Guests */
@@ -38,13 +37,13 @@
 #guests_history > .numOfGuests > .count {
   font-family: 'SFProDisplay-Bold';
   font-size: 32px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 #guests_history > .numOfGuests > p:last-child {
   font-family: 'SFProDisplay-Bold';
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* List */
@@ -70,7 +69,7 @@
 
 #guests_history > .list > .item > .date {
   font-family: 'SFProDisplay-Bold';
-  font-weight: 800;
+  font-weight: 700;
 }
 
 #guests_history > .list > .item > .count {
@@ -82,7 +81,7 @@
 #guests_history > .btn.circle {
   position: fixed;
   right: 20px;
-  bottom: 24px;
+  bottom: 40px;
   z-index: 1;
 }
 

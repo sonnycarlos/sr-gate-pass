@@ -17,9 +17,8 @@
 /* Heading */
 
 #home > .container > h1 {
-  margin-bottom: 8px;
   font-family: 'SFProDisplay-Bold';
-  font-weight: 800;
+  margin-bottom: 8px;
 }
 
 /* Guests */
@@ -55,11 +54,11 @@
   padding: 2px 8px;
   border-bottom: 0;
   border-radius: 100px;
-  background-color: var(--white);
 }
 
 #home > .container > .guests > div .input-field > input {
   width: 96px;
+  background-color: var(--white);
   font-size: 12px;
 }
 
@@ -73,7 +72,6 @@
 
 #home > .container > .guests > p > span {
   color: var(--white);
-  font-weight: 800;
 }
 
 #home > .container > .guests > p > span:first-child {
@@ -130,7 +128,6 @@
   align-items: center;
   font-family: 'SFProDisplay-Bold';
   font-size: 18px;
-  font-weight: 800;
 }
 
 #home > .container > .announcements > .stack > .header > h2 > img {
@@ -281,10 +278,12 @@
   #home > .container > .guests > p > span:first-child {
     font-family: 'SFProDisplay-Bold';
     font-size: 40px;
+    font-weight: 700;
   }
   
   #home > .container > .guests > p > span:last-child {
     font-size: 24px;
+    font-weight: 700;
   }
 }
 
@@ -297,7 +296,13 @@
     font-size: 28px;
   }
 
-  /* Announcments */
+  /* Guests */
+
+  #home > .container > .guests > div .input-field > input {
+    width: 105px;
+  }
+
+  /* Announcements */
 
   #home > .container > .announcements > .stack > .header > h2 {
     font-size: 20px;

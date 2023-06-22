@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import {
+  useSrContext
+} from '../../context'
+
 import { 
   BadgeCheck
 } from '../../assets/svg'
@@ -9,6 +13,7 @@ import '../../css/status.css'
 import '../../css/style.css'
 
 function ResetPasswordSuccessfully() {
+  const [initialState] = useSrContext()
   const navigate = useNavigate()
 
   // Use effect
@@ -27,7 +32,10 @@ function ResetPasswordSuccessfully() {
 
       {/* Heading & Paragraph */}
       <div>
-        <h1>Your password has been reset successfully</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Your password has been reset successfully
+        </h1>
+        
         <p>Click the button below to proceed to login.</p>
       </div>
 

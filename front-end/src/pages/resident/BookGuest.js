@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import {
+  useSrContext
+} from '../../context'
+
 import { Back, Calendar } from '../../assets/svg'
 
 import '../../css/book_guest.css'
 
 function BookGuest() {
+  const [initialState] = useSrContext()
+  
   // Use effect
   useEffect(() => {
     document.title = 'Book Guest'
@@ -20,13 +26,15 @@ function BookGuest() {
       </Link>
 
       {/* Heading */}
-      <h1>Book Guest</h1>
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        Book Guest
+      </h1>
 
       {/* Form */}
       <form>
         <div className='inputFields'>
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Name of Guest
               <span className='required-symbol'>*</span>
               <span className='guide'>(full name)</span>
@@ -36,7 +44,7 @@ function BookGuest() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Contact Number of Guest
               <span className='required-symbol'>*</span>
             </label>
@@ -45,7 +53,7 @@ function BookGuest() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Date of Birth 
               <span className='required-symbol'>*</span>
             </label>

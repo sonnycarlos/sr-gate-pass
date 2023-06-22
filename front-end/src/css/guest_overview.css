@@ -19,7 +19,6 @@
 #guest_overview > header > h1 {
   font-family: 'SFProDisplay-Bold';
   font-size: 20px;
-  font-weight: 800;
 }
 
 /* Info */
@@ -36,7 +35,7 @@
   position: fixed;
   left: 24px;
   right: 24px;
-  bottom: 24px;
+  bottom: 40px;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;

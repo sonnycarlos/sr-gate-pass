@@ -13,6 +13,7 @@ export const KEEP_ME_LOGGED_IN = 'KEEP_ME_LOGGED_IN'
 export const INSERT_ROUTE = 'INSERT_ROUTE'
 export const TOGGLE_NAV = 'TOGGLE_NAV'
 export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE'
+export const CHECK_IF_IOS_DEVICE = 'CHECK_IF_IOS_DEVICE'
 
 // Initial state
 export const initialState = {
@@ -24,7 +25,8 @@ export const initialState = {
   keepMeLoggedIn: false,
   routeHistory: [],
   isMenuOpen: false,
-  activePage: 'home'
+  activePage: 'home',
+  isiOSDevice: false
 }
 
 // Reducer
@@ -93,6 +95,11 @@ export const reducer = (initialState, action) => {
       return {
         ...initialState,
         activePage: action.payload
+      }
+    case CHECK_IF_IOS_DEVICE:
+      return {
+        ...initialState,
+        isiOSDevice: action.payload
       }
     default:
       throw new Error(`Unhandled action type: ${action.type}`)

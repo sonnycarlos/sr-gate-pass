@@ -25,7 +25,7 @@ function Registration() {
   const [credentials, setCredentials] = useState({ emailAddress: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const [, dispatch] = useSrContext()
+  const [initialState, dispatch] = useSrContext()
 
   const navigate = useNavigate()
 
@@ -61,9 +61,9 @@ function Registration() {
     const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
 
-    routeHistory.push('registration')
     document.cookie = `routesHistory=${routeHistory}`
-
+    routeHistory.push('registration')
+    
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
 
     async function validate() {
@@ -90,7 +90,10 @@ function Registration() {
 
       {/* Header */}
       <header>
-        <h1>Register</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Register
+        </h1>
+        
         <p>Start your journey with us! Create your account for free.</p>
       </header>
 
@@ -98,7 +101,7 @@ function Registration() {
       <form onSubmit={handleSubmit}>
         <div className='inputFields'>
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Email Address
               <span className='required-symbol'>*</span>
             </label>
@@ -114,7 +117,7 @@ function Registration() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Password
               <span className='required-symbol'>*</span>
             </label>

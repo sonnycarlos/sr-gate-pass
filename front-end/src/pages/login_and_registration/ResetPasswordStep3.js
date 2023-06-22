@@ -73,7 +73,10 @@ function ResetPasswordStep3() {
 
       {/* Header */}
       <header>
-        <h1>Reset Password</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Reset Password
+        </h1>
+        
         <p>Your new password must be different from your previous used passwords.</p>
       </header>
 

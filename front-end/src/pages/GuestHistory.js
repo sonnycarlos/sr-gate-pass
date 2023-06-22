@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useSrContext } from '../context'
+
 import { ArrowDownRight, Back } from '../assets/svg'
 
 import '../css/guest_history.css'
@@ -59,6 +61,7 @@ function GuestHistory() {
       logs: ['9:24 PM']
     }
   ])
+  const [initialState, dispatch] = useSrContext()
 
   // Use effect
   useEffect(() => {
@@ -74,17 +77,25 @@ function GuestHistory() {
       </Link>
 
       {/* Heading */}
-      <h1>Guest History</h1>
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        Guest History
+      </h1>
 
       {/* Tabs */}
       <div id='tabs'>
         <div className='active tab'>
-          <p>Booking History</p>
+          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+            Booking History
+          </p>
+
           <span></span>
         </div>
 
         <div className='tab'>
-          <p>Logging History</p>
+          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+            Logging History
+          </p>
+
           <span></span>
         </div>
       </div>
@@ -93,7 +104,13 @@ function GuestHistory() {
       <div className='bookingHistory list'>
         {bookingHistory.map(({ date, time }) => (
           <div className='item'>
-            <p className='date'>{date}</p>
+            <p
+              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+              className='date'
+            >
+              {date}
+            </p>
+
             <p className='time'>{time}</p>
           </div>
         ))}
@@ -104,7 +121,12 @@ function GuestHistory() {
         {logsHistory.map(({ date, isOpen, logs }) => (
           <div className='item'>
             <div className='dateAndTime'>
-              <p className='date'>{date}</p>
+              <p 
+                style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                className='date'
+              >
+                {date}
+              </p>
 
               {logs.length > 1 ? (<ArrowDownRight color='#1E1E1E' />) : (<p className='time'>{logs[0]}</p>)}
             </div>

@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import {
+  useSrContext
+} from '../../context'
+
 import { 
   BadgeCheck
 } from '../../assets/svg'
@@ -9,6 +13,7 @@ import '../../css/status.css'
 import '../../css/style.css'
 
 function OnBoardingSuccessfully() {
+  const [initialState] = useSrContext()
   const navigate = useNavigate()
   
   // Use effect
@@ -25,7 +30,10 @@ function OnBoardingSuccessfully() {
       <img src={BadgeCheck} alt='Badge' />
 
       <div>
-        <h1>Your request to register your profile has been sent!</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Your request to register your profile has been sent!
+        </h1>
+        
         <p>Thank you! Your request will be reviewed by the admin. Just wait for a while and you will receive a text message and email for the response of your request.</p>
       </div>
 

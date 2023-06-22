@@ -42,7 +42,8 @@
   margin: 0;
   padding: 0;
   color: var(--dark-jungle-green);
-  font-family: 'SFProDisplay-Regular', Arial, Helvetica, sans-serif;
+  /* font-family: 'SFProDisplay-Regular', Arial, Helvetica, sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, 'SFProDisplay-Regular';
 }
 
 ::-webkit-scrollbar {
@@ -54,7 +55,7 @@ a {
   color: var(--cyan-blue);
   text-decoration: none;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -80,7 +81,7 @@ button,
 }
 
 .btn.circle {
-  padding: 12px;
+  padding: 16px;
   border-radius: 100%;
 }
 
@@ -194,6 +195,13 @@ textarea {
   border-bottom: 1px solid var(--dark-jungle-green);
   color: var(--dark-jungle-green);
   font-size: 14px;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+}
+
+input[type="date"],
+select {
+  background-color: var(--white);
 }
 
 input[type="checkbox"] {
@@ -265,7 +273,7 @@ select {
 
 .form-group > label {
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .form-group > label > .required-symbol {

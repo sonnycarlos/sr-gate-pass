@@ -20,7 +20,6 @@
   margin-bottom: 8px;
   font-family: 'SFProDisplay-Bold';
   font-size: 22px;
-  font-weight: 800;
 }
 
 /* List */
@@ -66,7 +65,7 @@
   margin-right: 8px;
   font-family: 'SFProDisplay-Bold';
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 00;
 }
 
 #notifications > .container > .list > .item > div > .titleAndDate > .date {

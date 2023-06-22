@@ -29,23 +29,25 @@ function MyProfile() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'my-profile'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
-    async function validate() {
-      let token = window.localStorage.getItem('user')
-      let res = await validateUser(dispatch, { token })
+    // async function validate() {
+    //   let token = window.localStorage.getItem('user')
+    //   let res = await validateUser(dispatch, { token })
 
-      if (res?.status === 401) {
-        navigate('/login')
-      }
-    }
+    //   if (res?.status === 401) {
+    //     navigate('/login')
+    //   }
+    // }
 
-    validate()
+    // validate()
   }, [])
 
   return (
     <section id='my_profile'>
       <div className='container'>
         {/* Heading */}
-        <h1>My Profile</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          My Profile
+        </h1>
 
         {/* Note */}
         {initialState.user?.isProfileRequestApprove === false && (
@@ -58,11 +60,13 @@ function MyProfile() {
         {/* Info */}
         <div className='info'>
           <div className='personalInfo'>
-            <h2>Personal Information</h2>
+            <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              Personal Information
+            </h2>
 
             <div className='info-group'>
               <label>Full Name</label>
-              <p>
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
                 {`${initialState.user?.profile?.firstName} `}
                 {initialState.user?.profile?.hasOwnProperty('middleName') && `${initialState.user?.profile?.middleName} `}
                 {initialState.user?.profile?.lastName}
@@ -71,36 +75,54 @@ function MyProfile() {
 
             <div className='info-group'>
               <label>Username</label>
-              <p>@{initialState.user?.profile?.username}</p>
+              
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                @{initialState.user?.profile?.username}
+              </p>
             </div>
 
             <div className='info-group'>
               <label>Birthday</label>
-              <p>{formatBirthdate(initialState.user?.profile?.birthdate)}</p>
+
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                {formatBirthdate(initialState.user?.profile?.birthdate)}
+              </p>
             </div>
 
             <div className='info-group'>
               <label>Gender</label>
-              <p>Male</p>
+
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                {initialState?.user?.profile?.gender}
+              </p>
             </div>
 
             <div className='info-group'>
               <label>Phone Number</label>
-              <p>{initialState.user?.profile?.phoneNumber}</p>
+
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                {initialState.user?.profile?.phoneNumber}
+              </p>
             </div>
           </div>
 
           <div className='propertyInfo'>
-            <h2>Property Information</h2>
+            <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Property Information</h2>
 
             <div className='info-group'>
               <label>Resident Type</label>
-              <p>{initialState.user?.profile?.type[0]?.toUpperCase() + initialState.user?.profile?.type?.slice(1)}</p>
+
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                {initialState.user?.profile?.type[0]?.toUpperCase() + initialState.user?.profile?.type?.slice(1)}
+              </p>
             </div>
 
             <div className='info-group'>
               <label>Home Address</label>
-              <p>{initialState.user?.profile?.address}</p>
+
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                {initialState.user?.profile?.address}
+              </p>
             </div>
           </div>
         </div>

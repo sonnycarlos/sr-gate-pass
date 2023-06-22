@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { useSrContext, UPDATE_PROFILE_DETAILS } from '../../context'
+import { 
+  useSrContext, 
+  UPDATE_PROFILE_DETAILS
+} from '../../context'
 
 import {
   BrandLogo,
@@ -84,9 +87,9 @@ function OnBoardingStep2() {
   useEffect(() => {
     document.title = 'On Boarding'
 
-    if (!window.localStorage.getItem('onboarding')) {
-      navigate('/login')
-    }
+    // if (!window.localStorage.getItem('onboarding')) {
+    //   navigate('/login')
+    // }
     
     window.addEventListener('scroll', handleScroll)
 
@@ -111,7 +114,10 @@ function OnBoardingStep2() {
 
       {/* Header */}
       <header id='header'>
-        <h1 style={{ fontSize: `${headingFontSize}px` }} >You're almost there!</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          You're almost there!
+        </h1>
+        
         <p style={{ fontSize: `${paragraphFontSize}px` }}>This won't take long so don't worry.</p>
       </header>
 
@@ -124,11 +130,13 @@ function OnBoardingStep2() {
 
       {/* Form */}
       <form onSubmit={handleSubmit}>
-        <h2>Property Information</h2>
+        <h2 style={{ fontFamily: initialState.isiOSDevice ? 'SFProDisplay-Medium' : 'SFProDisplay-Bold' }}>
+          Property Information
+        </h2>
 
         <div className='inputFields'>
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Resident Type 
               <span className='required-symbol'>*</span>
             </label>
@@ -149,7 +157,7 @@ function OnBoardingStep2() {
           </div>
 
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Home Address 
               <span className='required-symbol'>*</span>
             </label>

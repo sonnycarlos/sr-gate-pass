@@ -21,7 +21,6 @@
   margin: 88px 20px 24px;
   font-family: 'SFProDisplay-Bold';
   font-size: 40px;
-  font-weight: 800;
 }
 
 /* List */
@@ -40,7 +39,6 @@
   padding: 24px 16px 0;
   font-family: 'SFProDisplay-Bold';
   font-size: 28px;
-  font-weight: 800;
 }
 
 #my_guests > .list > div > .items {
@@ -79,7 +77,6 @@ div > .dateAndGuestsCount {
 
 #my_guests > .list > div > .items > .item > div > .dateAndGuestsCount > .guestsCount {
   font-family: 'SFProDisplay-Bold';
-  font-weight: 800;
 }
 
 #my_guests > .list > div > .items > .item > .content {
@@ -106,7 +103,6 @@ div > .dateAndGuestsCount {
 #my_guests > .list > div > .items > .item > .content > div > .nameAndContact > .name {
   font-family: 'SFProDisplay-Bold';
   font-size: 18px;
-  font-weight: 800;
 }
 
 #my_guests > .list > div > .items > .item > .content > div > .nameAndContact > .contactNum {
@@ -117,7 +113,6 @@ div > .dateAndGuestsCount {
 #my_guests > .list > div > .items > .item > .content > div > .time {
   font-family: 'SFProDisplay-Bold';
   font-size: 12px;
-  font-weight: 800;
 }
 
 /* Actions */

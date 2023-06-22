@@ -68,7 +68,8 @@ function Login() {
     window.localStorage.removeItem('forgotPassword')
     window.localStorage.removeItem('profile')
 
-    let routeHistory = initialState.routeHistory
+    const routeHistory = initialState.routeHistory
+    
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'login'] })
 
     async function validate() {
@@ -97,7 +98,10 @@ function Login() {
 
       {/* Header */}
       <header>
-        <h1>Welcome</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Welcome
+        </h1>
+        
         <p>Get started by entering the email address you registered.</p>
       </header>
 
@@ -105,7 +109,7 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <div className='inputFields'>
           <div className='form-group'>
-            <label>Email Address</label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Email Address</label>
             
             <input 
               type='email'
@@ -118,7 +122,7 @@ function Login() {
           </div>
 
           <div className='form-group'>
-            <label>Password</label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Password</label>
             
             <div 
               className='input-field'
@@ -149,7 +153,7 @@ function Login() {
             <p>Keep me sign in</p>
           </div>
 
-          <Link to='/forgot-password'>Forgot Password</Link>
+          <Link to='/forgot-password' style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Forgot Password</Link>
         </div>
 
         <div 

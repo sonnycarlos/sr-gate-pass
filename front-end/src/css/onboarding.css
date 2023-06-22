@@ -46,7 +46,6 @@
 #onboarding > header > h1 {
   font-family: 'SFProDisplay-Bold';
   font-size: 40px;
-  font-weight: 800;
 }
 
 #onboarding > header > p {
@@ -66,7 +65,6 @@
 #onboarding > form > h2 {
   font-family: 'SFProDisplay-Bold';
   font-size: 18px;
-  font-weight: 800;
 }
 
 #onboarding > form > .inputFields {

@@ -63,7 +63,9 @@ function Home() {
     <section id='home'>
       <div className='container'>
         {/* Heading */}
-        <h1>Welcome, {initialState.user?.profile?.firstName}!</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Welcome, {initialState.user?.profile?.firstName}!
+        </h1>
 
         {/* Guests */}
         <div className='guests stack'>
@@ -94,8 +96,13 @@ function Home() {
           </div>
 
           <p>
-            <span>40 guests</span>
-            <span>as of today</span>
+            <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              40 guests
+            </span>
+            
+            <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              as of today
+            </span>
           </p>
         </div>
 
@@ -103,7 +110,7 @@ function Home() {
         <div className='announcements'>
           <div className='stack'>
             <div className='header'>
-              <h2>
+              <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
                 Announcement
                 <img src={MegaphoneEmoji} alt='Emoji' />
               </h2>
@@ -111,7 +118,7 @@ function Home() {
               <div>
                 <Pin color='#5CB950' />
                 <span className='badge'>1</span>
-                <Link className='text btn'>See More</Link>
+                <Link style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} className='text btn'>See More</Link>
               </div>
             </div>
 
@@ -132,11 +139,18 @@ function Home() {
         {/* Notifications */}
         <div className='notifications stack'>
           <div className='header'>
-            <h2>Notifications</h2>
+            <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              Notifications
+            </h2>
 
             <div>
               <span className='badge'>4</span>
-              <Link className='text btn'>See More</Link>
+              <Link 
+                style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                className='text btn'
+              >
+                See More
+              </Link>
             </div>
           </div>
 
@@ -148,7 +162,13 @@ function Home() {
 
               <div>
                 <div className='titleAndDate'>
-                  <h3 className='title'>Your Guest</h3>
+                  <h3 
+                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                    className='title'
+                  >
+                    Your Guest
+                  </h3>
+
                   <p className='date'>Today at 9:10 AM</p>
                 </div>
                 
@@ -163,7 +183,13 @@ function Home() {
 
               <div>
                 <div className='titleAndDate'>
-                  <h3 className='title'>Announcement</h3>
+                  <h3 
+                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                    className='title'
+                  >
+                    Announcement
+                  </h3>
+
                   <p className='date'>Today at 9:10 AM</p>
                 </div>
                 
@@ -178,7 +204,13 @@ function Home() {
 
               <div>
                 <div className='titleAndDate'>
-                  <h3 className='title'>Your Guest</h3>
+                  <h3 
+                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                    className='title'
+                  >
+                    Your Guest
+                  </h3>
+                  
                   <p className='date'>Today at 9:10 AM</p>
                 </div>
                 

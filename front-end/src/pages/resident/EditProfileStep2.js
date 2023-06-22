@@ -11,8 +11,7 @@ import {
 
 import {
   ArrowRight,
-  Back,
-  ChevronDown
+  Back
 } from '../../assets/svg'
 
 import '../../css/edit_profile.css'
@@ -92,15 +91,19 @@ function EditProfileStep2() {
       </header>
 
       {/* Heading */}
-      <h1>Edit Profile</h1>
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        Edit Profile
+      </h1>
 
       {/* Form */}
       <form onSubmit={handleSubmit}>
-        <h2>Property Information</h2>
+        <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Property Information
+        </h2>
 
         <div className='inputFields'>
           <div className='form-group'>
-            <label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
               Home Address 
               <span className='required-symbol'>*</span>
             </label>

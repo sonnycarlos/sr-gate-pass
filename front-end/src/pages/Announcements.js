@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Menu, NavigationBar } from '../components'
+import { useSrContext } from '../context'
 
 import { Pin } from '../assets/svg'
 
 import '../css/announcements.css'
 
 function Announcements() {
+  const [initialState, dispatch] = useSrContext()
+
   // Use effect
   useEffect(() => {
     document.title = 'Announcements'
@@ -23,15 +25,11 @@ function Announcements() {
 
   return (
     <section id='announcements'>
-      {/* Menu */}
-      {/* <Menu /> */}
-
-      {/* Navigation Bar */}
-      <NavigationBar />
-
       <div className='container'>
         {/* Heading */}
-        <h1>Announcements</h1>
+        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+          Announcements
+        </h1>
 
         {/* List */}
         <div className='list'>
@@ -41,7 +39,13 @@ function Announcements() {
             </span>
 
             <div className='titleAndDate'>
-              <h2 className='title'>Vivamus vulputate aliquet quam, nec </h2>
+              <h2 
+                style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                className='title'
+              >
+                Vivamus vulputate aliquet quam, nec
+              </h2>
+
               <p className='date'>Yesterday at 10:00 AM</p>
             </div>
 
@@ -55,7 +59,13 @@ function Announcements() {
 
           <Link to='#' className='item'>
             <div className='titleAndDate'>
-              <h2 className='title'>Vivamus vulputate aliquet quam, nec </h2>
+              <h2 
+                style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                className='title'
+              >
+                Vivamus vulputate aliquet quam, nec
+              </h2>
+              
               <p className='date'>Yesterday at 10:00 AM</p>
             </div>
 

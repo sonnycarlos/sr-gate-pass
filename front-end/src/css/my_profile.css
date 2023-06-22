@@ -19,7 +19,6 @@
 #my_profile > .container > h1 {
   font-family: 'SFProDisplay-Bold';
   font-size: 40px;
-  font-weight: 800;
 }
 
 /* Info */
@@ -37,15 +36,14 @@
 #my_profile > .container > .info > div h2 {
   font-family: 'SFProDisplay-Bold';
   font-size: 18px;
-  font-weight: 800;
 }
 
 /* Edit Button */
 
-#my_profile > .btn {
+#my_profile > .btn.circle {
   position: fixed;
   right: 20px;
-  bottom: 20px;
+  bottom: 40px;
 }
 
 /* Screen Width: 390px */

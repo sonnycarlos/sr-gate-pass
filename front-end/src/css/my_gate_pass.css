@@ -50,7 +50,6 @@
 
 #my_gate_pass > .container > .nameAndAddress > .name {
   font-family: 'SFProDisplay-Bold';
-  font-weight: 800;
 }
 
 /* QR Code */
@@ -78,14 +77,12 @@
 #my_gate_pass > .container > .greetings > .greet {
   font-family: 'SFProDisplay-Bold';
   font-size: 20px;
-  font-weight: 800;
 }
 
 #my_gate_pass > .container > .greetings > .time {
   color: var(--boring-green);
   font-family: 'SFProDisplay-Bold';
   font-size: 20px;
-  font-weight: 800;
 }
 
 /* Screen Width: 390px */
