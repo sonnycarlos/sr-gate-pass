@@ -96,6 +96,12 @@ function OnBoardingStep1() {
       header.style.marginBottom = '0'
     }
   }
+
+  // Log out
+  const logOut = () => {
+    window.location.href = window.location.href
+    window.location.assign('/login')
+  }
   
   // Use effect
   useEffect(() => {
@@ -265,7 +271,7 @@ function OnBoardingStep1() {
             <ArrowRight color='#FFF' />
           </div>
 
-          <Link to='/login' className='outline btn'>Try it later and log out</Link>
+          <Link onClick={logOut} className='outline btn'>Try it later and log out</Link>
         </div>
       </form>
 

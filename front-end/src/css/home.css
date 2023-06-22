@@ -87,7 +87,7 @@
 
 #home > .container > .announcements {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 #home > .container > .announcements > .stack:first-child {
@@ -303,6 +303,10 @@
   }
 
   /* Announcements */
+
+  #home > .container > .announcements {
+    margin-bottom: 30px;
+  }
 
   #home > .container > .announcements > .stack > .header > h2 {
     font-size: 20px;

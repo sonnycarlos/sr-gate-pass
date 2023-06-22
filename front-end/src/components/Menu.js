@@ -34,6 +34,7 @@ function Menu() {
       <div className='links'>
         <Link 
           to='/home' 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'home' && 'active'}`}
           onClick={() => dispatch({ type: TOGGLE_NAV })}
         >
@@ -42,6 +43,7 @@ function Menu() {
 
         <Link 
           to='/announcements' 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'announcements' && 'active'}`}
           onClick={() => {
             dispatch({ type: TOGGLE_NAV })
@@ -53,6 +55,7 @@ function Menu() {
 
         <Link 
           to='my-profile' 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'myProfile' && 'active'}`}
           onClick={() => {
             dispatch({ type: TOGGLE_NAV })
@@ -64,6 +67,7 @@ function Menu() {
 
         <Link 
           to='my-gate-pass' 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'myGatePass' && 'active'}`}
           onClick={() => {
             dispatch({ type: TOGGLE_NAV })
@@ -75,6 +79,7 @@ function Menu() {
 
         <Link 
           to='my-guests' 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'myGuests' && 'active'}`}
           onClick={() => {
             dispatch({ type: TOGGLE_NAV })
@@ -86,6 +91,7 @@ function Menu() {
 
         <Link 
           to='#' 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'about' && 'active'}`}
           onClick={() => {
             dispatch({ type: TOGGLE_NAV })
@@ -97,6 +103,7 @@ function Menu() {
         
         <Link 
           to='/login' 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'logOut' && 'active'}`}
           onClick={logOut}
         >
