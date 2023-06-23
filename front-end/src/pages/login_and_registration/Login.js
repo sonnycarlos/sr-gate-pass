@@ -53,6 +53,7 @@ function Login() {
 
     if (res.status === 400) {
       setError( { isError: true, errorMessage: res.errorMessage })
+      setCredentials({ ...credentials, password: '' })
     }
   }
   
