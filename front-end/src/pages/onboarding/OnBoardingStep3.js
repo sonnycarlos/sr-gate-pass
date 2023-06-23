@@ -48,56 +48,56 @@ function OnBoardingStep3() {
     try {
       // Land Certificate
       const uploadLandCertificatePromises = filesToUpload.landCertificate.map(async (file, i) => {
-        const res = await uploadFile(file);
-        const fileName = res?.data?.public_id;
-        const newLandCertificateArr = [...files.landCertificate];
+        const res = await uploadFile(file)
+        const fileName = res?.data?.public_id
+        const newLandCertificateArr = [...files.landCertificate]
 
-        newLandCertificateArr[i].name = fileName;
+        newLandCertificateArr[i].name = fileName
 
-        return newLandCertificateArr;
+        return newLandCertificateArr
       })
   
-      const updatedLandCertificatesArr = await Promise.all(uploadLandCertificatePromises);
+      const updatedLandCertificatesArr = await Promise.all(uploadLandCertificatePromises)
   
       setFiles((prevFiles) => ({
         ...prevFiles,
-        landCertificate: updatedLandCertificatesArr,
+        landCertificate: updatedLandCertificatesArr
       }))
 
       // Valid ID
       const uploadValidIdPromises = filesToUpload.validId.map(async (file, i) => {
-        const res = await uploadFile(file);
-        const fileName = res?.data?.public_id;
-        const newValidIdArr = [...files.validId];
+        const res = await uploadFile(file)
+        const fileName = res?.data?.public_id
+        const newValidIdArr = [...files.validId]
 
-        newValidIdArr[i].name = fileName;
+        newValidIdArr[i].name = fileName
 
-        return newValidIdArr;
+        return newValidIdArr
       })
   
-      const updatedValidIdArr = await Promise.all(uploadValidIdPromises);
+      const updatedValidIdArr = await Promise.all(uploadValidIdPromises)
   
       setFiles((prevFiles) => ({
         ...prevFiles,
-        validId: updatedValidIdArr,
+        validId: updatedValidIdArr
       }))
 
       // 2x2 Picture
       const uploadPicturePromises = filesToUpload.picture.map(async (file, i) => {
-        const res = await uploadFile(file);
-        const fileName = res?.data?.public_id;
-        const newPictureArr = [...files.picture];
+        const res = await uploadFile(file)
+        const fileName = res?.data?.public_id
+        const newPictureArr = [...files.picture]
 
-        newPictureArr[i].name = fileName;
+        newPictureArr[i].name = fileName
 
-        return newPictureArr;
+        return newPictureArr
       })
   
-      const updatedPictureArr = await Promise.all(uploadPicturePromises);
+      const updatedPictureArr = await Promise.all(uploadPicturePromises)
   
       setFiles((prevFiles) => ({
         ...prevFiles,
-        picture: updatedPictureArr,
+        picture: updatedPictureArr
       }))
   
       let res = await registerUser({
