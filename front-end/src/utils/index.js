@@ -3,6 +3,7 @@
  ** We will usually do this to have cleaner import statements
 **/
 
+import checkIfGuestExists from './checkIfGuestExists'
 import checkResidentUsername from './checkResidentUsername'
 import checkUser from './checkUser'
 import formatBirthdate from './formatBirthdate'
@@ -16,10 +17,12 @@ import removeNavBar from './removeNavBar'
 import resetPassword from './resetPassword'
 import requestOtp from './requestOtp'
 import uploadFile from './uploadFile'
+import uploadImage from './uploadImage'
 import verifyOtp from './verifyOtp'
 import approveUser from './approveUser'
 
 export {
+  checkIfGuestExists,
   checkResidentUsername,
   checkUser,
   formatBirthdate,
@@ -33,6 +36,7 @@ export {
   resetPassword,
   requestOtp,
   uploadFile,
+  uploadImage,
   verifyOtp,
   approveUser
 }

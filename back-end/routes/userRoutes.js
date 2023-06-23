@@ -1,4 +1,8 @@
 import express from 'express'
+import { 
+  bookGuest,
+  checkIfGuestExists
+} from '../controllers/guestController.js'
 
 import { 
   approveUser,
@@ -29,5 +33,7 @@ router.post('/check-resident-username', checkResidentUsername)
 router.post('/register-user', protect, registerUser)
 router.post('/update-user', protect, updateUser)
 router.post('/approve-user', protect, approveUser)
+router.post('/book-guest', protect, bookGuest)
+router.post('/check-if-guest-exists', protect, checkIfGuestExists)
 
 export default router

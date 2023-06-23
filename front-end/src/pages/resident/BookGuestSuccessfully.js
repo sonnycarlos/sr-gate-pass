@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import {
-  useSrContext
+  useSrContext,
+  validateUser
 } from '../../context'
 
 import { 
@@ -12,11 +13,29 @@ import {
 import '../../css/status.css'
 
 function BookGuestSuccessfully() {
-  const [initialState] = useSrContext()
+  const [initialState, dispatch] = useSrContext()
+  const navigate = useNavigate()
+
+  // Handle click
+  const handleClick = () => {
+    window.location.href = window.location.href
+    window.location.assign('/my-guests')
+  }
 
   // Use effect
   useEffect(() => {
     document.title = 'Booking Guest Successfully'
+
+    async function validate() {
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser(dispatch, { token })
+
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
+
+    validate()
   }, [])
 
   return (
@@ -34,7 +53,7 @@ function BookGuestSuccessfully() {
       </div>
 
       {/* Action */}
-      <Link to='#' className='solid btn'>Finish</Link>
+      <button onClick={handleClick} className='solid btn'>Finish</button>
     </section>
   )
 }

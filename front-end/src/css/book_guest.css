@@ -5,6 +5,16 @@
   background-color: var(--white);
 }
 
+/* QR Code */
+
+#book_guest > #qr-code {
+  position: absolute;
+  top: 0;
+  left: -1000%;
+  z-index: -1;
+  pointer-events: none;
+}
+
 /* Heading */
 
 #book_guest > h1 {

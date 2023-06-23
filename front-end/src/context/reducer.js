@@ -7,6 +7,7 @@ export const LOG_IN_USER = 'LOG_IN_USER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
 export const UPDATE_PROFILE_DETAILS = 'UPDATE_PROFILE_DETAILS'
+export const BOOK_GUEST = 'BOOK_GUEST'
 export const SET_ACTION = 'SET_ACTION'
 export const SET_COUNTDOWN_START = 'SET_COUNTDOWN_START'
 export const KEEP_ME_LOGGED_IN = 'KEEP_ME_LOGGED_IN'
@@ -19,6 +20,7 @@ export const CHECK_IF_IOS_DEVICE = 'CHECK_IF_IOS_DEVICE'
 export const initialState = {
   user: {},
   userDetails: {},
+  guests: [],
   action: '',
   otpCountdown: '',
   countdownStart: false,
@@ -65,6 +67,14 @@ export const reducer = (initialState, action) => {
           ...initialState.userDetails,
           ...action.payload
         }
+      }
+    case BOOK_GUEST:
+      return {
+        ...initialState,
+        guests: [
+          ...initialState.guests,
+          action.payload
+        ]
       }
     case SET_ACTION:
       return {

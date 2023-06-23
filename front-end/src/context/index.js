@@ -8,7 +8,8 @@ import { useSrContext, SrProvider } from './context'
 import {
   validateUser,
   logInUser,
-  registerUser
+  registerUser,
+  bookGuest
 } from './actions'
 
 import {
@@ -18,6 +19,7 @@ import {
   REGISTER_USER,
   FORGOT_PASSWORD,
   UPDATE_PROFILE_DETAILS,
+  BOOK_GUEST,
   SET_ACTION,
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
@@ -38,6 +40,7 @@ export {
   REGISTER_USER,
   FORGOT_PASSWORD,
   UPDATE_PROFILE_DETAILS,
+  BOOK_GUEST,
   SET_ACTION,
   SET_COUNTDOWN_START,
   KEEP_ME_LOGGED_IN,
@@ -49,5 +52,6 @@ export {
   reducer,
   validateUser,
   logInUser,
-  registerUser
+  registerUser,
+  bookGuest
 }

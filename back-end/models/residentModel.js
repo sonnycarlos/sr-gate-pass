@@ -63,7 +63,7 @@ const residentSchema = new mongoose.Schema({
   validId: [{
     type: Object,
     size: Number,
-    required: true,
+    required: false,
   }],
   picture: [{
     type: Object,
@@ -73,10 +73,6 @@ const residentSchema = new mongoose.Schema({
   qrCodeImage: {
     type: String,
     required: true
-  },
-  numOfGuests: {
-    type: Number,
-    required: false
   }
 })
 

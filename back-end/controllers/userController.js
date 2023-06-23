@@ -282,6 +282,12 @@ const registerUser = asyncHandler(async (req, res) => {
     type
   } = req.body
 
+  // Check if one of the fields is empty
+  if (!firstName || !lastName || !birthdate || !gender || !phoneNumber || !address || !emailAddress || !username || !type) {
+    res.status(400)
+    throw new Error('Input all the fields.')
+  }
+
   // Copy landCertificate values into an array
   const landCertificateArr = Object.keys(req.body)
   .reduce((arr, key) => {
@@ -408,6 +414,12 @@ const updateUser = asyncHandler(async (req, res) => {
     emailAddress,
     username
   } = req.body
+
+  // Check if one of the fields is empty
+  if (!firstName || !lastName || !birthdate || !gender || !phoneNumber || !address || !emailAddress || !username) {
+    res.status(400)
+    throw new Error('Input all the fields.')
+  }
 
   // Copy landCertificate values into an array
   const landCertificateArr = Object.keys(req.body)
