@@ -1,24 +1,84 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
-import { useSrContext } from '../context'
+import {
+  useSrContext,
+  INSERT_ROUTE,
+  validateUser
+} from '../context'
+
+import { fetchGuests } from '../utils'
 
 import { Back, Search } from '../assets/svg'
 
 import '../css/search_guest.css'
 
 function SearchGuest() {
+  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const [guests, setGuests] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [routeDest, setRouteDest] = useState('')
   const [initialState, dispatch] = useSrContext()
+  const navigate = useNavigate()
+
+  // Handle search
+  const handleSearch = (event) => {
+    const { value } = event.target
+
+    if (value === '') {
+      setSearchResults([])
+    } else {
+      const filteredResults = guests.filter(guest =>
+        guest.name.toLowerCase().includes(value.toLowerCase())
+      )
+      
+      setSearchResults(filteredResults)
+    }
+
+    setSearchTerm(value)
+  }
 
   // Use effect
   useEffect(() => {
     document.title = 'Search Guest'
+
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const routeHistory = cookie?.split(',')
+
+    document.cookie = `routesHistory=${routeHistory}`
+
+    if (routeHistory[routeHistory?.length - 1] !== 'search-guest') {
+      routeHistory.push('search-guest')
+      document.cookie = `routesHistory=${routeHistory}`
+    } else {
+      setRouteDest(routeHistory[routeHistory?.length - 2])
+    }
+    
+    dispatch({ type: INSERT_ROUTE, payload: routeHistory })
+
+    async function validate() {
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser(dispatch, { token })
+
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
+
+    async function getGuests() {
+      let res = await fetchGuests({ userId: details.userId })
+      setGuests(res.data)
+    }
+
+    validate()
+    getGuests()
   }, [])
 
   return (
     <section id='search_guest'>
       {/* Back Button */}
-      <Link to='#' className='text btn'>
+      <Link to={`../${routeDest}`} className='text btn'>
         <Back />
         <span>Back</span>
       </Link>
@@ -37,51 +97,44 @@ function SearchGuest() {
             <Search />
           </span>
 
-          <input type='text' placeholder='Search guest' />
+          <input 
+            type='text' 
+            placeholder='Search guest' 
+            value={searchTerm}
+            onChange={handleSearch}
+          />
         </div>
       </div>
 
       {/* Result */}
       <div className='result'>
-        <div className='item'>
-          <div className='nameAndContactNum'>
+        {searchResults.map((guest, i) => (
+          <Link 
+            to={`/guest-overview/${guest._id}`} 
+            key={i} 
+            className='item'
+          >
+            <div className='nameAndContactNum'>
+              <p 
+                style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                className='name'
+              >
+                {`${guest?.name.length > 20 ? guest?.name.slice(0, 20) + '...' : guest?.name.slice(0, 20)}`}
+              </p>
+              
+              <p className='contactNum'>
+                {guest?.phoneNumber}
+              </p>
+            </div>
+
             <p 
               style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-              className='name'
+              className='log'
             >
-              Tony Parker
+              Yesterday at 10:00 AM
             </p>
-            
-            <p className='contactNum'>09123456789</p>
-          </div>
-
-          <p 
-            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-            className='log'
-          >
-            Yesterday at 10:00 AM
-          </p>
-        </div>
-
-        <div className='item'>
-        <div className='nameAndContactNum'>
-            <p 
-              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-              className='name'
-            >
-              Tony Parker
-            </p>
-            
-            <p className='contactNum'>09123456789</p>
-          </div>
-
-          <p 
-            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-            className='log'
-          >
-            Yesterday at 10:00 AM
-          </p>
-        </div>
+          </Link>
+        ))}
       </div>
     </section>
   )

@@ -13,13 +13,14 @@ import {
 import '../../css/status.css'
 
 function BookGuestSuccessfully() {
+  const bookingDetails = JSON.parse(window.localStorage.getItem('bookingDetails'))
   const [initialState, dispatch] = useSrContext()
   const navigate = useNavigate()
 
   // Handle click
   const handleClick = () => {
     window.location.href = window.location.href
-    window.location.assign('/my-guests')
+    window.location.assign(`/guest-overview/${bookingDetails?._id}`)
   }
 
   // Use effect
@@ -35,6 +36,8 @@ function BookGuestSuccessfully() {
       }
     }
 
+    console.log(bookingDetails)
+
     validate()
   }, [])
 
@@ -46,7 +49,7 @@ function BookGuestSuccessfully() {
       {/* Heading & Paragraph */}
       <div>
         <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-          Your booking has been placed!
+          {bookingDetails?.action === 'rebook' ? 'You successfully rebooked your guest!' : 'Your booking has been placed!'}
         </h1>
         
         <p>You can copy the URL link so your guest can use it to enter the subdivision. The QR code is only valid for 24 hours.</p>

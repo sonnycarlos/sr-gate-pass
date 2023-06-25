@@ -16,7 +16,7 @@ import { Back } from '../../assets/svg'
 import '../../css/book_guest.css'
 
 function BookGuest() {
-  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const profileDetails = JSON.parse(window.localStorage.getItem('profile'))
   const [inputs, setInputs] = useState({
     guestName: '',
     guestPhoneNumber: '',
@@ -36,7 +36,7 @@ function BookGuest() {
     const guestExists = await checkIfGuestExists({
       name: inputs.guestName,
       phoneNumber: inputs.guestPhoneNumber,
-      emailAddress: details?.emailAddress
+      emailAddress: profileDetails?.emailAddress
     })
 
     if (guestExists.status === 200) {
@@ -44,10 +44,16 @@ function BookGuest() {
         name: inputs.guestName,
         phoneNumber: inputs.guestPhoneNumber,
         pin: inputs.pin,
-        emailAddress: details?.emailAddress
+        emailAddress: profileDetails?.emailAddress
       })
   
       if (res.status === 200) {
+        const bookingDetails = {
+          ...res.data,
+          action: 'book'
+        }
+
+        window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
         return navigate('/book-guest-successfully')
       }
   
@@ -67,10 +73,16 @@ function BookGuest() {
       phoneNumber: inputs.guestPhoneNumber,
       qrCodeImage: `${fileRes.data?.public_id}.png`,
       pin: inputs.pin,
-      emailAddress: details?.emailAddress
+      emailAddress: profileDetails?.emailAddress
     })
 
     if (res.status === 200) {
+      const bookingDetails = {
+        ...res.data.guest,
+        action: 'book'
+      }
+      
+      window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
       navigate('/book-guest-successfully')
     }
 
@@ -83,6 +95,8 @@ function BookGuest() {
   useEffect(() => {
     document.title = 'Book Guest'
 
+    window.localStorage.removeItem('bookingDetails')
+
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -94,7 +108,7 @@ function BookGuest() {
 
     validate()
 
-    console.log(details)
+    console.log(profileDetails)
   }, [])
 
   return (
@@ -103,7 +117,7 @@ function BookGuest() {
       <div ref={qrCodeCanvasRef} id='qr-code'>
         <div style={{ width: '750px', height: '750px' }}>
           <QRCodeCanvas
-            value={`${details._id}/${inputs.guestName}/${inputs.guestPhoneNumber}`}
+            value={`${profileDetails._id}/${inputs.guestName}/${inputs.guestPhoneNumber}`}
             size={1000}
             bgColor={'#FFF'}
             fgColor={'#000'}

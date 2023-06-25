@@ -81,7 +81,7 @@ export async function bookGuest(dispatch, payload) {
   } = payload
 
   try {
-    let res = await Axios.post('/user/book-guest', { name, phoneNumber, qrCodeImage, pin, emailAddress })
+    let res = await Axios.post('/guest/book-guest', { name, phoneNumber, qrCodeImage, pin, emailAddress })
 
     if (res) {
       dispatch({ type: BOOK_GUEST, payload: res.data })

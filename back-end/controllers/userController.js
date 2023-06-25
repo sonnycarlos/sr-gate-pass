@@ -22,7 +22,7 @@ var otpCode
 var userEmailAddress
 
 // @desc    Log in user
-// @route   POST /api/login
+// @route   POST /api/user/login
 // @access  Public
 const signIn = asyncHandler(async (req, res) => {
   const { emailAddress, password } = req.body
@@ -66,7 +66,7 @@ const signIn = asyncHandler(async (req, res) => {
 })
 
 // @desc    Register user
-// @route   POST /api/registration
+// @route   POST /api/user/registration
 // @access  Public
 const signUp = asyncHandler(async (req, res) => {
   const { type, emailAddress, password } = req.body
@@ -122,7 +122,7 @@ const signUp = asyncHandler(async (req, res) => {
 })
 
 // @desc    Forgot password
-// @route   GET /api/forgot-password
+// @route   GET /api/user/forgot-password
 // @access  Public
 const forgotPassword = asyncHandler(async (req, res) => {
   const { emailAddress, password } = req.body
@@ -173,7 +173,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 })
 
 // @desc    Generate OTP code
-// @route   GET /api/generate-otp
+// @route   GET /api/user/generate-otp
 // @access  Public
 const requestOtp = asyncHandler(async (req, res) => {
   otpCode = generateOtp()
@@ -197,7 +197,7 @@ const requestOtp = asyncHandler(async (req, res) => {
 })
 
 // @desc    Verify OTP code
-// @route   GET /api/verification
+// @route   GET /api/user/verification
 // @access  Public
 const verifyOtp = asyncHandler(async (req, res) => {
   const { emailAddressInput, otpCodeInput } = req.body
@@ -211,7 +211,7 @@ const verifyOtp = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get user data
-// @route   GET /api/users/validate-user
+// @route   GET /api/user/validate-user
 // @access  Public
 const validateUser = asyncHandler(async (req, res) => {
   const { _id, username, emailAddress, isApprove } = await User.findById(req.user._id)
@@ -236,7 +236,7 @@ const validateUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Check if user exists
-// @route   GET /api/users/check-user
+// @route   GET /api/user/check-user
 // @access  Public
 const checkUser = asyncHandler(async (req, res) => {
   const { emailAddress } = req.body
@@ -252,7 +252,7 @@ const checkUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Check if resident's username already exists
-// @route   GET /api/users/check-resident-username
+// @route   GET /api/user/check-resident-username
 // @access  Public
 const checkResidentUsername = asyncHandler(async (req, res) => {
   const { username } = req.body
@@ -267,7 +267,7 @@ const checkResidentUsername = asyncHandler(async (req, res) => {
 })
 
 // @desc    Register user (complete user registration)
-// @route   GET /api/users/register-user
+// @route   GET /api/user/register-user
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { 
@@ -399,7 +399,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update user (update user profile)
-// @route   GET /api/users/update-user
+// @route   GET /api/user/update-user
 // @access  Public
 const updateUser = asyncHandler(async (req, res) => {
   const { 
@@ -524,7 +524,7 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Approve user
-// @route   GET /api/users/approve-user
+// @route   GET /api/user/approve-user
 // @access  Public
 const approveUser = asyncHandler(async (req, res) => {
   const { 

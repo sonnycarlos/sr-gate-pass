@@ -5,8 +5,58 @@ import {
   User 
 } from '../models/index.js'
 
+// @desc    Fetch guests
+// @route   GET /api/guest/fetch-guests
+// @access  Public
+const fetchGuests = asyncHandler(async (req, res) => {
+  const { userId } = req.body
+
+  const guests = await Guest.find({ host: userId })
+  
+  return res.status(200).json(guests)
+})
+
+// @desc    Fetch guest
+// @route   GET /api/guest/fetch-guest
+// @access  Public
+const fetchGuest = asyncHandler(async (req, res) => {
+  const { id } = req.body
+
+  const guest = await Guest.findOne({ _id: id })
+
+  return res.status(200).json(guest)
+})
+
+// @desc    Check if guest exists
+// @route   GET /api/guest/check-if-guest-exists
+// @access  Public
+const checkIfGuestExists = asyncHandler(async (req, res) => {
+  const { 
+    name,
+    phoneNumber,
+    emailAddress
+  } = req.body
+
+  // Check if user exists
+  const user = await User.findOne({ emailAddress })
+  
+  // Check if guest exists
+  const guestExists = await Guest.findOne({ name, phoneNumber, host: user._id })
+
+  if (!user) {
+    res.status(400).json({ errorMessage: `User doesn't exist.` })
+    throw new Error(`User doesn't exist.`)
+  }
+
+  if (guestExists) {
+    return res.status(200).json(guestExists)
+  }
+  
+  res.status(400).json({ message: 'Guest does not exist' })
+})
+
 // @desc    Book guest
-// @route   GET /api/book-guest
+// @route   GET /api/guest/book-guest
 // @access  Public
 const bookGuest = asyncHandler(async (req, res) => {
   const { 
@@ -60,7 +110,7 @@ const bookGuest = asyncHandler(async (req, res) => {
     pin
   })
 
-  const result = await Guest.updateOne({ _id: guest._id }, { $set: { urlLink: `http://localhost:3000/${guest._id}` } })
+  const result = await Guest.updateOne({ _id: guest._id }, { $set: { urlLink: `localhost:3000/${guest._id}` } })
 
   if (result) {
     res.status(200).json({ guest })
@@ -70,35 +120,9 @@ const bookGuest = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Book guest
-// @route   GET /api/check-if-guest-exists
-// @access  Public
-const checkIfGuestExists = asyncHandler(async (req, res) => {
-  const { 
-    name,
-    phoneNumber,
-    emailAddress
-  } = req.body
-
-  // Check if user exists
-  const user = await User.findOne({ emailAddress })
-  
-  // Check if guest exists
-  const guestExists = await Guest.findOne({ name, phoneNumber, host: user._id })
-
-  if (!user) {
-    res.status(400).json({ errorMessage: `User doesn't exist.` })
-    throw new Error(`User doesn't exist.`)
-  }
-
-  if (guestExists) {
-    return res.status(200).json(guestExists)
-  }
-  
-  res.status(400).json({ message: 'Guest does not exist' })
-})
-
 export {
+  fetchGuests,
+  fetchGuest,
   bookGuest,
   checkIfGuestExists
 }

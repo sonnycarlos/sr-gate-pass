@@ -49,7 +49,6 @@
 
 #my_guests > .list > div > .items > .item {
   display: grid;
-  gap: 16px;
   width: 100%;
 }
 
@@ -79,16 +78,30 @@ div > .dateAndGuestsCount {
   font-family: 'SFProDisplay-Bold';
 }
 
+#my_guests > .list > div > .items > .item > div > .action {
+  transition: 350ms;
+}
+
 #my_guests > .list > div > .items > .item > .content {
+  transition: 350ms;
+}
+
+#my_guests > .list > div > .items > .item > .content.opened {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
+  height: 100%;
+  margin-top: 16px;
   padding: 32px 24px;
   background-color: #F5F5F5;
 }
 
 #my_guests > .list > div > .items > .item > .content > div {
+  display: none;
+}
+
+#my_guests > .list > div > .items > .item > .content.opened > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -100,19 +113,19 @@ div > .dateAndGuestsCount {
   gap: 4px;
 }
 
-#my_guests > .list > div > .items > .item > .content > div > .nameAndContact > .name {
+#my_guests > .list > div > .items > .item > .content > div > .nameAndContactNum > .name {
   font-family: 'SFProDisplay-Bold';
   font-size: 18px;
 }
 
-#my_guests > .list > div > .items > .item > .content > div > .nameAndContact > .contactNum {
+#my_guests > .list > div > .items > .item > .content > div > .nameAndContactNum > .contactNum {
   font-family: 'SFProDisplay-Medium';
   font-size: 12px;
 }
 
 #my_guests > .list > div > .items > .item > .content > div > .time {
   font-family: 'SFProDisplay-Bold';
-  font-size: 12px;
+  font-size: 14px;
 }
 
 /* Actions */

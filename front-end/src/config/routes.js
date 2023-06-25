@@ -145,7 +145,7 @@ const routes = [
     component: <MyGuests />
   },
   {
-    path: '/guest-overview',
+    path: '/guest-overview/:id',
     component: <GuestOverview />
   },
   {

@@ -25,14 +25,15 @@
 
 #guest_history > .list {
   overflow-y: auto;
-  display: grid;
-  gap: 16px;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
   height: 60vh;
   padding-bottom: 24px;
 }
 
-#guest_history > .list.hidden {
-  display: none;
+#guest_history > .list.active {
+  visibility: visible;
 }
 
 #guest_history > .list > .item,
@@ -41,6 +42,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: fit-content;
+  margin-bottom: 16px;
 }
 
 #guest_history > .list > .item .date {
@@ -50,6 +53,10 @@
 
 #guest_history > .list > .item .time {
   font-family: 'SFProDisplay-Medium';
+}
+
+#guest_history > .list > .item > .action {
+  transition: 350ms;
 }
 
 #guest_history > .logsHistory.list > .item {
@@ -70,6 +77,23 @@
   font-family: 'SFProDisplay-Regular';
 }
 
+#guest_history > .list > .content.opened {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+#guest_history > .list > .content > p {
+  display: none;
+  justify-self: end;
+  font-family: 'SFProDisplay-Medium';
+  font-size: 16px;
+}
+
+#guest_history > .list > .content.opened > p {
+  display: block;
+}
+
 /* Screen Width: 390px */
 
 @media only screen and (min-width: 390px) {
@@ -85,6 +109,22 @@
     gap: 24px;
     height: 65vh;
     padding-bottom: 0;
+  }
+
+  #guest_history > .list > .item {
+    margin-bottom: 0;
+  }
+
+  #guest_history > .list > .content {
+    margin-top: -24px;
+  }
+
+  #guest_history > .list > .content.opened {
+    margin-top: 0;
+  }
+
+  #guest_history > .list > .content > p {
+    font-size: 18px;
   }
 }
 

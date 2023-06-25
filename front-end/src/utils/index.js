@@ -6,8 +6,12 @@
 import checkIfGuestExists from './checkIfGuestExists'
 import checkResidentUsername from './checkResidentUsername'
 import checkUser from './checkUser'
+import fetchGuest from './fetchGuest'
+import fetchGuests from './fetchGuests'
 import formatBirthdate from './formatBirthdate'
 import formatBytes from './formatBytes'
+import formatDate from './formatDate'
+import formatTime from './formatTime'
 import logOut from './logOut'
 import onBoarding from './onBoarding'
 import registerUser from './registerUser'
@@ -25,8 +29,12 @@ export {
   checkIfGuestExists,
   checkResidentUsername,
   checkUser,
+  fetchGuest,
+  fetchGuests,
   formatBirthdate,
   formatBytes,
+  formatDate,
+  formatTime,
   logOut,
   onBoarding,
   registerUser,

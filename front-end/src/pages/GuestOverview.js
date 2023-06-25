@@ -1,24 +1,130 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import ClipboardJS from 'clipboard'
 
-import { useSrContext } from '../context'
+import {
+  useSrContext,
+  INSERT_ROUTE,
+  validateUser,
+  bookGuest
+} from '../context'
+
+import {
+  fetchGuest,
+  formatDate,
+  formatTime
+} from '../utils'
 
 import { Back, Copy } from '../assets/svg'
 
 import '../css/guest_overview.css'
 
 function GuestOverview() {
+  const currentDate = new Date()
+  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const [guest, setGuest] = useState({
+    _id: '',
+    host: '',
+    name: '',
+    phoneNumber: '',
+    dateBooked: [],
+    timeArrived: [],
+    qrCodeImage: '',
+    pin: '',
+    urlLink: ''
+  })
   const [initialState, dispatch] = useSrContext()
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  // Copy link
+  const copyLink = () => {
+    navigator.clipboard.writeText(guest.urlLink);
+  }
+
+  // Download QR code image
+  const downloadQRCodeImage = async (publicId) => {
+    const fileUrl = `https://res.cloudinary.com/dfc3s2kfc/image/upload/v1687658461/${publicId}.png`
+
+    try {
+      const response = await fetch(fileUrl)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+
+      const link = document.createElement('a')
+      link.href = url
+      link.download = fileUrl
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+
+      // Release the temporary URL
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error('Error downloading image:', error)
+    }
+  }
+
+  // Rebook guest
+  const rebookGuest = async (e) => {
+    e.preventDefault()
+
+    const res = await bookGuest(dispatch, { 
+      name: guest.name,
+      phoneNumber: guest.phoneNumber,
+      pin: guest.pin,
+      emailAddress: details?.emailAddress
+    })
+
+    if (res.status === 200) {
+      const bookingDetails = {
+        ...res.data,
+        action: 'rebook'
+      }
+
+      window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
+      navigate('/book-guest-successfully')
+    }
+
+    if (res.status === 400) {
+      console.log(res)
+      return
+    }
+  }
 
   // Use effect
   useEffect(() => {
     document.title = 'Guest Overview'
+
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const routeHistory = cookie?.split(',')
+
+    dispatch({ type: INSERT_ROUTE, payload: routeHistory })
+
+    async function validate() {
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser(dispatch, { token })
+
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
+
+    async function getGuest() {
+      let res = await fetchGuest({ id })
+      setGuest(res.data)
+      window.localStorage.setItem('guest', JSON.stringify(res.data))
+      console.log(res.data)
+    }
+
+    validate()
+    getGuest()
   }, [])
 
   return (
     <section id='guest_overview'>
       {/* Back Button */}
-      <Link to='#' className='text btn'>
+      <Link to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} className='text btn'>
         <Back />
         <span>Back</span>
       </Link>
@@ -30,7 +136,7 @@ function GuestOverview() {
         </h1>
 
         <Link 
-          to='#' 
+          to='/guest-history' 
           style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className='text btn'
         >
@@ -41,10 +147,10 @@ function GuestOverview() {
       {/* Info */}
       <div className='info'>
         <div className='info-group'>
-          <label>Booking Number</label>
+          <label>Booking ID</label>
 
           <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            01195470019855
+            {guest._id}
           </p>
         </div>
 
@@ -52,7 +158,7 @@ function GuestOverview() {
           <label>Name</label>
 
           <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            Justin Timberlake
+            {guest.name}
           </p>
         </div>
 
@@ -60,24 +166,29 @@ function GuestOverview() {
           <label>Last Date of Booking</label>
 
           <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            September 24 at 12:00 PM
+            {`${formatDate(guest?.dateBooked[guest?.dateBooked?.length - 1])} at ${formatTime(guest?.dateBooked[guest?.dateBooked?.length - 1])}`}
           </p>
         </div>
 
         <div className='info-group'>
           <label>Date of Arrival</label>
 
-          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            September 26
-          </p>
-        </div>
-
-        <div className='info-group'>
-          <label>Last Time of Logged In</label>
-          
-          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            2:40 PM
-          </p>
+          {guest.timeArrived[guest?.timeArrived?.length - 1] === currentDate ? 
+            (
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                {
+                  guest?.timeArrived[guest?.timeArrived?.length - 1] === currentDate ? 
+                    `${formatDate(guest?.dateBooked[guest?.dateBooked?.length - 1])} at ${formatTime(guest?.dateBooked[guest?.dateBooked?.length - 1])}` 
+                      : 
+                    'Not yet arrived'
+                }
+              </p>
+            ) : (
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                Not arrived
+              </p>
+            )
+          }
         </div>
 
         <div className='info-group'>
@@ -87,9 +198,9 @@ function GuestOverview() {
             to='#'
             style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
           >
-            www.gatepass.com/w&x7s1z
+            {guest.urlLink.slice(0, 30)}
 
-            <button>
+            <button onClick={copyLink}>
               <Copy color='#5CB950' />
             </button>
           </Link>
@@ -98,8 +209,9 @@ function GuestOverview() {
 
       {/* Actions */}
       <div className='actions'>
-        <button className='outline btn'>Download QR</button>
-        <Link to='#' className='solid btn'>Rebook</Link>
+        {/* <a href={`https://res.cloudinary.com/dfc3s2kfc/image/upload/v1687658461/${guest?.qrCodeImage.match(/^([^.]+)/)[1]}.png`} target='_blank' className='outline btn'>Download QR</a> */}
+        <button onClick={() => downloadQRCodeImage(guest.qrCodeImage.match(/^([^.]+)/)[1])} className='outline btn'>Download QR</button>
+        <button onClick={rebookGuest} className='solid btn'>Rebook</button>
       </div>
     </section>
   )

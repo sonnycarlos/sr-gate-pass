@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 
 import dbConnect from './config/database.js'
-import { userRoutes } from './routes/index.js'
+import { guestRoutes, userRoutes } from './routes/index.js'
 
 dotenv.config()
 
@@ -25,6 +25,9 @@ app.use(cookieParser())
 
 // User Routes
 app.use('/api/user', userRoutes)
+
+// Guest Routes
+app.use('/api/guest', guestRoutes)
 
 app.get('/api/hello', (res) => {
   res.status(200).json({ message: 'Hello World' })
