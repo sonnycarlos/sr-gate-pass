@@ -28,11 +28,23 @@ function MyGuests() {
   const [otherBookings, setOtherBookings] = useState([])
   const [openItemId, setOpenItemId] = useState(null)
   const [initialState, dispatch] = useSrContext()
+  const [isVisible, setIsVisible] = useState(true)
   const navigate = useNavigate()
 
   // Handle click
   const handleClick = (id) => {
     navigate(`/guest-overview/${id}`)
+  }
+
+  // Handle scroll
+  const handleScroll = () => {
+    if (window.scrollY > 40) {
+      setIsVisible(false)
+    }
+    
+    if (window.scrollY < 40) {
+      setIsVisible(true)
+    }
   }
 
   // Use effect
@@ -114,14 +126,18 @@ function MyGuests() {
     validate()
     getGuests()
 
-    console.log(lastWeekBookings)
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
     <section id='my_guests'>
       {/* Heading */}
       <h1 
-        style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+        style={{ visibility: `${isVisible ? 'visible' : 'hidden'}`, fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
         id='heading'
       >
         My Guests

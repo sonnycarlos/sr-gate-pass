@@ -1,8 +1,8 @@
 // ##### *** FOR TEST PURPOSES ONLY *** ##### //
 
-import React, { useRef, useState } from 'react'
-import { QRCodeCanvas } from 'qrcode.react'
+import React, { useEffect, useRef, useState } from 'react'
 import Axios from 'axios'
+import QRCodeStyling from 'qr-code-styling'
 import html2canvas from 'html2canvas'
 import { approveUser, uploadFile } from '../../utils'
 
@@ -51,21 +51,42 @@ function ApproveUser() {
     }
   }
 
+  // Use effect
+  useEffect(() => {
+    const qrCodeStyling = new QRCodeStyling({
+      width: 1000,
+      height: 1000,
+      data: `${inputs.userId}`,
+      qrOptions: {
+        typeNumber: 0,
+        mode: 'Byte',
+        errorCorrectionLevel: 'H',
+      },
+      imageOptions: {
+        hideBackgroundDots: false,
+        imageSize: 0.4,
+        crossOrigin: 'anonymous',
+      },
+      dotsOptions: {
+        color: '#000000',
+        type: 'extra-rounded', 
+      },
+      backgroundOptions: {
+        color: '#FFFFFF',
+      },
+      cornersSquareOptions: {
+        type: 'dot', 
+      }
+    })
+
+    qrCodeStyling.append(qrCodeCanvasRef.current)
+    qrCodeStyling.update()
+  }, [inputs.userId])
+
   return (
     <section id='approve-user' style={{ display: 'grid', placeContent: 'center', placeItems: 'center', height: '100vh' }}>
-      <div ref={qrCodeCanvasRef}>
-        <div style={{ width: '200px', height: '200px' }}>
-          <QRCodeCanvas
-            value={`${inputs.userId}`}
-            size={280}
-            bgColor={'#FFF'}
-            fgColor={'#000'}
-            level={'H'}
-            includeMargin={true}
-            style={{ width: '100%', height: '100%' }}
-          />
-        </div>
-      </div>
+      {/* QR Code */}
+      <div ref={qrCodeCanvasRef} id='qr-code'></div>
 
       <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '16px' }}>
         <input 

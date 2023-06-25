@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { QRCodeCanvas } from 'qrcode.react'
+import QRCodeStyling from 'qr-code-styling'
 import html2canvas from 'html2canvas'
 
 import {
@@ -108,25 +108,42 @@ function BookGuest() {
 
     validate()
 
+    const qrCodeStyling = new QRCodeStyling({
+      width: 1000,
+      height: 1000,
+      data: `${inputs.userId}`,
+      qrOptions: {
+        typeNumber: 0,
+        mode: 'Byte',
+        errorCorrectionLevel: 'H',
+      },
+      imageOptions: {
+        hideBackgroundDots: false,
+        imageSize: 0.4,
+        crossOrigin: 'anonymous',
+      },
+      dotsOptions: {
+        color: '#000000',
+        type: 'extra-rounded', 
+      },
+      backgroundOptions: {
+        color: '#FFFFFF',
+      },
+      cornersSquareOptions: {
+        type: 'dot', 
+      }
+    })
+
+    qrCodeStyling.append(qrCodeCanvasRef.current)
+    qrCodeStyling.update()
+
     console.log(profileDetails)
   }, [])
 
   return (
     <section id='book_guest'>
       {/* QR Code */}
-      <div ref={qrCodeCanvasRef} id='qr-code'>
-        <div style={{ width: '750px', height: '750px' }}>
-          <QRCodeCanvas
-            value={`${profileDetails._id}/${inputs.guestName}/${inputs.guestPhoneNumber}`}
-            size={1000}
-            bgColor={'#FFF'}
-            fgColor={'#000'}
-            level={'L'}
-            includeMargin={true}
-            style={{ width: '100%', height: '100%' }}
-          />
-        </div>
-      </div>
+      <div ref={qrCodeCanvasRef} id='qr-code'></div>
 
       {/* Back Button */}
       <Link to='/my-guests' className='text btn'>

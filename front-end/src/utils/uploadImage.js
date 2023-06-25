@@ -1,5 +1,5 @@
 /**
- ** This function resets the user's password
+ ** This function uploads image to Cloudinary
 **/
 
 import { Axios } from '../config'
