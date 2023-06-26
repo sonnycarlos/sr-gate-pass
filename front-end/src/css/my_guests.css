@@ -1,6 +1,5 @@
 #my_guests {
   position: relative;
-  /* overflow: hidden; */
   height: 100vh;
   background-color: var(--white);
 }
@@ -60,7 +59,7 @@
   padding: 0 16px;
 }
 
-div > .dateAndGuestsCount {
+#my_guests > .list > div > .items > .item > div > .dateAndGuestsCount {
   display: flex;
   align-items: center;
 }
@@ -129,6 +128,36 @@ div > .dateAndGuestsCount {
   font-size: 14px;
 }
 
+#my_guests > .list.empty {
+  display: grid;
+  place-content: center;
+  place-items: center;
+}
+
+#my_guests > .list.empty > .status {
+  visibility: hidden;
+  animation: showStatus 5s linear 3s forwards;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  margin-top: 80px;
+}
+
+#my_guests > .list.empty > .status > div {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+#my_guests > .list.empty > .status > div > * {
+  text-align: center;
+}
+
+#my-guests > .list.empty > .status > div > h2 {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 24px;
+}
+
 /* Actions */
 
 #my_guests > .actions {
@@ -142,6 +171,17 @@ div > .dateAndGuestsCount {
   margin-left: 14px;
   padding: 12px;
   border-radius: 100%;
+}
+
+/* Animation */
+
+@keyframes showStatus {
+  0% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
 }
 
 /* Screen Width: 410px */

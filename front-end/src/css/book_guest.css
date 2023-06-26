@@ -27,7 +27,6 @@
 
 #book_guest > form {
   display: grid;
-  gap: 64px;
   margin-top: 24px;
 }
 
@@ -36,8 +35,13 @@
   gap: 32px;
 }
 
+#book_guest > form > #error-message {
+  margin-top: 24px;
+}
+
 #book_guest > form > .btn {
   width: 100%;
+  margin-top: 64px;
 }
 
 /* Screen Width: 390px */
@@ -49,13 +53,11 @@
     font-size: 24px;
   }
 
-  /* Form */
-
-  #book_guest > form {
-    gap: 80px;
-  }
-
   #book_guest > form > .inputFields {
     gap: 40px;
+  }
+
+  #book_guest > form > .btn {
+    margin-top: 80px;
   }
 }

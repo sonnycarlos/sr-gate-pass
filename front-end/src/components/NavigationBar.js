@@ -1,4 +1,11 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+
+import { 
+  useSrContext, 
+  TOGGLE_NAV,
+  SET_ACTIVE_PAGE
+} from '../context'
 
 import {
   BrandLogo,
@@ -6,11 +13,9 @@ import {
   Menu
 } from '../assets/svg/index'
 
-import { useSrContext, TOGGLE_NAV } from '../context'
-
 function NavigationBar() {
   const [notificationCount, setNotificationCount] = useState(4)
-  const [, dispatch] = useSrContext()
+  const [initialState, dispatch] = useSrContext()
 
   // Handle click
   const handleClick = () => {
@@ -29,7 +34,9 @@ function NavigationBar() {
       
       {/* Bell Icon */}
       <div id='notification-container'>
-        <Bell />
+        <Link to='/notifications'>
+          <Bell color={`${initialState.activePage === 'notifications' ? '#5CB950' : '#B1B3B6'}`} />
+        </Link>
 
         <span 
           style={{ 

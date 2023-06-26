@@ -91,3 +91,13 @@
     font-size: 18px;
   }
 }
+
+/* Screen Height: 1520px */
+
+@media only screen and (min-height: 1020px) {
+  /* Header */
+
+  #login_and_registration > header {
+    margin-top: 180px;
+  }
+}

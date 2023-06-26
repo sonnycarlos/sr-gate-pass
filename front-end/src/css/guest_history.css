@@ -36,8 +36,8 @@
   visibility: visible;
 }
 
-#guest_history > .list > .item,
-#guest_history > .list > .item > .dateAndTime {
+#guest_history > .list > div > .item,
+#guest_history > .list > div > .item > .dateAndTime {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -46,51 +46,51 @@
   margin-bottom: 16px;
 }
 
-#guest_history > .list > .item .date {
+#guest_history > .list > div > .item .date {
   font-family: 'SFProDisplay-Bold';
   font-weight: 800;
 }
 
-#guest_history > .list > .item .time {
+#guest_history > .list > div > .item .time {
   font-family: 'SFProDisplay-Medium';
 }
 
-#guest_history > .list > .item > .action {
+#guest_history > .list > div > .item > .action {
   transition: 350ms;
 }
 
-#guest_history > .logsHistory.list > .item {
+#guest_history > .logsHistory.list > div > .item {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-#guest_history > .logsHistory.list > .item > .logs {
+#guest_history > .logsHistory.list > div > .item > .logs {
   display: grid;
   gap: 12px;
   width: 100%;
   margin-top: 16px;
 }
 
-#guest_history > .logsHistory.list > .item > .logs > .time {
+#guest_history > .logsHistory.list > div > .item > .logs > .time {
   justify-self: end;
   font-family: 'SFProDisplay-Regular';
 }
 
-#guest_history > .list > .content.opened {
+#guest_history > .list > div > .content.opened {
   display: grid;
   gap: 16px;
   margin-bottom: 24px;
 }
 
-#guest_history > .list > .content > p {
+#guest_history > .list > div > .content > p {
   display: none;
   justify-self: end;
   font-family: 'SFProDisplay-Medium';
   font-size: 16px;
 }
 
-#guest_history > .list > .content.opened > p {
+#guest_history > .list > div > .content.opened > p {
   display: block;
 }
 
@@ -111,19 +111,19 @@
     padding-bottom: 0;
   }
 
-  #guest_history > .list > .item {
+  #guest_history > .list > div > .item {
     margin-bottom: 0;
   }
 
-  #guest_history > .list > .content {
+  #guest_history > .list > div > .content {
     margin-top: -24px;
   }
 
-  #guest_history > .list > .content.opened {
-    margin-top: 0;
+  #guest_history > .list > div > .content.opened {
+    margin-top: 16px;
   }
 
-  #guest_history > .list > .content > p {
+  #guest_history > .list > div > .content > p {
     font-size: 18px;
   }
 }
@@ -137,8 +137,8 @@
     height: 68vh;
   }
 
-  #guest_history > .list > .item > .date,
-  #guest_history > .list > .item > .time {
+  #guest_history > .list > div > .item > .date,
+  #guest_history > .list > div > .item > .time {
     font-size: 18px;
   }
 }

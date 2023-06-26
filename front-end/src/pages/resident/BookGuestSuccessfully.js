@@ -27,6 +27,7 @@ function BookGuestSuccessfully() {
   useEffect(() => {
     document.title = 'Booking Guest Successfully'
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })

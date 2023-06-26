@@ -1,6 +1,6 @@
 * Phone number input field must be numbers only
+* Phone number input field must be 11 numbers only
 * Responsiveness
 * Button loading animation
 * Proper load of data using setTimeout()
 * Replace localStorage to sessionStorage
-* Style bug when try to log out

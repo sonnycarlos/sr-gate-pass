@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useSrContext } from '../context'
+import { useSrContext, SET_ACTIVE_PAGE } from '../context'
 
 import {
   Users
@@ -16,6 +16,9 @@ function Notifications() {
   // Use effect
   useEffect(() => {
     document.title = 'Notifications'
+    
+    dispatch({ type: SET_ACTIVE_PAGE, payload: 'notifications' })
+    console.log(initialState.activePage)
   }, [])
 
   return (

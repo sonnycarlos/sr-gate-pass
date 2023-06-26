@@ -6,10 +6,16 @@ import {
 } from '../models/index.js'
 
 // @desc    Fetch guests
-// @route   GET /api/guest/fetch-guests
+// @route   POST /api/guest/fetch-guests
 // @access  Public
 const fetchGuests = asyncHandler(async (req, res) => {
   const { userId } = req.body
+
+  // Return all the guests
+  if (!userId) {
+    const guests = await Guest.find()
+    return res.status(200).json(guests)
+  }
 
   const guests = await Guest.find({ host: userId })
   
@@ -17,18 +23,16 @@ const fetchGuests = asyncHandler(async (req, res) => {
 })
 
 // @desc    Fetch guest
-// @route   GET /api/guest/fetch-guest
+// @route   POST /api/guest/fetch-guest
 // @access  Public
 const fetchGuest = asyncHandler(async (req, res) => {
   const { id } = req.body
-
   const guest = await Guest.findOne({ _id: id })
-
   return res.status(200).json(guest)
 })
 
 // @desc    Check if guest exists
-// @route   GET /api/guest/check-if-guest-exists
+// @route   POST /api/guest/check-if-guest-exists
 // @access  Public
 const checkIfGuestExists = asyncHandler(async (req, res) => {
   const { 
@@ -56,7 +60,7 @@ const checkIfGuestExists = asyncHandler(async (req, res) => {
 })
 
 // @desc    Book guest
-// @route   GET /api/guest/book-guest
+// @route   POST /api/guest/book-guest
 // @access  Public
 const bookGuest = asyncHandler(async (req, res) => {
   const { 
@@ -84,6 +88,25 @@ const bookGuest = asyncHandler(async (req, res) => {
   const guestExists = await Guest.findOne({ name, phoneNumber, host: user._id })
   
   if (guestExists) {
+    // Check if guest is already booked
+    var inputDate = new Date(guestExists.dateBooked[guestExists.dateBooked.length - 1])
+    var today = new Date()
+
+    if (isNaN(inputDate)) {
+      console.log('Invalid date format')
+      return false
+    }
+
+    var isSameYear = inputDate.getFullYear() === today.getFullYear()
+    var isSameMonth = inputDate.getMonth() === today.getMonth()
+    var isSameDay = inputDate.getDate() === today.getDate()
+
+    if (isSameYear && isSameMonth && isSameDay) {
+      res.status(400).json({ errorMessage: 'The guest is already booked today.' })
+      throw new Error('The guest is already booked today.')
+    }
+
+    // If not already booked
     const guest = await Guest.updateOne(
       { _id: guestExists._id }, 
       { 
@@ -101,6 +124,7 @@ const bookGuest = asyncHandler(async (req, res) => {
     }
   }
 
+  // If not exists
   const guest = await Guest.create({
     host: user._id,
     name,

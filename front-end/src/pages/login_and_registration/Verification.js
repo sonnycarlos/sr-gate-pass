@@ -45,7 +45,7 @@ function Verification() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    let res = await verifyOtp({ emailAddress: initialState.user?.emailAddress, otpCode: otp })
+    const res = await verifyOtp({ emailAddress: initialState.user?.emailAddress, otpCode: otp })
     
     console.log(initialState.user)
 
@@ -107,7 +107,10 @@ function Verification() {
       <img src={BrandLogo} alt='Brand Logo' />
 
       {/* Back Button */}
-      <Link to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} className='text btn'>
+      <Link 
+        to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} 
+        className='text btn'
+      >
         <Back />
         <span>Back</span>
       </Link>
@@ -151,13 +154,13 @@ function Verification() {
           {initialState.countdownStart
             ?
           <Timer 
-                countdownName='otp_resend_countdown' 
-                delay={COUNTDOWN} 
-                renderer={renderer} 
-                start={initialState.countdownStart} 
-                dispatch={dispatch}
-              /> 
-                : 
+            countdownName='otp_resend_countdown' 
+            delay={COUNTDOWN} 
+            renderer={renderer} 
+            start={initialState.countdownStart} 
+            dispatch={dispatch}
+          /> 
+            : 
           <a onClick={resendOtpCode} className='text btn'>Resend it now.</a>
           }
         </p>

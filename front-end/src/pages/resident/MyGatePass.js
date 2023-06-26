@@ -36,6 +36,7 @@ function MyGatePass() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'my-gate-pass'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGatePass' })
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -44,8 +45,6 @@ function MyGatePass() {
         navigate('/login')
       }
     }
-
-    validate()
 
     const determineTimeOfDay = () => {
       const currentHour = new Date().getHours()
@@ -60,8 +59,9 @@ function MyGatePass() {
       }
 
       setGreetText(greetText)
-    };
+    }
 
+    validate()
     determineTimeOfDay()
 
     const interval = setInterval(() => {

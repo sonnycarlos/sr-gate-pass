@@ -32,6 +32,7 @@ function EditProfilePending() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-pending'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -59,7 +60,7 @@ function EditProfilePending() {
       </div>
 
       {/* Action */}
-      <Link onClick={handleClick} className='solid btn'>Finish</Link>
+      <button onClick={handleClick} className='solid btn'>Finish</button>
     </section>
   )
 }

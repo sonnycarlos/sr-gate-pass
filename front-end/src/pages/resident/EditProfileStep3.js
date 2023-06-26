@@ -166,6 +166,7 @@ function EditProfileStep3() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-3'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })

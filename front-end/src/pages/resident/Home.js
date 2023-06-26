@@ -8,6 +8,11 @@ import {
   validateUser
 } from '../../context'
 
+import { 
+  fetchGuests,
+  formatDate 
+} from '../../utils'
+
 import {
   Guest,
   MegaphoneEmoji,
@@ -23,6 +28,8 @@ import '../../css/home.css'
 function Home() {
   const today = new Date().toISOString().split('T')[0]
   const [selectedDate, setSelectedDate] = useState(today)
+  const [guests, setGuests] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const [initialState, dispatch] = useSrContext()
 
   const navigate = useNavigate()
@@ -30,6 +37,18 @@ function Home() {
   // Handle date change
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value)
+  }
+
+  // Get guest count
+  const getGuestCount = () => {
+    const guestCount = guests.reduce((count, guest) => {
+      const dates = guest.dateBooked.map(date => date.split('T')[0])
+      if (dates.includes(selectedDate)) {
+        return count + 1
+      }
+      return count
+    }, 0)
+    return guestCount
   }
 
   // Use effect
@@ -42,6 +61,7 @@ function Home() {
 
     window.localStorage.removeItem('verification')
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -52,11 +72,27 @@ function Home() {
       if (res?.status === 401) {
         navigate('/login')
       }
+
+      setIsLoading(false)
+    }
+
+    // Fetch guests
+    async function getGuests() {
+      let res = await fetchGuests({})
+
+      const filteredData = res.data.map(item => {
+        return {
+          dateBooked: item.dateBooked
+        }
+      })
+
+      setGuests(filteredData)
     }
 
     validate()
+    getGuests()
 
-    console.log(initialState)
+    console.log(guests)
   }, [])
   
   return (
@@ -64,7 +100,8 @@ function Home() {
       <div className='container'>
         {/* Heading */}
         <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-          Welcome, {initialState.user?.profile?.firstName}!
+          Welcome
+          {isLoading ? '!' : `, ${initialState.user?.profile?.firstName}!`}
         </h1>
 
         {/* Guests */}
@@ -88,7 +125,7 @@ function Home() {
               </div>
             </div>
 
-            <Link className='text btn'>
+            <Link to='/book-guest' className='text btn'>
               <Add color='#FFF' />
 
               <span>Book Guest</span>
@@ -97,11 +134,11 @@ function Home() {
 
           <p>
             <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              40 guests
+              {getGuestCount()} {getGuestCount().length > 2 ? 'guests' : 'guest'}
             </span>
             
             <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              as of today
+              {selectedDate === today ? 'as of today' : `on ${formatDate(selectedDate)}`}
             </span>
           </p>
         </div>

@@ -78,6 +78,7 @@ function EditProfileStep1() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-1'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -227,6 +228,7 @@ function EditProfileStep1() {
               name='phoneNumber'
               placeholder='Your phone number here'
               value={inputs.phoneNumber}
+              maxLength='6'
               onChange={e => setInputs({ ...inputs, phoneNumber: e.target.value })}
               required
             />

@@ -33,6 +33,7 @@ function GuestOverview() {
     pin: '',
     urlLink: ''
   })
+  const [isBtnActive, setIsBtnActive] = useState(true)
   const [initialState, dispatch] = useSrContext()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -50,15 +51,13 @@ function GuestOverview() {
       const response = await fetch(fileUrl)
       const blob = await response.blob()
       const url = window.URL.createObjectURL(blob)
-
       const link = document.createElement('a')
+
       link.href = url
       link.download = fileUrl
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-
-      // Release the temporary URL
       window.URL.revokeObjectURL(url)
     } catch (error) {
       console.error('Error downloading image:', error)
@@ -101,6 +100,7 @@ function GuestOverview() {
 
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -114,6 +114,24 @@ function GuestOverview() {
       let res = await fetchGuest({ id })
       setGuest(res.data)
       window.localStorage.setItem('guest', JSON.stringify(res.data))
+
+      // Check if guest can be rebooked today
+      var inputDate = new Date(res.data.dateBooked[res.data.dateBooked.length - 1]);
+      var today = new Date();
+      
+      if (isNaN(inputDate)) {
+        console.log('Invalid date format');
+        return false;
+      }
+
+      var isSameYear = inputDate.getFullYear() === today.getFullYear();
+      var isSameMonth = inputDate.getMonth() === today.getMonth();
+      var isSameDay = inputDate.getDate() === today.getDate();
+
+      if (isSameYear && isSameMonth && isSameDay) {
+        setIsBtnActive(false)
+      }
+
       console.log(res.data)
     }
 
@@ -124,7 +142,10 @@ function GuestOverview() {
   return (
     <section id='guest_overview'>
       {/* Back Button */}
-      <Link to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} className='text btn'>
+      <Link 
+        to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} 
+        className='text btn'
+      >
         <Back />
         <span>Back</span>
       </Link>
@@ -209,9 +230,20 @@ function GuestOverview() {
 
       {/* Actions */}
       <div className='actions'>
-        {/* <a href={`https://res.cloudinary.com/dfc3s2kfc/image/upload/v1687658461/${guest?.qrCodeImage.match(/^([^.]+)/)[1]}.png`} target='_blank' className='outline btn'>Download QR</a> */}
-        <button onClick={() => downloadQRCodeImage(guest.qrCodeImage.match(/^([^.]+)/)[1])} className='outline btn'>Download QR</button>
-        <button onClick={rebookGuest} className='solid btn'>Rebook</button>
+        <button 
+          onClick={() => downloadQRCodeImage(guest.qrCodeImage.match(/^([^.]+)/)[1])} 
+          className='outline btn'
+        >
+          Download QR
+        </button>
+
+        <button 
+          style={{ display: `${isBtnActive ? 'block' : 'none'}` }} 
+          onClick={rebookGuest} 
+          className='solid btn'
+        >
+          Rebook
+        </button>
       </div>
     </section>
   )

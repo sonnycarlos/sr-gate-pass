@@ -96,8 +96,6 @@ function OnBoardingStep1() {
       header.style.marginBottom = '0'
     }
   }
-
-  
   
   // Use effect
   useEffect(() => {
@@ -231,6 +229,7 @@ function OnBoardingStep1() {
               name='phoneNumber'
               placeholder='Your phone number here'
               value={inputs.phoneNumber}
+              maxLength='6'
               onChange={e => setInputs({ ...inputs, phoneNumber: e.target.value })}
               required
             />

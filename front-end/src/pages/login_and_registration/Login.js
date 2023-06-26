@@ -35,7 +35,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    let res = await logInUser(dispatch, { emailAddress: credentials.emailAddress, password: credentials.password })
+    const res = await logInUser(dispatch, { emailAddress: credentials.emailAddress, password: credentials.password })
     dispatch({ type: SET_ACTION, payload: 'Log in' })
 
     if (res.status === 200) {
@@ -63,16 +63,19 @@ function Login() {
     
     document.cookie = 'routesHistory=login'
 
+    // Clear storage
     window.localStorage.removeItem('verification')
     window.localStorage.removeItem('registration')
     window.localStorage.removeItem('onboarding')
     window.localStorage.removeItem('forgotPassword')
     window.localStorage.removeItem('profile')
+    window.localStorage.removeItem('bookingDetails')
 
     const routeHistory = initialState.routeHistory
     
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'login'] })
 
+    // Validate user
     async function validate() {
       let loggedIn = window.localStorage.getItem('loggedIn')
       let token = window.localStorage.getItem('user')
@@ -110,7 +113,9 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <div className='inputFields'>
           <div className='form-group'>
-            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Email Address</label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              Email Address
+            </label>
             
             <input 
               type='email'
@@ -123,7 +128,9 @@ function Login() {
           </div>
 
           <div className='form-group'>
-            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Password</label>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              Password
+            </label>
             
             <div 
               className='input-field'
@@ -154,7 +161,9 @@ function Login() {
             <p>Keep me sign in</p>
           </div>
 
-          <Link to='/forgot-password' style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Forgot Password</Link>
+          <Link to='/forgot-password' style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+            Forgot Password
+          </Link>
         </div>
 
         <div 

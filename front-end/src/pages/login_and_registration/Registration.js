@@ -33,7 +33,7 @@ function Registration() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    let res = await registerUser(dispatch, { type: 'resident', emailAddress: credentials.emailAddress, password: credentials.password })
+    const res = await registerUser(dispatch, { type: 'resident', emailAddress: credentials.emailAddress, password: credentials.password })
     dispatch({ type: SET_ACTION, payload: 'Register' })
 
     console.log(res)
@@ -41,9 +41,7 @@ function Registration() {
     if (res.status === 201) {
       console.log(res)
       window.localStorage.setItem('verification', true)
-
       await requestOtp({ action: 'registration', receiver: credentials.emailAddress })
-
       navigate('/verification')
     }
 
@@ -66,6 +64,7 @@ function Registration() {
     
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
 
+    // Validate user
     async function validate() {
       let loggedIn = window.localStorage.getItem('loggedIn')
 

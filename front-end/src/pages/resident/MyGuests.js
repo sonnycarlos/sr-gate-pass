@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { 
   useSrContext,
   INSERT_ROUTE,
+  SET_ACTIVE_PAGE,
   validateUser
 } from '../../context'
 
@@ -16,13 +17,15 @@ import {
 import {
   ArrowDownRight,
   Plus,
-  Search
+  Search,
+  BadgeMeh
 } from '../../assets/svg'
 
 import '../../css/my_guests.css'
 
 function MyGuests() {
   const details = JSON.parse(window.localStorage.getItem('profile'))
+  const [guests, setGuests] = useState([])
   const [currentWeekBookings, setCurrentWeekBookings] = useState([])
   const [lastWeekBookings, setLastWeekBookings] = useState([])
   const [otherBookings, setOtherBookings] = useState([])
@@ -59,7 +62,9 @@ function MyGuests() {
     document.cookie = `routesHistory=${routeHistory}`
     
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
+    dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGuests' })
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -69,8 +74,11 @@ function MyGuests() {
       }
     }
 
+    // Fetch guests
     async function getGuests() {
       let res = await fetchGuests({ userId: details.userId })
+
+      setGuests(res.data)
 
       const mergedData = []
 
@@ -121,6 +129,7 @@ function MyGuests() {
       })
 
       setOtherBookings(otherBookings)
+      console.log(currentWeekBookings)
     }
 
     validate()
@@ -143,189 +152,209 @@ function MyGuests() {
         My Guests
       </h1>
 
-      {/* List */}
-      <div className='list'>
-        {currentWeekBookings.length !== 0 && (
-          <div>
-            <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              This week
-            </h2>
+      {guests.length > 0 ? (
+        <>
+          {/* List */}
+          <div className='list'>
+            {currentWeekBookings.length !== 0 && (
+              <div>
+                <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                  This week
+                </h2>
 
-            <div className='items'>
-              {currentWeekBookings.map((guest, i) => {
-                const isItemOpen = guest.day === openItemId
-                
-                return (
-                  <div 
-                    key={i}
-                    style={{ marginBottom: `${isItemOpen ? '16px' : '0'}` }}
-                    className='item'
-                  >
-                    <div>
-                      <div className='dateAndGuestsCount'>
-                        <p className='date'>{formatDate(guest.day)}</p>
-                        <p className='guestsCount'>{guest?.bookings?.length} Guests</p>
-                      </div>
-
-                      <span 
-                        style={{ transform: `${isItemOpen ? 'rotate(-180deg)' : 'none'}` }}
-                        onClick={() => setOpenItemId(isItemOpen ? null : guest.day)}
-                        className={`action ${isItemOpen ? 'opened' : ''}`}
+                <div className='items'>
+                  {currentWeekBookings.map((guest, i) => {
+                    const isItemOpen = guest.day === openItemId
+                    
+                    return (
+                      <div 
+                        key={i}
+                        style={{ marginBottom: `${isItemOpen ? '16px' : '0'}` }}
+                        className='item'
                       >
-                        <ArrowDownRight color='#1E1E1E' />
-                      </span>
-                    </div>
-
-                    <div className={`content ${isItemOpen ? 'opened' : ''}`}>
-                      {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
-                        <div 
-                          key={i}
-                          onClick={() => handleClick(_id)}
-                        >
-                          <div className='nameAndContactNum'>
-                            <p 
-                              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-                              className='name'
-                            >
-                              {`${name.length > 20 ? name.slice(0, 20) + '...' : name.slice(0, 20)}`}
-                            </p>
-
-                            <p className='contactNum'>{phoneNumber}</p>
-                          </div>
-                          
-                          <p className='time'>
-                            {formatTime(dateBooked[dateBooked.length - 1])}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        )}
-
-        {lastWeekBookings.length !== 0 && (
-          <div>
-            <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              Last week
-            </h2>
-
-            <div className='items'>
-              {lastWeekBookings.map((guest, i) => {
-                const isItemOpen = guest.day === openItemId
-
-                return (
-                  <div 
-                    key={i}
-                    style={{ marginBottom: `${isItemOpen ? '16px' : '0'}` }}
-                    className='item'
-                  >
-                    <div>
-                      <div className='dateAndGuestsCount'>
-                        <p className='date'>{formatDate(guest.day)}</p>
-                        <p className='guestsCount'>{guest?.bookings?.length} Guests</p>
-                      </div>
-
-                      <span 
-                        onClick={() => setOpenItemId(isItemOpen ? null : guest.day)}
-                        className={`action ${isItemOpen ? 'opened' : ''}`}
-                      >
-                        <ArrowDownRight color='#1E1E1E' />
-                      </span>
-                    </div>
-
-                    <div className={`content ${isItemOpen ? 'opened' : ''}`}>
-                      {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
-                        <div 
-                          key={i}
-                          onClick={() => navigate(`/guest-overview/${_id}`)}
-                        >
-                            <div className='nameAndContactNum'>
-                            <p 
-                              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-                              className='name'
-                            >
-                              {name}
-                            </p>
-
-                            <p className='contactNum'>{phoneNumber}</p>
+                        <div>
+                          <div className='dateAndGuestsCount'>
+                            <p className='date'>{formatDate(guest.day)}</p>
+                            <p className='guestsCount'>{guest?.bookings?.length} Guests</p>
                           </div>
 
-                          <p className='time'>
-                            {formatTime(dateBooked[dateBooked.length - 1])}
-                          </p>
+                          <span 
+                            style={{ transform: `${isItemOpen ? 'rotate(-180deg)' : 'none'}` }}
+                            onClick={() => setOpenItemId(isItemOpen ? null : guest.day)}
+                            className={`action ${isItemOpen ? 'opened' : ''}`}
+                          >
+                            <ArrowDownRight color='#1E1E1E' />
+                          </span>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        )}
 
-        {otherBookings.length !== 0 && (
-          <div>
-            <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              Other weeks
-            </h2>
-
-            <div className='items'>
-              {otherBookings.map((guest, i) => {
-                const isItemOpen = guest.day === openItemId
-
-                return (
-                  <div 
-                    key={i}
-                    style={{ marginBottom: `${isItemOpen ? '16px' : '0'}` }}
-                    className='item'
-                  >
-                    <div>
-                      <div className='dateAndGuestsCount'>
-                        <p className='date'>{formatDate(guest.day)}</p>
-                        <p className='guestsCount'>{guest?.bookings?.length} Guests</p>
-                      </div>
-
-                      <span 
-                        onClick={() => setOpenItemId(isItemOpen ? null : guest.day)}
-                        className={`action ${isItemOpen ? 'opened' : ''}`}
-                      >
-                        <ArrowDownRight color='#1E1E1E' />
-                      </span>
-                    </div>
-
-                    <div className={`content ${isItemOpen ? 'opened' : ''}`}>
-                      {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
-                        <div 
-                          key={i}
-                          onClick={() => navigate(`/guest-overview/${_id}`)}
-                        >
-                          <div className='nameAndContactNum'>
-                            <p 
-                              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-                              className='name'
+                        <div className={`content ${isItemOpen ? 'opened' : ''}`}>
+                          {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
+                            <div 
+                              key={i}
+                              onClick={() => handleClick(_id)}
                             >
-                              {name}
-                            </p>
+                              <div className='nameAndContactNum'>
+                                <p 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                                  className='name'
+                                >
+                                  {`${name.length > 20 ? name.slice(0, 20) + '...' : name.slice(0, 20)}`}
+                                </p>
 
-                            <p className='contactNum'>{phoneNumber}</p>
+                                <p className='contactNum'>{phoneNumber}</p>
+                              </div>
+                              
+                              <p className='time'>
+                                {formatTime(dateBooked[dateBooked.length - 1])}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
+            {lastWeekBookings.length !== 0 && (
+              <div>
+                <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                  Last week
+                </h2>
+
+                <div className='items'>
+                  {lastWeekBookings.map((guest, i) => {
+                    const isItemOpen = guest.day === openItemId
+
+                    return (
+                      <div 
+                        key={i}
+                        style={{ marginBottom: `${isItemOpen ? '16px' : '0'}` }}
+                        className='item'
+                      >
+                        <div>
+                          <div className='dateAndGuestsCount'>
+                            <p className='date'>{formatDate(guest.day)}</p>
+                            <p className='guestsCount'>{guest?.bookings?.length} Guests</p>
                           </div>
 
-                          <p className='time'>
-                            {formatTime(dateBooked[dateBooked.length - 1])}
-                          </p>
+                          <span 
+                            onClick={() => setOpenItemId(isItemOpen ? null : guest.day)}
+                            className={`action ${isItemOpen ? 'opened' : ''}`}
+                          >
+                            <ArrowDownRight color='#1E1E1E' />
+                          </span>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
+
+                        <div className={`content ${isItemOpen ? 'opened' : ''}`}>
+                          {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
+                            <div 
+                              key={i}
+                              onClick={() => navigate(`/guest-overview/${_id}`)}
+                            >
+                                <div className='nameAndContactNum'>
+                                <p 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                                  className='name'
+                                >
+                                  {name}
+                                </p>
+
+                                <p className='contactNum'>{phoneNumber}</p>
+                              </div>
+
+                              <p className='time'>
+                                {formatTime(dateBooked[dateBooked.length - 1])}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
+            {otherBookings.length !== 0 && (
+              <div>
+                <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                  Other weeks
+                </h2>
+
+                <div className='items'>
+                  {otherBookings.map((guest, i) => {
+                    const isItemOpen = guest.day === openItemId
+
+                    return (
+                      <div 
+                        key={i}
+                        style={{ marginBottom: `${isItemOpen ? '16px' : '0'}` }}
+                        className='item'
+                      >
+                        <div>
+                          <div className='dateAndGuestsCount'>
+                            <p className='date'>{formatDate(guest.day)}</p>
+                            <p className='guestsCount'>{guest?.bookings?.length} Guests</p>
+                          </div>
+
+                          <span 
+                            onClick={() => setOpenItemId(isItemOpen ? null : guest.day)}
+                            className={`action ${isItemOpen ? 'opened' : ''}`}
+                          >
+                            <ArrowDownRight color='#1E1E1E' />
+                          </span>
+                        </div>
+
+                        <div className={`content ${isItemOpen ? 'opened' : ''}`}>
+                          {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
+                            <div 
+                              key={i}
+                              onClick={() => navigate(`/guest-overview/${_id}`)}
+                            >
+                              <div className='nameAndContactNum'>
+                                <p 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                                  className='name'
+                                >
+                                  {name}
+                                </p>
+
+                                <p className='contactNum'>{phoneNumber}</p>
+                              </div>
+
+                              <p className='time'>
+                                {formatTime(dateBooked[dateBooked.length - 1])}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        <div className='list empty'>
+          <div className='status'>
+            {/* Badge */}
+            <img src={BadgeMeh} alt='Badge' />
+            
+            {/* Heading & Paragraph */}
+            <div>
+              <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                No bookings yet
+              </h2>
+
+              <p>You have not made any bookings yet.</p>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Actions */}
       <div className='actions'>

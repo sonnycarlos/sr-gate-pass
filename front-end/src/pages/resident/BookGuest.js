@@ -22,6 +22,7 @@ function BookGuest() {
     guestPhoneNumber: '',
     pin: ''
   })
+  const [error, setError] = useState({ isError: false, errorMessage: '' })
   const qrCodeCanvasRef = useRef(null)
   const [initialState, dispatch] = useSrContext()
   
@@ -59,6 +60,7 @@ function BookGuest() {
   
       if (res.status === 400) {
         console.log(res)
+        setError( { isError: true, errorMessage: res.errorMessage })
         return
       }
     }
@@ -97,6 +99,7 @@ function BookGuest() {
 
     window.localStorage.removeItem('bookingDetails')
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -146,7 +149,10 @@ function BookGuest() {
       <div ref={qrCodeCanvasRef} id='qr-code'></div>
 
       {/* Back Button */}
-      <Link to='/my-guests' className='text btn'>
+      <Link 
+        to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} 
+        className='text btn'
+      >
         <Back />
         <span>Back</span>
       </Link>
@@ -209,6 +215,15 @@ function BookGuest() {
               required
             />
           </div>
+        </div>
+
+        <div 
+          id='error-message'
+          style={{ display: `${error.isError ? 'block' : 'none'}` }}
+        >
+          <p>
+            {error.errorMessage}
+          </p>
         </div>
 
         <input type='submit' value='Book' className='solid btn' />

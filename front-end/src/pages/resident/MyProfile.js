@@ -29,16 +29,18 @@ function MyProfile() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'my-profile'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
-    // async function validate() {
-    //   let token = window.localStorage.getItem('user')
-    //   let res = await validateUser(dispatch, { token })
+    async function validate() {
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser(dispatch, { token })
 
-    //   if (res?.status === 401) {
-    //     navigate('/login')
-    //   }
-    // }
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
 
-    // validate()
+    validate()
+
+    console.log(initialState)
   }, [])
 
   return (

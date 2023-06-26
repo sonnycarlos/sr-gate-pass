@@ -85,6 +85,7 @@ const signUp = asyncHandler(async (req, res) => {
     throw new Error('User already exists.')
   }
 
+  // If not exists
   const { isValidate, errorMessage } = validatePassword(password)
 
   // Validate password with NIST policy
@@ -122,7 +123,7 @@ const signUp = asyncHandler(async (req, res) => {
 })
 
 // @desc    Forgot password
-// @route   GET /api/user/forgot-password
+// @route   POST /api/user/forgot-password
 // @access  Public
 const forgotPassword = asyncHandler(async (req, res) => {
   const { emailAddress, password } = req.body
@@ -140,7 +141,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     throw new Error(`User doesn't exist.`)
   }
 
-  //  Check if the user used one of the old passwords
+  // If not exists and check if the user used one of the old passwords
   for (let i = 0; i < userExists?.password?.length; i++) {
     if (await bcrypt.compare(password, userExists?.password[i])) {
       res.status(400).json({ errorMessage: 'Your new password cannot be the same as your current or old password.' })
@@ -173,7 +174,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 })
 
 // @desc    Generate OTP code
-// @route   GET /api/user/generate-otp
+// @route   POST /api/user/generate-otp
 // @access  Public
 const requestOtp = asyncHandler(async (req, res) => {
   otpCode = generateOtp()
@@ -197,7 +198,7 @@ const requestOtp = asyncHandler(async (req, res) => {
 })
 
 // @desc    Verify OTP code
-// @route   GET /api/user/verification
+// @route   POST /api/user/verification
 // @access  Public
 const verifyOtp = asyncHandler(async (req, res) => {
   const { emailAddressInput, otpCodeInput } = req.body
@@ -211,11 +212,12 @@ const verifyOtp = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get user data
-// @route   GET /api/user/validate-user
+// @route   POST /api/user/validate-user
 // @access  Public
 const validateUser = asyncHandler(async (req, res) => {
   const { _id, username, emailAddress, isApprove } = await User.findById(req.user._id)
 
+  // Check if user was approved
   if (isApprove) {
     const profileRequest = await ProfileRequest.findOne({ userId: _id })
     const profile = await Resident.findOne({ userId: _id })
@@ -228,6 +230,7 @@ const validateUser = asyncHandler(async (req, res) => {
     }
   }
 
+  // If not
   res.status(200).json({
     _id,
     username,
@@ -236,7 +239,7 @@ const validateUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Check if user exists
-// @route   GET /api/user/check-user
+// @route   POST /api/user/check-user
 // @access  Public
 const checkUser = asyncHandler(async (req, res) => {
   const { emailAddress } = req.body
@@ -252,7 +255,7 @@ const checkUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Check if resident's username already exists
-// @route   GET /api/user/check-resident-username
+// @route   POST /api/user/check-resident-username
 // @access  Public
 const checkResidentUsername = asyncHandler(async (req, res) => {
   const { username } = req.body
@@ -267,7 +270,7 @@ const checkResidentUsername = asyncHandler(async (req, res) => {
 })
 
 // @desc    Register user (complete user registration)
-// @route   GET /api/user/register-user
+// @route   POST /api/user/register-user
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { 
@@ -399,7 +402,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update user (update user profile)
-// @route   GET /api/user/update-user
+// @route   POST /api/user/update-user
 // @access  Public
 const updateUser = asyncHandler(async (req, res) => {
   const { 
@@ -524,7 +527,7 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Approve user
-// @route   GET /api/user/approve-user
+// @route   POST /api/user/approve-user
 // @access  Public
 const approveUser = asyncHandler(async (req, res) => {
   const { 

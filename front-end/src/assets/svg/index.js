@@ -1,6 +1,7 @@
 import BadgeAmazed from './badge_amaze.svg'
 import BadgeCheck from './badge_check.svg'
 import BadgeHappy from './badge_happy.svg'
+import BadgeMeh from './badge_meh.svg'
 import BadgeSad from './badge_sad.svg'
 import BrandLogo from './brand-logo.svg'
 import Guest from './guest.svg'
@@ -33,6 +34,7 @@ import Users from './icons/Users'
 export {
   BadgeAmazed,
   BadgeCheck,
+  BadgeMeh,
   BadgeSad,
   BadgeHappy,
   BrandLogo,

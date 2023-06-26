@@ -23,7 +23,6 @@ function App() {
   return (
     <>
       {isPageHasNav && <NavigationBar />}
-
       {initialState.isMenuOpen && <Menu />}
 
       <Routes>

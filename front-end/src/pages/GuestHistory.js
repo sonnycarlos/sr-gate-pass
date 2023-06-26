@@ -34,17 +34,17 @@ function GuestHistory() {
     // Transformed booking history data
     const transformedBookingHistoryData = guest?.dateBooked.reduce((acc, timestamp) => {
       const dateObj = new Date(timestamp)
-      const date = dateObj.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric"
+      const date = dateObj.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric'
       })
-      const time = dateObj.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
+      const time = dateObj.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
         hour12: true
       })
-    
       const existingDate = acc.find(item => item.date === date)
+
       if (existingDate) {
         existingDate.time.push(time)
       } else {
@@ -57,17 +57,17 @@ function GuestHistory() {
     // Transformed logging history data
     const transformedLoggingHistoryData = guest?.timeArrived.reduce((acc, timestamp) => {
       const dateObj = new Date(timestamp)
-      const date = dateObj.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric"
+      const date = dateObj.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric'
       })
-      const time = dateObj.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
+      const time = dateObj.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
         hour12: true
       })
-    
       const existingDate = acc.find(item => item.date === date)
+      
       if (existingDate) {
         existingDate.time.push(time)
       } else {
@@ -120,13 +120,16 @@ function GuestHistory() {
       </div>
 
       {/* Booking History List */}
-      <div className={`bookingHistory list ${tabActive === 'bookingHistory' && 'active'}`}>
+      <div 
+        style={{ display: `${tabActive === 'bookingHistory' ? 'flex' : 'none'}` }}
+        className={`bookingHistory list ${tabActive === 'bookingHistory' && 'active'}`}
+      >
         {bookingHistory.map(({ date, time }, i) => {
           const isItemOpen = date === openItemId
 
           return (
-            <>
-              <div key={i} className='item'>
+            <div key={i}>
+              <div className='item'>
                 <p
                   style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                   className='date'
@@ -161,19 +164,22 @@ function GuestHistory() {
                   ))}
                 </div>
               )}
-            </>
+            </div>
           )
         })}
       </div>
 
-      {/* Logs History List */}
-      <div className={`bookingHistory list ${tabActive === 'loggingHistory' && 'active'}`}>
+      {/* Logging History List */}
+      <div 
+        style={{ display: `${tabActive === 'loggingHistory' ? 'flex' : 'none'}` }}
+        className={`loggingHistory list ${tabActive === 'loggingHistory' && 'active'}`}
+      >
         {loggingHistory.map(({ date, time }, i) => {
           const isItemOpen = date === openItemId
 
           return (
-            <>
-              <div key={i} className='item'>
+            <div key={i}>
+              <div className='item'>
                 <p
                   style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                   className='date'
@@ -208,7 +214,7 @@ function GuestHistory() {
                   ))}
                 </div>
               )}
-            </>
+            </div>
           )
         })}
       </div>
