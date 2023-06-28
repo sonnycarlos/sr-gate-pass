@@ -2,17 +2,17 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { 
+  BookGuest, 
+  Notifications, 
+  SearchGuest
+} from '../../pages'
+
+import { 
   useSrContext,
   INSERT_ROUTE,
   SET_ACTIVE_PAGE,
   validateUser
 } from '../../context'
-
-import { 
-  BookGuest, 
-  Notifications, 
-  SearchGuest
-} from '../../pages'
 
 import {
   fetchGuests,
@@ -29,9 +29,13 @@ import {
 
 import '../../css/my_guests.css'
 
-function MyGuests({ forwardRef }) {
+function MyGuests() {
+  const myGuestsContRef = useRef(null)
+  const searchGuestContRef = useRef(null)
+  const bookGuestContRef = useRef(null)
+  const notificationsContRef = useRef(null)
+  const navigate = useNavigate()
   const details = JSON.parse(window.localStorage.getItem('profile'))
-
   const [guests, setGuests] = useState([])
   const [currentWeekBookings, setCurrentWeekBookings] = useState([])
   const [lastWeekBookings, setLastWeekBookings] = useState([])
@@ -39,13 +43,6 @@ function MyGuests({ forwardRef }) {
   const [openItemId, setOpenItemId] = useState(null)
   const [initialState, dispatch] = useSrContext()
   const [isVisible, setIsVisible] = useState(true)
-
-  const navigate = useNavigate()
-
-  const myGuestsContRef = useRef(null)
-  const searchGuestContRef = useRef(null)
-  const bookGuestContRef = useRef(null)
-  const notificationsContRef = useRef(null)
 
   // Navigate to Search Guest
   const navigateToSearchGuest = (e) => {

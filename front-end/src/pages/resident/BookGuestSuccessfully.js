@@ -13,9 +13,9 @@ import {
 import '../../css/status.css'
 
 function BookGuestSuccessfully() {
-  const bookingDetails = JSON.parse(window.localStorage.getItem('bookingDetails'))
-  const [initialState, dispatch] = useSrContext()
   const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
+  const bookingDetails = JSON.parse(window.localStorage.getItem('bookingDetails'))
 
   // Handle click
   const handleClick = () => {

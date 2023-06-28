@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { EditProfileStep1 } from '../../pages'
+
 import { 
   useSrContext,
   INSERT_ROUTE,
   SET_ACTIVE_PAGE,
   validateUser
 } from '../../context'
-
-import { EditProfileStep1 } from '../../pages'
 
 import { formatBirthdate } from '../../utils'
 
@@ -17,12 +17,10 @@ import { Edit } from '../../assets/svg'
 import '../../css/my_profile.css'
 
 function MyProfile() {
-  const [initialState, dispatch] = useSrContext()
-
   const myProfileContRef = useRef(null)
   const editProfileContRef = useRef(null)
-
   const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
 
   // Navigate to Edit Profile
   const navigateToEditProfile = (e) => {

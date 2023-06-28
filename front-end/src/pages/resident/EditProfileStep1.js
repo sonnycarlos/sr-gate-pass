@@ -21,6 +21,8 @@ import {
 import '../../css/edit_profile.css'
 
 function EditProfileStep1({ forwardRef }) {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [inputs, setInputs] = useState({
     firstName: details?.firstName,
@@ -31,10 +33,7 @@ function EditProfileStep1({ forwardRef }) {
     phoneNumber: details?.phoneNumber,
     username: details?.username
   })
-  const [initialState, dispatch] = useSrContext()
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-
-  const navigate = useNavigate()
 
   // Hande submit
   const handleSubmit = async (e) => {

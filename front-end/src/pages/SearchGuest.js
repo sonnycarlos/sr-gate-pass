@@ -14,13 +14,13 @@ import { Back, Search } from '../assets/svg'
 import '../css/search_guest.css'
 
 function SearchGuest({ forwardRef }) {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [guests, setGuests] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [routeDest, setRouteDest] = useState('')
-  const [initialState, dispatch] = useSrContext()
-  const navigate = useNavigate()
 
   // Handle search
   const handleSearch = (event) => {

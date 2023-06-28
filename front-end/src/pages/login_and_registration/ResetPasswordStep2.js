@@ -25,9 +25,9 @@ import {
 import '../../css/reset_password.css'
 
 function ResetPasswordStep2() {
+  const [initialState, dispatch] = useSrContext()
   const [otp, setOtp] = useState('');
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const [initialState, dispatch] = useSrContext()
 
   const navigate = useNavigate()
 

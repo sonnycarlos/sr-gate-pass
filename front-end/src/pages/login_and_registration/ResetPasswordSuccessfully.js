@@ -13,8 +13,8 @@ import '../../css/status.css'
 import '../../css/style.css'
 
 function ResetPasswordSuccessfully() {
-  const [initialState] = useSrContext()
   const navigate = useNavigate()
+  const [initialState] = useSrContext()
 
   // Use effect
   useEffect(() => {

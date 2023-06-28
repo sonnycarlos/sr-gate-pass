@@ -15,8 +15,8 @@ import {
 import '../../css/status.css'
 
 function EditProfilePending() {
-  const [initialState, dispatch] = useSrContext()
   const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
 
   // Handle click
   const handleClick = () => {

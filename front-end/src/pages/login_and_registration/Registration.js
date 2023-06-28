@@ -22,12 +22,11 @@ import '../../css/login_and_registration.css'
 import '../../css/style.css'
 
 function Registration() {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const [credentials, setCredentials] = useState({ emailAddress: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const [initialState, dispatch] = useSrContext()
-
-  const navigate = useNavigate()
 
   // Handle submit
   const handleSubmit = async (e) => {

@@ -19,12 +19,11 @@ import '../../css/onboarding.css'
 import '../../css/style.css'
 
 function OnBoardingStep2() {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const [inputs, setInputs] = useState({ type: 'homeowner', address: '' })
   const [headingFontSize, setHeadingFontSize] = useState(40)
   const [paragraphFontSize, setParagraphFontSize] = useState(20)
-  const [initialState, dispatch] = useSrContext()
-
-  const navigate = useNavigate()
 
   // Hande submit
   const handleSubmit = async (e) => {

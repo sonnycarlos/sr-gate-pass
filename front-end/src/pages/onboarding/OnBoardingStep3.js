@@ -27,6 +27,8 @@ import '../../css/onboarding.css'
 import '../../css/style.css'
 
 function OnBoardingStep3() {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const [files, setFiles] = useState({})
   const [filesToUpload, setFilesToUpload] = useState({
     landCertificate: [],
@@ -35,9 +37,6 @@ function OnBoardingStep3() {
   })
   const [headingFontSize, setHeadingFontSize] = useState(40)
   const [paragraphFontSize, setParagraphFontSize] = useState(20)
-  const [initialState, dispatch] = useSrContext()
-
-  const navigate = useNavigate()
 
   // Handle submit
   const handleSubmit = async (e) => {

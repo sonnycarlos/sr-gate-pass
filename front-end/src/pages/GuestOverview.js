@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import ClipboardJS from 'clipboard'
+
+import { GuestHistory } from '../pages'
 
 import {
   useSrContext,
@@ -15,12 +16,17 @@ import {
   formatTime
 } from '../utils'
 
-import { Back, Copy } from '../assets/svg'
+import { Back, Copy, Guest } from '../assets/svg'
 
 import '../css/guest_overview.css'
 
 function GuestOverview({ forwardRef }) {
+  const { id } = useParams()
+  const guestOverviewContRef = useRef(null)
+  const guestHistoryContRef = useRef(null)
+  const navigate = useNavigate()
   const currentDate = new Date()
+  const [initialState, dispatch] = useSrContext()
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [guest, setGuest] = useState({
     _id: '',
@@ -34,9 +40,21 @@ function GuestOverview({ forwardRef }) {
     urlLink: ''
   })
   const [isBtnActive, setIsBtnActive] = useState(true)
-  const [initialState, dispatch] = useSrContext()
-  const { id } = useParams()
-  const navigate = useNavigate()
+
+  // Navigate to Guest History
+  const navigateToGuestHistory = (e) => {
+    e.preventDefault()
+
+    guestOverviewContRef.current.style.transform = 'translateX(-150px)'
+    guestOverviewContRef.current.style.transition = '300ms ease'
+    guestHistoryContRef.current.style.visibility = 'visible'
+    guestHistoryContRef.current.style.transform = 'translateX(0)'
+    guestHistoryContRef.current.style.transition = '300ms ease'
+    
+    setTimeout(() => {
+      navigate('/guest-history')
+    }, 500)
+  }
 
   // Copy link
   const copyLink = () => {
@@ -93,6 +111,17 @@ function GuestOverview({ forwardRef }) {
 
   // Use effect
   useEffect(() => {
+    guestHistoryContRef.current.style.position = 'absolute'
+    guestHistoryContRef.current.style.top = '0'
+    guestHistoryContRef.current.style.bottom = '0'
+    guestHistoryContRef.current.style.left = '0'
+    guestHistoryContRef.current.style.right = '0'
+    guestHistoryContRef.current.style.visibility = 'hidden'
+    guestHistoryContRef.current.style.transform = 'translateX(100%)'
+    guestHistoryContRef.current.style.zIndex = '100'
+  }, [])
+
+  useEffect(() => {
     document.title = 'Guest Overview'
 
     const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
@@ -140,112 +169,117 @@ function GuestOverview({ forwardRef }) {
   }, [])
 
   return (
-    <section ref={forwardRef} id='guest_overview'>
-      {/* Back Button */}
-      <Link 
-        to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} 
-        className='text btn'
-      >
-        <Back />
-        <span>Back</span>
-      </Link>
+    <>
+      {/* For Animation Purpose Only */}
+      <GuestHistory forwardRef={guestHistoryContRef} />
 
-      {/* Header */}
-      <header>
-        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-          Guest Overview
-        </h1>
-
+      <section ref={guestOverviewContRef} id='guest_overview'>
+        {/* Back Button */}
         <Link 
-          to='/guest-history' 
-          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+          to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} 
           className='text btn'
         >
-          View History
+          <Back />
+          <span>Back</span>
         </Link>
-      </header>
 
-      {/* Info */}
-      <div className='info'>
-        <div className='info-group'>
-          <label>Booking ID</label>
-
-          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            {guest._id}
-          </p>
-        </div>
-
-        <div className='info-group'>
-          <label>Name</label>
-
-          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            {guest.name}
-          </p>
-        </div>
-
-        <div className='info-group'>
-          <label>Last Date of Booking</label>
-
-          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            {`${formatDate(guest?.dateBooked[guest?.dateBooked?.length - 1])} at ${formatTime(guest?.dateBooked[guest?.dateBooked?.length - 1])}`}
-          </p>
-        </div>
-
-        <div className='info-group'>
-          <label>Date of Arrival</label>
-
-          {guest.timeArrived[guest?.timeArrived?.length - 1] === currentDate ? 
-            (
-              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-                {
-                  guest?.timeArrived[guest?.timeArrived?.length - 1] === currentDate ? 
-                    `${formatDate(guest?.dateBooked[guest?.dateBooked?.length - 1])} at ${formatTime(guest?.dateBooked[guest?.dateBooked?.length - 1])}` 
-                      : 
-                    'Not yet arrived'
-                }
-              </p>
-            ) : (
-              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-                Not arrived
-              </p>
-            )
-          }
-        </div>
-
-        <div className='info-group'>
-          <label>URL Link</label>
+        {/* Header */}
+        <header>
+          <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+            Guest Overview
+          </h1>
 
           <Link 
-            to='#'
-            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+            onClick={navigateToGuestHistory}
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+            className='text btn'
           >
-            {guest.urlLink.slice(0, 30)}
-
-            <button onClick={copyLink}>
-              <Copy color='#5CB950' />
-            </button>
+            View History
           </Link>
+        </header>
+
+        {/* Info */}
+        <div className='info'>
+          <div className='info-group'>
+            <label>Booking ID</label>
+
+            <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              {guest._id}
+            </p>
+          </div>
+
+          <div className='info-group'>
+            <label>Name</label>
+
+            <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              {guest.name}
+            </p>
+          </div>
+
+          <div className='info-group'>
+            <label>Last Date of Booking</label>
+
+            <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              {`${formatDate(guest?.dateBooked[guest?.dateBooked?.length - 1])} at ${formatTime(guest?.dateBooked[guest?.dateBooked?.length - 1])}`}
+            </p>
+          </div>
+
+          <div className='info-group'>
+            <label>Date of Arrival</label>
+
+            {guest.timeArrived[guest?.timeArrived?.length - 1] === currentDate ? 
+              (
+                <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                  {
+                    guest?.timeArrived[guest?.timeArrived?.length - 1] === currentDate ? 
+                      `${formatDate(guest?.dateBooked[guest?.dateBooked?.length - 1])} at ${formatTime(guest?.dateBooked[guest?.dateBooked?.length - 1])}` 
+                        : 
+                      'Not yet arrived'
+                  }
+                </p>
+              ) : (
+                <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                  Not arrived
+                </p>
+              )
+            }
+          </div>
+
+          <div className='info-group'>
+            <label>URL Link</label>
+
+            <Link 
+              to='#'
+              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+            >
+              {guest.urlLink.slice(0, 30)}
+
+              <button onClick={copyLink}>
+                <Copy color='#5CB950' />
+              </button>
+            </Link>
+          </div>
         </div>
-      </div>
 
-      {/* Actions */}
-      <div className='actions'>
-        <button 
-          onClick={() => downloadQRCodeImage(guest.qrCodeImage.match(/^([^.]+)/)[1])} 
-          className='outline btn'
-        >
-          Download QR
-        </button>
+        {/* Actions */}
+        <div className='actions'>
+          <button 
+            onClick={() => downloadQRCodeImage(guest.qrCodeImage.match(/^([^.]+)/)[1])} 
+            className='outline btn'
+          >
+            Download QR
+          </button>
 
-        <button 
-          style={{ display: `${isBtnActive ? 'block' : 'none'}` }} 
-          onClick={rebookGuest} 
-          className='solid btn'
-        >
-          Rebook
-        </button>
-      </div>
-    </section>
+          <button 
+            style={{ display: `${isBtnActive ? 'block' : 'none'}` }} 
+            onClick={rebookGuest} 
+            className='solid btn'
+          >
+            Rebook
+          </button>
+        </div>
+      </section>
+    </>
   )
 }
 

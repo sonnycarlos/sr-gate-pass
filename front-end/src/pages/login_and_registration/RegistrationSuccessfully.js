@@ -12,8 +12,8 @@ import {
 import '../../css/status.css'
 
 function RegistrationSuccessfully() {
-  const [initialState] = useSrContext()
   const navigate = useNavigate()
+  const [initialState] = useSrContext()
 
   // Use effect
   useEffect(() => {

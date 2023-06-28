@@ -8,6 +8,7 @@ import { Back, Plus } from '../assets/svg'
 import '../css/guests_history.css'
 
 function GuestsHistory() {
+  const [initialState, dispatch] = useSrContext()
   const [items, setItems] = useState([
     { date: 'Yesterday', count: 20 },
     { date: 'September 23', count: 20 },
@@ -25,7 +26,6 @@ function GuestsHistory() {
     { date: 'September 11', count: 26 },
     { date: 'September 10', count: 19 }
   ])
-  const [initialState, dispatch] = useSrContext()
 
   // Use effect
   useEffect(() => {

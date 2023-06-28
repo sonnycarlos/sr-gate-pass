@@ -16,6 +16,9 @@ import { Back } from '../../assets/svg'
 import '../../css/book_guest.css'
 
 function BookGuest({ forwardRef }) {
+  const qrCodeCanvasRef = useRef(null)
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const profileDetails = JSON.parse(window.localStorage.getItem('profile'))
   const [inputs, setInputs] = useState({
     guestName: '',
@@ -23,10 +26,6 @@ function BookGuest({ forwardRef }) {
     pin: ''
   })
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const qrCodeCanvasRef = useRef(null)
-  const [initialState, dispatch] = useSrContext()
-  
-  const navigate = useNavigate()
 
   // Handle submit
   const handleSubmit = async (e) => {

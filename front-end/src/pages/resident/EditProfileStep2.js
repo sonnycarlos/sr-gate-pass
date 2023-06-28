@@ -17,11 +17,10 @@ import {
 import '../../css/edit_profile.css'
 
 function EditProfileStep2() {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [inputs, setInputs] = useState({ address: details?.address })
-  const [initialState, dispatch] = useSrContext()
-
-  const navigate = useNavigate()
 
   // Hande submit
   const handleSubmit = async (e) => {

@@ -2,6 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { 
+  Announcements, 
+  BookGuest,
+  Notifications 
+} from '../../pages/index'
+
+import { 
   useSrContext,
   INSERT_ROUTE,
   SET_ACTIVE_PAGE,
@@ -9,11 +15,6 @@ import {
 } from '../../context'
 
 import { fetchGuests, formatDate  } from '../../utils'
-import { 
-  Announcements, 
-  BookGuest,
-  Notifications 
-} from '../../pages/index'
 
 import {
   Guest,
@@ -29,36 +30,28 @@ import {
 import '../../css/home.css'
 
 function Home() {
-  const today = new Date().toISOString().split('T')[0]
-  const [selectedDate, setSelectedDate] = useState(today)
-  const [guests, setGuests] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [initialState, dispatch] = useSrContext()
-
   const homeContRef = useRef(null)
   const announcementsContRef = useRef(null)
   const notificationsContRef = useRef(null)
   const bookGuestContRef = useRef(null)
-
   const headingRef = useRef(null)
   const actionRef = useRef(null)
-
   const guestsStackRef = useRef(null)
-
   const announcementsStackHeaderRef = useRef(null)
   const announcementsStackTitleRef = useRef(null)
   const announcementsStackBadgeRef = useRef(null)
   const announcementsStackButtonRef = useRef(null)
-
   const announcementsStack1Ref = useRef(null)
   const announcementsStack2Ref = useRef(null)
   const announcementsStack3Ref = useRef(null)
-
   const condenseBtnRef = useRef(null)
-
   const notificationsStackRef = useRef(null)
-
   const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
+  const today = new Date().toISOString().split('T')[0]
+  const [selectedDate, setSelectedDate] = useState(today)
+  const [guests, setGuests] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   // Handle date change
   const handleDateChange = (e) => {

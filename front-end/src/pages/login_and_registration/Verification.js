@@ -25,11 +25,10 @@ import {
 import '../../css/verification.css'
 
 function Verification() {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const [otp, setOtp] = useState('');
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const [initialState, dispatch] = useSrContext()
-
-  const navigate = useNavigate()
 
   // Resend OTP code
   const resendOtpCode = async (e) => {

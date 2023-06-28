@@ -7,14 +7,14 @@ import { ArrowDownRight, Back } from '../assets/svg'
 
 import '../css/guest_history.css'
 
-function GuestHistory() {
+function GuestHistory({ forwardRef }) {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const guest = JSON.parse(window.localStorage.getItem('guest'))
   const [bookingHistory, setBookingHistory] = useState([])
   const [loggingHistory, setLoggingHistory] = useState([])
   const [tabActive, setTabActive] = useState('bookingHistory')
   const [openItemId, setOpenItemId] = useState(null)
-  const [initialState, dispatch] = useSrContext()
-  const navigate = useNavigate()
 
   // Use effect
   useEffect(() => {
@@ -82,7 +82,7 @@ function GuestHistory() {
   }, [])
 
   return (
-    <section id='guest_history'>
+    <section ref={forwardRef} id='guest_history'>
       {/* Back Button */}
       <Link to={`/guest-overview/${guest?._id}`} className='text btn'>
         <Back />

@@ -22,6 +22,8 @@ import {
 import '../../css/edit_profile.css'
 
 function EditProfileStep3() {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [files, setFiles] = useState({
     landCertificate: details?.landCertificate,
@@ -33,9 +35,6 @@ function EditProfileStep3() {
     validId: [],
     picture: []
   })
-  const [initialState, dispatch] = useSrContext()
-
-  const navigate = useNavigate()
 
   // Handle submit
   const handleSubmit = async (e) => {

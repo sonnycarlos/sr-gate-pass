@@ -13,12 +13,11 @@ import { Back } from '../../assets/svg'
 import '../../css/my_gate_pass.css'
 
 function MyGatePass() {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const [greetText, setGreetText] = useState('')
   const [currentDate, setCurrentDate] = useState(new Date())
   const [currentTime, setCurrentTime] = useState(new Date())
-  const [initialState, dispatch] = useSrContext()
-  
-  const navigate = useNavigate()
 
   // Format date
   const formattedDate = currentDate.toLocaleDateString(undefined, {

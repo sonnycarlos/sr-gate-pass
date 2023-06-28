@@ -19,11 +19,10 @@ import '../../css/reset_password.css'
 import '../../css/style.css'
 
 function ResetPasswordStep1() {
+  const navigate = useNavigate()
+  const [initialState, dispatch] = useSrContext()
   const [emailAddress, setEmailAddress] = useState('')
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const [initialState, dispatch] = useSrContext()
-
-  const navigate = useNavigate()
 
   // Handle submit
   const handleSubmit = async (e) => {
