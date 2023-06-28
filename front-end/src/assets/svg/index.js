@@ -15,6 +15,7 @@ import Bell from './icons/Bell'
 import Calendar from './icons/Calendar'
 import Camera from './icons/Camera'
 import ChevronDown from './icons/ChevronDown'
+import ChevronUp from './icons/ChevronUp'
 import Close from './icons/Close'
 import Copy from './icons/Copy'
 import Edit from './icons/Edit'
@@ -48,6 +49,7 @@ export {
   Calendar,
   Camera,
   ChevronDown,
+  ChevronUp,
   Close,
   Copy,
   Edit,

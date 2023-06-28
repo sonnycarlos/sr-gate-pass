@@ -7,7 +7,7 @@ import { Pin } from '../assets/svg'
 
 import '../css/announcements.css'
 
-function Announcements() {
+function Announcements({ forwardRef }) {
   const [initialState, dispatch] = useSrContext()
 
   // Use effect
@@ -24,7 +24,7 @@ function Announcements() {
   }, [])
 
   return (
-    <section id='announcements'>
+    <section ref={forwardRef} id='announcements'>
       <div className='container'>
         {/* Heading */}
         <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>

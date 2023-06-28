@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { routes } from './config'
 import { NavigationBar, Menu } from './components'
@@ -9,8 +9,24 @@ function App() {
   const location = useLocation()
   const isPageHasNav = removeNavBar(location, routes)
   const [initialState, dispatch] = useSrContext()
+  const [isRotated, setIsRotated] = useState(false)
 
-  // Use effect
+  // Use effects
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      if (window.orientation !== 0) {
+        setIsRotated(true)
+      } else {
+        setIsRotated(false)
+      }
+    }
+    window.addEventListener('orientationchange', handleOrientationChange);
+
+    return () => {
+      window.removeEventListener('orientationchange', handleOrientationChange)
+    }
+  }, [])
+
   useEffect(() => {
     (() => {
       const metaTag = document.querySelector('meta[name="viewport"]')
@@ -21,20 +37,16 @@ function App() {
   }, [])
   
   return (
-    <>
+    <div style={{ display: `${isRotated ? 'none' : 'block'}`}}>
       {isPageHasNav && <NavigationBar />}
       {initialState.isMenuOpen && <Menu />}
 
       <Routes>
-        {routes.map(route => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={route.component}
-          />
+        {routes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.component} />
         ))}
       </Routes>
-    </>
+    </div>
   );
 }
 

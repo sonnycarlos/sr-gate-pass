@@ -9,7 +9,7 @@ import {
 
 import '../css/notifications.css'
 
-function Notifications() {
+function Notifications({ forwardRef }) {
   const [initialState, dispatch] = useSrContext()
   const items = Array(20).fill(null)
 
@@ -22,7 +22,7 @@ function Notifications() {
   }, [])
 
   return (
-    <section id='notifications'>
+    <section ref={forwardRef} id='notifications'>
       <div className='container'>
         {/* Heading */}
         <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>

@@ -20,7 +20,7 @@ import {
 
 import '../../css/edit_profile.css'
 
-function EditProfileStep1() {
+function EditProfileStep1({ forwardRef }) {
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [inputs, setInputs] = useState({
     firstName: details?.firstName,
@@ -100,7 +100,7 @@ function EditProfileStep1() {
   }, [])
 
   return (
-    <section id='edit_profile'>
+    <section ref={forwardRef} id='edit_profile'>
       <header id='header'>
         <div>
           {/* Back Button */}

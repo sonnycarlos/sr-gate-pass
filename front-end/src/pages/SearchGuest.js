@@ -13,7 +13,7 @@ import { Back, Search } from '../assets/svg'
 
 import '../css/search_guest.css'
 
-function SearchGuest() {
+function SearchGuest({ forwardRef }) {
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [guests, setGuests] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -76,7 +76,7 @@ function SearchGuest() {
   }, [])
 
   return (
-    <section id='search_guest'>
+    <section ref={forwardRef} id='search_guest'>
       {/* Back Button */}
       <Link to={`../${routeDest}`} className='text btn'>
         <Back />

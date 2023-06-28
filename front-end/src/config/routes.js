@@ -42,7 +42,7 @@ import {
 const routes = [
   {
     path: '/',
-    component: <Login />
+    component: <Home />
   },
   {
     path: '/login',

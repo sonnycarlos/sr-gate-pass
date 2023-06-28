@@ -15,7 +15,7 @@ import { Back } from '../../assets/svg'
 
 import '../../css/book_guest.css'
 
-function BookGuest() {
+function BookGuest({ forwardRef }) {
   const profileDetails = JSON.parse(window.localStorage.getItem('profile'))
   const [inputs, setInputs] = useState({
     guestName: '',
@@ -144,7 +144,7 @@ function BookGuest() {
   }, [])
 
   return (
-    <section id='book_guest'>
+    <section ref={forwardRef} id='book_guest'>
       {/* QR Code */}
       <div ref={qrCodeCanvasRef} id='qr-code'></div>
 

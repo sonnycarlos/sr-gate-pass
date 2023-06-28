@@ -19,7 +19,7 @@ import { Back, Copy } from '../assets/svg'
 
 import '../css/guest_overview.css'
 
-function GuestOverview() {
+function GuestOverview({ forwardRef }) {
   const currentDate = new Date()
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [guest, setGuest] = useState({
@@ -140,7 +140,7 @@ function GuestOverview() {
   }, [])
 
   return (
-    <section id='guest_overview'>
+    <section ref={forwardRef} id='guest_overview'>
       {/* Back Button */}
       <Link 
         to={`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`} 

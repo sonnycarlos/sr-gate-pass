@@ -11,20 +11,38 @@
 #home > .container {
   display: grid;
   gap: 16px;
+  height: 115vh;
   margin-top: 40px;
 }
 
-/* Heading */
+/* Header */
 
-#home > .container > h1 {
+#home > .container > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: fit-content;
+}
+
+#home > .container > .header > h1 {
+  transition: 350ms ease-in-out;
   font-family: 'SFProDisplay-Bold';
   margin-bottom: 8px;
+}
+
+#home > .container > .header > .btn {
+  opacity: 0;
+  transition: 350ms ease-in-out;
 }
 
 /* Guests */
 
 #home > .container > .guests {
-  position: relative;
+  transition: 1500ms ease-in-out;
+  position: absolute;
+  top: 141px;
+  left: 20px;
+  right: 20px;
   overflow: hidden;
   display: grid;
   gap: 40px;
@@ -52,9 +70,10 @@
 }
 
 #home > .container > .guests > div .input-field {
-  padding: 2px 8px;
+  padding: 4px 16px;
   border-bottom: 0;
   border-radius: 100px;
+  background-color: var(--white);
 }
 
 #home > .container > .guests > div .input-field > input {
@@ -87,17 +106,28 @@
 /* Announcements */
 
 #home > .container > .announcements {
-  position: relative;
-  margin-bottom: 24px;
+  position: absolute;
+  top: 395px;
+  left: 20px;
+  right: 20px;
+  margin-bottom: 64px;
+}
+
+#home > .container > .announcements > .stack {
+  z-index: 1;
+  transition: 500ms ease-in-out;
+  width: 100%;
+  height: 141px;
+  padding: 16px 16px 24px;
 }
 
 #home > .container > .announcements > .stack:first-child {
   position: absolute;
-  top: 24px;
-  z-index: 1;
+  top: 22px;
+  z-index: 2;
   display: grid;
   gap: 32px;
-  padding: 16px 16px 24px;
+  height: 194px;
   background-color: var(--white);
 }
 
@@ -107,15 +137,28 @@
   left: 50%;
   transform: translateX(-50%);
   width: 95%;
-  height: 200px;
   background-color: #E8E8E8;
 }
 
 #home > .container > .announcements > .stack:nth-child(3) {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 0;
+  transform: translateX(-50%);
   width: 90%;
-  height: 200px;
   margin: 0 auto;
   background-color: #D4D4D4;
+}
+
+#home > .container > .announcements > .btn.condense {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  padding: 4px;
+  background-color: transparent;
 }
 
 #home > .container > .announcements > .stack > .header {
@@ -156,6 +199,7 @@
 }
 
 #home > .container > .announcements > .stack > .content > .titleAndDate > .title {
+  font-family: 'SFProDisplay-Bold';
   font-size: 16px;
 }
 
@@ -169,9 +213,19 @@
   font-size: 14px;
 }
 
+#home > .container > .announcements > .stack > .content > p > a {
+  display: inline;
+  margin-left: 4px;
+}
+
 /* Notifications */
 
 #home > .container > .notifications {
+  position: absolute;
+  top: 626px;
+  left: 20px;
+  right: 20px;
+  transition: 1000ms ease-in-out;
   display: grid;
   gap: 32px;
   padding: 16px 16px 24px;
@@ -254,22 +308,26 @@
   /* Container */
 
   #home > .container {
+    height: 92.5vh;
     margin-top: 48px;
   }
 
-  /* Heading */
+  /* Header */
 
-  #home > .container > h1 {
+  #home > .container > .header > h1 {
     font-size: 26px;
   }
 
   /* Guests */
 
+  #home > .container > .guests {
+    top: 151px;
+  }
+
   #home > .container > .guests > div .input-field {
     padding: 4px 16px;
     border-bottom: 0;
     border-radius: 100px;
-    background-color: var(--white);
   }
   
   #home > .container > .guests > div .input-field > .suffix {
@@ -286,18 +344,38 @@
     font-size: 24px;
     font-weight: 700;
   }
+
+  /* Announcements */
+
+  #home > .container > .announcements {
+    top: 408px;
+  }
+
+  /* Notifications */
+
+  #home > .container > .notifications {
+    top: 642px;
+  }
 }
 
 /* Screen Width: 410px */
 
 @media only screen and (min-width: 410px) {
-  /* Heading */
+  /* Header */
 
-  #home > .container > h1 {
+  #home > .container {
+    height: 90vh;
+  }
+
+  #home > .container > .header > h1 {
     font-size: 28px;
   }
 
   /* Guests */
+
+  #home > .container > .guests {
+    top: 155px;
+  }
 
   #home > .container > .guests > div .input-field > input {
     width: 105px;
@@ -306,7 +384,8 @@
   /* Announcements */
 
   #home > .container > .announcements {
-    margin-bottom: 30px;
+    top: 413px;
+    margin-bottom: 82px;
   }
 
   #home > .container > .announcements > .stack > .header > h2 {
@@ -318,6 +397,10 @@
   }
 
   /* Notifications */
+
+  #home > .container > .notifications {
+    top: 648px;
+  }
 
   #home > .container > .notifications > .header > h2 {
     font-size: 20px;
