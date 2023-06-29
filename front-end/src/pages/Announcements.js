@@ -15,8 +15,8 @@ function Announcements({ forwardRef }) {
     document.title = 'Announcements'
 
     // Set the height of images
-    let imagesContainer = document.getElementsByClassName('imageContainer')
-    let width = parseInt(document.getElementById('images').offsetWidth) / 2
+    const imagesContainer = document.getElementsByClassName('imageContainer')
+    const width = parseInt(document.getElementById('images').offsetWidth) / 2
     
     for (let i = 0; i < imagesContainer.length; i++) {
       imagesContainer[i].style.height = `${width}px`

@@ -79,11 +79,11 @@ function Login() {
 
     // Validate user
     async function validate() {
-      let loggedIn = window.localStorage.getItem('loggedIn')
-      let token = window.localStorage.getItem('user')
+      const loggedIn = window.localStorage.getItem('loggedIn')
+      const token = window.localStorage.getItem('user')
 
       if (loggedIn) {
-        let res = await validateUser(dispatch, { token })
+        const res = await validateUser(dispatch, { token })
 
         if (res?.status === 200) {
           navigate('/home')
@@ -174,7 +174,7 @@ function Login() {
         >
           <p>
             {error.errorMessage} If you don’t remember your credentials,
-            <Link to='/reset-password' className='text btn'>reset it now.</Link>
+            <Link to='/forgot-password' className='text btn'>reset it now.</Link>
           </p>
         </div>
 

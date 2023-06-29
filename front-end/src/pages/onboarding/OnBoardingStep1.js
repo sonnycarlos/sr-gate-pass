@@ -38,7 +38,7 @@ function OnBoardingStep1() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    let res = await checkResidentUsername({ username: inputs.username })
+    const res = await checkResidentUsername({ username: inputs.username })
 
     if (res.status === 200) {
       dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })

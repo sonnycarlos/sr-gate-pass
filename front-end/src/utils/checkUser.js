@@ -8,7 +8,7 @@ export default async function checkUser(payload) {
   const { emailAddress } = payload
   
   try {
-    let res = await Axios.post('/user/check-user', { emailAddress })
+    const res = await Axios.post('/user/check-user', { emailAddress })
 
     return res
   } catch (error) {

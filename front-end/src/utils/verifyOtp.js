@@ -8,7 +8,7 @@ export default async function verifyOtp(payload) {
   const { emailAddress, otpCode } = payload
 
   try {
-    let res = await Axios.post('/user/verification', { emailAddressInput: emailAddress, otpCodeInput: otpCode })
+    const res = await Axios.post('/user/verification', { emailAddressInput: emailAddress, otpCodeInput: otpCode })
 
     if (res) {
       console.log(res)

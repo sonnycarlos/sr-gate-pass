@@ -28,7 +28,7 @@ function ResetPasswordStep1() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    let res = await checkUser({ emailAddress })
+    const res = await checkUser({ emailAddress })
 
     if (res.status === 200) {
       console.log(res)
@@ -55,10 +55,6 @@ function ResetPasswordStep1() {
     const routeHistory = cookie?.split(',')
 
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
-
-    if (!window.localStorage.getItem('registration')) {
-      navigate('/login')
-    }
   }, [])
 
   return (

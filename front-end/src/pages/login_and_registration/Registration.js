@@ -65,10 +65,10 @@ function Registration() {
 
     // Validate user
     async function validate() {
-      let loggedIn = window.localStorage.getItem('loggedIn')
+      const loggedIn = window.localStorage.getItem('loggedIn')
 
       if (loggedIn) {
-        let res = await validateUser()
+        const res = await validateUser()
 
         if (res?.status === 200) {
           navigate('/home')

@@ -99,7 +99,7 @@ function OnBoardingStep3() {
         picture: updatedPictureArr
       }))
   
-      let res = await registerUser({
+      const res = await registerUser({
         ...initialState.userDetails,
         emailAddress: initialState.user?.emailAddress,
         landCertificate: files?.landCertificate,

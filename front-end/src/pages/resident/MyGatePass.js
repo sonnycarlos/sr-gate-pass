@@ -31,14 +31,14 @@ function MyGatePass() {
   useEffect(() => {
     document.title = 'My Gate Pass'
 
-    let routeHistory = initialState.routeHistory
+    const routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'my-gate-pass'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGatePass' })
 
     // Validate user
     async function validate() {
-      let token = window.localStorage.getItem('user')
-      let res = await validateUser(dispatch, { token })
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
 
       if (res?.status === 401) {
         navigate('/login')
@@ -47,7 +47,7 @@ function MyGatePass() {
 
     const determineTimeOfDay = () => {
       const currentHour = new Date().getHours()
-      let greetText
+      var greetText
 
       if (currentHour >= 5 && currentHour < 12) {
         greetText = 'Good morning'

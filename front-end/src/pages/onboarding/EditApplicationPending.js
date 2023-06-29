@@ -27,13 +27,13 @@ function EditApplicationPending() {
   useEffect(() => {
     document.title = 'Editing Application Pending'
 
-    let routeHistory = initialState.routeHistory
+    const routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-application-step-pending'] })
 
     // Validate user
     async function validate() {
-      let token = window.localStorage.getItem('user')
-      let res = await validateUser(dispatch, { token })
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
 
       if (res?.status === 401) {
         navigate('/login')

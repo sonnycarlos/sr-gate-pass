@@ -40,7 +40,7 @@ function EditProfileStep1({ forwardRef }) {
     e.preventDefault()
 
     if (inputs.username !== initialState.user?.profile?.username) {
-      let res = await checkResidentUsername({ username: inputs.username })
+      const res = await checkResidentUsername({ username: inputs.username })
 
       if (res.status === 200) {
         dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
@@ -73,14 +73,14 @@ function EditProfileStep1({ forwardRef }) {
   useEffect(() => {
     document.title = 'Edit Profile'
 
-    let routeHistory = initialState.routeHistory
+    const routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-1'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
     // Validate user
     async function validate() {
-      let token = window.localStorage.getItem('user')
-      let res = await validateUser(dispatch, { token })
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
 
       if (res?.status === 401) {
         navigate('/login')

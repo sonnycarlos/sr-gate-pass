@@ -298,7 +298,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/)
 
     if (match) {
-      const index = Number(match[1]);
+      const index = Number(match[1])
       const property = match[2]
 
       if (!arr[index]) {
@@ -314,7 +314,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // Copy validId values into an array
   const validIdArr = Object.keys(req.body)
   .reduce((arr, key) => {
-    const match = key.match(/validId\[(\d+)\]\[(\w+)\]/);
+    const match = key.match(/validId\[(\d+)\]\[(\w+)\]/)
 
     if (match) {
       const index = Number(match[1])
@@ -428,7 +428,7 @@ const updateUser = asyncHandler(async (req, res) => {
   // Copy landCertificate values into an array
   const landCertificateArr = Object.keys(req.body)
   .reduce((arr, key) => {
-    const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/);
+    const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/)
 
     if (match) {
       const index = Number(match[1])
@@ -447,7 +447,7 @@ const updateUser = asyncHandler(async (req, res) => {
   // Copy validId values into an array
   const validIdArr = Object.keys(req.body)
   .reduce((arr, key) => {
-    const match = key.match(/validId\[(\d+)\]\[(\w+)\]/);
+    const match = key.match(/validId\[(\d+)\]\[(\w+)\]/)
 
     if (match) {
       const index = Number(match[1])
@@ -466,7 +466,7 @@ const updateUser = asyncHandler(async (req, res) => {
   // Copy pictureArr values into an array
   const pictureArr = Object.keys(req.body)
   .reduce((arr, key) => {
-    const match = key.match(/picture\[(\d+)\]\[(\w+)\]/);
+    const match = key.match(/picture\[(\d+)\]\[(\w+)\]/)
 
     if (match) {
       const index = Number(match[1])

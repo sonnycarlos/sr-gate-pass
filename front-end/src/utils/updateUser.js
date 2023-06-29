@@ -22,7 +22,7 @@ export default async function updateUser(payload) {
   } = payload
   
   try {
-    let res = await Axios.post('/user/update-user', {
+    const res = await Axios.post('/user/update-user', {
       id,
       firstName,
       middleName,

@@ -8,7 +8,7 @@ export default async function checkIfGuestExists(payload) {
   const { name, phoneNumber, emailAddress } = payload
 
   try {
-    let res = await Axios.post('/guest/check-if-guest-exists', { name, phoneNumber, emailAddress })
+    const res = await Axios.post('/guest/check-if-guest-exists', { name, phoneNumber, emailAddress })
 
     return res
   } catch (error) {

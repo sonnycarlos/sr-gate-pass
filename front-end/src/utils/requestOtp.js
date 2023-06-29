@@ -8,7 +8,7 @@ export default async function requestOtp(payload) {
   const { action, receiver } = payload
 
   try {
-    let res = await Axios.post('/user/generate-otp', { action, receiver })
+    const res = await Axios.post('/user/generate-otp', { action, receiver })
 
     if (res) {
       return res

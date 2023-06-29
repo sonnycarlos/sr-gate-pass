@@ -103,7 +103,7 @@ function EditProfileStep3() {
         }))
       }
 
-      let res = await updateUser({
+      const res = await updateUser({
         ...initialState.userDetails,
         id: initialState.user?.profile?.userId,
         emailAddress: initialState.user?.profile?.emailAddress,
@@ -161,14 +161,14 @@ function EditProfileStep3() {
   useEffect(() => {
     document.title = 'Edit Profile'
 
-    let routeHistory = initialState.routeHistory
+    const routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-3'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
     // Validate user
     async function validate() {
-      let token = window.localStorage.getItem('user')
-      let res = await validateUser(dispatch, { token })
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
 
       if (res?.status === 401) {
         navigate('/login')

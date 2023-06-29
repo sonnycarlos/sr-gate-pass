@@ -8,7 +8,7 @@ export default async function checkResidentUsername(payload) {
   const { username } = payload
 
   try {
-    let res = await Axios.post('/user/check-resident-username', { username })
+    const res = await Axios.post('/user/check-resident-username', { username })
 
     if (res) {
       return res

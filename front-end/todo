@@ -3,5 +3,4 @@
 * Button loading animation
 * Proper load of data using setTimeout()
 * Replace localStorage to sessionStorage
-* Response data type
 * File max size

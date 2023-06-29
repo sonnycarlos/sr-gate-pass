@@ -27,7 +27,7 @@ function AccountRegistrationPending() {
     // Fetch application
     async function getApplication() {
       initialState.user?.id && window.localStorage.setItem('applicationId', JSON.stringify(initialState.user?.id))
-      let res = await fetchApplication({ userId: initialState.user?.id || JSON.parse(window.localStorage.getItem('applicationId')) })
+      const res = await fetchApplication({ userId: initialState.user?.id || JSON.parse(window.localStorage.getItem('applicationId')) })
       window.localStorage.setItem('application', JSON.stringify(res.data))
     }
 

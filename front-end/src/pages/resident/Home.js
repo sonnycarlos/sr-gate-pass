@@ -331,7 +331,7 @@ function Home() {
   useEffect(() => {
     document.title = 'Home'
 
-    let routeHistory = initialState.routeHistory
+    const routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'home'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'home' })
 
@@ -339,8 +339,8 @@ function Home() {
 
     // Validate user
     async function validate() {
-      let token = window.localStorage.getItem('user')
-      let res = await validateUser(dispatch, { token })
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
 
       console.log(token)
       console.log(res)
@@ -354,7 +354,7 @@ function Home() {
 
     // Fetch guests
     async function getGuests() {
-      let res = await fetchGuests({})
+      const res = await fetchGuests({})
 
       const filteredData = res.data?.map(item => {
         return {

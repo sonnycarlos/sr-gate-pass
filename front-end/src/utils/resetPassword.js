@@ -8,7 +8,7 @@ export default async function resetPassword(payload) {
   const { emailAddress, password } = payload
 
   try {
-    let res = await Axios.post('/user/forgot-password', { emailAddress, password })
+    const res = await Axios.post('/user/forgot-password', { emailAddress, password })
 
     if (res) {
       return res

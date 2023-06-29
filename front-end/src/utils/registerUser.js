@@ -23,7 +23,7 @@ export default async function registerUser(payload) {
   console.log(payload)
 
   try {
-    let res = await Axios.post('/user/register-user', {
+    const res = await Axios.post('/user/register-user', {
       firstName,
       lastName,
       birthdate,

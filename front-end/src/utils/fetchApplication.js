@@ -8,7 +8,7 @@ export default async function fetchApplication(payload) {
   const { userId } = payload
 
   try {
-    let res = await Axios.post('/user/fetch-application', { userId })
+    const res = await Axios.post('/user/fetch-application', { userId })
 
     console.log(res)
 

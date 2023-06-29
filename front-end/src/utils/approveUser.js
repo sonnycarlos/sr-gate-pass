@@ -8,7 +8,7 @@ export default async function approveUser(payload) {
   const { id, action, token, qrCodeImage } = payload
 
   try {
-    let res = await Axios.post('/user/approve-user', { id, action, token, qrCodeImage }).then(res => {
+    const res = await Axios.post('/user/approve-user', { id, action, token, qrCodeImage }).then(res => {
       console.log(res)
     })
   

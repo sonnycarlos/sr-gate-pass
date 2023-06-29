@@ -10,7 +10,7 @@ export default async function uploadFile(file) {
   formData.append('file', file)
   formData.append('upload_preset', 'kfaije1j')
 
-  let res = await Axios.post('https://api.cloudinary.com/v1_1/dfc3s2kfc/raw/upload', formData, { withCredentials: false }).then(res => {
+  const res = await Axios.post('https://api.cloudinary.com/v1_1/dfc3s2kfc/raw/upload', formData, { withCredentials: false }).then(res => {
     return res
   })
 

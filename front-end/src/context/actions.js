@@ -11,7 +11,7 @@ export async function validateUser(dispatch, payload) {
   const { token } = payload
 
   try {
-    let res = await Axios.post('/user/validate-user', { token })
+    const res = await Axios.post('/user/validate-user', { token })
 
     dispatch({ type: VALIDATE_USER, payload: res.data })
 
@@ -33,7 +33,7 @@ export async function logInUser(dispatch, payload) {
   const { emailAddress, password } = payload
 
   try {
-    let res = await Axios.post('/user/login', { emailAddress, password })
+    const res = await Axios.post('/user/login', { emailAddress, password })
 
     if (res) {
       dispatch({ type: LOG_IN_USER, payload: res.data })
@@ -54,7 +54,7 @@ export async function registerUser(dispatch, payload) {
   const { type, emailAddress, password } = payload
 
   try {
-    let res = await Axios.post('/user/registration', { type, emailAddress, password })
+    const res = await Axios.post('/user/registration', { type, emailAddress, password })
 
     if (res) {
       dispatch({ type: REGISTER_USER, payload: res.data })
@@ -81,7 +81,7 @@ export async function bookGuest(dispatch, payload) {
   } = payload
 
   try {
-    let res = await Axios.post('/guest/book-guest', { name, phoneNumber, qrCodeImage, pin, emailAddress })
+    const res = await Axios.post('/guest/book-guest', { name, phoneNumber, qrCodeImage, pin, emailAddress })
 
     if (res) {
       dispatch({ type: BOOK_GUEST, payload: res.data })

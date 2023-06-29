@@ -8,7 +8,7 @@ export default async function fetchGuests(payload) {
   const { userId } = payload
 
   try {
-    let res = await Axios.post('/guest/fetch-guests', { userId }).then(res => {
+    const res = await Axios.post('/guest/fetch-guests', { userId }).then(res => {
       return res
     })
   

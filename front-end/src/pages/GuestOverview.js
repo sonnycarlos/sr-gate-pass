@@ -131,8 +131,8 @@ function GuestOverview({ forwardRef }) {
 
     // Validate user
     async function validate() {
-      let token = window.localStorage.getItem('user')
-      let res = await validateUser(dispatch, { token })
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
 
       if (res?.status === 401) {
         navigate('/login')
@@ -141,7 +141,7 @@ function GuestOverview({ forwardRef }) {
 
     // Fetch guest
     async function getGuest() {
-      let res = await fetchGuest({ id })
+      const res = await fetchGuest({ id })
       setGuest(res.data)
       window.localStorage.setItem('guest', JSON.stringify(res.data))
 

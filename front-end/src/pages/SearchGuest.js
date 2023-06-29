@@ -58,8 +58,8 @@ function SearchGuest({ forwardRef }) {
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
 
     async function validate() {
-      let token = window.localStorage.getItem('user')
-      let res = await validateUser(dispatch, { token })
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
 
       if (res?.status === 401) {
         navigate('/login')
@@ -67,7 +67,7 @@ function SearchGuest({ forwardRef }) {
     }
 
     async function getGuests() {
-      let res = await fetchGuests({ userId: details.userId })
+      const res = await fetchGuests({ userId: details.userId })
       setGuests(res.data)
     }
 
