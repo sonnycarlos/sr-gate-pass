@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import io from 'socket.io-client'
 
 import { 
   Announcements, 
@@ -11,7 +12,8 @@ import {
   useSrContext,
   INSERT_ROUTE,
   SET_ACTIVE_PAGE,
-  validateUser
+  validateUser,
+  fetchAnnouncements
 } from '../../context'
 
 import { fetchGuests, formatDate  } from '../../utils'
@@ -50,6 +52,7 @@ function Home() {
   const [initialState, dispatch] = useSrContext()
   const today = new Date().toISOString().split('T')[0]
   const [selectedDate, setSelectedDate] = useState(today)
+  const [announcements, setAnnouncements] = useState([])
   const [guests, setGuests] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -352,6 +355,13 @@ function Home() {
       setIsLoading(false)
     }
 
+    // Fetch announcements
+    async function getAnnouncements() {
+      const res = await fetchAnnouncements(dispatch, {})
+
+      console.log(res.data)
+    }
+
     // Fetch guests
     async function getGuests() {
       const res = await fetchGuests({})
@@ -366,6 +376,7 @@ function Home() {
     }
 
     validate()
+    getAnnouncements()
     getGuests()
 
     console.log(guests)

@@ -3,12 +3,14 @@
  ** We will usually do this to have cleaner import statements
 **/
 
+import Announcement from './announcementModel.js'
 import Guest from './guestModel.js'
 import ProfileRequest from './profileRequestModel.js'
 import Resident from './residentModel.js'
 import User from './userModel.js'
 
 export {
+  Announcement,
   Guest,
   ProfileRequest,
   Resident,

@@ -135,8 +135,8 @@ function MyGuests() {
 
     // Validate user
     async function validate() {
-      const token = window.localStorage.getItem('user')
-      const res = await validateUser(dispatch, { token })
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser(dispatch, { token })
 
       if (res?.status === 401) {
         navigate('/login')
@@ -145,7 +145,7 @@ function MyGuests() {
 
     // Fetch guests
     async function getGuests() {
-      const res = await fetchGuests({ userId: details.userId })
+      let res = await fetchGuests({ userId: details.userId })
 
       setGuests(res.data)
 

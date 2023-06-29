@@ -4,7 +4,11 @@ import dotenv from 'dotenv'
 import express from 'express'
 
 import dbConnect from './config/database.js'
-import { guestRoutes, userRoutes } from './routes/index.js'
+import { 
+  announcementRoutes,
+  guestRoutes, 
+  userRoutes 
+} from './routes/index.js'
 
 dotenv.config()
 
@@ -28,6 +32,9 @@ app.use('/api/user', userRoutes)
 
 // Guest Routes
 app.use('/api/guest', guestRoutes)
+
+// Announcement Routes
+app.use('/api/announcement', announcementRoutes)
 
 app.get('/api/hello', (res) => {
   res.status(200).json({ message: 'Hello World' })

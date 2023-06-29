@@ -3,6 +3,7 @@ import {
   VALIDATE_USER,
   LOG_IN_USER,
   REGISTER_USER,
+  FETCH_ANNOUNCEMENTS,
   BOOK_GUEST,
 } from './reducer'
 
@@ -67,6 +68,22 @@ export async function registerUser(dispatch, payload) {
       status: error.response.status,
       errorMessage: error.response.data.errorMessage
     }
+  }
+}
+
+// Fetch announcements
+export async function fetchAnnouncements(dispatch) {
+  try {
+    const res = await Axios.post('/announcement/fetch-announcements')
+
+    if (res) {
+      dispatch({ type: FETCH_ANNOUNCEMENTS, payload: res.data })
+      return res
+    }
+  } catch (error) {
+    console.error(`Unhandled action type: ${error}`)
+
+    return { status: error.response.status }
   }
 }
 

@@ -9,6 +9,7 @@ import {
   validateUser,
   logInUser,
   registerUser,
+  fetchAnnouncements,
   bookGuest
 } from './actions'
 
@@ -53,5 +54,6 @@ export {
   validateUser,
   logInUser,
   registerUser,
+  fetchAnnouncements,
   bookGuest
 }
