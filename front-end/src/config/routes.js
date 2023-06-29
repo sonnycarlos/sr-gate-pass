@@ -10,6 +10,10 @@ import {
   AnnouncementOverview,
   BookGuest,
   BookGuestSuccessfully,
+  EditApplicationPending,
+  EditApplicationStep1,
+  EditApplicationStep2,
+  EditApplicationStep3,
   EditProfilePending,
   EditProfileStep1,
   EditProfileStep2,
@@ -21,6 +25,7 @@ import {
   Login,
   MyGatePass,
   MyGuests,
+  MyApplication,
   MyProfile,
   Notifications,
   OnBoardingStep1,
@@ -99,6 +104,26 @@ const routes = [
   {
     path: '/account-registration-successfully',
     component: <AccountRegistrationSuccessfully />
+  },
+  {
+    path: '/my-application',
+    component: <MyApplication />
+  },
+  {
+    path: '/edit-application-step-1',
+    component: <EditApplicationStep1 />
+  },
+  {
+    path: '/edit-application-step-2',
+    component: <EditApplicationStep2 />
+  },
+  {
+    path: '/edit-application-step-3',
+    component: <EditApplicationStep3 />
+  },
+  {
+    path: '/edit-application-pending',
+    component: <EditApplicationPending />
   },
   {
     path: '/home',

@@ -56,6 +56,7 @@ const signIn = asyncHandler(async (req, res) => {
       id: user._id,
       type: user.type,
       emailAddress: user.emailAddress,
+      isRegistrationComplete: user.isRegistrationComplete,
       isApprove: user.isApprove,
       token
     })
@@ -294,21 +295,21 @@ const registerUser = asyncHandler(async (req, res) => {
   // Copy landCertificate values into an array
   const landCertificateArr = Object.keys(req.body)
   .reduce((arr, key) => {
-    const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/);
+    const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/)
 
     if (match) {
       const index = Number(match[1]);
-      const property = match[2];
+      const property = match[2]
 
       if (!arr[index]) {
-        arr[index] = {};
+        arr[index] = {}
       }
 
-      arr[index][property] = req.body[key];
+      arr[index][property] = req.body[key]
     }
 
-    return arr;
-  }, []);
+    return arr
+  }, [])
 
   // Copy validId values into an array
   const validIdArr = Object.keys(req.body)
@@ -316,37 +317,37 @@ const registerUser = asyncHandler(async (req, res) => {
     const match = key.match(/validId\[(\d+)\]\[(\w+)\]/);
 
     if (match) {
-      const index = Number(match[1]);
-      const property = match[2];
+      const index = Number(match[1])
+      const property = match[2]
 
       if (!arr[index]) {
-        arr[index] = {};
+        arr[index] = {}
       }
 
-      arr[index][property] = req.body[key];
+      arr[index][property] = req.body[key]
     }
 
-    return arr;
-  }, []);
+    return arr
+  }, [])
 
   // Copy pictureArr values into an array
   const pictureArr = Object.keys(req.body)
   .reduce((arr, key) => {
-    const match = key.match(/picture\[(\d+)\]\[(\w+)\]/);
+    const match = key.match(/picture\[(\d+)\]\[(\w+)\]/)
 
     if (match) {
-      const index = Number(match[1]);
-      const property = match[2];
+      const index = Number(match[1])
+      const property = match[2]
 
       if (!arr[index]) {
-        arr[index] = {};
+        arr[index] = {}
       }
 
-      arr[index][property] = req.body[key];
+      arr[index][property] = req.body[key]
     }
 
-    return arr;
-  }, []);
+    return arr
+  }, [])
 
   // Check if resident profile and username already exists
   const user = await User.findOne({ emailAddress })
@@ -430,18 +431,18 @@ const updateUser = asyncHandler(async (req, res) => {
     const match = key.match(/landCertificate\[(\d+)\]\[(\w+)\]/);
 
     if (match) {
-      const index = Number(match[1]);
-      const property = match[2];
+      const index = Number(match[1])
+      const property = match[2]
 
       if (!arr[index]) {
-        arr[index] = {};
+        arr[index] = {}
       }
 
-      arr[index][property] = req.body[key];
+      arr[index][property] = req.body[key]
     }
 
-    return arr;
-  }, []);
+    return arr
+  }, [])
 
   // Copy validId values into an array
   const validIdArr = Object.keys(req.body)
@@ -449,18 +450,18 @@ const updateUser = asyncHandler(async (req, res) => {
     const match = key.match(/validId\[(\d+)\]\[(\w+)\]/);
 
     if (match) {
-      const index = Number(match[1]);
-      const property = match[2];
+      const index = Number(match[1])
+      const property = match[2]
 
       if (!arr[index]) {
-        arr[index] = {};
+        arr[index] = {}
       }
 
-      arr[index][property] = req.body[key];
+      arr[index][property] = req.body[key]
     }
 
-    return arr;
-  }, []);
+    return arr
+  }, [])
 
   // Copy pictureArr values into an array
   const pictureArr = Object.keys(req.body)
@@ -468,25 +469,25 @@ const updateUser = asyncHandler(async (req, res) => {
     const match = key.match(/picture\[(\d+)\]\[(\w+)\]/);
 
     if (match) {
-      const index = Number(match[1]);
-      const property = match[2];
+      const index = Number(match[1])
+      const property = match[2]
 
       if (!arr[index]) {
-        arr[index] = {};
+        arr[index] = {}
       }
 
-      arr[index][property] = req.body[key];
+      arr[index][property] = req.body[key]
     }
 
-    return arr;
-  }, []);
+    return arr
+  }, [])
 
   // Check if resident profile and username already exists
   const user = await User.findOne({ emailAddress })
 
   if (user) {
     const profile = await ProfileRequest.updateOne(
-      { userId: id },
+      { userId: user._id },
       {
         $set: {
           firstName,
@@ -515,7 +516,8 @@ const updateUser = asyncHandler(async (req, res) => {
     )
 
     if (profile) {
-      res.status(201).json(profile)
+      const newProfile = await ProfileRequest.findOne({ userId: user._id })
+      res.status(201).json(newProfile)
     } else {
       res.status(400).json({ errorMessage: 'Error.' })
       throw new Error('Error.')
@@ -614,6 +616,21 @@ const approveUser = asyncHandler(async (req, res) => {
   throw new Error('Profile request not found.')
 })
 
+// @desc    Get the user's application
+// @route   POST /api/user/fetch-application
+// @access  Public
+const fetchApplication = asyncHandler(async (req, res) => {
+  const { userId } = req.body
+  const application = await ProfileRequest.findOne({ userId })
+
+  if (!application) {
+    res.status(400).json({ errorMessage: 'Error. No application found.' })
+    throw new Error('Error. No application found.')
+  } else {
+    res.status(200).json(application)
+  }
+})
+
 // Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -632,5 +649,6 @@ export {
   checkResidentUsername,
   registerUser,
   updateUser,
-  approveUser
+  approveUser,
+  fetchApplication
 }

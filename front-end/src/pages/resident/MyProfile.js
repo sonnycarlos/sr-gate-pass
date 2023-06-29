@@ -58,6 +58,7 @@ function MyProfile() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'my-profile'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
+    // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
       let res = await validateUser(dispatch, { token })
@@ -137,6 +138,14 @@ function MyProfile() {
 
                 <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
                   {initialState.user?.profile?.phoneNumber}
+                </p>
+              </div>
+
+              <div className='info-group'>
+                <label>Email Address</label>
+
+                <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                  {initialState.user?.profile?.emailAddress}
                 </p>
               </div>
             </div>

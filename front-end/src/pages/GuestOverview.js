@@ -16,7 +16,7 @@ import {
   formatTime
 } from '../utils'
 
-import { Back, Copy, Guest } from '../assets/svg'
+import { Back, Copy } from '../assets/svg'
 
 import '../css/guest_overview.css'
 
@@ -139,6 +139,7 @@ function GuestOverview({ forwardRef }) {
       }
     }
 
+    // Fetch guest
     async function getGuest() {
       let res = await fetchGuest({ id })
       setGuest(res.data)

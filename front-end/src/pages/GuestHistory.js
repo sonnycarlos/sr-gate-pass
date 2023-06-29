@@ -124,7 +124,7 @@ function GuestHistory({ forwardRef }) {
         style={{ display: `${tabActive === 'bookingHistory' ? 'flex' : 'none'}` }}
         className={`bookingHistory list ${tabActive === 'bookingHistory' && 'active'}`}
       >
-        {bookingHistory.map(({ date, time }, i) => {
+        {bookingHistory?.map(({ date, time }, i) => {
           const isItemOpen = date === openItemId
 
           return (
@@ -174,7 +174,7 @@ function GuestHistory({ forwardRef }) {
         style={{ display: `${tabActive === 'loggingHistory' ? 'flex' : 'none'}` }}
         className={`loggingHistory list ${tabActive === 'loggingHistory' && 'active'}`}
       >
-        {loggingHistory.map(({ date, time }, i) => {
+        {loggingHistory?.map(({ date, time }, i) => {
           const isItemOpen = date === openItemId
 
           return (

@@ -5,7 +5,6 @@ import {
   useSrContext,
   UPDATE_PROFILE_DETAILS,
   INSERT_ROUTE,
-  SET_ACTIVE_PAGE,
   validateUser
 } from '../../context'
 
@@ -19,12 +18,12 @@ import {
   Upload
 } from '../../assets/svg'
 
-import '../../css/edit_profile.css'
+import '../../css/edit_application.css'
 
-function EditProfileStep3() {
+function EditApplicationStep3() {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
-  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const details = JSON.parse(window.localStorage.getItem('application'))
   const [files, setFiles] = useState({
     landCertificate: details?.landCertificate,
     validId: details?.validId,
@@ -39,8 +38,6 @@ function EditProfileStep3() {
   // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault()
-  
-    dispatch({ type: UPDATE_PROFILE_DETAILS, payload: files })
   
     try {
       // Land Certificate
@@ -106,15 +103,16 @@ function EditProfileStep3() {
       let res = await updateUser({
         ...initialState.userDetails,
         id: initialState.user?.profile?.userId,
-        emailAddress: initialState.user?.profile?.emailAddress,
+        emailAddress: details?.emailAddress,
         landCertificate: files?.landCertificate,
         validId: files?.validId,
         picture: files?.picture,
       })
-  
+
       if (res.status === 201) {
-        console.log('Successful')
-        navigate('/edit-profile-pending');
+        window.localStorage.removeItem('application')
+        window.localStorage.setItem('application', JSON.stringify(res.data))
+        navigate('/edit-application-pending');
       }
     } catch (error) {
       console.log(error)
@@ -159,11 +157,10 @@ function EditProfileStep3() {
 
   // Use effect
   useEffect(() => {
-    document.title = 'Edit Profile'
+    document.title = 'Edit Application'
 
     let routeHistory = initialState.routeHistory
-    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-3'] })
-    dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
+    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-application-step-3'] })
 
     // Validate user
     async function validate() {
@@ -185,11 +182,11 @@ function EditProfileStep3() {
   }, [])
 
   return (
-    <section id='edit_profile'>
+    <section id='edit_application'>
       {/* Header */}
       <header id='header'>
         <div>
-          <Link to='/edit-profile-step-2' className='text btn'>
+          <Link to='/edit-application-step-2' className='text btn'>
             <Back />
             <span>Back</span>
           </Link>
@@ -204,7 +201,7 @@ function EditProfileStep3() {
 
       {/* Heading */}
       <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-        Edit Profile
+        Edit Application
       </h1>
 
       {/* Form */}
@@ -351,11 +348,11 @@ function EditProfileStep3() {
         <div className='actions'>
           <input type='submit' value='Save' className='solid btn' />
 
-          <Link to='/my-profile' className='outline btn'>Cancel</Link>
+          <Link to='/my-application' className='outline btn'>Cancel</Link>
         </div>
       </form>
     </section>
   )
 }
 
-export default EditProfileStep3
+export default EditApplicationStep3

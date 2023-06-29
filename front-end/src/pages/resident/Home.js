@@ -151,19 +151,21 @@ function Home() {
       announcementsStack2Ref.current.style.width = '100%'
       announcementsStack2Ref.current.style.backgroundColor = '#FFF'
 
-      announcementsStack3Ref.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) - (194 + 141) + 48}px`
+      announcementsStack3Ref.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) - (194 + 141) + 48.5}px`
       announcementsStack3Ref.current.style.width = '100%'
       announcementsStack3Ref.current.style.backgroundColor = '#FFF'
       
-      condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (148)}px`
+      condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (147)}px`
 
       if (window.innerWidth >= 390) {
         condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (156)}px`
-        notificationsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 308}px`
+        announcementsStack3Ref.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) - (194 + 141) + 52}px`
+        notificationsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 300}px`
       }
 
       if (window.innerWidth >= 414) {
-        notificationsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 320}px`
+        condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (162)}px`
+        notificationsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 308}px`
       }
     }, 500)
 
@@ -218,7 +220,7 @@ function Home() {
     }, 500)
 
     setTimeout(() => {
-      headingRef.current.innerText = 'Welcome'
+      headingRef.current.innerText = `Welcome, ${initialState.user?.profile?.firstName}!`
       headingRef.current.style.transform = 'translateY(0)'
       headingRef.current.style.transition = '1000ms ease-out'
       headingRef.current.style.opacity = '1'
@@ -227,7 +229,7 @@ function Home() {
     guestsStackRef.current.style.top = '141px'
     
     setTimeout(() => {
-      headingRef.current.innerText = 'Welcome!'
+      headingRef.current.innerText = `Welcome, ${initialState.user?.profile?.firstName}!`
     }, 2000)
 
     guestsStackRef.current.style.left = '20px'
@@ -336,35 +338,35 @@ function Home() {
     window.localStorage.removeItem('verification')
 
     // Validate user
-    // async function validate() {
-    //   let token = window.localStorage.getItem('user')
-    //   let res = await validateUser(dispatch, { token })
+    async function validate() {
+      let token = window.localStorage.getItem('user')
+      let res = await validateUser(dispatch, { token })
 
-    //   console.log(token)
-    //   console.log(res)
+      console.log(token)
+      console.log(res)
 
-    //   if (res?.status === 401) {
-    //     navigate('/login')
-    //   }
+      if (res?.status === 401) {
+        navigate('/login')
+      }
 
-    //   setIsLoading(false)
-    // }
+      setIsLoading(false)
+    }
 
     // Fetch guests
-    // async function getGuests() {
-    //   let res = await fetchGuests({})
+    async function getGuests() {
+      let res = await fetchGuests({})
 
-    //   const filteredData = res.data?.map(item => {
-    //     return {
-    //       dateBooked: item.dateBooked
-    //     }
-    //   })
+      const filteredData = res.data?.map(item => {
+        return {
+          dateBooked: item.dateBooked
+        }
+      })
 
-    //   setGuests(filteredData)
-    // }
+      setGuests(filteredData)
+    }
 
-    // validate()
-    // getGuests()
+    validate()
+    getGuests()
 
     console.log(guests)
   }, [])

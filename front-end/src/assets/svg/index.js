@@ -18,6 +18,7 @@ import ChevronDown from './icons/ChevronDown'
 import ChevronUp from './icons/ChevronUp'
 import Close from './icons/Close'
 import Copy from './icons/Copy'
+import Download from './icons/Download'
 import Edit from './icons/Edit'
 import EyeOff from './icons/EyeOff'
 import EyeOn from './icons/EyeOn'
@@ -52,6 +53,7 @@ export {
   ChevronUp,
   Close,
   Copy,
+  Download,
   Edit,
   EyeOff,
   EyeOn,

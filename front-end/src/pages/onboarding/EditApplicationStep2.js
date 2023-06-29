@@ -5,25 +5,24 @@ import {
   useSrContext,
   UPDATE_PROFILE_DETAILS,
   INSERT_ROUTE,
-  SET_ACTIVE_PAGE,
   validateUser
 } from '../../context'
 
 import { ArrowRight, Back } from '../../assets/svg'
 
-import '../../css/edit_profile.css'
+import '../../css/edit_application.css'
 
-function EditProfileStep2() {
+function EditApplicationStep2() {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
-  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const details = JSON.parse(window.localStorage.getItem('application'))
   const [inputs, setInputs] = useState({ address: details?.address })
 
   // Hande submit
   const handleSubmit = async (e) => {
     e.preventDefault()
     dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
-    navigate('/edit-profile-step-3')
+    navigate('/edit-application-step-3')
   }
 
   // Handle scroll
@@ -46,8 +45,7 @@ function EditProfileStep2() {
     console.log(initialState)
 
     let routeHistory = initialState.routeHistory
-    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-2'] })
-    dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
+    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-application-step-2'] })
 
     // Validate user
     async function validate() {
@@ -69,11 +67,11 @@ function EditProfileStep2() {
   }, [])
 
   return (
-    <section id='edit_profile'>
+    <section id='edit_application'>
       {/* Header */}
       <header id='header'>
         <div>
-          <Link to='/edit-profile-step-1' className='text btn'>
+          <Link to='/edit-application-step-1' className='text btn'>
             <Back />
             <span>Back</span>
           </Link>
@@ -88,7 +86,7 @@ function EditProfileStep2() {
 
       {/* Heading */}
       <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-        Edit Profile
+        Edit Application
       </h1>
 
       {/* Form */}
@@ -120,11 +118,11 @@ function EditProfileStep2() {
             <ArrowRight color='#FFF' />
           </div>
 
-          <Link to='/my-profile' className='outline btn'>Cancel</Link>
+          <Link to='/my-application' className='outline btn'>Cancel</Link>
         </div>
       </form>
     </section>
   )
 }
 
-export default EditProfileStep2
+export default EditApplicationStep2

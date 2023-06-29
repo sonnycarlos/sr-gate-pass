@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { 
   useSrContext,
   UPDATE_PROFILE_DETAILS,
   INSERT_ROUTE,
-  SET_ACTIVE_PAGE,
   validateUser
 } from '../../context'
 
@@ -18,15 +17,14 @@ import {
   ChevronDown
 } from '../../assets/svg'
 
-import '../../css/edit_profile.css'
+import '../../css/edit_application.css'
 
-function EditProfileStep1({ forwardRef }) {
+function EditApplicationStep1({ forwardRef }) {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
-  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const details = JSON.parse(window.localStorage.getItem('application'))
   const [inputs, setInputs] = useState({
     firstName: details?.firstName,
-    middleName: details?.middleName,
     lastName: details?.lastName,
     gender: details?.gender,
     birthdate: details?.birthdate,
@@ -44,7 +42,7 @@ function EditProfileStep1({ forwardRef }) {
 
       if (res.status === 200) {
         dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
-        navigate('/edit-profile-step-2')
+        navigate('/edit-application-step-2')
       }
 
       if (res.status === 400) {
@@ -53,7 +51,7 @@ function EditProfileStep1({ forwardRef }) {
     }
     
     dispatch({ type: UPDATE_PROFILE_DETAILS, payload: inputs })
-    navigate('/edit-profile-step-2')
+    navigate('/edit-application-step-2')
   }
 
   // Handle scroll
@@ -71,11 +69,10 @@ function EditProfileStep1({ forwardRef }) {
 
   // Use effect
   useEffect(() => {
-    document.title = 'Edit Profile'
+    document.title = 'Edit Application'
 
     let routeHistory = initialState.routeHistory
-    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-1'] })
-    dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
+    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-application-step-1'] })
 
     // Validate user
     async function validate() {
@@ -99,11 +96,11 @@ function EditProfileStep1({ forwardRef }) {
   }, [])
 
   return (
-    <section ref={forwardRef} id='edit_profile'>
+    <section ref={forwardRef} id='edit_application'>
       {/* Header */}
       <header id='header'>
         <div>
-          <Link to='/my-profile' className='text btn'>
+          <Link to='/my-application' className='text btn'>
             <Back />
             <span>Back</span>
           </Link>
@@ -118,7 +115,7 @@ function EditProfileStep1({ forwardRef }) {
 
       {/* Heading */}
       <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-        Edit Profile
+        Edit Application
       </h1>
 
       {/* Form */}
@@ -141,18 +138,6 @@ function EditProfileStep1({ forwardRef }) {
               value={inputs.firstName}
               onChange={e => setInputs({ ...inputs, firstName: e.target.value })}
               required
-            />
-          </div>
-
-          <div className='form-group'>
-            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Middle Name</label>
-
-            <input 
-              type='text'
-              name='middleName'
-              placeholder='Your middle name here'
-              value={inputs.middleName}
-              onChange={e => setInputs({ ...inputs, middleName: e.target.value })}
             />
           </div>
 
@@ -262,11 +247,11 @@ function EditProfileStep1({ forwardRef }) {
             <ArrowRight color='#FFF' />
           </div>
 
-          <Link to='/my-profile' className='outline btn'>Cancel</Link>
+          <Link to='/my-application' className='outline btn'>Cancel</Link>
         </div>
       </form>
     </section>
   )
 }
 
-export default EditProfileStep1
+export default EditApplicationStep1

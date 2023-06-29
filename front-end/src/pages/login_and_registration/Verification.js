@@ -57,6 +57,8 @@ function Verification() {
         window.localStorage.setItem('user', initialState.user?.token)
         window.localStorage.setItem('onboarding', true)
 
+        console.log(initialState.user)
+
         if (initialState.user?.isRegistrationComplete) {
           if (initialState.user?.isApprove) {
             window.localStorage.setItem('profile', JSON.stringify(initialState.user?.profile))

@@ -6,6 +6,7 @@
 import checkIfGuestExists from './checkIfGuestExists'
 import checkResidentUsername from './checkResidentUsername'
 import checkUser from './checkUser'
+import fetchApplication from './fetchApplication'
 import fetchGuest from './fetchGuest'
 import fetchGuests from './fetchGuests'
 import formatBirthdate from './formatBirthdate'
@@ -29,6 +30,7 @@ export {
   checkIfGuestExists,
   checkResidentUsername,
   checkUser,
+  fetchApplication,
   fetchGuest,
   fetchGuests,
   formatBirthdate,

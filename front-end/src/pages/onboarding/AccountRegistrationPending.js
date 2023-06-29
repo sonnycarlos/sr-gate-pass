@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import {
-  useSrContext
-} from '../../context'
+import { useSrContext } from '../../context'
+
+import { fetchApplication } from '../../utils'
 
 import { 
   BadgeHappy
@@ -23,6 +23,16 @@ function AccountRegistrationPending() {
     if (!window.localStorage.getItem('onboarding')) {
       navigate('/login')
     }
+
+    // Fetch application
+    async function getApplication() {
+      initialState.user?.id && window.localStorage.setItem('applicationId', JSON.stringify(initialState.user?.id))
+      let res = await fetchApplication({ userId: initialState.user?.id || JSON.parse(window.localStorage.getItem('applicationId')) })
+      window.localStorage.setItem('application', JSON.stringify(res.data))
+    }
+
+    getApplication()
+    console.log(initialState.user?.id)
   }, [])
 
   return (
@@ -38,7 +48,7 @@ function AccountRegistrationPending() {
       </div>
 
       <div className='actions'>
-        <Link to='#' className='solid btn'>Edit application</Link>
+        <Link to='/my-application' className='solid btn'>View application</Link>
         <Link to='/login' className='outline btn'>Log out</Link>
       </div>
     </section>

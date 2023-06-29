@@ -9,6 +9,10 @@ import Announcements from './Announcements'
 import AnnouncementOverview from './AnnouncementOverview'
 import BookGuest from './resident/BookGuest'
 import BookGuestSuccessfully from './resident/BookGuestSuccessfully'
+import EditApplicationPending from './onboarding/EditApplicationPending'
+import EditApplicationStep1 from './onboarding/EditApplicationStep1'
+import EditApplicationStep2 from './onboarding/EditApplicationStep2'
+import EditApplicationStep3 from './onboarding/EditApplicationStep3'
 import EditProfilePending from './resident/EditProfilePending'
 import EditProfileStep1 from './resident/EditProfileStep1'
 import EditProfileStep2 from './resident/EditProfileStep2'
@@ -18,6 +22,7 @@ import GuestOverview from './GuestOverview'
 import GuestsHistory from './GuestsHistory'
 import Home from './resident/Home'
 import Login from './login_and_registration/Login'
+import MyApplication from './onboarding/MyApplication'
 import MyGatePass from './resident/MyGatePass'
 import MyGuests from './resident/MyGuests'
 import MyProfile from './resident/MyProfile'
@@ -44,6 +49,10 @@ export {
   AnnouncementOverview,
   BookGuest,
   BookGuestSuccessfully,
+  EditApplicationPending,
+  EditApplicationStep1,
+  EditApplicationStep2,
+  EditApplicationStep3,
   EditProfilePending,
   EditProfileStep1,
   EditProfileStep2,
@@ -53,6 +62,7 @@ export {
   GuestsHistory,
   Home,
   Login,
+  MyApplication,
   MyGatePass,
   MyGuests,
   MyProfile,

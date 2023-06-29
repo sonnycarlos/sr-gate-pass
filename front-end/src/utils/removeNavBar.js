@@ -34,6 +34,16 @@ export default function removeNavBar (location, routes) {
       &&
     route.path !== '/account-registration-successfully'
       &&
+    route.path !== '/my-application'
+      &&
+    route.path !== '/edit-application-step-1'
+      &&
+    route.path !== '/edit-application-step-2'
+      &&
+    route.path !== '/edit-application-step-3'
+      &&
+    route.path !== '/edit-application-pending'
+      &&
     route.path !== '/edit-profile-step-1'
       &&
     route.path !== '/edit-profile-step-2'

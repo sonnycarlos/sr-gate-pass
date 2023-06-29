@@ -4,6 +4,7 @@ import {
   approveUser,
   checkResidentUsername,
   checkUser,
+  fetchApplication,
   forgotPassword,
   registerUser,
   requestOtp,
@@ -29,5 +30,6 @@ router.post('/check-resident-username', checkResidentUsername)
 router.post('/register-user', protect, registerUser)
 router.post('/update-user', protect, updateUser)
 router.post('/approve-user', protect, approveUser)
+router.post('/fetch-application', protect, fetchApplication)
 
 export default router

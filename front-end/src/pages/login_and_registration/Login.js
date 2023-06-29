@@ -68,6 +68,9 @@ function Login() {
     window.localStorage.removeItem('onboarding')
     window.localStorage.removeItem('forgotPassword')
     window.localStorage.removeItem('profile')
+    window.localStorage.removeItem('applicationId')
+    window.localStorage.removeItem('application')
+    window.localStorage.removeItem('guest')
     window.localStorage.removeItem('bookingDetails')
 
     const routeHistory = initialState.routeHistory
