@@ -46,6 +46,7 @@ const signIn = asyncHandler(async (req, res) => {
         emailAddress: user.emailAddress,
         isRegistrationComplete: user.isRegistrationComplete,
         isApprove: user.isApprove,
+        notifications: user.notifications,
         profile,
         isProfileRequestApprove: profileReq.isApprove,
         token
@@ -216,7 +217,7 @@ const verifyOtp = asyncHandler(async (req, res) => {
 // @route   POST /api/user/validate-user
 // @access  Public
 const validateUser = asyncHandler(async (req, res) => {
-  const { _id, username, emailAddress, isApprove } = await User.findById(req.user._id)
+  const { _id, username, emailAddress, isApprove, notifications } = await User.findById(req.user._id)
 
   // Check if user was approved
   if (isApprove) {
@@ -226,7 +227,8 @@ const validateUser = asyncHandler(async (req, res) => {
     if (profile) {
       res.status(200).json({
         profile,
-        isProfileRequestApprove: profileRequest.isApprove
+        isProfileRequestApprove: profileRequest.isApprove,
+        notifications
       })
     }
   }
@@ -631,6 +633,31 @@ const fetchApplication = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Mark notificate as read
+// @route   POST /api/user/mark-notification-as-read
+// @access  Public
+const markNotificationAsRead = asyncHandler(async (req, res) => {
+  const { userId, notificationId } = req.body
+  const user = await User.findOne({ _id: userId })
+
+  // Check if user exists
+  if (user) {
+    user.notifications.map(notification => {
+      if (notification.notificationId == notificationId) {
+        notification.isRead = true
+      }
+    })
+
+    const notifications = user.notifications
+    await User.updateOne({ _id: userId }, { $set: { notifications: notifications } })
+
+    return res.status(200).json({ message: 'Notification marked as read.' })
+  } else {
+    res.status(400).json({ errorMessage: `User doesn't exist.` })
+    throw new Error(`User doesn't exist.`)
+  }
+})
+
 // Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -650,5 +677,6 @@ export {
   registerUser,
   updateUser,
   approveUser,
-  fetchApplication
+  fetchApplication,
+  markNotificationAsRead
 }

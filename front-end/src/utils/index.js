@@ -15,6 +15,7 @@ import formatBytes from './formatBytes'
 import formatDate from './formatDate'
 import formatTime from './formatTime'
 import logOut from './logOut'
+import markNotificationAsRead from './markNotificationAsRead'
 import onBoarding from './onBoarding'
 import registerUser from './registerUser'
 import updateUser from './updateUser'
@@ -40,6 +41,7 @@ export {
   formatDate,
   formatTime,
   logOut,
+  markNotificationAsRead,
   onBoarding,
   registerUser,
   updateUser,

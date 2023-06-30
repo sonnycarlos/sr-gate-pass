@@ -30,7 +30,9 @@ import Pin from './icons/Pin'
 import Plus from './icons/Plus'
 import Remove from './icons/Remove'
 import Search from './icons/Search'
+import Security from './icons/Security'
 import Upload from './icons/Upload'
+import UserInfo from './icons/UserInfo'
 import Users from './icons/Users'
 
 export {
@@ -65,6 +67,8 @@ export {
   Plus,
   Remove,
   Search,
+  Security,
   Upload,
+  UserInfo,
   Users
 }

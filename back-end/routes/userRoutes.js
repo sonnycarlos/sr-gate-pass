@@ -6,6 +6,7 @@ import {
   checkUser,
   fetchApplication,
   forgotPassword,
+  markNotificationAsRead,
   registerUser,
   requestOtp,
   signIn, 
@@ -31,5 +32,6 @@ router.post('/register-user', protect, registerUser)
 router.post('/update-user', protect, updateUser)
 router.post('/approve-user', protect, approveUser)
 router.post('/fetch-application', protect, fetchApplication)
+router.post('/mark-notification-as-read', protect, markNotificationAsRead)
 
 export default router

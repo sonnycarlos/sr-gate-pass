@@ -357,8 +357,7 @@ function Home() {
       const token = window.localStorage.getItem('user')
       const res = await validateUser(dispatch, { token })
 
-      console.log(token)
-      console.log(res)
+      console.log(res.data)
 
       if (res?.status === 401) {
         navigate('/login')
@@ -398,7 +397,7 @@ function Home() {
 
     getAnnouncements().then(fetchedAnnouncements => setAnnouncements(fetchedAnnouncements))
 
-    console.log(announcements)
+    console.log(initialState.user)
 
     return () => {
       socket.close()

@@ -7,7 +7,7 @@ const residentSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: false,
+    required: true,
     ref: 'User'
   },
   firstName: {

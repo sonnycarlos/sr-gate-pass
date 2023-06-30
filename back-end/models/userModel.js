@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   password: [String],
+  notifications: [{
+    type: Object,
+    required: false
+  }],
   dateCreated: {
     type: Date,
     required: true

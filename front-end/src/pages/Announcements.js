@@ -85,16 +85,14 @@ function Announcements({ forwardRef }) {
 
         {/* List */}
         <div className='list'>
-          {announcements?.map((announcement, i) => {
-            const reversedIndex = announcements.length - i - 1
-
+          {announcements.slice(0).reverse().map(({ _id, heading, body, datePosted, isPin }, i) => {
             return (
               <Link 
-                to={`/announcement-overview/${announcements[reversedIndex]._id}`} 
-                key={announcements[reversedIndex]._id} 
+                to={`/announcement-overview/${_id}`} 
+                key={_id} 
                 className='item'
               >
-                {announcements[reversedIndex].isPin && (
+                {isPin && (
                   <div className='pin'>
                     <Pin color='#5CB950' />
                   </div>
@@ -105,18 +103,18 @@ function Announcements({ forwardRef }) {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
                     className='title'
                   >
-                    {announcements[reversedIndex].heading.length > 30 ? `${announcements[reversedIndex].heading.substring(0, 30)}...` : announcements[reversedIndex].heading}
+                    {heading.length > 30 ? `${heading.substring(0, 30)}...` : heading}
                   </h2>
                   
                   <p className='date'>
-                    {`${formatDate(announcements[reversedIndex].datePosted)} at ${formatTime(announcements[reversedIndex].datePosted)}`}
+                    {`${formatDate(datePosted)} at ${formatTime(datePosted)}`}
                   </p>
                 </div>
 
                 <p>
-                  {announcements[reversedIndex].body.length > 140 ? `${announcements[reversedIndex].body.substring(0, 140)}...` : announcements[reversedIndex].body}
+                  {body.length > 140 ? `${body.substring(0, 140)}...` : body}
                     
-                  {announcements[reversedIndex].body.length > 140 && (
+                  {body.length > 140 && (
                     <button 
                       style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                       className='text btn'

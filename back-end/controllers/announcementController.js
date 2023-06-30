@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 
-import { Announcement, User } from '../models/index.js'
+import { Announcement, Notification, User } from '../models/index.js'
 
 // @desc    Fetch announcements
 // @route   POST /api/announcement/fetch-announcements
@@ -47,6 +47,30 @@ const postAnnouncement = asyncHandler(async (req, res) => {
       datePosted: Date.now(),
       isPin: false
     })
+    const notification = await Notification.create({
+      type: 'announcement',
+      heading: 'Announcement',
+      body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+      dateCreated: Date.now(),
+      otherDetails: {
+        announcementId: announcement._id
+      }
+    })
+
+    await User.updateMany(
+      { type: { $ne: 'admin' } },
+      { $push: { notifications: {
+        notificationId: notification._id,
+        type: 'announcement',
+        heading: 'Announcement',
+        body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+        dateCreated: Date.now(),
+        isRead: false,
+        otherDetails: {
+          announcementId: announcement._id
+        }
+      }}}
+    )
 
     if (announcement) {
       io.emit('announcement', announcement)

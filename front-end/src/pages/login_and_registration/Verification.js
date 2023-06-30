@@ -62,15 +62,9 @@ function Verification() {
 
         if (initialState.user?.isRegistrationComplete) {
           if (initialState.user?.isApprove) {
-            window.localStorage.setItem('profile', JSON.stringify(initialState.user?.profile))
-
-            // Fetch announcements
-            async function getAnnouncements() {
-              const res = await fetchAnnouncements(dispatch, {})
-            }
-
-            getAnnouncements()
-    
+            window.localStorage.setItem('profile', JSON.stringify({ ...initialState.user?.profile, notifications: initialState.user?.notifications }))
+            console.log(initialState.user)
+            await fetchAnnouncements(dispatch, {})
             return navigate('/home')
           } else {
             return navigate('/account-registration-pending')
