@@ -75,10 +75,12 @@ export async function registerUser(dispatch, payload) {
 export async function fetchAnnouncements(dispatch) {
   try {
     const res = await Axios.post('/announcement/fetch-announcements')
+    const pinnedItem = res.data.find(item => item.isPin)
+    const updatedData = pinnedItem ? [...res.data.filter(item => !item.isPin), pinnedItem] : res.data
 
     if (res) {
-      dispatch({ type: FETCH_ANNOUNCEMENTS, payload: res.data })
-      return res
+      dispatch({ type: FETCH_ANNOUNCEMENTS, payload: updatedData })
+      return updatedData
     }
   } catch (error) {
     console.error(`Unhandled action type: ${error}`)

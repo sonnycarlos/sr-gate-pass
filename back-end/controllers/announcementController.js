@@ -2,13 +2,23 @@ import asyncHandler from 'express-async-handler'
 
 import { Announcement, User } from '../models/index.js'
 
-// @desc    Fetch announcement
+// @desc    Fetch announcements
 // @route   POST /api/announcement/fetch-announcements
 // @access  Public
 const fetchAnnouncements = asyncHandler(async (req, res) => {
   const announcements = await Announcement.find()
 
   return res.status(200).json(announcements)
+})
+
+// @desc    Fetch announcement
+// @route   POST /api/announcement/fetch-announcement
+// @access  Public
+const fetchAnnouncement = asyncHandler(async (req, res) => {
+  const { _id } = req.body
+  const announcement = await Announcement.findOne({ _id })
+
+  return res.status(200).json(announcement)
 })
 
 // @desc    Post announcement
@@ -21,6 +31,8 @@ const postAnnouncement = asyncHandler(async (req, res) => {
     isPin,
     emailAddress
   } = req.body
+  
+  const io = req.app.locals.io // Get the io object from app.locals
 
   const user = await User.findOne({ emailAddress })
 
@@ -37,6 +49,7 @@ const postAnnouncement = asyncHandler(async (req, res) => {
     })
 
     if (announcement) {
+      io.emit('announcement', announcement)
       return res.status(200).json(announcement)
     }
   } else {
@@ -49,6 +62,7 @@ const postAnnouncement = asyncHandler(async (req, res) => {
     })
 
     if (announcement) {
+      io.emit('announcement', announcement)
       return res.status(200).json(announcement)
     }
   }
@@ -59,5 +73,6 @@ const postAnnouncement = asyncHandler(async (req, res) => {
 
 export {
   fetchAnnouncements,
+  fetchAnnouncement,
   postAnnouncement
 }

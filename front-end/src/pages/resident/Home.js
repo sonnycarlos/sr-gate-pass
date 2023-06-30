@@ -16,7 +16,11 @@ import {
   fetchAnnouncements
 } from '../../context'
 
-import { fetchGuests, formatDate  } from '../../utils'
+import { 
+  fetchGuests, 
+  formatDate, 
+  formatTime
+} from '../../utils'
 
 import {
   Guest,
@@ -52,7 +56,7 @@ function Home() {
   const [initialState, dispatch] = useSrContext()
   const today = new Date().toISOString().split('T')[0]
   const [selectedDate, setSelectedDate] = useState(today)
-  const [announcements, setAnnouncements] = useState([])
+  const [announcements, setAnnouncements] = useState(initialState.announcements)
   const [guests, setGuests] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -61,8 +65,8 @@ function Home() {
     setSelectedDate(e.target.value)
   }
 
-  // Get guest count
-  const getGuestCount = () => {
+  // Get guests count
+  const getGuestsCount = () => {
     const guestCount = guests.reduce((count, guest) => {
       const dates = guest.dateBooked.map(date => date.split('T')[0])
       if (dates.includes(selectedDate)) {
@@ -123,7 +127,9 @@ function Home() {
   }
 
   // Expand announcements
-  const expandAnnouncements = () => {
+  const expandAnnouncements = (e) => {
+    e.preventDefault()
+    
     headingRef.current.style.opacity = '0'
     announcementsStackButtonRef.current.style.display = 'none'
 
@@ -330,12 +336,18 @@ function Home() {
     bookGuestContRef.current.style.transform = 'translateX(100%)'
     bookGuestContRef.current.style.zIndex = '100'
   }, [])
-  
+
   useEffect(() => {
     document.title = 'Home'
 
-    const routeHistory = initialState.routeHistory
-    dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'home'] })
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const routeHistory = cookie?.split(',')
+
+    document.cookie = `routesHistory=${routeHistory}`
+    routeHistory.push('home')
+    document.cookie = `routesHistory=${routeHistory}`
+    
+    dispatch({ type: INSERT_ROUTE, payload: routeHistory })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'home' })
 
     window.localStorage.removeItem('verification')
@@ -357,9 +369,8 @@ function Home() {
 
     // Fetch announcements
     async function getAnnouncements() {
-      const res = await fetchAnnouncements(dispatch, {})
-
-      console.log(res.data)
+      const updatedData = await fetchAnnouncements(dispatch, {})
+      return updatedData
     }
 
     // Fetch guests
@@ -376,10 +387,22 @@ function Home() {
     }
 
     validate()
-    getAnnouncements()
     getGuests()
 
-    console.log(guests)
+    // Implement real time for announcements
+    const socket = io('http://localhost:8000')
+    
+    socket.on('announcement', (announcement) => {
+      setAnnouncements(prevAnnouncements => [...prevAnnouncements, announcement])
+    })
+
+    getAnnouncements().then(fetchedAnnouncements => setAnnouncements(fetchedAnnouncements))
+
+    console.log(announcements)
+
+    return () => {
+      socket.close()
+    }
   }, [])
 
   return (
@@ -439,7 +462,7 @@ function Home() {
 
             <p>
               <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-                {getGuestCount()} {getGuestCount().length > 2 ? 'guests' : 'guest'}
+                {getGuestsCount()} {getGuestsCount().length > 2 ? 'guests' : 'guest'}
               </span>
               
               <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
@@ -450,7 +473,11 @@ function Home() {
 
           {/* Announcements */}
           <div className='announcements'>
-            <div ref={announcementsStack1Ref} className='stack'>
+            <Link 
+              to={`/announcement-overview/${announcements[announcements.length - 1]?._id}`}
+              ref={announcementsStack1Ref} 
+              className='stack'
+            >
               <div ref={announcementsStackHeaderRef} className='header'>
                 <h2 ref={announcementsStackTitleRef} style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
                   Announcement
@@ -458,8 +485,11 @@ function Home() {
                 </h2>
 
                 <div>
-                  <Pin color='#5CB950' />
-                  <span ref={announcementsStackBadgeRef} className='badge'>1</span>
+                  {announcements[announcements.length - 1]?.isPin && <Pin color='#5CB950' />}
+                  
+                  <span ref={announcementsStackBadgeRef} className='badge'>
+                    {announcements.length}
+                  </span>
 
                   <button 
                     ref={announcementsStackButtonRef}
@@ -478,25 +508,29 @@ function Home() {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     className='title'
                   >
-                    Vivamus vulputate aliquet quam, nec 
+                    {announcements[announcements.length - 1]?.heading.length > 30 ? `${announcements[announcements.length - 1]?.heading.substring(0, 30)}...` : announcements[announcements.length - 1]?.heading}
                   </h3>
                   
-                  <p className='date'>Yesterday at 10:00 AM</p>
+                  <p className='date'>
+                    {`${formatDate(announcements[announcements.length - 1]?.datePosted)} at ${formatTime(announcements[announcements.length - 1]?.datePosted)}`}
+                  </p>
                 </div>
 
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non blandit tortor. Ut fringilla scelerisque neque, in accumsan quam aliquam.
+                  {announcements[announcements.length - 1]?.body.length > 140 ? `${announcements[announcements.length - 1].body.substring(0, 140)}...` : announcements[announcements.length - 1]?.body}
                   
-                  <Link 
-                    to='#' 
-                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                    className='btn text'
-                  >
-                    See more
-                  </Link>
+                  {announcements[announcements.length - 1]?.body.length > 140 && (
+                    <button 
+                      to='#' 
+                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                      className='text btn'
+                    >
+                      See more
+                    </button>
+                  )}
                 </p>
               </div>
-            </div>
+            </Link>
 
             <div ref={announcementsStack2Ref} className='stack'>
               <div className='content'>
@@ -505,22 +539,26 @@ function Home() {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     className='title'
                   >
-                    Vivamus vulputate aliquet quam, nec 
+                    {announcements[announcements.length - 2]?.heading.length > 30 ? `${announcements[announcements.length - 2]?.heading.substring(0, 30)}...` : announcements[announcements.length - 2]?.heading}
                   </h3>
                   
-                  <p className='date'>Yesterday at 10:00 AM</p>
+                  <p className='date'>
+                    {`${formatDate(announcements[announcements.length - 2]?.datePosted)} at ${formatTime(announcements[announcements.length - 2]?.datePosted)}`}
+                  </p>
                 </div>
 
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non blandit tortor. Ut fringilla scelerisque neque, in accumsan quam aliquam.
+                  {announcements[announcements.length - 2]?.body.length > 140 ? `${announcements[announcements.length - 2].body.substring(0, 140)}...` : announcements[announcements.length - 2]?.body}
                   
-                  <Link 
-                    to='#' 
-                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                    className='btn text'
-                  >
-                    See more
-                  </Link>
+                  {announcements[announcements.length - 2]?.body.length > 140 && (
+                    <button 
+                      to='#' 
+                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                      className='text btn'
+                    >
+                      See more
+                    </button>
+                  )}
                 </p>
               </div>
             </div>
@@ -532,13 +570,27 @@ function Home() {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     className='title'
                   >
-                    Vivamus vulputate aliquet quam, nec 
+                    {announcements[announcements.length - 3]?.heading.length > 30 ? `${announcements[announcements.length - 3]?.heading.substring(0, 30)}...` : announcements[announcements.length - 3]?.heading}
                   </h3>
                   
-                  <p className='date'>Yesterday at 10:00 AM</p>
+                  <p className='date'>
+                    {`${formatDate(announcements[announcements.length - 3]?.datePosted)} at ${formatTime(announcements[announcements.length - 3]?.datePosted)}`}
+                  </p>
                 </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non blandit tortor. Ut fringilla scelerisque neque, in accumsan quam aliquam vulputate.</p>
+                <p>
+                  {announcements[announcements.length - 3]?.body.length > 140 ? `${announcements[announcements.length - 3].body.substring(0, 140)}...` : announcements[announcements.length - 3]?.body}
+                  
+                  {announcements[announcements.length - 3]?.body.length > 140 && (
+                    <button 
+                      to='#' 
+                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                      className='text btn'
+                    >
+                      See more
+                    </button>
+                  )}
+                </p>
               </div>
             </div>
 

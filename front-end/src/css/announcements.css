@@ -60,9 +60,15 @@
 }
 
 #announcements > .container > .list > .item > p {
+  display: inline;
   color: var(--carbon-grey);
   line-height: 18px;
   font-weight: 500;
+}
+
+#announcements > .container > .list > .item > p > button {
+  display: inline;
+  margin-left: 4px;
 }
 
 #announcements > .container > .list > .item > .images {

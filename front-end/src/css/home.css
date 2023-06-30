@@ -206,14 +206,16 @@
 #home > .container > .announcements > .stack > .content > .titleAndDate > .date {
   color: var(--carbon-grey);
   font-size: 12px;
+  font-weight: 500;
 }
 
 #home > .container > .announcements > .stack > .content > p {
   color: var(--carbon-grey);
   font-size: 14px;
+  font-weight: 500;
 }
 
-#home > .container > .announcements > .stack > .content > p > a {
+#home > .container > .announcements > .stack > .content > p > button {
   display: inline;
   margin-left: 4px;
 }

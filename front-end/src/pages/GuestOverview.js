@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { GuestHistory } from '../pages'
 
@@ -20,11 +20,11 @@ import { Back, Copy } from '../assets/svg'
 
 import '../css/guest_overview.css'
 
-function GuestOverview({ forwardRef }) {
-  const { id } = useParams()
+function GuestOverview() {
   const guestOverviewContRef = useRef(null)
   const guestHistoryContRef = useRef(null)
   const navigate = useNavigate()
+  const { id } = useParams()
   const currentDate = new Date()
   const [initialState, dispatch] = useSrContext()
   const details = JSON.parse(window.localStorage.getItem('profile'))

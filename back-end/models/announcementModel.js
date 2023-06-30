@@ -22,9 +22,10 @@ const announcementSchema = new mongoose.Schema({
     type: Object,
     size: Number
   }],
-  datePosted: [{
-    type: Date
-  }],
+  datePosted: {
+    type: Date,
+    required: true
+  },
   isPin: {
     type: Boolean,
     required: true

@@ -162,7 +162,7 @@ const routes = [
     component: <Announcements />
   },
   {
-    path: '/announcement',
+    path: '/announcement-overview/:id',
     component: <AnnouncementOverview />
   },
   {

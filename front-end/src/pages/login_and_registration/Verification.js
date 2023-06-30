@@ -8,7 +8,8 @@ import {
   useSrContext,
   COUNTDOWN,
   SET_COUNTDOWN_START,
-  INSERT_ROUTE
+  INSERT_ROUTE,
+  fetchAnnouncements
 } from '../../context'
 
 import { 
@@ -62,6 +63,14 @@ function Verification() {
         if (initialState.user?.isRegistrationComplete) {
           if (initialState.user?.isApprove) {
             window.localStorage.setItem('profile', JSON.stringify(initialState.user?.profile))
+
+            // Fetch announcements
+            async function getAnnouncements() {
+              const res = await fetchAnnouncements(dispatch, {})
+            }
+
+            getAnnouncements()
+    
             return navigate('/home')
           } else {
             return navigate('/account-registration-pending')

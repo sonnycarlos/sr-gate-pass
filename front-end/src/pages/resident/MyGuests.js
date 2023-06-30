@@ -204,6 +204,8 @@ function MyGuests() {
     validate()
     getGuests()
 
+    console.log(currentWeekBookings)
+
     window.addEventListener('scroll', handleScroll)
 
     return () => {
@@ -238,7 +240,7 @@ function MyGuests() {
                   </h2>
 
                   <div className='items'>
-                    {currentWeekBookings.map((guest, i) => {
+                    {currentWeekBookings.slice(0).reverse().map((guest, i) => {
                       const isItemOpen = guest.day === openItemId
                       
                       return (
