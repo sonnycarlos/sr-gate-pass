@@ -47,6 +47,12 @@ io.on('connection', (socket) => {
     socket.join(userId)
   })
 
+  // Handle 'guest' event
+  socket.on('guest', (data) => {
+    const { guest } = data
+    socket.broadcast.emit('guest', guest)
+  })
+
   // Handle 'announcement' event
   socket.on('announcement', (announcement) => {
     // Broadcast the announcement to all connected clients

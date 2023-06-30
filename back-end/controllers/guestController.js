@@ -70,6 +70,7 @@ const bookGuest = asyncHandler(async (req, res) => {
     pin,
     emailAddress
   } = req.body
+  const io = req.app.locals.io
 
   if (!name || !phoneNumber || !pin) {
     res.status(400)
@@ -133,6 +134,9 @@ const bookGuest = asyncHandler(async (req, res) => {
     qrCodeImage,
     pin
   })
+  const guestCount = await Guest.countDocuments()
+  
+  io.emit('guestCount', guestCount)
 
   const result = await Guest.updateOne({ _id: guest._id }, { $set: { urlLink: `localhost:3000/${guest._id}` } })
 

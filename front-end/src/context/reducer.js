@@ -9,6 +9,7 @@ export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
 export const UPDATE_PROFILE_DETAILS = 'UPDATE_PROFILE_DETAILS'
 export const FETCH_ANNOUNCEMENTS = 'FETCH_ANNOUNCEMENTS'
 export const BOOK_GUEST = 'BOOK_GUEST'
+export const UPDATE_GUESTS_COUNT = 'UPDATE_GUESTS_COUNT'
 export const SET_ACTION = 'SET_ACTION'
 export const SET_COUNTDOWN_START = 'SET_COUNTDOWN_START'
 export const KEEP_ME_LOGGED_IN = 'KEEP_ME_LOGGED_IN'
@@ -23,6 +24,7 @@ export const initialState = {
   userDetails: {},
   announcements: [],
   guests: [],
+  guestsCount: 0,
   action: '',
   otpCountdown: '',
   countdownStart: false,
@@ -83,6 +85,11 @@ export const reducer = (initialState, action) => {
           action.payload
         ]
       }
+    case UPDATE_GUESTS_COUNT:
+      return {
+        ...initialState,
+        guestsCount: action.payload,
+    }
     case SET_ACTION:
       return {
         ...initialState,

@@ -10,6 +10,7 @@ import {
 
 import { 
   useSrContext,
+  UPDATE_GUESTS_COUNT,
   INSERT_ROUTE,
   SET_ACTIVE_PAGE,
   validateUser,
@@ -58,6 +59,7 @@ function Home() {
   const [selectedDate, setSelectedDate] = useState(today)
   const [announcements, setAnnouncements] = useState(initialState.announcements)
   const [guests, setGuests] = useState([])
+  const guestsCount = initialState.guestsCount
   const [isLoading, setIsLoading] = useState(true)
 
   // Handle date change
@@ -387,22 +389,24 @@ function Home() {
 
     validate()
     getGuests()
+    getAnnouncements().then(fetchedAnnouncements => setAnnouncements(fetchedAnnouncements))
 
-    // Implement real time for announcements
+    // Implement real time
     const socket = io('http://localhost:8000')
+
+    socket.on('guestCount', () => {
+      dispatch({ type: UPDATE_GUESTS_COUNT, payload: guestsCount + 1 })
+      console.log('Updated')
+    })
     
     socket.on('announcement', (announcement) => {
       setAnnouncements(prevAnnouncements => [...prevAnnouncements, announcement])
     })
 
-    getAnnouncements().then(fetchedAnnouncements => setAnnouncements(fetchedAnnouncements))
-
-    console.log(initialState.user)
-
     return () => {
       socket.close()
     }
-  }, [])
+  }, [guestsCount])
 
   return (
     <>
