@@ -57,9 +57,10 @@ function Home() {
   const [initialState, dispatch] = useSrContext()
   const today = new Date().toISOString().split('T')[0]
   const [selectedDate, setSelectedDate] = useState(today)
-  const [announcements, setAnnouncements] = useState(initialState.announcements)
   const [guests, setGuests] = useState([])
   const guestsCount = initialState.guestsCount
+  const bookingCount = window.localStorage.getItem('bookingCount')
+  const [announcements, setAnnouncements] = useState(initialState.announcements)
   const [isLoading, setIsLoading] = useState(true)
 
   // Handle date change
@@ -69,13 +70,16 @@ function Home() {
 
   // Get guests count
   const getGuestsCount = () => {
-    const guestCount = guests.reduce((count, guest) => {
+    const guestCount = guests?.reduce((count, guest) => {
       const dates = guest.dateBooked.map(date => date.split('T')[0])
+
       if (dates.includes(selectedDate)) {
         return count + 1
       }
+
       return count
     }, 0)
+
     return guestCount
   }
 
@@ -391,6 +395,16 @@ function Home() {
     getGuests()
     getAnnouncements().then(fetchedAnnouncements => setAnnouncements(fetchedAnnouncements))
 
+    // Set booking count
+    if (bookingCount === null) {
+      window.localStorage.setItem('bookingCount', 0)
+    }
+
+    // Reset booking count
+    if (new Date().getHours() === 0) {
+      window.localStorage.setItem('bookingCount', 0)
+    }
+
     // Implement real time
     const socket = io('http://localhost:8000')
 
@@ -456,16 +470,18 @@ function Home() {
                 </div>
               </div>
 
-              <Link onClick={navigateToBookGuest} className='text btn'>
-                <Add color='#FFF' />
+              {bookingCount < 3 && (
+                <Link onClick={navigateToBookGuest} className='text btn'>
+                  <Add color='#FFF' />
 
-                <span>Book Guest</span>
-              </Link>
+                  <span>Book Guest</span>
+                </Link>
+              )}
             </div>
 
             <p>
               <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-                {getGuestsCount()} {getGuestsCount().length > 2 ? 'guests' : 'guest'}
+                {getGuestsCount()} {getGuestsCount() > 2 ? 'guests' : 'guest'}
               </span>
               
               <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>

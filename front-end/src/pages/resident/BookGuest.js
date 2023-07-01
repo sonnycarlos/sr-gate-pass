@@ -19,6 +19,7 @@ function BookGuest({ forwardRef }) {
   const qrCodeCanvasRef = useRef(null)
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
+  const bookingCount = window.localStorage.getItem('bookingCount')
   const profileDetails = JSON.parse(window.localStorage.getItem('profile'))
   const [inputs, setInputs] = useState({
     guestName: '',
@@ -31,7 +32,6 @@ function BookGuest({ forwardRef }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log(inputs)
 
     const guestExists = await checkIfGuestExists({
       name: inputs.guestName,
@@ -53,7 +53,11 @@ function BookGuest({ forwardRef }) {
           action: 'book'
         }
 
+        const newBookingCount = parseInt(bookingCount) + 1
+
+        window.localStorage.setItem('bookingCount', newBookingCount)
         window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
+
         return navigate('/book-guest-successfully')
       }
   
@@ -83,7 +87,11 @@ function BookGuest({ forwardRef }) {
         action: 'book'
       }
       
+      const newBookingCount = parseInt(bookingCount) + 1
+
+      window.localStorage.setItem('bookingCount', newBookingCount)
       window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
+
       navigate('/book-guest-successfully')
     }
 
@@ -225,7 +233,12 @@ function BookGuest({ forwardRef }) {
           </p>
         </div>
 
-        <input type='submit' value='Book' className='solid btn' />
+        <input 
+          type='submit' 
+          value='Book'
+          disabled={bookingCount >= 3}
+          className='solid btn' 
+        />
       </form>
     </section>
   )
