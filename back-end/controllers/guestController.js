@@ -118,6 +118,7 @@ const bookGuest = asyncHandler(async (req, res) => {
 
     if (guest.modifiedCount > 0) {
       const guestRes = await Guest.findOne({ _id: guestExists._id })
+      io.emit('guestCount', guestCount)
       return res.status(200).json(guestRes)
     } else {
       res.status(400).json({ errorMessage: `Error. There's a problem encountered.` })
@@ -135,12 +136,11 @@ const bookGuest = asyncHandler(async (req, res) => {
     pin
   })
   const guestCount = await Guest.countDocuments()
-  
-  io.emit('guestCount', guestCount)
 
   const result = await Guest.updateOne({ _id: guest._id }, { $set: { urlLink: `localhost:3000/${guest._id}` } })
 
   if (result) {
+    io.emit('guestCount', guestCount)
     res.status(200).json({ guest })
   } else {
     res.status(400).json({ errorMessage: `Error. There's a problem encountered.` })
