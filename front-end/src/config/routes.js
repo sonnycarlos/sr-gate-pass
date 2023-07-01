@@ -23,6 +23,7 @@ import {
   GuestsHistory,
   Home,
   Login,
+  Map,
   MyGatePass,
   MyGuests,
   MyApplication,
@@ -192,6 +193,10 @@ const routes = [
   {
     path: '/guests-history',
     component: <GuestsHistory />
+  },
+  {
+    path: '/map',
+    component: <Map />
   },
   {
     path: '/*',

@@ -11,7 +11,7 @@ function App() {
   const [initialState, dispatch] = useSrContext()
   const [isRotated, setIsRotated] = useState(false)
 
-  // Use effects
+  // Use effect
   useEffect(() => {
     const handleOrientationChange = () => {
       if (window.orientation !== 0) {

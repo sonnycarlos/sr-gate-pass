@@ -3,6 +3,7 @@
  ** We will usually do this to have cleaner import statements
 **/
 
+import astar from './astar'
 import checkIfGuestExists from './checkIfGuestExists'
 import checkResidentUsername from './checkResidentUsername'
 import checkUser from './checkUser'
@@ -29,6 +30,7 @@ import verifyOtp from './verifyOtp'
 import approveUser from './approveUser'
 
 export {
+  astar,
   checkIfGuestExists,
   checkResidentUsername,
   checkUser,

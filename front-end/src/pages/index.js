@@ -22,6 +22,7 @@ import GuestOverview from './GuestOverview'
 import GuestsHistory from './GuestsHistory'
 import Home from './resident/Home'
 import Login from './login_and_registration/Login'
+import Map from './Map'
 import MyApplication from './onboarding/MyApplication'
 import MyGatePass from './resident/MyGatePass'
 import MyGuests from './resident/MyGuests'
@@ -62,6 +63,7 @@ export {
   GuestsHistory,
   Home,
   Login,
+  Map,
   MyApplication,
   MyGatePass,
   MyGuests,

@@ -2,7 +2,7 @@
  ** This function removes the navigation bar on specific pages
 **/
 
-export default function removeNavBar (location, routes) {
+export default function removeNavBar(location, routes) {
   return routes.some(route => 
     route.path === location.pathname 
       && 

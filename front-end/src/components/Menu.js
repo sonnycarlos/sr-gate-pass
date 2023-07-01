@@ -92,6 +92,18 @@ function Menu() {
         </Link>
 
         <Link 
+          to='map' 
+          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+          className={`${initialState.activePage === 'map' && 'active'}`}
+          onClick={() => {
+            dispatch({ type: TOGGLE_NAV })
+            dispatch({ type: SET_ACTIVE_PAGE, payload: 'map' })
+          }}
+        >
+          Map
+        </Link>
+
+        <Link 
           to='#' 
           style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'about' && 'active'}`}

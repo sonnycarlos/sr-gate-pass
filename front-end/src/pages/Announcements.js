@@ -85,7 +85,7 @@ function Announcements({ forwardRef }) {
 
         {/* List */}
         <div className='list'>
-          {announcements.slice(0).reverse().map(({ _id, heading, body, datePosted, isPin }, i) => {
+          {announcements?.slice(0)?.reverse()?.map(({ _id, heading, body, datePosted, isPin }, i) => {
             return (
               <Link 
                 to={`/announcement-overview/${_id}`} 
