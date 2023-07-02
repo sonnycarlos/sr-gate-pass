@@ -21,6 +21,7 @@ function Menu() {
   const logOut = () => {
     dispatch({ type: TOGGLE_NAV })
     window.localStorage.removeItem('loggedIn')
+    window.localStorage.removeItem('user')
     window.location.href = window.location.href
     window.location.assign('/login')
   }

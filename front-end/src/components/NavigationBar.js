@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import io from 'socket.io-client'
 
 import { 
   useSrContext, 
@@ -14,6 +15,7 @@ import {
 
 function NavigationBar() {
   const [initialState, dispatch] = useSrContext()
+  const [notifications, setNotifications] = useState([])
   const [notificationCount, setNotificationCount] = useState(0)
 
   // Handle click
@@ -23,11 +25,26 @@ function NavigationBar() {
 
   // Use effect
   useEffect(() => {
-    const unreadNotifications = initialState.user?.notifications?.filter(notification => !notification.isRead)
+    setNotifications(initialState.user?.notifications)
+
+    const unreadNotifications = notifications?.filter(notification => !notification.isRead)
     const unreadCount = unreadNotifications?.length
 
     setNotificationCount(unreadCount)
   }, [initialState.user?.notifications])
+
+  useEffect(() => {
+    // Implement real time
+    const socket = io('http://localhost:8000')
+
+    socket.on('notification', () => {
+      setNotificationCount(prevCount => prevCount + 1)
+    })
+
+    return () => {
+      socket.close()
+    }
+  }, [])
 
   return (
     <section id='navigation-bar'>

@@ -20,7 +20,8 @@ import {
 import { 
   fetchGuests, 
   formatDate, 
-  formatTime
+  formatTime,
+  markNotificationAsRead
 } from '../../utils'
 
 import {
@@ -31,6 +32,8 @@ import {
   ChevronDown,
   Pin,
   Megaphone,
+  Security,
+  UserInfo,
   Users
 } from '../../assets/svg'
 
@@ -61,7 +64,9 @@ function Home() {
   const guestsCount = initialState.guestsCount
   const bookingCount = window.localStorage.getItem('bookingCount')
   const [announcements, setAnnouncements] = useState(initialState.announcements)
-  const [isLoading, setIsLoading] = useState(true)
+  const details = JSON.parse(window.localStorage.getItem('profile'))
+  const [notifications, setNotifications] = useState([])
+  const [notificationsCount, setNotificationsCount] = useState(0)
 
   // Handle date change
   const handleDateChange = (e) => {
@@ -81,6 +86,18 @@ function Home() {
     }, 0)
 
     return guestCount
+  }
+
+  // Handle notification click
+  const handleNotificationClick = async (e, id, type, otherDetails) => {
+    e.preventDefault()
+
+    const user = JSON.parse(window.localStorage.getItem('profile'))
+    await markNotificationAsRead({ userId: user.userId, notificationId: id })
+
+    if (type === 'announcement') {
+      navigate(`/announcement-overview/${otherDetails?.announcementId}`)
+    }
   }
 
   // Navigate to Notifications
@@ -235,7 +252,7 @@ function Home() {
     }, 500)
 
     setTimeout(() => {
-      headingRef.current.innerText = `Welcome, ${initialState.user?.profile?.firstName}!`
+      headingRef.current.innerText = `Welcome, ${details?.firstName}!`
       headingRef.current.style.transform = 'translateY(0)'
       headingRef.current.style.transition = '1000ms ease-out'
       headingRef.current.style.opacity = '1'
@@ -244,7 +261,7 @@ function Home() {
     guestsStackRef.current.style.top = '141px'
     
     setTimeout(() => {
-      headingRef.current.innerText = `Welcome, ${initialState.user?.profile?.firstName}!`
+      headingRef.current.innerText = `Welcome, ${details?.firstName}!`
     }, 2000)
 
     guestsStackRef.current.style.left = '20px'
@@ -344,6 +361,16 @@ function Home() {
   }, [])
 
   useEffect(() => {
+    // Set notifications and count
+    setNotifications(initialState.user?.notifications)
+
+    const unreadNotifications = notifications?.filter(notification => !notification.isRead)
+    const unreadCount = unreadNotifications?.length
+
+    setNotificationsCount(unreadCount)
+  }, [initialState.user?.notifications])
+
+  useEffect(() => {
     document.title = 'Home'
 
     const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
@@ -369,7 +396,6 @@ function Home() {
         navigate('/login')
       }
 
-      setIsLoading(false)
     }
 
     // Fetch announcements
@@ -417,6 +443,11 @@ function Home() {
       setAnnouncements(prevAnnouncements => [...prevAnnouncements, announcement])
     })
 
+    socket.on('notification', (notification) => {
+      setNotifications(prevNotifications => [...prevNotifications, notification])
+      setNotificationsCount(prevCount => prevCount + 1)
+    })
+
     return () => {
       socket.close()
     }
@@ -434,8 +465,7 @@ function Home() {
           {/* Heading & Button */}
           <div className='header'>
             <h1 ref={headingRef} style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              Welcome
-              {isLoading ? '!' : `, ${initialState.user?.profile?.firstName}!`}
+              Welcome, {details?.firstName}!
             </h1>
 
             <Link 
@@ -527,7 +557,7 @@ function Home() {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     className='title'
                   >
-                    {announcements[announcements.length - 1]?.heading.length > 30 ? `${announcements[announcements.length - 1]?.heading.substring(0, 30)}...` : announcements[announcements.length - 1]?.heading}
+                    {announcements[announcements.length - 1]?.heading.length > 40 ? `${announcements[announcements.length - 1]?.heading.substring(0, 40)}...` : announcements[announcements.length - 1]?.heading}
                   </h3>
                   
                   <p className='date'>
@@ -558,7 +588,7 @@ function Home() {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     className='title'
                   >
-                    {announcements[announcements.length - 2]?.heading.length > 30 ? `${announcements[announcements.length - 2]?.heading.substring(0, 30)}...` : announcements[announcements.length - 2]?.heading}
+                    {announcements[announcements.length - 2]?.heading.length > 40 ? `${announcements[announcements.length - 2]?.heading.substring(0, 40)}...` : announcements[announcements.length - 2]?.heading}
                   </h3>
                   
                   <p className='date'>
@@ -589,7 +619,7 @@ function Home() {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     className='title'
                   >
-                    {announcements[announcements.length - 3]?.heading.length > 30 ? `${announcements[announcements.length - 3]?.heading.substring(0, 30)}...` : announcements[announcements.length - 3]?.heading}
+                    {announcements[announcements.length - 3]?.heading.length > 40 ? `${announcements[announcements.length - 3]?.heading.substring(0, 40)}...` : announcements[announcements.length - 3]?.heading}
                   </h3>
                   
                   <p className='date'>
@@ -624,93 +654,122 @@ function Home() {
           </div>
 
           {/* Notifications */}
-          <div 
-            ref={notificationsStackRef} 
-            onClick={navigateToNotifications}
-            className='notifications stack'
-          >
-            <div className='header'>
-              <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-                Notifications
-              </h2>
+          {initialState.user?.notifications?.length !== 0 && (
+            <div 
+              ref={notificationsStackRef} 
+              className='notifications stack'
+            >
+              <div className='header'>
+                <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                  Notifications
+                </h2>
 
-              <div>
-                <span className='badge'>4</span>
-                <Link 
-                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                  onClick={navigateToNotifications}
-                  className='text btn'
-                >
-                  See More
-                </Link>
+                <div>
+                  <span className='badge'>
+                    {notificationsCount}
+                  </span>
+                  <Link 
+                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                    onClick={navigateToNotifications}
+                    className='text btn'
+                  >
+                    See More
+                  </Link>
+                </div>
+              </div>
+              <div className='list'>
+                {notifications?.length >= 3 && (
+                  <Link onClick={(e) => handleNotificationClick(e, notifications[notifications.length - 1]?.notificationId, notifications[notifications.length - 1]?.type, notifications[notifications.length - 1]?.otherDetails)} className='item'>
+                    <span className='badge'>
+                      {notifications[notifications.length - 1]?.type === 'account' && <Security color='#FFF' />}
+                      {notifications[notifications.length - 1]?.type === 'announcement' && <Megaphone color='#FFF' />}
+                      {notifications[notifications.length - 1]?.type === 'guest' && <Users color='#FFF' />}
+                      {notifications[notifications.length - 1]?.type === 'profile' && <UserInfo color='#FFF' />}
+                    </span>
+
+                    <div>
+                      <div className='titleAndDate'>
+                        <h3 
+                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                          className='title'
+                        >
+                          {notifications[notifications.length - 1]?.heading}
+                        </h3>
+
+                        <p className='date'>
+                          {`${formatDate(notifications[notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications.length - 1]?.dateCreated)}`}
+                        </p>
+                      </div>
+                      
+                      <p>
+                        {notifications[notifications.length - 1]?.body.substring(0, 54)}
+                      </p>
+                    </div>
+                  </Link>
+                )}
+
+                {notifications?.length >= 2 && (
+                  <Link onClick={(e) => handleNotificationClick(e, notifications[notifications.length - 1]?.notificationId, notifications[notifications.length - 1]?.type, notifications[notifications.length - 1]?.otherDetails)} className='item'>
+                    <span className='badge'>
+                      {notifications[notifications.length - 1]?.type === 'account' && <Security color='#FFF' />}
+                      {notifications[notifications.length - 1]?.type === 'announcement' && <Megaphone color='#FFF' />}
+                      {notifications[notifications.length - 1]?.type === 'guest' && <Users color='#FFF' />}
+                      {notifications[notifications.length - 1]?.type === 'profile' && <UserInfo color='#FFF' />}
+                    </span>
+
+                    <div>
+                      <div className='titleAndDate'>
+                        <h3 
+                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                          className='title'
+                        >
+                          {notifications[notifications.length - 1]?.heading}
+                        </h3>
+
+                        <p className='date'>
+                          {`${formatDate(notifications[notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications.length - 1]?.dateCreated)}`}
+                        </p>
+                      </div>
+                      
+                      <p>
+                        {notifications[notifications.length - 1]?.body.substring(0, 54)}
+                      </p>
+                    </div>
+                  </Link>
+                )}
+
+                {notifications?.length >= 1 && (
+                  <Link onClick={(e) => handleNotificationClick(e, notifications[notifications.length - 3]?.notificationId, notifications[notifications.length - 3]?.type, notifications[notifications.length - 3]?.otherDetails)} className='item'>
+                    <span className='badge'>
+                      {notifications[notifications.length - 3]?.type === 'account' && <Security color='#FFF' />}
+                      {notifications[notifications.length - 3]?.type === 'announcement' && <Megaphone color='#FFF' />}
+                      {notifications[notifications.length - 3]?.type === 'guest' && <Users color='#FFF' />}
+                      {notifications[notifications.length - 3]?.type === 'profile' && <UserInfo color='#FFF' />}
+                    </span>
+
+                    <div>
+                      <div className='titleAndDate'>
+                        <h3 
+                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                          className='title'
+                        >
+                          {notifications[notifications.length - 3]?.heading}
+                        </h3>
+
+                        <p className='date'>
+                          {`${formatDate(notifications[notifications.length - 3]?.dateCreated)} at ${formatTime(notifications[notifications.length - 3]?.dateCreated)}`}
+                        </p>
+                      </div>
+                      
+                      <p>
+                        {notifications[notifications.length - 3]?.body.substring(0, 54)}
+                      </p>
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
-
-            <div className='list'>
-              <Link to='#' className='item'>
-                <span className='badge'>
-                  <Users color='#FFF' />
-                </span>
-
-                <div>
-                  <div className='titleAndDate'>
-                    <h3 
-                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                      className='title'
-                    >
-                      Your Guest
-                    </h3>
-
-                    <p className='date'>Today at 9:10 AM</p>
-                  </div>
-                  
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-                </div>
-              </Link>
-
-              <Link className='item'>
-                <span className='badge'>
-                  <Megaphone color='#FFF' />
-                </span>
-
-                <div>
-                  <div className='titleAndDate'>
-                    <h3 
-                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                      className='title'
-                    >
-                      Announcement
-                    </h3>
-
-                    <p className='date'>Today at 9:10 AM</p>
-                  </div>
-                  
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-                </div>
-              </Link>
-
-              <Link className='item'>
-                <span className='badge'>
-                  <Users color='#FFF' />
-                </span>
-
-                <div>
-                  <div className='titleAndDate'>
-                    <h3 
-                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                      className='title'
-                    >
-                      Your Guest
-                    </h3>
-                    
-                    <p className='date'>Today at 9:10 AM</p>
-                  </div>
-                  
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-                </div>
-              </Link>
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </>

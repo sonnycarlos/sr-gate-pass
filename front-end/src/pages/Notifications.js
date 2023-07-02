@@ -29,12 +29,16 @@ function Notifications({ forwardRef }) {
   const [initialState, dispatch] = useSrContext()
   const [notifications, setNotifications] = useState([])
 
-  // Navigate to
-  const navigateTo = async (e, id, type, otherDetails) => {
+  // Handle click
+  const handleClick = async (e, id, type, otherDetails) => {
     e.preventDefault()
 
     const user = JSON.parse(window.localStorage.getItem('profile'))
     await markNotificationAsRead({ userId: user.userId, notificationId: id })
+
+    if (type === 'guest') {
+      navigate(`/guest-overview/${otherDetails?.guestId}`)
+    }
 
     if (type === 'announcement') {
       navigate(`/announcement-overview/${otherDetails?.announcementId}`)
@@ -75,7 +79,6 @@ function Notifications({ forwardRef }) {
     const socket = io('http://localhost:8000')
 
     socket.on('notification', (notification) => {
-      console.log(notification)
       setNotifications(prevNotifications => [...prevNotifications, notification])
     })
 
@@ -96,7 +99,7 @@ function Notifications({ forwardRef }) {
         <div className='list'>
           {notifications?.slice(0)?.reverse()?.map(({ notificationId, type, heading, body, dateCreated, isRead, otherDetails }) => (
             <Link 
-              onClick={(e) => navigateTo(e, notificationId, type, otherDetails)}
+              onClick={(e) => handleClick(e, notificationId, type, otherDetails)}
               key={notificationId} 
               className='item'>
               <span className='badge'>
@@ -112,7 +115,7 @@ function Notifications({ forwardRef }) {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     className='title'
                   >
-                    {heading}
+                    {heading.length > 27 ? `${heading.substring(0, 27)}...` : heading.substring(0, 27)}
                   </h3>
 
                   <p className='date'>

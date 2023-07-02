@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 
 import { 
   Guest,
+  Notification,
   User 
 } from '../models/index.js'
 
@@ -115,10 +116,37 @@ const bookGuest = asyncHandler(async (req, res) => {
         $push: { ['dateBooked']: Date.now() } 
       }
     )
+    const guestCount = await Guest.countDocuments()
 
     if (guest.modifiedCount > 0) {
       const guestRes = await Guest.findOne({ _id: guestExists._id })
+      const notification = await Notification.create({
+        type: 'guest',
+        heading: 'Guest Booked!',
+        body: 'Guest successfully booked.',
+        dateCreated: Date.now(),
+        otherDetails: {
+          guestId: guestExists._id,
+        }
+      })
+  
+      await User.updateMany(
+        { emailAddress },
+        { $push: { notifications: {
+          notificationId: notification._id,
+          type: 'guest',
+          heading: 'Your guest has been booked!!',
+          body: 'The gate pass of your guest is valid for 24 hours only.',
+          dateCreated: Date.now(),
+          isRead: false,
+          otherDetails: {
+            guestId: guestExists._id,
+          }
+        }}}
+      )
+
       io.emit('guestCount', guestCount)
+      io.emit('notification', notification)
       return res.status(200).json(guestRes)
     } else {
       res.status(400).json({ errorMessage: `Error. There's a problem encountered.` })
@@ -140,7 +168,34 @@ const bookGuest = asyncHandler(async (req, res) => {
   const result = await Guest.updateOne({ _id: guest._id }, { $set: { urlLink: `localhost:3000/${guest._id}` } })
 
   if (result) {
+    const notification = await Notification.create({
+      type: 'guest',
+      heading: 'Guest Booked!',
+      body: 'Guest successfully booked.',
+      dateCreated: Date.now(),
+      otherDetails: {
+        guestId: guest._id,
+      }
+    })
+
+    await User.updateMany(
+      { emailAddress },
+      { $push: { notifications: {
+        notificationId: notification._id,
+        type: 'guest',
+        heading: 'Your guest has been booked!!',
+        body: 'The gate pass of your guest is valid for 24 hours only.',
+        dateCreated: Date.now(),
+        isRead: false,
+        otherDetails: {
+          guestId: guest._id,
+        }
+      }}}
+    )
+
     io.emit('guestCount', guestCount)
+    io.emit('notification', notification)
+
     res.status(200).json({ guest })
   } else {
     res.status(400).json({ errorMessage: `Error. There's a problem encountered.` })

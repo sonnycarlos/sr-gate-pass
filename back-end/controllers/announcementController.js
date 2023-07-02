@@ -49,8 +49,8 @@ const postAnnouncement = asyncHandler(async (req, res) => {
     })
     const notification = await Notification.create({
       type: 'announcement',
-      heading: 'Announcement',
-      body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+      heading: 'New Announcement Posted!',
+      body: 'New announcement posted! Check it out to stay updated.',
       dateCreated: Date.now(),
       otherDetails: {
         announcementId: announcement._id
@@ -62,8 +62,8 @@ const postAnnouncement = asyncHandler(async (req, res) => {
       { $push: { notifications: {
         notificationId: notification._id,
         type: 'announcement',
-        heading: 'Announcement',
-        body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+        heading: 'New Announcement Posted!',
+        body: 'New announcement posted! Check it out to stay updated.',
         dateCreated: Date.now(),
         isRead: false,
         otherDetails: {
@@ -77,8 +77,8 @@ const postAnnouncement = asyncHandler(async (req, res) => {
       io.emit('notification', {
         notificationId: notification._id,
         type: 'announcement',
-        heading: 'Announcement',
-        body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+        heading: 'New Announcement Posted!',
+        body: 'New announcement posted! Check it out to stay updated.',
         dateCreated: Date.now(),
         isRead: false,
         otherDetails: {
@@ -98,8 +98,8 @@ const postAnnouncement = asyncHandler(async (req, res) => {
     })
     const notification = await Notification.create({
       type: 'announcement',
-      heading: 'Announcement',
-      body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+      heading: 'New Announcement Posted!',
+      body: 'New announcement posted! Check it out to stay updated.',
       dateCreated: Date.now(),
       otherDetails: {
         announcementId: announcement._id
@@ -112,7 +112,7 @@ const postAnnouncement = asyncHandler(async (req, res) => {
         notificationId: notification._id,
         type: 'announcement',
         heading: 'Announcement',
-        body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+        body: 'New announcement posted! Check it out to stay updated.',
         dateCreated: Date.now(),
         isRead: false,
         otherDetails: {
@@ -127,7 +127,7 @@ const postAnnouncement = asyncHandler(async (req, res) => {
         notificationId: notification._id,
         type: 'announcement',
         heading: 'Announcement',
-        body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+        body: 'New announcement posted! Check it out to stay updated.',
         dateCreated: Date.now(),
         isRead: false,
         otherDetails: {

@@ -40,7 +40,7 @@ function MyGuests() {
   const [guests, setGuests] = useState([])
   const [currentWeekBookings, setCurrentWeekBookings] = useState([])
   const [lastWeekBookings, setLastWeekBookings] = useState([])
-  const [otherBookings, setOtherBookings] = useState([])
+  const [otherWeekBookings, setOtherWeekBookings] = useState([])
   const [openItemId, setOpenItemId] = useState(null)
   const [initialState, dispatch] = useSrContext()
   const [isVisible, setIsVisible] = useState(true)
@@ -193,13 +193,13 @@ function MyGuests() {
       setLastWeekBookings(lastWeekBookings)
 
       // Filter bookings for other dates
-      const otherBookings = mergedData.filter(booking => {
+      const otherWeekBookings = mergedData.filter(booking => {
         const bookingDate = new Date(booking.day)
         return bookingDate < lastWeekStart || bookingDate > currentWeekEnd
       })
 
-      setOtherBookings(otherBookings)
-      console.log(currentWeekBookings)
+      setOtherWeekBookings(otherWeekBookings)
+      console.log(otherWeekBookings)
     }
 
     validate()
@@ -305,7 +305,7 @@ function MyGuests() {
                   </h2>
 
                   <div className='items'>
-                    {lastWeekBookings.map((guest, i) => {
+                    {lastWeekBookings.slice(0).reverse().map((guest, i) => {
                       const isItemOpen = guest.day === openItemId
 
                       return (
@@ -358,14 +358,14 @@ function MyGuests() {
                 </div>
               )}
 
-              {otherBookings.length !== 0 && (
+              {otherWeekBookings.length !== 0 && (
                 <div>
                   <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
                     Other weeks
                   </h2>
 
                   <div className='items'>
-                    {otherBookings.map((guest, i) => {
+                    {otherWeekBookings.map((guest, i) => {
                       const isItemOpen = guest.day === openItemId
 
                       return (

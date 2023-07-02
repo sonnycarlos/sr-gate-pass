@@ -228,8 +228,9 @@
   left: 20px;
   right: 20px;
   transition: 1000ms ease-in-out;
-  display: grid;
-  gap: 32px;
+  display: flex;
+  flex-direction: column;
+  height: 235px;
   padding: 16px 16px 24px;
   background-color: var(--white);
 }
@@ -238,6 +239,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 32px;
 }
 
 #home > .container > .notifications > .header > h2 {
@@ -295,6 +297,7 @@
 #home > .container > .notifications > .list > .item > div > .titleAndDate > .date {
   color: var(--carbon-grey);
   font-size: 12px;
+  font-weight: 500;
 }
 
 #home > .container > .notifications > .list > .item > div > p {
@@ -401,6 +404,7 @@
 
   #home > .container > .notifications {
     top: 648px;
+    height: 238px;
   }
 
   #home > .container > .notifications > .header > h2 {

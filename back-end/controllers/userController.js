@@ -574,9 +574,34 @@ const approveUser = asyncHandler(async (req, res) => {
           }
         )
         await User.updateOne({ _id: profileRequest.userId }, { $set: { isApprove: true } })
+        
+        const notification = await Notification.create({
+          type: 'profile',
+          heading: 'New Profile Approved!',
+          body: 'New profile has been approved.',
+          dateCreated: Date.now(),
+          otherDetails: {
+            userId: profileRequest.userId
+          }
+        })
+
+        await User.updatOne(
+          { _id: profileRequest.userId },
+          { $push: { notifications: {
+            notificationId: notification._id,
+            type: 'profile',
+            heading: 'Welcome to SR Gate Pass!',
+            body: 'Your profile registration has been approved by the admin. Welcome!',
+            dateCreated: Date.now(),
+            isRead: false,
+            otherDetails: {
+              userId: profileRequest.userId
+            }
+          }}}
+        )
       }
 
-      res.status(201).json({ message: 'Register resident profile uccessfully' })
+      res.status(201).json({ message: 'Register resident profile successfully' })
     }
 
     // If action is edit

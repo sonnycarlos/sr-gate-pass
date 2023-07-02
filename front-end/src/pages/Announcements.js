@@ -19,7 +19,7 @@ import '../css/announcements.css'
 function Announcements({ forwardRef }) {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
-  const [announcements, setAnnouncements] = useState(initialState.announcements)
+  const [announcements, setAnnouncements] = useState(initialState.announcements || [])
 
   // Use effect
   useEffect(() => {
@@ -84,49 +84,51 @@ function Announcements({ forwardRef }) {
         </h1>
 
         {/* List */}
-        <div className='list'>
-          {announcements?.slice(0)?.reverse()?.map(({ _id, heading, body, datePosted, isPin }, i) => {
-            return (
-              <Link 
-                to={`/announcement-overview/${_id}`} 
-                key={_id} 
-                className='item'
-              >
-                {isPin && (
-                  <div className='pin'>
-                    <Pin color='#5CB950' />
-                  </div>
-                )}
-
-                <div className='titleAndDate'>
-                  <h2 
-                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-                    className='title'
-                  >
-                    {heading.length > 30 ? `${heading.substring(0, 30)}...` : heading}
-                  </h2>
-                  
-                  <p className='date'>
-                    {`${formatDate(datePosted)} at ${formatTime(datePosted)}`}
-                  </p>
-                </div>
-
-                <p>
-                  {body.length > 140 ? `${body.substring(0, 140)}...` : body}
-                    
-                  {body.length > 140 && (
-                    <button 
-                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                      className='text btn'
-                    >
-                      See more
-                    </button>
+        {announcements?.length > 0 && (
+          <div className='list'>
+            {announcements?.slice(0)?.reverse()?.map(({ _id, heading, body, datePosted, isPin }, i) => {
+              return (
+                <Link 
+                  to={`/announcement-overview/${_id}`} 
+                  key={_id} 
+                  className='item'
+                >
+                  {isPin && (
+                    <div className='pin'>
+                      <Pin color='#5CB950' />
+                    </div>
                   )}
-                </p>
-              </Link>
-              )
-          })}
-        </div>
+
+                  <div className='titleAndDate'>
+                    <h2 
+                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                      className='title'
+                    >
+                      {heading.length > 30 ? `${heading.substring(0, 30)}...` : heading}
+                    </h2>
+                    
+                    <p className='date'>
+                      {`${formatDate(datePosted)} at ${formatTime(datePosted)}`}
+                    </p>
+                  </div>
+
+                  <p>
+                    {body.length > 140 ? `${body.substring(0, 140)}...` : body}
+                      
+                    {body.length > 140 && (
+                      <button 
+                        style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                        className='text btn'
+                      >
+                        See more
+                      </button>
+                    )}
+                  </p>
+                </Link>
+                )
+            })}
+          </div>
+        )}
       </div>
     </section>
   )

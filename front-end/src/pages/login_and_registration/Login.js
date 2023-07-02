@@ -67,7 +67,6 @@ function Login() {
     window.localStorage.removeItem('registration')
     window.localStorage.removeItem('onboarding')
     window.localStorage.removeItem('forgotPassword')
-    window.localStorage.removeItem('profile')
     window.localStorage.removeItem('applicationId')
     window.localStorage.removeItem('application')
     window.localStorage.removeItem('guest')
@@ -86,11 +85,11 @@ function Login() {
         const res = await validateUser(dispatch, { token })
 
         if (res?.status === 200) {
+          document.cookie = `token=${token}; path=/`
           navigate('/home')
         }
       } else {
         document.cookie = 'token=; Max-Age=0; secure'
-        localStorage.removeItem('user')
       }
     }
 

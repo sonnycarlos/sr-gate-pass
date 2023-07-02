@@ -52,6 +52,7 @@ function Verification() {
     if (res?.status === 200) {
       if (initialState.keepMeLoggedIn) {
         window.localStorage.setItem('loggedIn', true)
+        window.localStorage.setItem('profile', JSON.stringify({ ...initialState.user?.profile, notifications: initialState.user?.notifications }))
       }
 
       if (initialState.action === 'Log in') {
