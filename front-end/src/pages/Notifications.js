@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import io from 'socket.io-client'
 
 import { 
   useSrContext, 
@@ -69,6 +70,18 @@ function Notifications({ forwardRef }) {
     }
 
     validate()
+
+    // Implement real time
+    const socket = io('http://localhost:8000')
+
+    socket.on('notification', (notification) => {
+      console.log(notification)
+      setNotifications(prevNotifications => [...prevNotifications, notification])
+    })
+
+    return () => {
+      socket.close()
+    }
   }, [])
 
   return (
@@ -81,7 +94,7 @@ function Notifications({ forwardRef }) {
       
         {/* List */}
         <div className='list'>
-          {notifications?.map(({ notificationId, type, heading, body, dateCreated, isRead, otherDetails }) => (
+          {notifications?.slice(0)?.reverse()?.map(({ notificationId, type, heading, body, dateCreated, isRead, otherDetails }) => (
             <Link 
               onClick={(e) => navigateTo(e, notificationId, type, otherDetails)}
               key={notificationId} 
@@ -107,7 +120,7 @@ function Notifications({ forwardRef }) {
                   </p>
                 </div>
                 
-                <p>{body.length > 64 ? `${body.substring(0, 64)}...` : body.substring(0, 64)}</p>
+                <p>{body?.length > 64 ? `${body?.substring(0, 64)}...` : body?.substring(0, 64)}</p>
               </div>
 
               {!isRead && <span className='mark'></span>}

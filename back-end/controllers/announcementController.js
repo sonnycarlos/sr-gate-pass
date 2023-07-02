@@ -71,9 +71,21 @@ const postAnnouncement = asyncHandler(async (req, res) => {
         }
       }}}
     )
-
+    
     if (announcement) {
       io.emit('announcement', announcement)
+      io.emit('notification', {
+        notificationId: notification._id,
+        type: 'announcement',
+        heading: 'Announcement',
+        body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+        dateCreated: Date.now(),
+        isRead: false,
+        otherDetails: {
+          announcementId: announcement._id
+        }
+      })
+      
       return res.status(200).json(announcement)
     }
   } else {
@@ -84,9 +96,45 @@ const postAnnouncement = asyncHandler(async (req, res) => {
       datePosted: Date.now(),
       isPin
     })
+    const notification = await Notification.create({
+      type: 'announcement',
+      heading: 'Announcement',
+      body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+      dateCreated: Date.now(),
+      otherDetails: {
+        announcementId: announcement._id
+      }
+    })
+
+    await User.updateMany(
+      { type: { $ne: 'admin' } },
+      { $push: { notifications: {
+        notificationId: notification._id,
+        type: 'announcement',
+        heading: 'Announcement',
+        body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+        dateCreated: Date.now(),
+        isRead: false,
+        otherDetails: {
+          announcementId: announcement._id
+        }
+      }}}
+    )
 
     if (announcement) {
       io.emit('announcement', announcement)
+      io.emit('notification', {
+        notificationId: notification._id,
+        type: 'announcement',
+        heading: 'Announcement',
+        body: 'New announcement posted from homeowner organization! Check it out to stay updated.',
+        dateCreated: Date.now(),
+        isRead: false,
+        otherDetails: {
+          announcementId: announcement._id
+        }
+      })
+
       return res.status(200).json(announcement)
     }
   }

@@ -59,6 +59,12 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('announcement', announcement)
   })
 
+  // Handle 'notification' event
+  socket.on('notification', (notification) => {
+    // Broadcast the notification to all connected clients
+    socket.broadcast.emit('notification', notification)
+  })
+
   // Handle disconnection event
   socket.on('disconnect', () => {
     console.log('A client disconnected.')
