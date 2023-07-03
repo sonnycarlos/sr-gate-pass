@@ -34,13 +34,22 @@ const signIn = asyncHandler(async (req, res) => {
     userEmailAddress = emailAddress
     const token = generateToken(user._id)
 
-    res.setHeader('Set-Cookie', `token=${token}; Path=/; HttpOnly`)
+    // res.cookie('token', token)
+
+    res.cookie('token', token, {
+      domain: 'https://sr-gate-pass.onrender.com',
+      path: '/',
+      secure: true,
+      httpOnly: true,
+      sameSite: 'none',
+      maxAge: 3600000
+    })
 
     if (user.isApprove) {
       const profileReq = await ProfileRequest.findOne({ userId: user._id })
       const profile = await Resident.findOne({ userId: user._id })
 
-      res.status(200).json({
+      return res.status(200).json({
         id: user._id,
         type: user.type,
         emailAddress: user.emailAddress,
@@ -53,7 +62,7 @@ const signIn = asyncHandler(async (req, res) => {
       })
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       id: user._id,
       type: user.type,
       emailAddress: user.emailAddress,

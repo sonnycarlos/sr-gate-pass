@@ -1,3 +1,3 @@
-const domain = 'https://sr-gate-pass.onrender.com/'
+const domain = 'http://localhost:8000/'
 
 export default domain
