@@ -24,6 +24,8 @@ import {
   markNotificationAsRead
 } from '../../utils'
 
+import { domain } from '../../constants'
+
 import {
   Guest,
   MegaphoneEmoji,
@@ -317,6 +319,7 @@ function Home() {
 
   // Use effect
   useEffect(() => {
+    console.log(guests)
     notificationsContRef.current.style.position = 'absolute'
     notificationsContRef.current.style.top = '0'
     notificationsContRef.current.style.bottom = '0'
@@ -420,19 +423,10 @@ function Home() {
     validate()
     getGuests()
     getAnnouncements().then(fetchedAnnouncements => setAnnouncements(fetchedAnnouncements))
-
-    // Set booking count
-    if (bookingCount === null) {
-      window.localStorage.setItem('bookingCount', 0)
-    }
-
-    // Reset booking count
-    if (new Date().getHours() === 0) {
-      window.localStorage.setItem('bookingCount', 0)
-    }
-
+    
     // Implement real time
-    const socket = io('http://localhost:8000')
+    const socket = io(domain)
+    console.log(socket)
 
     socket.on('guestCount', () => {
       dispatch({ type: UPDATE_GUESTS_COUNT, payload: guestsCount + 1 })

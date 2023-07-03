@@ -35,7 +35,6 @@ function MyGuests() {
   const bookGuestContRef = useRef(null)
   const notificationsContRef = useRef(null)
   const navigate = useNavigate()
-  const bookingCount = window.localStorage.getItem('bookingCount')
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [guests, setGuests] = useState([])
   const [currentWeekBookings, setCurrentWeekBookings] = useState([])
@@ -204,11 +203,6 @@ function MyGuests() {
 
     validate()
     getGuests()
-
-    // Reset booking count
-    if (new Date().getHours() === 0) {
-      window.localStorage.setItem('bookingCount', 0)
-    }
 
     window.addEventListener('scroll', handleScroll)
 
@@ -443,11 +437,9 @@ function MyGuests() {
             <Search color='#1E1E1E' />
           </Link>
 
-          {bookingCount < 3 && (
-            <Link onClick={navigateToBookGuest} className='solid btn'>
-              <Plus color='#FFF' />
-            </Link>
-          )}
+          <Link onClick={navigateToBookGuest} className='solid btn'>
+            <Plus color='#FFF' />
+          </Link>
         </div>
       </section>
     </>

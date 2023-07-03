@@ -7,6 +7,8 @@ import {
   TOGGLE_NAV
 } from '../context'
 
+import { domain } from '../constants'
+
 import {
   BrandLogo,
   Bell,
@@ -35,7 +37,7 @@ function NavigationBar() {
 
   useEffect(() => {
     // Implement real time
-    const socket = io('http://localhost:8000')
+    const socket = io(domain)
 
     socket.on('notification', () => {
       setNotificationCount(prevCount => prevCount + 1)

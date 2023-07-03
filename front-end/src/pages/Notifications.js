@@ -15,6 +15,8 @@ import {
   markNotificationAsRead 
 } from '../utils'
 
+import { domain } from '../constants'
+
 import {
   Megaphone,
   Security,
@@ -76,7 +78,7 @@ function Notifications({ forwardRef }) {
     validate()
 
     // Implement real time
-    const socket = io('http://localhost:8000')
+    const socket = io(domain)
 
     socket.on('notification', (notification) => {
       setNotifications(prevNotifications => [...prevNotifications, notification])
@@ -97,10 +99,10 @@ function Notifications({ forwardRef }) {
       
         {/* List */}
         <div className='list'>
-          {notifications?.slice(0)?.reverse()?.map(({ notificationId, type, heading, body, dateCreated, isRead, otherDetails }) => (
+          {notifications?.slice(0)?.reverse()?.map(({ notificationId, type, heading, body, dateCreated, isRead, otherDetails }, i) => (
             <Link 
               onClick={(e) => handleClick(e, notificationId, type, otherDetails)}
-              key={notificationId} 
+              key={i} 
               className='item'>
               <span className='badge'>
                 {type === 'account' && <Security color='#FFF' />}
@@ -115,7 +117,7 @@ function Notifications({ forwardRef }) {
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     className='title'
                   >
-                    {heading.length > 27 ? `${heading.substring(0, 27)}...` : heading.substring(0, 27)}
+                    {heading.length > 30 ? `${heading.substring(0, 30)}...` : heading.substring(0, 30)}
                   </h3>
 
                   <p className='date'>

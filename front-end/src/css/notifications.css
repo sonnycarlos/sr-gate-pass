@@ -33,7 +33,7 @@
 #notifications > .container > .list > .item {
   display: flex;
   align-items: center;
-  padding: 14px;
+  padding: 12px 14px;
   width: 100%;
   box-shadow: -5px 10px 20px rgba(187, 187, 187, 0.25);
   border-radius: 16px;
@@ -57,7 +57,7 @@
 
 #notifications > .container > .list > .item > div > .titleAndDate {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -69,6 +69,7 @@
 }
 
 #notifications > .container > .list > .item > div > .titleAndDate > .date {
+  margin-top: 2px;
   color: var(--carbon-grey);
   font-size: 12px;
   font-weight: 500;
@@ -76,7 +77,7 @@
 
 #notifications > .container > .list > .item > div > p {
   color: var(--carbon-grey);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
 }
 

@@ -135,7 +135,7 @@ const bookGuest = asyncHandler(async (req, res) => {
         { $push: { notifications: {
           notificationId: notification._id,
           type: 'guest',
-          heading: 'Your guest has been booked!!',
+          heading: 'Your guest has been booked!',
           body: 'The gate pass of your guest is valid for 24 hours only.',
           dateCreated: Date.now(),
           isRead: false,

@@ -12,6 +12,8 @@ import {
 
 import { formatDate, formatTime } from '../utils'
 
+import { domain } from '../constants'
+
 import { Pin } from '../assets/svg'
 
 import '../css/announcements.css'
@@ -62,7 +64,7 @@ function Announcements({ forwardRef }) {
     validate()
 
     // Implement real time for announcements
-    const socket = io('http://localhost:8000')
+    const socket = io(domain)
     
     socket.on('announcement', (announcement) => {
       setAnnouncements(prevAnnouncements => [...prevAnnouncements, announcement])

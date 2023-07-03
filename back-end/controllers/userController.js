@@ -225,7 +225,7 @@ const validateUser = asyncHandler(async (req, res) => {
     const profile = await Resident.findOne({ userId: _id })
 
     if (profile) {
-      res.status(200).json({
+      return res.status(200).json({
         profile,
         isProfileRequestApprove: profileRequest.isApprove,
         notifications
