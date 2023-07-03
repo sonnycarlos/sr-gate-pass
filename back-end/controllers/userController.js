@@ -34,7 +34,7 @@ const signIn = asyncHandler(async (req, res) => {
     userEmailAddress = emailAddress
     const token = generateToken(user._id)
 
-    res.cookie('token', token)
+    res.setHeader('Set-Cookie', `token=${token}; Path=/; HttpOnly`)
 
     if (user.isApprove) {
       const profileReq = await ProfileRequest.findOne({ userId: user._id })
