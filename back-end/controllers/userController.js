@@ -40,7 +40,7 @@ const signIn = asyncHandler(async (req, res) => {
       domain: 'https://sr-gate-pass.onrender.com',
       path: '/',
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'none',
       maxAge: 3600000
     })
