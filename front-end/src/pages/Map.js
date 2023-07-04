@@ -26,8 +26,6 @@ function Map() {
   const navigate = useNavigate()
   const [, dispatch] = useSrContext()
   const [Grid, setGrid] = useState([])
-  const [Path, setPath] = useState([])
-  const [VisitedNodes, setVisitedNodes] = useState([])
   const [searchInput, setSearchInput] = useState('')
   const [previousPath, setPreviousPath] = useState([])
   const [previousVisitedNodes, setPreviousVisitedNodes] = useState([])
@@ -50,7 +48,6 @@ function Map() {
     this.isWall = false
     this.previous = undefined
     this.label = getLabel(this.x, this.y) // Add label property
-    this.image = getImage(this.x, this.y) // Add label property
     this.houseName = houseName(this.x, this.y) // Add label property
     this.isStartVisited = false
     this.isEndVisited = false
@@ -119,18 +116,6 @@ function Map() {
 
     if (endNode) {
       return endNode.label
-    }
-
-    return ''
-  }
-
-  // Get Image
-  const getImage = (x, y) => {
-
-    const endNode = endNodes.find(node => node.row === x && node.col === y)
-
-    if (endNode) {
-      return endNode.image
     }
 
     return ''
