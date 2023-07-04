@@ -34,16 +34,7 @@ const signIn = asyncHandler(async (req, res) => {
     userEmailAddress = emailAddress
     const token = generateToken(user._id)
 
-    // res.cookie('token', token)
-
-    res.cookie('token', token, {
-      domain: 'https://sr-gate-pass.onrender.com',
-      path: '/',
-      secure: true,
-      httpOnly: false,
-      sameSite: 'none',
-      maxAge: 3600000
-    })
+    res.cookie('token', token)
 
     if (user.isApprove) {
       const profileReq = await ProfileRequest.findOne({ userId: user._id })
