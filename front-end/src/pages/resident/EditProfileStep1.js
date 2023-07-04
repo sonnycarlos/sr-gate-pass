@@ -226,7 +226,7 @@ function EditProfileStep1({ forwardRef }) {
               name='phoneNumber'
               placeholder='Your phone number here'
               value={inputs.phoneNumber}
-              maxLength='6'
+              maxLength='11'
               onChange={e => setInputs({ ...inputs, phoneNumber: e.target.value })}
               required
             />

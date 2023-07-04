@@ -92,6 +92,7 @@ export async function fetchAnnouncements(dispatch) {
 // Book guest
 export async function bookGuest(dispatch, payload) {
   const { 
+    bookingNumber,
     name,
     phoneNumber,
     qrCodeImage,
@@ -100,7 +101,7 @@ export async function bookGuest(dispatch, payload) {
   } = payload
 
   try {
-    const res = await Axios.post('/guest/book-guest', { name, phoneNumber, qrCodeImage, pin, emailAddress })
+    const res = await Axios.post('/guest/book-guest', { bookingNumber, name, phoneNumber, qrCodeImage, pin, emailAddress })
 
     if (res) {
       dispatch({ type: BOOK_GUEST, payload: res.data })

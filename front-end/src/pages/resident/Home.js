@@ -659,9 +659,12 @@ function Home() {
                 </h2>
 
                 <div>
-                  <span className='badge'>
-                    {notificationsCount}
-                  </span>
+                  {notificationsCount > 0 && (
+                    <span className='badge'>
+                      {notificationsCount}
+                    </span>
+                  )}
+                  
                   <Link 
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                     onClick={navigateToNotifications}
@@ -671,6 +674,7 @@ function Home() {
                   </Link>
                 </div>
               </div>
+
               <div className='list'>
                 {notifications?.length >= 3 && (
                   <Link onClick={(e) => handleNotificationClick(e, notifications[notifications.length - 1]?.notificationId, notifications[notifications.length - 1]?.type, notifications[notifications.length - 1]?.otherDetails)} className='item'>
@@ -733,12 +737,12 @@ function Home() {
                 )}
 
                 {notifications?.length >= 1 && (
-                  <Link onClick={(e) => handleNotificationClick(e, notifications[notifications.length - 3]?.notificationId, notifications[notifications.length - 3]?.type, notifications[notifications.length - 3]?.otherDetails)} className='item'>
+                  <Link onClick={(e) => handleNotificationClick(e, notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.notificationId, notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type, notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.otherDetails)} className='item'>
                     <span className='badge'>
-                      {notifications[notifications.length - 3]?.type === 'account' && <Security color='#FFF' />}
-                      {notifications[notifications.length - 3]?.type === 'announcement' && <Megaphone color='#FFF' />}
-                      {notifications[notifications.length - 3]?.type === 'guest' && <Users color='#FFF' />}
-                      {notifications[notifications.length - 3]?.type === 'profile' && <UserInfo color='#FFF' />}
+                      {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type === 'account' && <Security color='#FFF' />}
+                      {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type === 'announcement' && <Megaphone color='#FFF' />}
+                      {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type === 'guest' && <Users color='#FFF' />}
+                      {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type === 'profile' && <UserInfo color='#FFF' />}
                     </span>
 
                     <div>
@@ -747,16 +751,16 @@ function Home() {
                           style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                           className='title'
                         >
-                          {notifications[notifications.length - 3]?.heading}
+                          {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading}
                         </h3>
 
                         <p className='date'>
-                          {`${formatDate(notifications[notifications.length - 3]?.dateCreated)} at ${formatTime(notifications[notifications.length - 3]?.dateCreated)}`}
+                          {`${formatDate(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)} at ${formatTime(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)}`}
                         </p>
                       </div>
                       
                       <p>
-                        {notifications[notifications.length - 3]?.body.substring(0, 54)}
+                        {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.body.substring(0, 54)}
                       </p>
                     </div>
                   </Link>

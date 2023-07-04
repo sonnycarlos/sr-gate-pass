@@ -44,6 +44,7 @@
 
 #guest_overview > .actions > .btn {
   width: 100%;
+  height: 38px;
   font-size: 12px;
 }
 
@@ -73,6 +74,7 @@
   /* Actions */
 
   #guest_overview > .actions > .btn {
+    height: 40px;
     font-size: 14px;
   }
 }
