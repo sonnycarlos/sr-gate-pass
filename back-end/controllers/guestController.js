@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler'
 import { 
   Guest,
   Notification,
+  Resident,
   User 
 } from '../models/index.js'
 
@@ -12,15 +13,20 @@ import {
 const fetchGuests = asyncHandler(async (req, res) => {
   const { userId } = req.body
 
-  // Return all the guests
-  if (!userId) {
-    const guests = await Guest.find()
-    return res.status(200).json(guests)
-  }
+  try {
+    var guests
 
-  const guests = await Guest.find({ host: userId })
-  
-  return res.status(200).json(guests)
+    // Return all the guests
+    if (!userId) {
+      guests = await Guest.find().populate('host')
+    } else {
+      guests = await Guest.find({ host: userId })
+    }
+
+    return res.status(200).json(guests)
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to fetch guests' })
+  }
 })
 
 // @desc    Fetch guest
@@ -156,9 +162,10 @@ const bookGuest = asyncHandler(async (req, res) => {
   }
 
   // If not exists
+  const host = await Resident.findOne({ userId: user._id })
   const guest = await Guest.create({
     bookingNumber,
-    host: user._id,
+    host,
     name,
     phoneNumber,
     dateBooked: Date.now(),

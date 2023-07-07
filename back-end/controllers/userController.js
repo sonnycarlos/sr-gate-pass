@@ -11,6 +11,7 @@ import {
 } from '../utils/index.js'
 
 import { 
+  Notification,
   ProfileRequest,
   Resident, 
   User 
@@ -36,7 +37,7 @@ const signIn = asyncHandler(async (req, res) => {
 
     res.cookie('token', token)
 
-    if (user.isApprove) {
+    if (user.isApprove && user.type === 'resident') {
       const profileReq = await ProfileRequest.findOne({ userId: user._id })
       const profile = await Resident.findOne({ userId: user._id })
 
@@ -217,19 +218,31 @@ const verifyOtp = asyncHandler(async (req, res) => {
 // @route   POST /api/user/validate-user
 // @access  Public
 const validateUser = asyncHandler(async (req, res) => {
-  const { _id, username, emailAddress, isApprove, notifications } = await User.findById(req.user._id)
+  const { _id, type, username, emailAddress, isApprove, notifications } = await User.findById(req.user._id)
 
   // Check if user was approved
   if (isApprove) {
-    const profileRequest = await ProfileRequest.findOne({ userId: _id })
-    const profile = await Resident.findOne({ userId: _id })
-
-    if (profile) {
+    // If security
+    if (type === 'security') {
       return res.status(200).json({
-        profile,
-        isProfileRequestApprove: profileRequest.isApprove,
+        type,
         notifications
       })
+    }
+
+    // If resident
+    if (type === 'resident') {
+      const profileRequest = await ProfileRequest.findOne({ userId: _id })
+      const profile = await Resident.findOne({ userId: _id })
+
+      if (profile) {
+        return res.status(200).json({
+          type,
+          profile,
+          isProfileRequestApprove: profileRequest.isApprove,
+          notifications
+        })
+      }
     }
   }
 
@@ -585,7 +598,7 @@ const approveUser = asyncHandler(async (req, res) => {
           }
         })
 
-        await User.updatOne(
+        await User.updateOne(
           { _id: profileRequest.userId },
           { $push: { notifications: {
             notificationId: notification._id,
@@ -593,7 +606,7 @@ const approveUser = asyncHandler(async (req, res) => {
             heading: 'Welcome to SR Gate Pass!',
             body: 'Your profile registration has been approved by the admin. Welcome!',
             dateCreated: Date.now(),
-            isRead: false,
+            isRead: true,
             otherDetails: {
               userId: profileRequest.userId
             }
