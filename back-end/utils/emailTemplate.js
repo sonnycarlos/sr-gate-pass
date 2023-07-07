@@ -31,7 +31,7 @@ const emailTemplate = (action, otpCode) => {
                 section {
                   width: 100%;
                   padding: 48px;
-                  background-color: #E6EBF0;
+                  background-color: #5CB950;
                 }
 
                 section > div {
