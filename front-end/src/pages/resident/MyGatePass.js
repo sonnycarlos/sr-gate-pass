@@ -15,6 +15,7 @@ import '../../css/my_gate_pass.css'
 function MyGatePass() {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
+  const details = JSON.parse(window.localStorage.getItem('profile'))
   const [greetText, setGreetText] = useState('')
   const [currentDate, setCurrentDate] = useState(new Date())
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -35,6 +36,11 @@ function MyGatePass() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'my-gate-pass'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGatePass' })
 
+    // Prevent access to this page if not resident type
+    if (details.type === 'security') {
+      navigate('../home-sg')
+    }
+
     // Validate user
     async function validate() {
       const token = window.localStorage.getItem('user')
@@ -44,6 +50,8 @@ function MyGatePass() {
         navigate('/login')
       }
     }
+
+    console.log(details)
 
     const determineTimeOfDay = () => {
       const currentHour = new Date().getHours()
@@ -84,7 +92,7 @@ function MyGatePass() {
       <div className='container'>
         {/* Profile Picture */}
         <div  
-          style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/raw/upload/v1687096624/${initialState.user?.profile?.picture[0]?.name}')` }}
+          style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/raw/upload/v1687096624/${details?.picture[0]?.name}')` }}
           className='profilePicture'
         >
         </div>
@@ -95,15 +103,15 @@ function MyGatePass() {
             style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
             className='name'
           >
-            {`${initialState.user?.profile?.firstName} ${initialState.user?.profile?.lastName}`}
+            {`${details?.firstName} ${details?.lastName}`}
           </h1>
           
-          <p className='address'>{initialState.user?.profile?.address}</p>
+          <p className='address'>{details?.address}</p>
         </div>
 
         {/* QR Code */}
         <div 
-          style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/image/upload/v1687096624/${initialState.user?.profile?.qrCodeImage}')` }}
+          style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/image/upload/v1687096624/${details?.qrCodeImage}')` }}
           className='qrCodeImage'
         >
         </div>

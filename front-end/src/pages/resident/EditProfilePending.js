@@ -17,6 +17,7 @@ import '../../css/status.css'
 function EditProfilePending() {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
+  const details = JSON.parse(window.localStorage.getItem('profile'))
 
   // Handle click
   const handleClick = () => {
@@ -31,6 +32,11 @@ function EditProfilePending() {
     const routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-pending'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
+
+    // Prevent access to this page if not resident type
+    if (details.type === 'security') {
+      navigate('../home-sg')
+    }
 
     // Validate user
     async function validate() {

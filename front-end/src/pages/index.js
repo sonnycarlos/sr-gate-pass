@@ -17,10 +17,12 @@ import EditProfilePending from './resident/EditProfilePending'
 import EditProfileStep1 from './resident/EditProfileStep1'
 import EditProfileStep2 from './resident/EditProfileStep2'
 import EditProfileStep3 from './resident/EditProfileStep3'
+import GatePassReader from './security/GatePassReader'
 import GuestHistory from './GuestHistory'
 import GuestOverview from './GuestOverview'
 import GuestsHistory from './GuestsHistory'
 import Home from './resident/Home'
+import HomeSG from './security/Home'
 import Login from './login_and_registration/Login'
 import Map from './Map'
 import MyApplication from './onboarding/MyApplication'
@@ -58,10 +60,12 @@ export {
   EditProfileStep1,
   EditProfileStep2,
   EditProfileStep3,
+  GatePassReader,
   GuestHistory,
   GuestOverview,
   GuestsHistory,
   Home,
+  HomeSG,
   Login,
   Map,
   MyApplication,

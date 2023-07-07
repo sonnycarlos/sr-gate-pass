@@ -11,6 +11,7 @@ import {
 
 function Menu() {
   const [initialState, dispatch] = useSrContext()
+  const profile = JSON.parse(window.localStorage.getItem('profile'))
 
   // Handle click
   const handleClick = () => {
@@ -36,7 +37,7 @@ function Menu() {
       {/* Links */}
       <div className='links'>
         <Link 
-          to='/home' 
+          to={profile.type === 'security' ? '/home-sg' : '/home'} 
           style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
           className={`${initialState.activePage === 'home' && 'active'}`}
           onClick={() => dispatch({ type: TOGGLE_NAV })}
@@ -56,41 +57,59 @@ function Menu() {
           Announcements
         </Link>
 
-        <Link 
-          to='my-profile' 
-          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-          className={`${initialState.activePage === 'myProfile' && 'active'}`}
-          onClick={() => {
-            dispatch({ type: TOGGLE_NAV })
-            dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
-          }}
-        >
-          My Profile
-        </Link>
+        {profile.type === 'resident' && (
+          <Link 
+            to='my-profile' 
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+            className={`${initialState.activePage === 'myProfile' && 'active'}`}
+            onClick={() => {
+              dispatch({ type: TOGGLE_NAV })
+              dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
+            }}
+          >
+            My Profile
+          </Link>
+        )}
 
-        <Link 
-          to='my-gate-pass' 
-          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-          className={`${initialState.activePage === 'myGatePass' && 'active'}`}
-          onClick={() => {
-            dispatch({ type: TOGGLE_NAV })
-            dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGatePass' })
-          }}
-        >
-          My Gate Pass
-        </Link>
+        {profile.type === 'resident' && (
+          <Link 
+            to='my-gate-pass' 
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+            className={`${initialState.activePage === 'myGatePass' && 'active'}`}
+            onClick={() => {
+              dispatch({ type: TOGGLE_NAV })
+              dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGatePass' })
+            }}
+          >
+            My Gate Pass
+          </Link>
+        )}
 
-        <Link 
-          to='my-guests' 
-          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-          className={`${initialState.activePage === 'myGuests' && 'active'}`}
-          onClick={() => {
-            dispatch({ type: TOGGLE_NAV })
-            dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGuests' })
-          }}
-        >
-          My Guests
-        </Link>
+        {profile.type === 'security' ? (
+          <Link 
+            to='guests' 
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+            className={`${initialState.activePage === 'guests' && 'active'}`}
+            onClick={() => {
+              dispatch({ type: TOGGLE_NAV })
+              dispatch({ type: SET_ACTIVE_PAGE, payload: 'guests' })
+            }}
+          >
+            Guests
+          </Link>
+        ) : (
+          <Link 
+            to='my-guests' 
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+            className={`${initialState.activePage === 'myGuests' && 'active'}`}
+            onClick={() => {
+              dispatch({ type: TOGGLE_NAV })
+              dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGuests' })
+            }}
+          >
+            My Guests
+          </Link>
+        )}
 
         <Link 
           to='map' 

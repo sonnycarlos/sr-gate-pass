@@ -18,10 +18,12 @@ import {
   EditProfileStep1,
   EditProfileStep2,
   EditProfileStep3,
+  GatePassReader,
   GuestHistory,
   GuestOverview,
   GuestsHistory,
   Home,
+  HomeSG,
   Login,
   Map,
   MyGatePass,
@@ -197,6 +199,10 @@ const routes = [
   {
     path: '/map',
     component: <Map />
+  },
+  {
+    path: '/home-sg',
+    component: <HomeSG />
   },
   {
     path: '/*',

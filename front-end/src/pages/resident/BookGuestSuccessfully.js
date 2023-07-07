@@ -15,6 +15,7 @@ import '../../css/status.css'
 function BookGuestSuccessfully() {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
+  const details = JSON.parse(window.localStorage.getItem('profile'))
   const bookingDetails = JSON.parse(window.localStorage.getItem('bookingDetails'))
 
   // Handle click
@@ -26,6 +27,11 @@ function BookGuestSuccessfully() {
   // Use effect
   useEffect(() => {
     document.title = 'Booking Guest Successfully'
+
+    // Prevent access to this page if not resident type
+    if (details.type === 'security') {
+      navigate('../home-sg')
+    }
 
     // Validate user
     async function validate() {

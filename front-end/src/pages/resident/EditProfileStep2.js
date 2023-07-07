@@ -49,6 +49,11 @@ function EditProfileStep2() {
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'edit-profile-step-2'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
 
+    // Prevent access to this page if not resident type
+    if (details.type === 'security') {
+      navigate('../home-sg')
+    }
+    
     // Validate user
     async function validate() {
       const token = window.localStorage.getItem('user')

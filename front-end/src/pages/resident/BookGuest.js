@@ -107,22 +107,6 @@ function BookGuest({ forwardRef }) {
   }, [inputs])
 
   useEffect(() => {
-    document.title = 'Book Guest'
-
-    window.localStorage.removeItem('bookingDetails')
-
-    // Validate user
-    async function validate() {
-      const token = window.localStorage.getItem('user')
-      const res = await validateUser(dispatch, { token })
-
-      if (res?.status === 401) {
-        navigate('/login')
-      }
-    }
-
-    validate()
-
     const qrCodeStyling = new QRCodeStyling({
       width: 1000,
       height: 1000,
@@ -154,6 +138,29 @@ function BookGuest({ forwardRef }) {
 
     console.log(profileDetails)
   }, [bookingNumber])
+
+  useEffect(() => {
+    document.title = 'Book Guest'
+
+    window.localStorage.removeItem('bookingDetails')
+
+    // Prevent access to this page if not resident type
+    if (profileDetails.type === 'security') {
+      navigate('../home-sg')
+    }
+
+    // Validate user
+    async function validate() {
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
+
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
+
+    validate()
+  }, [])
 
   return (
     <section ref={forwardRef} id='book_guest'>

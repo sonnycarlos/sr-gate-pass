@@ -63,10 +63,20 @@ function Verification() {
 
         if (initialState.user?.isRegistrationComplete) {
           if (initialState.user?.isApprove) {
-            window.localStorage.setItem('profile', JSON.stringify({ ...initialState.user?.profile, notifications: initialState.user?.notifications }))
-            console.log(initialState.user)
             await fetchAnnouncements(dispatch, {})
-            return navigate('/home')
+
+            // If security
+            if (initialState.user?.type === 'security') {
+              window.localStorage.setItem('profile', JSON.stringify({ ...initialState.user, notifications: initialState.user?.notifications }))
+              return navigate('/home-sg')
+            }
+            
+            // If resident
+            if (initialState.user?.type === 'resident') {
+              window.localStorage.setItem('profile', JSON.stringify({ ...initialState.user?.profile, notifications: initialState.user?.notifications }))
+              console.log(initialState.user)
+              return navigate('/home')
+            }
           } else {
             return navigate('/account-registration-pending')
           }

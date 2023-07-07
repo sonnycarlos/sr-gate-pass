@@ -104,12 +104,12 @@ function Notifications({ forwardRef }) {
               onClick={(e) => handleClick(e, notificationId, type, otherDetails)}
               key={i} 
               className='item'>
-              <span className='badge'>
+              <div className='badge'>
                 {type === 'account' && <Security color='#FFF' />}
                 {type === 'announcement' && <Megaphone color='#FFF' />}
                 {type === 'guest' && <Users color='#FFF' />}
                 {type === 'profile' && <UserInfo color='#FFF' />}
-              </span>
+              </div>
 
               <div>
                 <div className='titleAndDate'>

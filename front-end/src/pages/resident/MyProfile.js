@@ -21,6 +21,7 @@ function MyProfile() {
   const editProfileContRef = useRef(null)
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
+  const details = JSON.parse(window.localStorage.getItem('profile'))
 
   // Navigate to Edit Profile
   const navigateToEditProfile = (e) => {
@@ -57,6 +58,11 @@ function MyProfile() {
     const routeHistory = initialState.routeHistory
     dispatch({ type: INSERT_ROUTE, payload: [...routeHistory, 'my-profile'] })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myProfile' })
+
+    // Prevent access to this page if not resident type
+    if (details.type === 'security') {
+      navigate('../home-sg')
+    }
 
     // Validate user
     async function validate() {

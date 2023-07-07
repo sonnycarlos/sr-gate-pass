@@ -4,9 +4,8 @@ import io from 'socket.io-client'
 
 import { 
   Announcements, 
-  BookGuest,
   Notifications 
-} from '../../pages/index'
+} from '../index'
 
 import { 
   useSrContext,
@@ -20,8 +19,7 @@ import {
 import { 
   fetchGuests, 
   formatDate, 
-  formatTime,
-  markNotificationAsRead
+  formatTime
 } from '../../utils'
 
 import { domain } from '../../constants'
@@ -29,14 +27,10 @@ import { domain } from '../../constants'
 import {
   Guest,
   MegaphoneEmoji,
-  Add,
   ChevronUp,
   ChevronDown,
   Pin,
-  Megaphone,
-  Security,
-  UserInfo,
-  Users
+  BadgeMeh
 } from '../../assets/svg'
 
 import '../../css/home.css'
@@ -45,7 +39,6 @@ function Home() {
   const homeContRef = useRef(null)
   const announcementsContRef = useRef(null)
   const notificationsContRef = useRef(null)
-  const bookGuestContRef = useRef(null)
   const headingRef = useRef(null)
   const actionRef = useRef(null)
   const guestsStackRef = useRef(null)
@@ -57,7 +50,7 @@ function Home() {
   const announcementsStack2Ref = useRef(null)
   const announcementsStack3Ref = useRef(null)
   const condenseBtnRef = useRef(null)
-  const notificationsStackRef = useRef(null)
+  const bookingsStackRef = useRef(null)
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
   const today = new Date().toISOString().split('T')[0]
@@ -68,7 +61,8 @@ function Home() {
   const [notifications, setNotifications] = useState([])
   const [notificationsCount, setNotificationsCount] = useState(0)
   const details = JSON.parse(window.localStorage.getItem('profile'))
-  const [screenWidth, setScreenWidth] = useState()
+  const [time, setTime] = useState(new Date().getHours())
+  const [greeting, setGreeting] = useState('')
 
   // Handle date change
   const handleDateChange = (e) => {
@@ -91,19 +85,9 @@ function Home() {
   }
 
   // Handle notification click
-  const handleNotificationClick = async (e, id, type, otherDetails) => {
+  const handleBookingClick = async (e, id) => {
     e.preventDefault()
-
-    const user = JSON.parse(window.localStorage.getItem('profile'))
-    await markNotificationAsRead({ userId: user.userId, notificationId: id })
-
-    if (type === 'guest') {
-      navigate(`/guest-overview/${otherDetails?.guestId}`)
-    }
-
-    if (type === 'announcement') {
-      navigate(`/announcement-overview/${otherDetails?.announcementId}`)
-    }
+    navigate(`/guest-overview/${id}`)
   }
 
   // Navigate to Notifications
@@ -140,21 +124,6 @@ function Home() {
     }, 500)
   }
 
-  // Navigate to Book Guest
-  const navigateToBookGuest = (e) => {
-    e.preventDefault()
-
-    homeContRef.current.style.transform = 'translateX(-150px)'
-    homeContRef.current.style.transition = '300ms ease'
-    bookGuestContRef.current.style.visibility = 'visible'
-    bookGuestContRef.current.style.transform = 'translateX(0)'
-    bookGuestContRef.current.style.transition = '300ms ease'
-    
-    setTimeout(() => {
-      navigate('/book-guest')
-    }, 500)
-  }
-
   // Expand announcements
   const expandAnnouncements = (e) => {
     e.preventDefault()
@@ -179,7 +148,7 @@ function Home() {
     }, 1200)
 
     guestsStackRef.current.style.top = '-500px'
-    notificationsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 280}px`
+    bookingsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 280}px`
 
     setTimeout(() => {
       announcementsStack1Ref.current.style.top = '-258px'
@@ -198,12 +167,12 @@ function Home() {
       if (window.innerWidth >= 390) {
         condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (156)}px`
         announcementsStack3Ref.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) - (194 + 141) + 52}px`
-        notificationsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 300}px`
+        bookingsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 300}px`
       }
 
       if (window.innerWidth >= 414) {
         condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (162)}px`
-        notificationsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 308}px`
+        bookingsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 308}px`
       }
     }, 500)
 
@@ -258,7 +227,7 @@ function Home() {
     }, 500)
 
     setTimeout(() => {
-      headingRef.current.innerText = `Welcome, ${details?.firstName}!`
+      headingRef.current.innerText = greeting
       headingRef.current.style.transform = 'translateY(0)'
       headingRef.current.style.transition = '1000ms ease-out'
       headingRef.current.style.opacity = '1'
@@ -267,13 +236,13 @@ function Home() {
     guestsStackRef.current.style.top = '141px'
     
     setTimeout(() => {
-      headingRef.current.innerText = `Welcome, ${details?.firstName}!`
+      headingRef.current.innerText = greeting
     }, 2000)
 
     guestsStackRef.current.style.left = '20px'
     guestsStackRef.current.style.right = '20px'
 
-    notificationsStackRef.current.style.top = '626px'
+    bookingsStackRef.current.style.top = '626px'
 
     setTimeout(() => {
       announcementsStackHeaderRef.current.style.placeContent = 'space-between'
@@ -312,18 +281,17 @@ function Home() {
 
     if (window.innerWidth >= 390) {
       guestsStackRef.current.style.top = '151px'
-      notificationsStackRef.current.style.top = '642px'
+      bookingsStackRef.current.style.top = '642px'
     }
 
     if (window.innerWidth >= 414) {
       guestsStackRef.current.style.top = '155px'
-      notificationsStackRef.current.style.top = '648px'
+      bookingsStackRef.current.style.top = '648px'
     }
   }
 
   // Use effect
   useEffect(() => {
-    console.log(guests)
     notificationsContRef.current.style.position = 'absolute'
     notificationsContRef.current.style.top = '0'
     notificationsContRef.current.style.bottom = '0'
@@ -357,24 +325,14 @@ function Home() {
       child.style.opacity = '0'
     })
 
-    bookGuestContRef.current.style.position = 'absolute'
-    bookGuestContRef.current.style.top = '0'
-    bookGuestContRef.current.style.bottom = '0'
-    bookGuestContRef.current.style.left = '0'
-    bookGuestContRef.current.style.right = '0'
-    bookGuestContRef.current.style.visibility = 'hidden'
-    bookGuestContRef.current.style.transform = 'translateX(100%)'
-    bookGuestContRef.current.style.zIndex = '100'
   }, [])
-  
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth)
-    }
 
-    window.addEventListener('resize', handleResize)
-    handleResize()
-    return () => window.removeEventListener('resize', handleResize)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date().getHours())
+    }, 1000)
+
+    return () => clearInterval(timer)
   }, [])
 
   useEffect(() => {
@@ -385,6 +343,15 @@ function Home() {
     const unreadCount = unreadNotifications?.length
 
     setNotificationsCount(unreadCount)
+
+    if (time >= 5 && time < 12) {
+      setGreeting('Good morning!')
+    } else if (time >= 12 && time < 18) {
+      setGreeting('Good afternoon!')
+    } else {
+      setGreeting('Good evening!')
+    }
+
   }, [initialState.user?.notifications])
 
   useEffect(() => {
@@ -402,11 +369,6 @@ function Home() {
 
     window.localStorage.removeItem('verification')
 
-    // Prevent access to this page if not resident type
-    if (details.type === 'security') {
-      navigate('../home-sg')
-    }
-
     // Validate user
     async function validate() {
       const token = window.localStorage.getItem('user')
@@ -418,7 +380,13 @@ function Home() {
         navigate('/login')
       }
 
+      // Prevent access to this page if not security type
+      if (details.type === 'homeowner' || details.type === 'tenant') {
+        navigate('../home')
+      }
     }
+
+    console.log(initialState.routeHistory[initialState.routeHistory.length - 1])
 
     // Fetch announcements
     async function getAnnouncements() {
@@ -428,15 +396,15 @@ function Home() {
 
     // Fetch guests
     async function getGuests() {
-      const res = await fetchGuests({ userId: details.id })
+      const res = await fetchGuests({})
 
-      const filteredData = res.data?.map(item => {
-        return {
-          dateBooked: item.dateBooked
-        }
+      // Filter the bookings that were booked today
+      const bookingsToday = res?.data.filter(guest => {
+        const bookingDate = new Date(guest?.dateBooked[guest?.dateBooked?.length - 1])
+        return bookingDate.getDate() === new Date().getDate()
       })
 
-      setGuests(filteredData)
+      setGuests(bookingsToday)
     }
 
     validate()
@@ -445,7 +413,6 @@ function Home() {
     
     // Implement real time
     const socket = io(domain)
-    console.log(socket)
 
     socket.on('guestCount', () => {
       dispatch({ type: UPDATE_GUESTS_COUNT, payload: guestsCount + 1 })
@@ -471,14 +438,13 @@ function Home() {
       {/* For Animation Purpose Only */}
       <Notifications forwardRef={notificationsContRef} />
       <Announcements forwardRef={announcementsContRef} />
-      <BookGuest forwardRef={bookGuestContRef} />
 
       <section ref={homeContRef} id='home'>
         <div className='container'>
           {/* Heading & Button */}
           <div className='header'>
             <h1 ref={headingRef} style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              Welcome, {details?.firstName}!
+              {greeting}
             </h1>
 
             <Link 
@@ -512,11 +478,6 @@ function Home() {
                   </span>
                 </div>
               </div>
-
-              <Link onClick={navigateToBookGuest} className='text btn'>
-                <Add color='#FFF' />
-                <span>Book Guest</span>
-              </Link>
             </div>
 
             <p>
@@ -663,15 +624,15 @@ function Home() {
             </button>
           </div>
 
-          {/* Notifications */}
-          {initialState.user?.notifications?.length !== 0 && (
+          {/* Guests Bookings */}
+          {guests?.length > 0 ? (
             <div 
-              ref={notificationsStackRef} 
-              className='notifications stack'
+              ref={bookingsStackRef} 
+              className='bookings stack'
             >
               <div className='header'>
                 <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-                  Notifications
+                  Recent Bookings
                 </h2>
 
                 <div>
@@ -692,11 +653,40 @@ function Home() {
               </div>
 
               <div className='list'>
-                {notifications?.length >= 3 && (
+                {guests?.length >= 3 && (
                   <Link 
-                    onClick={(e) => handleNotificationClick(e, notifications[notifications.length - 1]?.notificationId, notifications[notifications.length - 1]?.type, notifications[notifications.length - 1]?.otherDetails)} 
+                    onClick={(e) => handleBookingClick(e, guests[guests.length - 1]?._id)} 
                     className='item'
                   >
+                    <div>
+                      <div className='nameAndHost'>
+                        <h3 
+                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                          className='name'
+                        >
+                          {notifications[notifications.length - 1]?.heading}
+                        </h3>
+
+                        <div className='host'>
+                          <p>
+                            {guests[guests?.length - 1]?.host?.firstName}
+                          </p>
+                        </div>
+                        
+                        <p className='bookedDate'>
+                          {`${formatDate(notifications[notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications.length - 1]?.dateCreated)}`}
+                        </p>
+                      </div>
+                      
+                      <p>
+                        {notifications[notifications.length - 1]?.body.substring(0, 54)}
+                      </p>
+                    </div>
+                  </Link>
+                )}
+
+                {/* {notifications?.length >= 2 && (
+                  <Link onClick={(e) => handleBookingClick(e, notifications[notifications.length - 1]?.notificationId, notifications[notifications.length - 1]?.type, notifications[notifications.length - 1]?.otherDetails)} className='item'>
                     <span className='badge'>
                       {notifications[notifications.length - 1]?.type === 'account' && <Security color='#FFF' />}
                       {notifications[notifications.length - 1]?.type === 'announcement' && <Megaphone color='#FFF' />}
@@ -710,11 +700,7 @@ function Home() {
                           style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                           className='title'
                         >
-                          {screenWidth <= 375 
-                            ? 
-                          `${notifications[notifications.length - 1]?.heading.substring(0, 23)}...`
-                            : 
-                          notifications[notifications.length - 1]?.heading}
+                          {notifications[notifications.length - 1]?.heading}
                         </h3>
 
                         <p className='date'>
@@ -727,81 +713,70 @@ function Home() {
                       </p>
                     </div>
                   </Link>
-                )}
+                )} */}
 
-                {notifications?.length >= 2 && (
+                {guests?.length >= 1 && (
                   <Link 
-                    onClick={(e) => handleNotificationClick(e, notifications[notifications.length - 1]?.notificationId, notifications[notifications.length - 1]?.type, notifications[notifications.length - 1]?.otherDetails)} 
+                    onClick={(e) => handleBookingClick(e, guests[guests?.length >= 3 ? guests?.length - 3 : 0]?._id)} 
                     className='item'
                   >
-                    <span className='badge'>
-                      {notifications[notifications.length - 1]?.type === 'account' && <Security color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'announcement' && <Megaphone color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'guest' && <Users color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'profile' && <UserInfo color='#FFF' />}
-                    </span>
-
                     <div>
-                      <div className='titleAndDate'>
+                      <div className='guestAndHost'>
                         <h3 
                           style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                          className='title'
+                          className='guest'
                         >
-                          {screenWidth <= 375 
-                            ? 
-                          `${notifications[notifications.length - 1]?.heading.substring(0, 23)}...`
-                            : 
-                          notifications[notifications.length - 1]?.heading}
+                          {guests[guests?.length - 1]?.name}
                         </h3>
 
-                        <p className='date'>
-                          {`${formatDate(notifications[notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications.length - 1]?.dateCreated)}`}
-                        </p>
+                        <div className='host'>
+                          <div 
+                            style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/raw/upload/v1687096624/${guests[guests?.length - 1]?.host?.picture[0].name}')` }}
+                            className='profilePicture'
+                          >
+                          </div>
+
+                          <p className='name'>
+                            {`${guests[guests?.length >= 3 ? guests?.length - 3 : 0]?.host?.firstName} ${guests[guests?.length >= 3 ? guests?.length - 3 : 0]?.host?.lastName}`}
+                          </p>
+                        </div>
                       </div>
-                      
-                      <p>
-                        {notifications[notifications.length - 1]?.body.substring(0, 54)}
+
+                      <p className='bookingTime'>
+                        {formatTime(guests[guests?.length - 1]?.dateBooked)}
                       </p>
                     </div>
                   </Link>
                 )}
+              </div>
+            </div>
+          ) : (
+            <div 
+              ref={bookingsStackRef} 
+              className='bookings stack'
+            >
+              <div className='header'>
+                <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                  Recent Bookings
+                </h2>
 
-                {notifications?.length >= 1 && (
-                  <Link 
-                    onClick={(e) => handleNotificationClick(e, notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.notificationId, notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type, notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.otherDetails)} 
-                    className='item'
-                  >
+                <div>
+                  {notificationsCount > 0 && (
                     <span className='badge'>
-                      {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type === 'account' && <Security color='#FFF' />}
-                      {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type === 'announcement' && <Megaphone color='#FFF' />}
-                      {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type === 'guest' && <Users color='#FFF' />}
-                      {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.type === 'profile' && <UserInfo color='#FFF' />}
+                      {notificationsCount}
                     </span>
+                  )}
+                </div>
+              </div>
 
-                    <div>
-                      <div className='titleAndDate'>
-                        <h3 
-                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                          className='title'
-                        >
-                          {screenWidth <= 375 
-                            ? 
-                          `${notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading.substring(0, 23)}...`
-                            : 
-                          notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading}
-                        </h3>
-
-                        <p className='date'>
-                          {`${formatDate(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)} at ${formatTime(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)}`}
-                        </p>
-                      </div>
-                      
-                      <p>
-                        {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.body.substring(0, 54)}
-                      </p>
-                    </div>
-                  </Link>
-                )}
+              <div className='status'>
+                {/* Badge */}
+                <img src={BadgeMeh} alt='Badge' />
+                
+                {/* Text */}
+                <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Medium' }}>
+                  No bookings yet
+                </p>
               </div>
             </div>
           )}

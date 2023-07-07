@@ -270,7 +270,7 @@
 #home > .container > .notifications > .list > .item > .badge {
   width: 36px;
   height: 32px;
-  margin-right: 12px;
+  margin-right: 8px;
   padding: 4px;
   border-radius: 4px;
 }
@@ -304,6 +304,113 @@
   color: var(--carbon-grey);
   font-size: 12px;
   font-weight: 500;
+}
+
+/* Bookings */
+
+#home > .container > .bookings {
+  position: absolute;
+  top: 626px;
+  left: 20px;
+  right: 20px;
+  transition: 1000ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  height: 235px;
+  padding: 16px 16px 24px;
+  background-color: var(--white);
+}
+
+#home > .container > .bookings > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+#home > .container > .bookings > .header > h2 {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 18px;
+}
+
+#home > .container > .bookings > .header > div {
+  display: flex;
+  align-items: center;
+}
+
+#home > .container > .bookings > .header > div > .btn {
+  margin-left: 8px;
+}
+
+#home > .container > .bookings > .list {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+}
+
+#home > .container > .bookings > .list > .item {
+  display: flex;
+  width: 100%;
+}
+
+#home > .container > .bookings > .list > .item > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#home > .container > .bookings > .list > .item > div > .guestAndHost {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+}
+
+#home > .container > .bookings > .list > .item > div > .guestAndHost > .guest {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 16px;
+  font-weight: 800;
+}
+
+#home > .container > .bookings > .list > .item > div > .guestAndHost > .host {
+  display: flex;
+  align-items: center;
+}
+
+#home > .container > .bookings > .list > .item > div > .guestAndHost > .host > .profilePicture {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  border-radius: 100%;
+  background-size: cover;
+}
+
+#home > .container > .bookings > .list > .item > div > .bookingTime {
+  width: 64px;
+  color: var(--carbon-grey);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+#home > .container > .bookings > .status {
+  visibility: hidden;
+  animation: showStatus 5s linear 3s forwards;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  margin-top: 24px;
+}
+
+#home > .container > .bookings > .status > img {
+  width: 64px;
+  height: 64px;
+}
+
+#home > .container > .bookings > .status > p {
+  margin-top: 16px;
+  text-align: center;
+  font-family: 'SFProDisplay-Medium';
+  font-size: 18px;
 }
 
 /* Screen Width: 390px */
@@ -360,6 +467,12 @@
   #home > .container > .notifications {
     top: 642px;
   }
+
+  /* Bookings */
+
+  #home > .container > .bookings {
+    top: 642px;
+  }
 }
 
 /* Screen Width: 410px */
@@ -408,6 +521,17 @@
   }
 
   #home > .container > .notifications > .header > h2 {
+    font-size: 20px;
+  }
+
+  /* Bookings */
+
+  #home > .container > .bookings {
+    top: 648px;
+    height: 238px;
+  }
+
+  #home > .container > .bookings > .header > h2 {
     font-size: 20px;
   }
 }

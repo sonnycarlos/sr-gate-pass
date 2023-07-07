@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useSrContext } from '../context'
 
@@ -11,11 +11,21 @@ import '../css/status.css'
 import '../css/style.css'
 
 function PageNotFound() {
+  const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
   
+  // Handle click
+  const handleClick = (e) => {
+    e.preventDefault()
+    console.log('Hitted')
+    navigate(`../${initialState.routeHistory[initialState.routeHistory.length - 1]}`)
+  }
+
   // Use effect
   useEffect(() => {
     document.title = 'Page Not Found'
+
+    console.log(initialState.routeHistory[initialState.routeHistory.length - 1])
   }, [])
 
   return (
@@ -31,7 +41,7 @@ function PageNotFound() {
       </div>
 
       <div className='actions'>
-        <Link to='/login' className='solid btn'>Go back</Link>
+        <Link onClick={e => handleClick(e)} className='solid btn'>Go back</Link>
       </div>
     </section>
   )

@@ -133,6 +133,11 @@ function MyGuests() {
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'myGuests' })
 
+    // Prevent access to this page if not resident type
+    if (details.type === 'security') {
+      navigate('../home-sg')
+    }
+
     // Validate user
     async function validate() {
       let token = window.localStorage.getItem('user')
@@ -145,7 +150,7 @@ function MyGuests() {
 
     // Fetch guests
     async function getGuests() {
-      let res = await fetchGuests({ userId: details.userId })
+      let res = await fetchGuests({ userId: details.id })
 
       setGuests(res.data)
 
