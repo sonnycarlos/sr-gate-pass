@@ -19,7 +19,6 @@ function BookGuest({ forwardRef }) {
   const qrCodeCanvasRef = useRef(null)
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
-  const [bookingNumber, setBookingNumber] = useState('123')
   const [inputs, setInputs] = useState({
     guestName: '',
     guestPhoneNumber: '',
@@ -69,7 +68,6 @@ function BookGuest({ forwardRef }) {
     const fileRes = await uploadImage(qrCodeImage)
 
     const res = await bookGuest(dispatch, { 
-      bookingNumber,
       name: inputs.guestName,
       phoneNumber: inputs.guestPhoneNumber,
       qrCodeImage: `${fileRes.data?.public_id}.png`,
@@ -91,26 +89,12 @@ function BookGuest({ forwardRef }) {
       console.log(res)
     }
   }
-  
-  // Use effect
-  useEffect(() => {
-    function generateRandomNumericId() {
-      const timestamp = Math.floor(Date.now() / 1000)
-      const random = Math.floor(Math.random() * 1000000)
-    
-      return `${timestamp}${random}`
-    }
-
-    const id = generateRandomNumericId()
-
-    setBookingNumber(id)
-  }, [inputs])
 
   useEffect(() => {
     const qrCodeStyling = new QRCodeStyling({
       width: 1000,
       height: 1000,
-      data: `${bookingNumber}`,
+      data: `${inputs.userId}`,
       qrOptions: {
         typeNumber: 0,
         mode: 'Byte',
@@ -137,7 +121,7 @@ function BookGuest({ forwardRef }) {
     qrCodeStyling.update()
 
     console.log(profileDetails)
-  }, [bookingNumber])
+  }, [])
 
   useEffect(() => {
     document.title = 'Book Guest'

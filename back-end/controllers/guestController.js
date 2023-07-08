@@ -71,7 +71,6 @@ const checkIfGuestExists = asyncHandler(async (req, res) => {
 // @access  Public
 const bookGuest = asyncHandler(async (req, res) => {
   const { 
-    bookingNumber,
     name,
     phoneNumber,
     qrCodeImage,
@@ -164,7 +163,6 @@ const bookGuest = asyncHandler(async (req, res) => {
   // If not exists
   const host = await Resident.findOne({ userId: user._id })
   const guest = await Guest.create({
-    bookingNumber,
     host,
     name,
     phoneNumber,

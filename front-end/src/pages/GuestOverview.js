@@ -202,10 +202,10 @@ function GuestOverview() {
         {/* Info */}
         <div className='info'>
           <div className='info-group'>
-            <label>Booking Number</label>
+            <label>Booking ID</label>
 
             <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              {guest.bookingNumber}
+              {guest._id.toUpperCase()}
             </p>
           </div>
 

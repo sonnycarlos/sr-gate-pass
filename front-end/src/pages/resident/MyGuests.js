@@ -268,7 +268,7 @@ function MyGuests() {
                           </div>
 
                           <div className={`content ${isItemOpen ? 'opened' : ''}`}>
-                            {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
+                            {guest?.bookings?.slice(0)?.reverse()?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
                               <div 
                                 key={i}
                                 onClick={() => handleClick(_id)}
@@ -328,7 +328,7 @@ function MyGuests() {
                           </div>
 
                           <div className={`content ${isItemOpen ? 'opened' : ''}`}>
-                            {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
+                            {guest?.bookings?.slice(0)?.reverse()?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
                               <div 
                                 key={i}
                                 onClick={() => navigate(`/guest-overview/${_id}`)}
@@ -388,7 +388,7 @@ function MyGuests() {
                           </div>
 
                           <div className={`content ${isItemOpen ? 'opened' : ''}`}>
-                            {guest?.bookings?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
+                            {guest?.bookings?.slice(0)?.reverse()?.map(({ _id, name, phoneNumber, dateBooked }, i) => (
                               <div 
                                 key={i}
                                 onClick={() => navigate(`/guest-overview/${_id}`)}

@@ -5,10 +5,6 @@ const guestSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  bookingNumber: {
-    type: String,
-    required: true
-  },
   host: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
