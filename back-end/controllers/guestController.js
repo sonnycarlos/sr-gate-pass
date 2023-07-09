@@ -86,6 +86,7 @@ const bookGuest = asyncHandler(async (req, res) => {
 
   // Check if user exists
   const user = await User.findOne({ emailAddress })
+  const host = await Resident.findOne({ userId: user._id })
 
   if (!user) {
     res.status(400).json({ errorMessage: `User doesn't exist.` })
@@ -93,7 +94,7 @@ const bookGuest = asyncHandler(async (req, res) => {
   }
 
   // Check if guest exists
-  const guestExists = await Guest.findOne({ name, phoneNumber, host: user._id })
+  const guestExists = await Guest.findOne({ name, phoneNumber, host })
   
   if (guestExists) {
     // Check if guest is already booked
@@ -153,6 +154,7 @@ const bookGuest = asyncHandler(async (req, res) => {
 
       io.emit('guestCount', guestCount)
       io.emit('notification', notification)
+
       return res.status(200).json(guestRes)
     } else {
       res.status(400).json({ errorMessage: `Error. There's a problem encountered.` })
@@ -162,7 +164,7 @@ const bookGuest = asyncHandler(async (req, res) => {
 
   // If not exists
   const guest = await Guest.create({
-    host: user._id,
+    host,
     name,
     phoneNumber,
     dateBooked: Date.now(),
