@@ -190,8 +190,7 @@ const requestOtp = asyncHandler(async (req, res) => {
   await mailer({ receiver, subject, body })
     .then(() => {
       res.status(200).json({ 
-        status: 'success',
-        otpCode: otpCode 
+        status: 'success'
       })
     })
     .catch(error => {

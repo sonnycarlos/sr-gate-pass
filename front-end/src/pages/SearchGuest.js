@@ -43,14 +43,14 @@ function SearchGuest({ forwardRef }) {
   useEffect(() => {
     document.title = 'Search Guest'
 
-    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routeHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
 
-    document.cookie = `routesHistory=${routeHistory}`
+    document.cookie = `routeHistory=${routeHistory}`
 
     if (routeHistory[routeHistory?.length - 1] !== 'search-guest') {
       routeHistory.push('search-guest')
-      document.cookie = `routesHistory=${routeHistory}`
+      document.cookie = `routeHistory=${routeHistory}`
     } else {
       setRouteDest(routeHistory[routeHistory?.length - 2])
     }

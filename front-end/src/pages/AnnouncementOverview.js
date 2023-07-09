@@ -43,14 +43,14 @@ function AnnouncementOverview() {
     //   imagesContainer[i].style.height = `${width}px`
     // }
 
-    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routeHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
 
     console.log(routeHistory)
 
-    document.cookie = `routesHistory=${routeHistory}`
+    document.cookie = `routeHistory=${routeHistory}`
     routeHistory[routeHistory.length - 1] !== `announcement-overview/${id}` && routeHistory.push(`announcement-overview/${id}`)
-    document.cookie = `routesHistory=${routeHistory}`
+    document.cookie = `routeHistory=${routeHistory}`
     
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
 

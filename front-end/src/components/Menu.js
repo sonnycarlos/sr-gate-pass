@@ -71,7 +71,7 @@ function Menu() {
           </Link>
         )}
 
-        {profile.type === 'resident' && (
+        {profile.type === 'homeowner' && (
           <Link 
             to='my-gate-pass' 
             style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}

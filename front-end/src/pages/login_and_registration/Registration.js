@@ -55,10 +55,10 @@ function Registration() {
 
     localStorage.removeItem('verification')
 
-    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routeHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
 
-    document.cookie = `routesHistory=${routeHistory}`
+    document.cookie = `routeHistory=${routeHistory}`
     routeHistory.push('registration')
     
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })

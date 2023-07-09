@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import {
   useSrContext,
@@ -15,23 +15,18 @@ import '../../css/status.css'
 function BookGuestSuccessfully() {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
-  const details = JSON.parse(window.localStorage.getItem('profile'))
   const bookingDetails = JSON.parse(window.localStorage.getItem('bookingDetails'))
 
   // Handle click
   const handleClick = () => {
-    window.location.href = window.location.href
-    window.location.assign(`/guest-overview/${bookingDetails?._id}`)
+    // window.location.href = window.location.href
+    // window.location.assign(`/guest-overview/${bookingDetails?._id}`)
+    navigate(`/guest-overview/${bookingDetails?._id}`)
   }
 
   // Use effect
   useEffect(() => {
     document.title = 'Booking Guest Successfully'
-
-    // Prevent access to this page if not resident type
-    if (details.type === 'security') {
-      navigate('../home-sg')
-    }
 
     // Validate user
     async function validate() {

@@ -124,7 +124,7 @@ function GuestOverview() {
   useEffect(() => {
     document.title = 'Guest Overview'
 
-    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routeHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
 
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
@@ -205,7 +205,7 @@ function GuestOverview() {
             <label>Booking ID</label>
 
             <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              {guest._id.toUpperCase()}
+              {guest._id}
             </p>
           </div>
 
@@ -268,7 +268,7 @@ function GuestOverview() {
             onClick={() => downloadQRCodeImage(guest.qrCodeImage.match(/^([^.]+)/)[1])} 
             className='outline btn'
           >
-            Download QR Code
+            Download QR
           </button>
 
           <button 

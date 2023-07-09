@@ -51,7 +51,7 @@ function ResetPasswordStep1() {
   useEffect(() => {
     document.title = 'Reset Password'
 
-    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routeHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
 
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })

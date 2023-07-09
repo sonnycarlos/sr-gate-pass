@@ -141,7 +141,7 @@ const bookGuest = asyncHandler(async (req, res) => {
         { $push: { notifications: {
           notificationId: notification._id,
           type: 'guest',
-          heading: 'Your guest has been booked!',
+          heading: 'Your guest has been booked!!',
           body: 'The gate pass of your guest is valid for 24 hours only.',
           dateCreated: Date.now(),
           isRead: false,
@@ -161,9 +161,8 @@ const bookGuest = asyncHandler(async (req, res) => {
   }
 
   // If not exists
-  const host = await Resident.findOne({ userId: user._id })
   const guest = await Guest.create({
-    host,
+    host: user._id,
     name,
     phoneNumber,
     dateBooked: Date.now(),
@@ -190,7 +189,7 @@ const bookGuest = asyncHandler(async (req, res) => {
       { $push: { notifications: {
         notificationId: notification._id,
         type: 'guest',
-        heading: 'Your guest has been booked!',
+        heading: 'Your guest has been booked!!',
         body: 'The gate pass of your guest is valid for 24 hours only.',
         dateCreated: Date.now(),
         isRead: false,

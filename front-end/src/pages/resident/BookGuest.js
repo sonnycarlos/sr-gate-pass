@@ -19,17 +19,19 @@ function BookGuest({ forwardRef }) {
   const qrCodeCanvasRef = useRef(null)
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
+  const bookingCount = window.localStorage.getItem('bookingCount')
+  const profileDetails = JSON.parse(window.localStorage.getItem('profile'))
   const [inputs, setInputs] = useState({
     guestName: '',
     guestPhoneNumber: '',
     pin: ''
   })
   const [error, setError] = useState({ isError: false, errorMessage: '' })
-  const profileDetails = JSON.parse(window.localStorage.getItem('profile'))
 
   // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault()
+
 
     const guestExists = await checkIfGuestExists({
       name: inputs.guestName,
@@ -51,7 +53,11 @@ function BookGuest({ forwardRef }) {
           action: 'book'
         }
 
+        const newBookingCount = parseInt(bookingCount) + 1
+
+        window.localStorage.setItem('bookingCount', newBookingCount)
         window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
+
         return navigate('/book-guest-successfully')
       }
   
@@ -81,7 +87,11 @@ function BookGuest({ forwardRef }) {
         action: 'book'
       }
       
+      const newBookingCount = parseInt(bookingCount) + 1
+
+      window.localStorage.setItem('bookingCount', newBookingCount)
       window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
+
       navigate('/book-guest-successfully')
     }
 
@@ -89,8 +99,25 @@ function BookGuest({ forwardRef }) {
       console.log(res)
     }
   }
-
+  
+  // Use effect
   useEffect(() => {
+    document.title = 'Book Guest'
+
+    window.localStorage.removeItem('bookingDetails')
+
+    // Validate user
+    async function validate() {
+      const token = window.localStorage.getItem('user')
+      const res = await validateUser(dispatch, { token })
+
+      if (res?.status === 401) {
+        navigate('/login')
+      }
+    }
+
+    validate()
+
     const qrCodeStyling = new QRCodeStyling({
       width: 1000,
       height: 1000,
@@ -121,29 +148,6 @@ function BookGuest({ forwardRef }) {
     qrCodeStyling.update()
 
     console.log(profileDetails)
-  }, [])
-
-  useEffect(() => {
-    document.title = 'Book Guest'
-
-    window.localStorage.removeItem('bookingDetails')
-
-    // Prevent access to this page if not resident type
-    if (profileDetails.type === 'security') {
-      navigate('../home-sg')
-    }
-
-    // Validate user
-    async function validate() {
-      const token = window.localStorage.getItem('user')
-      const res = await validateUser(dispatch, { token })
-
-      if (res?.status === 401) {
-        navigate('/login')
-      }
-    }
-
-    validate()
   }, [])
 
   return (
@@ -232,6 +236,7 @@ function BookGuest({ forwardRef }) {
         <input 
           type='submit' 
           value='Book'
+          disabled={bookingCount >= 3}
           className='solid btn' 
         />
       </form>

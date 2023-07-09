@@ -55,12 +55,12 @@ function Notifications({ forwardRef }) {
   useEffect(() => {
     document.title = 'Notifications'
     
-    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routesHistory='))?.split('=')[1]
+    const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routeHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
 
-    document.cookie = `routesHistory=${routeHistory}`
+    document.cookie = `routeHistory=${routeHistory}`
     routeHistory.push('notifications')
-    document.cookie = `routesHistory=${routeHistory}`
+    document.cookie = `routeHistory=${routeHistory}`
     
     dispatch({ type: INSERT_ROUTE, payload: routeHistory })
     dispatch({ type: SET_ACTIVE_PAGE, payload: 'notifications' })
