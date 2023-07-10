@@ -19,19 +19,18 @@ function BookGuest({ forwardRef }) {
   const qrCodeCanvasRef = useRef(null)
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
-  const bookingCount = window.localStorage.getItem('bookingCount')
-  const profileDetails = JSON.parse(window.localStorage.getItem('profile'))
+  const [bookingNumber, setBookingNumber] = useState('123')
   const [inputs, setInputs] = useState({
     guestName: '',
     guestPhoneNumber: '',
     pin: ''
   })
   const [error, setError] = useState({ isError: false, errorMessage: '' })
+  const profileDetails = JSON.parse(window.localStorage.getItem('profile'))
 
   // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault()
-
 
     const guestExists = await checkIfGuestExists({
       name: inputs.guestName,
@@ -53,11 +52,7 @@ function BookGuest({ forwardRef }) {
           action: 'book'
         }
 
-        const newBookingCount = parseInt(bookingCount) + 1
-
-        window.localStorage.setItem('bookingCount', newBookingCount)
         window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
-
         return navigate('/book-guest-successfully')
       }
   
@@ -74,6 +69,7 @@ function BookGuest({ forwardRef }) {
     const fileRes = await uploadImage(qrCodeImage)
 
     const res = await bookGuest(dispatch, { 
+      bookingNumber,
       name: inputs.guestName,
       phoneNumber: inputs.guestPhoneNumber,
       qrCodeImage: `${fileRes.data?.public_id}.png`,
@@ -87,11 +83,7 @@ function BookGuest({ forwardRef }) {
         action: 'book'
       }
       
-      const newBookingCount = parseInt(bookingCount) + 1
-
-      window.localStorage.setItem('bookingCount', newBookingCount)
       window.localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails))
-
       navigate('/book-guest-successfully')
     }
 
@@ -101,6 +93,19 @@ function BookGuest({ forwardRef }) {
   }
   
   // Use effect
+  useEffect(() => {
+    function generateRandomNumericId() {
+      const timestamp = Math.floor(Date.now() / 1000)
+      const random = Math.floor(Math.random() * 1000000)
+    
+      return `${timestamp}${random}`
+    }
+
+    const id = generateRandomNumericId()
+
+    setBookingNumber(id)
+  }, [inputs])
+
   useEffect(() => {
     document.title = 'Book Guest'
 
@@ -121,7 +126,7 @@ function BookGuest({ forwardRef }) {
     const qrCodeStyling = new QRCodeStyling({
       width: 1000,
       height: 1000,
-      data: `${inputs.userId}`,
+      data: `${bookingNumber}`,
       qrOptions: {
         typeNumber: 0,
         mode: 'Byte',
@@ -148,7 +153,7 @@ function BookGuest({ forwardRef }) {
     qrCodeStyling.update()
 
     console.log(profileDetails)
-  }, [])
+  }, [bookingNumber])
 
   return (
     <section ref={forwardRef} id='book_guest'>
@@ -236,7 +241,6 @@ function BookGuest({ forwardRef }) {
         <input 
           type='submit' 
           value='Book'
-          disabled={bookingCount >= 3}
           className='solid btn' 
         />
       </form>

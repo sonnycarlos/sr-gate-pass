@@ -71,6 +71,7 @@ const checkIfGuestExists = asyncHandler(async (req, res) => {
 // @access  Public
 const bookGuest = asyncHandler(async (req, res) => {
   const { 
+    bookingNumber,
     name,
     phoneNumber,
     qrCodeImage,
@@ -94,7 +95,7 @@ const bookGuest = asyncHandler(async (req, res) => {
   }
 
   // Check if guest exists
-  const guestExists = await Guest.findOne({ name, phoneNumber, host })
+  const guestExists = await Guest.findOne({ name, phoneNumber, host: user._id })
   
   if (guestExists) {
     // Check if guest is already booked
@@ -142,7 +143,7 @@ const bookGuest = asyncHandler(async (req, res) => {
         { $push: { notifications: {
           notificationId: notification._id,
           type: 'guest',
-          heading: 'Your guest has been booked!!',
+          heading: 'Your guest has been booked!',
           body: 'The gate pass of your guest is valid for 24 hours only.',
           dateCreated: Date.now(),
           isRead: false,
@@ -154,7 +155,6 @@ const bookGuest = asyncHandler(async (req, res) => {
 
       io.emit('guestCount', guestCount)
       io.emit('notification', notification)
-
       return res.status(200).json(guestRes)
     } else {
       res.status(400).json({ errorMessage: `Error. There's a problem encountered.` })
@@ -164,6 +164,7 @@ const bookGuest = asyncHandler(async (req, res) => {
 
   // If not exists
   const guest = await Guest.create({
+    bookingNumber,
     host,
     name,
     phoneNumber,
@@ -191,7 +192,7 @@ const bookGuest = asyncHandler(async (req, res) => {
       { $push: { notifications: {
         notificationId: notification._id,
         type: 'guest',
-        heading: 'Your guest has been booked!!',
+        heading: 'Your guest has been booked!',
         body: 'The gate pass of your guest is valid for 24 hours only.',
         dateCreated: Date.now(),
         isRead: false,
