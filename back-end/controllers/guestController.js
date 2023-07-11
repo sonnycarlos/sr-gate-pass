@@ -34,7 +34,7 @@ const fetchGuests = asyncHandler(async (req, res) => {
 // @access  Public
 const fetchGuest = asyncHandler(async (req, res) => {
   const { id } = req.body
-  const guest = await Guest.findOne({ _id: id })
+  const guest = await Guest.findOne({ _id: id }).populate('host')
   return res.status(200).json(guest)
 })
 
@@ -173,7 +173,6 @@ const bookGuest = asyncHandler(async (req, res) => {
     pin
   })
   const guestCount = await Guest.countDocuments()
-
   const result = await Guest.updateOne({ _id: guest._id }, { $set: { urlLink: `localhost:3000/${guest._id}` } })
 
   if (result) {
@@ -212,9 +211,25 @@ const bookGuest = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Unlock gate pass
+// @route   POST /api/guest/unlock-gate-pass
+// @access  Public
+const unlockGatePass = asyncHandler(async (req, res) => {
+  const { id, pin } = req.body
+  const guest = await Guest.findOne({ _id: id })
+
+  if (guest.pin === pin) {
+    return res.status(200).json({ guest })
+  } else {
+    res.status(400).json({ errorMessage: 'Invalid pin. Try again.' })
+    throw new Error('Invalid pin. Try again.')
+  }
+})
+
 export {
   fetchGuests,
   fetchGuest,
   bookGuest,
-  checkIfGuestExists
+  checkIfGuestExists,
+  unlockGatePass
 }

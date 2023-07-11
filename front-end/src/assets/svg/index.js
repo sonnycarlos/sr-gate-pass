@@ -14,6 +14,7 @@ import Back from './icons/Back'
 import Bell from './icons/Bell'
 import Calendar from './icons/Calendar'
 import Camera from './icons/Camera'
+import Check from './icons/Check'
 import ChevronDown from './icons/ChevronDown'
 import ChevronUp from './icons/ChevronUp'
 import Close from './icons/Close'
@@ -22,6 +23,7 @@ import Download from './icons/Download'
 import Edit from './icons/Edit'
 import EyeOff from './icons/EyeOff'
 import EyeOn from './icons/EyeOn'
+import Map from './icons/Map'
 import Megaphone from './icons/Megaphone'
 import Menu from './icons/Menu'
 import PDF from './icons/PDF'
@@ -51,6 +53,7 @@ export {
   Bell,
   Calendar,
   Camera,
+  Check,
   ChevronDown,
   ChevronUp,
   Close,
@@ -59,6 +62,7 @@ export {
   Edit,
   EyeOff,
   EyeOn,
+  Map,
   Megaphone,
   Menu,
   PDF,

@@ -10,7 +10,7 @@ import {
 
 import { Back } from '../../assets/svg'
 
-import '../../css/my_gate_pass.css'
+import '../../css/gate_pass.css'
 
 function MyGatePass() {
   const navigate = useNavigate()

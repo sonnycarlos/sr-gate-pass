@@ -5,6 +5,10 @@
   padding-top: 64px;
 }
 
+.guest_map {
+  padding-top: 0 !important;
+}
+
 /* Search Bar */
 
 #map > .searchBar {

@@ -18,10 +18,12 @@ import {
   EditProfileStep1,
   EditProfileStep2,
   EditProfileStep3,
+  GatePass,
+  Guests,
   GatePassReader,
   GuestHistory,
+  GuestMap,
   GuestOverview,
-  GuestsHistory,
   Home,
   HomeSG,
   Login,
@@ -50,7 +52,7 @@ import {
 const routes = [
   {
     path: '/',
-    component: <Login />
+    component: <GatePassReader />
   },
   {
     path: '/login',
@@ -157,6 +159,10 @@ const routes = [
     component: <EditProfilePending />
   },
   {
+    path: '/gate-pass/:id',
+    component: <GatePass />
+  },
+  {
     path: '/my-gate-pass',
     component: <MyGatePass />
   },
@@ -167,6 +173,10 @@ const routes = [
   {
     path: '/announcement-overview/:id',
     component: <AnnouncementOverview />
+  },
+  {
+    path: '/guests',
+    component: <Guests />
   },
   {
     path: '/my-guests',
@@ -193,16 +203,20 @@ const routes = [
     component: <BookGuestSuccessfully />
   },
   {
-    path: '/guests-history',
-    component: <GuestsHistory />
-  },
-  {
     path: '/map',
     component: <Map />
   },
   {
+    path: '/guest-map',
+    component: <GuestMap />
+  },
+  {
     path: '/home-sg',
     component: <HomeSG />
+  },
+  {
+    path: '/gate-pass-reader',
+    component: <GatePassReader />
   },
   {
     path: '/*',

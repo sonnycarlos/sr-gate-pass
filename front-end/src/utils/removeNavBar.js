@@ -68,6 +68,10 @@ export default function removeNavBar(location, routes) {
       &&
     route.path !== '/guests-history'
       &&
+    route.path !== '/gate-pass-reader'
+      &&
+    route.path !== '/guest-map'
+      &&
     route.path !== '/approve-user' 
       &&
     route.path !== '/'

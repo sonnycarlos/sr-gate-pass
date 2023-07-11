@@ -17,10 +17,12 @@ import EditProfilePending from './resident/EditProfilePending'
 import EditProfileStep1 from './resident/EditProfileStep1'
 import EditProfileStep2 from './resident/EditProfileStep2'
 import EditProfileStep3 from './resident/EditProfileStep3'
+import GatePass from './GatePass'
 import GatePassReader from './security/GatePassReader'
+import Guests from './Guests'
 import GuestHistory from './GuestHistory'
+import GuestMap from './GuestMap'
 import GuestOverview from './GuestOverview'
-import GuestsHistory from './GuestsHistory'
 import Home from './resident/Home'
 import HomeSG from './security/Home'
 import Login from './login_and_registration/Login'
@@ -60,10 +62,12 @@ export {
   EditProfileStep1,
   EditProfileStep2,
   EditProfileStep3,
+  GatePass,
   GatePassReader,
+  Guests,
   GuestHistory,
+  GuestMap,
   GuestOverview,
-  GuestsHistory,
   Home,
   HomeSG,
   Login,

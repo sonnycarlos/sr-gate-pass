@@ -71,6 +71,20 @@ function Menu() {
           </Link>
         )}
 
+        {profile.type === 'security' && (
+          <Link 
+            to='gate-pass-reader' 
+            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+            className={`${initialState.activePage === 'gatePassReader' && 'active'}`}
+            onClick={() => {
+              dispatch({ type: TOGGLE_NAV })
+              dispatch({ type: SET_ACTIVE_PAGE, payload: 'gatePassReader' })
+            }}
+          >
+            Gate Pass Reader
+          </Link>
+        )}
+
         {profile.type === 'homeowner' && (
           <Link 
             to='my-gate-pass' 

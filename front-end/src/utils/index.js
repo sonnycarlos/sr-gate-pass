@@ -24,6 +24,7 @@ import renderer from './renderer'
 import removeNavBar from './removeNavBar'
 import resetPassword from './resetPassword'
 import requestOtp from './requestOtp'
+import unlockGatePass from './unlockGatePass'
 import uploadFile from './uploadFile'
 import uploadImage from './uploadImage'
 import verifyOtp from './verifyOtp'
@@ -51,6 +52,7 @@ export {
   removeNavBar,
   resetPassword,
   requestOtp,
+  unlockGatePass,
   uploadFile,
   uploadImage,
   verifyOtp,

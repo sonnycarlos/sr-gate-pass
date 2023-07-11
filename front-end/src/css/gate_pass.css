@@ -1,0 +1,252 @@
+#my_gate_pass {
+  position: relative;
+  overflow-x: hidden;
+  height: 100vh;
+  padding: 48px 20px 24px;
+  background: url('../assets/images/gate_pass_bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Back Button */
+
+#my_gate_pass > .btn {
+  position: fixed;
+  top: 24px;
+  left: 20px;
+}
+
+/* Container */
+
+#my_gate_pass > .container {
+  display: grid;
+  place-content: center;
+  margin-top: 24px;
+}
+
+/* Modal */
+
+#my_gate_pass > .container > .modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+#my_gate_pass > .container > .modal > form {
+  display: grid;
+  width: 300px;
+  padding: 40px 24px;
+  border-radius: 16px;
+  background-color: var(--white);
+  box-shadow: 5px 5px 20px 0px rgba(187, 187, 187, 0.25), -5px 5px 20px 0px rgba(187, 187, 187, 0.25);
+}
+
+#my_gate_pass > .container > .modal > form > .headingAndSubtitle {
+  display: grid;
+  gap: 12px;
+}
+
+#my_gate_pass > .container > .modal > form > .form-group {
+  margin: 48px 0 16px;
+}
+
+#my_gate_pass > .container > .modal > form > .btn {
+  width: 100%;
+  margin-top: 80px;
+}
+
+/* Profile Picture */
+
+#my_gate_pass > .container > .profilePicture {
+  justify-self: center;
+  width: 72px;
+  height: 72px;
+  border: 2px solid var(--lavander-mist);
+  border-radius: 50%;
+  background-size: cover;
+}
+
+/* Name & Address / Name & Host */
+
+#my_gate_pass > .container > .nameAndAddress,
+#my_gate_pass > .container > .nameAndHost {
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  margin: 24px 0 16px;
+}
+
+#my_gate_pass > .container > .nameAndHost {
+  margin-top: 40px;
+}
+
+#my_gate_pass > .container > .nameAndAddress > *,
+#my_gate_pass > .container > .nameAndHost > * {
+  text-align: center;
+}
+
+#my_gate_pass > .container > .nameAndAddress > .name,
+#my_gate_pass > .container > .nameAndHost > .name {
+  font-family: 'SFProDisplay-Bold';
+}
+
+/* QR Code */
+
+#my_gate_pass > .container > .qrCodeImage {
+  justify-self: center;
+  width: 225px;
+  height: 225px;
+  margin: 24px 0;
+  background-size: cover;
+}
+
+/* Greetings */
+
+#my_gate_pass > .container > .greetings {
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+#my_gate_pass > .container > .greetings > * {
+  text-align: center;
+}
+
+#my_gate_pass > .container > .greetings > .greet {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 20px;
+}
+
+#my_gate_pass > .container > .greetings > .time {
+  color: var(--boring-green);
+  font-family: 'SFProDisplay-Bold';
+  font-size: 20px;
+}
+
+/* Action */
+
+#my_gate_pass > .container > .btn {
+  position: fixed;
+  right: 24px;
+  bottom: 40px;
+  z-index: 1;
+  padding: 12px;
+  border-radius: 100%;
+}
+
+/* Status */
+
+#my_gate_pass > .status {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -75%);
+  display: grid;
+  place-content: center;
+  place-items: center;
+  width: 100%;
+}
+
+#my_gate_pass > .status > div {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+#my_gate_pass > .status > div > * {
+  text-align: center;
+}
+
+#my-my_gate_pass > .status > div > h2 {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 24px;
+}
+
+/* Screen Width: 390px */
+
+@media only screen and (min-width: 390px) {
+  /* Container */
+
+  #my_gate_pass > .container {
+    margin-top: 64px;
+  }
+
+  /* Profile Picture */
+
+  #my_gate_pass > .container > .profilePicture {
+    width: 96px;
+    height: 96px;
+  }
+
+  /* Name & Address / Name & Host */
+
+  #my_gate_pass > .container > .nameAndAddress,
+  #my_gate_pass > .container > .nameAndHost {
+    margin: 24px 0;
+  }
+  
+  #my_gate_pass > .container > .nameAndAddress > .name,
+  #my_gate_pass > .container > .nameAndHost > .name {
+    font-size: 28px;
+  }
+
+  /* QR Code */
+
+  #my_gate_pass > .container > .qrCodeImage {
+    width: 275px;
+    height: 275px;
+  }
+
+  /* Greetings */
+
+  #my_gate_pass > .container > .greetings {
+    margin-top: 40px;
+  }
+}
+
+/* Screen Width: 410px */
+
+@media only screen and (min-width: 410px) {
+  /* Modal */
+  #my_gate_pass > .container > .modal > form {
+    width: 325px;
+  }
+
+  /* Name & Address / Name & Host */
+
+  #my_gate_pass > .container > .nameAndHost {
+    margin-top: 48px;
+  }
+
+  #my_gate_pass > .container > .nameAndAddress > .name,
+  #my_gate_pass > .container > .nameAndHost > .name {
+    font-size: 32px;
+  }
+
+  #my_gate_pass > .container > .nameAndAddress > .address,
+  #my_gate_pass > .container > .nameAndHost > .address {
+    font-size: 18px
+  }
+
+  /* Greetings */
+
+  #my_gate_pass > .container > .greetings > .greet {
+    font-size: 24px;
+  }
+
+  #my_gate_pass > .container > .greetings > .time {
+    font-size: 24px;
+  }
+}
