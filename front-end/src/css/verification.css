@@ -90,3 +90,21 @@
     font-size: 18px;
   }
 }
+
+/* Desktop */
+
+@media only screen and (min-width: 1440px) { 
+  #verification {
+    width: 400px;
+    margin: auto;
+    padding-top: 120px;
+  }
+
+  /* Brand Logo */
+
+  #verification > #brandLogo {
+    position: absolute;
+    top: 48px;
+    left: 100px;
+  }
+}

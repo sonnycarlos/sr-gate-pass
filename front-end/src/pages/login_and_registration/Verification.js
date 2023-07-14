@@ -119,7 +119,7 @@ function Verification() {
   return (
     <section id='verification'>
       {/* Brand Logo */}
-      <img src={BrandLogo} alt='Brand Logo' />
+      <img src={BrandLogo} alt='Brand Logo' id='brandLogo' />
 
       {/* Back Button */}
       <Link 

@@ -59,6 +59,12 @@
 /* Screen Width: 390px */
 
 @media only screen and (min-width: 390px) {
+  /* Header */
+
+  #login_and_registration > header {
+    margin: 96px 0 80px;
+  }
+
   /* Form */
 
   #login_and_registration > form > .inputFields {
@@ -80,13 +86,7 @@
   #login_and_registration {
     padding-top: 64px;
   }
-
-  /* Header */
-
-  #login_and_registration > header {
-    margin: 96px 0 80px;
-  }
-
+  
   #login_and_registration > header > p {
     font-size: 18px;
   }
@@ -99,5 +99,23 @@
 
   #login_and_registration > header {
     margin-top: 180px;
+  }
+}
+
+/* Desktop */
+
+@media only screen and (min-width: 1440px) { 
+  #login_and_registration {
+    width: 400px;
+    margin: auto;
+    padding-top: 120px;
+  }
+
+  /* Brand Logo */
+
+  #login_and_registration > #brandLogo {
+    position: absolute;
+    top: 48px;
+    left: 100px;
   }
 }

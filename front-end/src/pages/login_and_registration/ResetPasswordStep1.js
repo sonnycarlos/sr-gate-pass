@@ -60,7 +60,7 @@ function ResetPasswordStep1() {
   return (
     <section id='reset_password'>
       {/* Brand Logo */}
-      <img src={BrandLogo} alt='Brand Logo' />
+      <img src={BrandLogo} alt='Brand Logo' id='brandLogo' />
 
       {/* Back Button */}
       <Link to={`../${initialState.routeHistory[initialState.routeHistory?.length - 1]}`} className='text btn'>

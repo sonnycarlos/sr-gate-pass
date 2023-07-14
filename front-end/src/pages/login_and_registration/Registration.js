@@ -84,7 +84,7 @@ function Registration() {
   return (
     <section id='login_and_registration'>
       {/* Brand Logo */}
-      <img src={BrandLogo} alt='Brand Logo' />
+      <img src={BrandLogo} alt='Brand Logo' id='brandLogo' />
 
       {/* Header */}
       <header>

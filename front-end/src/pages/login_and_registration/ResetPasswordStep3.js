@@ -62,7 +62,7 @@ function ResetPasswordStep3() {
   return (
     <section id='reset_password'>
       {/* Brand Logo */}
-      <img src={BrandLogo} alt='Brand Logo' />
+      <img src={BrandLogo} alt='Brand Logo' id='brandLogo' />
 
       {/* Back Button */}
       <Link to='/forgot-password-otp' className='text btn'>
