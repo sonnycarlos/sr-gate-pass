@@ -19,10 +19,13 @@ import ChevronDown from './icons/ChevronDown'
 import ChevronUp from './icons/ChevronUp'
 import Close from './icons/Close'
 import Copy from './icons/Copy'
+import Dashboard from './icons/Dashboard'
 import Download from './icons/Download'
 import Edit from './icons/Edit'
 import EyeOff from './icons/EyeOff'
 import EyeOn from './icons/EyeOn'
+import Home from './icons/Home'
+import Logout from './icons/Logout'
 import Map from './icons/Map'
 import Megaphone from './icons/Megaphone'
 import Menu from './icons/Menu'
@@ -34,6 +37,7 @@ import Remove from './icons/Remove'
 import Search from './icons/Search'
 import Security from './icons/Security'
 import Upload from './icons/Upload'
+import User from './icons/User'
 import UserInfo from './icons/UserInfo'
 import Users from './icons/Users'
 
@@ -58,10 +62,13 @@ export {
   ChevronUp,
   Close,
   Copy,
+  Dashboard,
   Download,
   Edit,
   EyeOff,
   EyeOn,
+  Home,
+  Logout,
   Map,
   Megaphone,
   Menu,
@@ -73,6 +80,7 @@ export {
   Search,
   Security,
   Upload,
+  User,
   UserInfo,
   Users
 }

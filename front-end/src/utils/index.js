@@ -22,6 +22,7 @@ import registerUser from './registerUser'
 import updateUser from './updateUser'
 import renderer from './renderer'
 import removeNavBar from './removeNavBar'
+import removeSideBar from './removeSideBar'
 import resetPassword from './resetPassword'
 import requestOtp from './requestOtp'
 import unlockGatePass from './unlockGatePass'
@@ -50,6 +51,7 @@ export {
   updateUser,
   renderer,
   removeNavBar,
+  removeSideBar,
   resetPassword,
   requestOtp,
   unlockGatePass,

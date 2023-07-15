@@ -49,7 +49,7 @@ function NavigationBar() {
   }, [])
 
   return (
-    <section id='navigation-bar'>
+    <section id='navigation_bar'>
       {/* Menu Icon */}
       <a onClick={handleClick}>
         <Menu />
@@ -59,7 +59,7 @@ function NavigationBar() {
       <img src={BrandLogo} alt='Brand Logo' id='brand-logo' />
       
       {/* Bell Icon */}
-      <div id='notification-container'>
+      <div id='notification_container'>
         <Link to='/notifications'>
           <Bell color={`${initialState.activePage === 'notifications' ? '#5CB950' : '#B1B3B6'}`} />
         </Link>

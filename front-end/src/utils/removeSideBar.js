@@ -1,8 +1,8 @@
 /**
- ** This function removes the navigation bar on specific pages
+ ** This function removes the side bar on specific pages
 **/
 
-export default function removeNavBar(location, routes) {
+export default function removeSideBar(location, routes) {
   return routes.some(route => 
     route.path === location.pathname 
       && 
@@ -33,6 +33,8 @@ export default function removeNavBar(location, routes) {
     route.path !== '/account-registration-pending'
       &&
     route.path !== '/account-registration-successfully'
+      &&
+    route.path !== '/home'
       &&
     route.path !== '/my-application'
       &&
@@ -71,8 +73,6 @@ export default function removeNavBar(location, routes) {
     route.path !== '/gate-pass-reader'
       &&
     route.path !== '/guest-map'
-      &&
-    route.path !== '/home-sg'
       &&
     route.path !== '/approve-user' 
       &&

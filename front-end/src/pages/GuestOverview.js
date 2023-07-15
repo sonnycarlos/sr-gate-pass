@@ -146,17 +146,17 @@ function GuestOverview() {
       window.localStorage.setItem('guest', JSON.stringify(res.data))
 
       // Check if guest can be rebooked today
-      var inputDate = new Date(res.data.dateBooked[res.data.dateBooked.length - 1]);
-      var today = new Date();
+      var inputDate = new Date(res.data.dateBooked[res.data.dateBooked.length - 1])
+      var today = new Date()
       
       if (isNaN(inputDate)) {
-        console.log('Invalid date format');
-        return false;
+        console.log('Invalid date format')
+        return false
       }
 
-      var isSameYear = inputDate.getFullYear() === today.getFullYear();
-      var isSameMonth = inputDate.getMonth() === today.getMonth();
-      var isSameDay = inputDate.getDate() === today.getDate();
+      var isSameYear = inputDate.getFullYear() === today.getFullYear()
+      var isSameMonth = inputDate.getMonth() === today.getMonth()
+      var isSameDay = inputDate.getDate() === today.getDate()
 
       if (isSameYear && isSameMonth && isSameDay) {
         setIsBtnActive(false)

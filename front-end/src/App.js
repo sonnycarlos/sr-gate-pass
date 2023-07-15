@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { routes } from './config'
-import { NavigationBar, Menu } from './components'
+import { Menu, NavigationBar, SideBar } from './components'
 import { useSrContext, CHECK_IF_IOS_DEVICE } from './context'
-import { removeNavBar  } from './utils'
+import { removeNavBar, removeSideBar  } from './utils'
 
 function App() {
   const location = useLocation()
-  const isPageHasNav = removeNavBar(location, routes)
+  const isPageHasNavBar = removeNavBar(location, routes)
+  const isPageHasSideBar = removeSideBar(location, routes)
   const [initialState, dispatch] = useSrContext()
   const [isRotated, setIsRotated] = useState(false)
 
@@ -38,7 +39,8 @@ function App() {
   
   return (
     <div style={{ display: `${isRotated ? 'none' : 'block'}`}}>
-      {isPageHasNav && <NavigationBar />}
+      {isPageHasSideBar && <SideBar />}
+      {isPageHasNavBar && <NavigationBar />}
       {initialState.isMenuOpen && <Menu />}
 
       <Routes>

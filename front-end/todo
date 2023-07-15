@@ -4,3 +4,4 @@
 * Proper load of data using setTimeout()
 * Replace localStorage to sessionStorage
 * File max size
+* Helpers and utilities

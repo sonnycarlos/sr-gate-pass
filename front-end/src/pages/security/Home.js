@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import QrReader from 'react-qr-reader'
 import io from 'socket.io-client'
-
-import { 
-  Announcements, 
-  Notifications 
-} from '../index'
 
 import { 
   useSrContext,
@@ -27,30 +23,13 @@ import { domain } from '../../constants'
 import {
   Guest,
   MegaphoneEmoji,
-  ChevronUp,
   ChevronDown,
   Pin,
-  BadgeMeh
 } from '../../assets/svg'
 
 import '../../css/home.css'
 
 function Home() {
-  const homeContRef = useRef(null)
-  const announcementsContRef = useRef(null)
-  const notificationsContRef = useRef(null)
-  const headingRef = useRef(null)
-  const actionRef = useRef(null)
-  const guestsStackRef = useRef(null)
-  const announcementsStackHeaderRef = useRef(null)
-  const announcementsStackTitleRef = useRef(null)
-  const announcementsStackBadgeRef = useRef(null)
-  const announcementsStackButtonRef = useRef(null)
-  const announcementsStack1Ref = useRef(null)
-  const announcementsStack2Ref = useRef(null)
-  const announcementsStack3Ref = useRef(null)
-  const condenseBtnRef = useRef(null)
-  const bookingsStackRef = useRef(null)
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
   const today = new Date().toISOString().split('T')[0]
@@ -58,11 +37,14 @@ function Home() {
   const [guests, setGuests] = useState([])
   const guestsCount = initialState.guestsCount
   const [announcements, setAnnouncements] = useState(initialState.announcements)
+  const [loadingScan, setLoadingScan] = useState(false)
+  const [data, setData] = useState('')
   const [notifications, setNotifications] = useState([])
   const [notificationsCount, setNotificationsCount] = useState(0)
   const details = JSON.parse(window.localStorage.getItem('profile'))
   const [time, setTime] = useState(new Date().getHours())
   const [greeting, setGreeting] = useState('')
+  const [tabActive, setTabActive] = useState('scan')
 
   // Handle date change
   const handleDateChange = (e) => {
@@ -84,249 +66,24 @@ function Home() {
     return guestCount
   }
 
-  // Handle notification click
-  const handleBookingClick = async (e, id) => {
-    e.preventDefault()
-    navigate(`/guest-overview/${id}`)
-  }
+  // Handle scan
+  const handleScan = async (scanData) => {
+    setLoadingScan(true)
+    console.log(`loaded data data`, scanData)
 
-  // Navigate to Notifications
-  const navigateToNotifications = (e) => {
-    e.preventDefault()
-
-    dispatch({ type: SET_ACTIVE_PAGE, payload: 'notifications' })
-
-    homeContRef.current.style.transform = 'translateX(-150px)'
-    homeContRef.current.style.transition = '300ms ease'
-    notificationsContRef.current.style.visibility = 'visible'
-    notificationsContRef.current.style.transform = 'translateX(0)'
-    notificationsContRef.current.style.transition = '300ms ease'
-    
-    setTimeout(() => {
-      navigate('/notifications')
-    }, 500)
-  }
-
-  // Navigate to Announcements
-  const navigateToAnnouncements = (e) => {
-    e.preventDefault()
-
-    dispatch({ type: SET_ACTIVE_PAGE, payload: 'announcements' })
-
-    homeContRef.current.style.transform = 'translateX(-150px)'
-    homeContRef.current.style.transition = '300ms ease'
-    announcementsContRef.current.style.visibility = 'visible'
-    announcementsContRef.current.style.transform = 'translateX(0)'
-    announcementsContRef.current.style.transition = '300ms ease'
-    
-    setTimeout(() => {
-      navigate('/announcements')
-    }, 500)
-  }
-
-  // Expand announcements
-  const expandAnnouncements = (e) => {
-    e.preventDefault()
-    
-    headingRef.current.style.opacity = '0'
-    announcementsStackButtonRef.current.style.display = 'none'
-
-    setTimeout(() => {
-      headingRef.current.style.transform = 'translateY(-500px)'
-    }, 1000)
-
-    setTimeout(() => {
-      headingRef.current.innerText = 'Announcements'
-      headingRef.current.style.transform = 'translateY(0)'
-      headingRef.current.style.transition = '1000ms ease-out'
-      headingRef.current.style.opacity = '1'
-      headingRef.current.style.fontSize = '20px'
-
-      if (window.innerWidth >= 390) {
-        headingRef.current.style.fontSize = '24px'
-      }
-    }, 1200)
-
-    guestsStackRef.current.style.top = '-500px'
-    bookingsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 280}px`
-
-    setTimeout(() => {
-      announcementsStack1Ref.current.style.top = '-258px'
-      announcementsStack1Ref.current.style.gap = '8px'
-
-      announcementsStack2Ref.current.style.top = `-${258 - (194 + 16)}px`
-      announcementsStack2Ref.current.style.width = '100%'
-      announcementsStack2Ref.current.style.backgroundColor = '#FFF'
-
-      announcementsStack3Ref.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) - (194 + 141) + 48.5}px`
-      announcementsStack3Ref.current.style.width = '100%'
-      announcementsStack3Ref.current.style.backgroundColor = '#FFF'
-      
-      condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (147)}px`
-
-      if (window.innerWidth >= 390) {
-        condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (156)}px`
-        announcementsStack3Ref.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) - (194 + 141) + 52}px`
-        bookingsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 300}px`
-      }
-
-      if (window.innerWidth >= 414) {
-        condenseBtnRef.current.style.top = `${(condenseBtnRef.current.getBoundingClientRect().top + window.pageYOffset) - (162)}px`
-        bookingsStackRef.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) + 308}px`
-      }
-    }, 500)
-
-    setTimeout(() => {
-      const announcementsStack2ParentElem = announcementsStack2Ref.current
-      const announcementsStack2ChildrentElem = announcementsStack2ParentElem.childNodes
-      const announcementsStack3ParentElem = announcementsStack3Ref.current
-      const announcementsStack3ChildrentElem = announcementsStack3ParentElem.childNodes
-
-      announcementsStack2ChildrentElem.forEach(child => {
-        child.style.opacity = '1'
-      })
-
-      announcementsStack3ChildrentElem.forEach(child => {
-        child.style.opacity = '1'
-      })
-    }, 1000)
-
-    setTimeout(() => {
-      announcementsStackHeaderRef.current.style.justifyContent = 'flex-end'
-      announcementsStackTitleRef.current.style.opacity = '0'
-      announcementsStackBadgeRef.current.style.display = 'none'
-    }, 1800)
-
-    setTimeout(() => {
-      actionRef.current.style.opacity = '1'
-      condenseBtnRef.current.style.opacity = 1
-    }, 2000)
-
-    if (window.innerWidth >= 390) {
-      headingRef.current.style.fontSize = '24px'
-      announcementsStack1Ref.current.style.top = '-258px'
-      announcementsStack3Ref.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) - (194 + 141 + 89)}px`
-      condenseBtnRef.current.style.top = 0
-    }
-
-    if (window.innerWidth >= 414) {
-      announcementsStack1Ref.current.style.top = '-264px'
-      announcementsStack3Ref.current.style.top = `${(announcementsStack3Ref.current.getBoundingClientRect().top + window.pageYOffset) - (194 + 141 + 99)}px`
+    if (scanData && scanData !== '') {
+      console.log(`loaded >>>`, scanData)
+      setData(scanData)
+      setLoadingScan(false)
     }
   }
 
-  // Condense announcements
-  const condenceAnnouncements = () => {
-    headingRef.current.style.transform = 'translateY(-500px)'
-    headingRef.current.style.transition = '1000ms ease-in'
-    headingRef.current.style.opacity = '0'
-    actionRef.current.style.opacity = '0'
-    
-    setTimeout(() => {
-      headingRef.current.style.fontSize = '28px'
-    }, 500)
-
-    setTimeout(() => {
-      headingRef.current.innerText = greeting
-      headingRef.current.style.transform = 'translateY(0)'
-      headingRef.current.style.transition = '1000ms ease-out'
-      headingRef.current.style.opacity = '1'
-    }, 1200)
-
-    guestsStackRef.current.style.top = '141px'
-    
-    setTimeout(() => {
-      headingRef.current.innerText = greeting
-    }, 2000)
-
-    guestsStackRef.current.style.left = '20px'
-    guestsStackRef.current.style.right = '20px'
-
-    bookingsStackRef.current.style.top = '626px'
-
-    setTimeout(() => {
-      announcementsStackHeaderRef.current.style.placeContent = 'space-between'
-      announcementsStackTitleRef.current.style.opacity = '1'
-      announcementsStackBadgeRef.current.style.display = 'grid'
-      announcementsStackButtonRef.current.style.display = 'inline-flex'
-    }, 300)
-
-    setTimeout(() => {
-      announcementsStack1Ref.current.style.top = '22px'
-      announcementsStack1Ref.current.style.gap = '16px'
-
-      announcementsStack2Ref.current.style.top = '10px'
-      announcementsStack2Ref.current.style.width = '95%'
-      announcementsStack2Ref.current.style.backgroundColor = '#E8E8E8'
-
-      announcementsStack3Ref.current.style.top = '0'
-      announcementsStack3Ref.current.style.width = '90%'
-      announcementsStack3Ref.current.style.backgroundColor = '#D4D4D4'
-
-      condenseBtnRef.current.style.opacity = 0
-    }, 500)
-
-    const announcementsStack2ParentElem = announcementsStack2Ref.current
-    const announcementsStack2ChildrentElem = announcementsStack2ParentElem.childNodes
-    const announcementsStack3ParentElem = announcementsStack3Ref.current
-    const announcementsStack3ChildrentElem = announcementsStack3ParentElem.childNodes
-
-    announcementsStack2ChildrentElem.forEach(child => {
-      child.style.opacity = '0'
-    })
-
-    announcementsStack3ChildrentElem.forEach(child => {
-      child.style.opacity = '0'
-    })
-
-    if (window.innerWidth >= 390) {
-      guestsStackRef.current.style.top = '151px'
-      bookingsStackRef.current.style.top = '642px'
-    }
-
-    if (window.innerWidth >= 414) {
-      guestsStackRef.current.style.top = '155px'
-      bookingsStackRef.current.style.top = '648px'
-    }
+  // Handle error
+  const handleError = (err) => {
+    console.error(err)
   }
 
   // Use effect
-  useEffect(() => {
-    notificationsContRef.current.style.position = 'absolute'
-    notificationsContRef.current.style.top = '0'
-    notificationsContRef.current.style.bottom = '0'
-    notificationsContRef.current.style.left = '0'
-    notificationsContRef.current.style.right = '0'
-    notificationsContRef.current.style.visibility = 'hidden'
-    notificationsContRef.current.style.transform = 'translateX(100%)'
-    notificationsContRef.current.style.zIndex = '3'
-
-    announcementsContRef.current.style.position = 'absolute'
-    announcementsContRef.current.style.top = '0'
-    announcementsContRef.current.style.bottom = '0'
-    announcementsContRef.current.style.left = '0'
-    announcementsContRef.current.style.right = '0'
-    announcementsContRef.current.style.visibility = 'hidden'
-    announcementsContRef.current.style.transform = 'translateX(100%)'
-    announcementsContRef.current.style.zIndex = '3'
-
-    const announcements2StackParentElem = announcementsStack2Ref.current
-    const announcements2StackChildrentElem = announcements2StackParentElem.childNodes
-    const announcements3StackParentElem = announcementsStack3Ref.current
-    const announcements3StackChildrentElem = announcements3StackParentElem.childNodes
-
-    announcements2StackChildrentElem.forEach(child => {
-      child.style.transition = '350ms ease-in-out'
-      child.style.opacity = '0'
-    })
-
-    announcements3StackChildrentElem.forEach(child => {
-      child.style.transition = '350ms ease-in-out'
-      child.style.opacity = '0'
-    })
-
-  }, [])
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTime(new Date().getHours())
@@ -386,8 +143,6 @@ function Home() {
       }
     }
 
-    console.log(initialState.routeHistory[initialState.routeHistory.length - 1])
-
     // Fetch announcements
     async function getAnnouncements() {
       const updatedData = await fetchAnnouncements(dispatch, {})
@@ -397,19 +152,15 @@ function Home() {
     // Fetch guests
     async function getGuests() {
       const res = await fetchGuests({})
-
-      // Filter the bookings that were booked today
-      const bookingsToday = res?.data.filter(guest => {
-        const bookingDate = new Date(guest?.dateBooked[guest?.dateBooked?.length - 1])
-        return bookingDate.getDate() === new Date().getDate()
-      })
-
-      setGuests(bookingsToday)
+      console.log(res.data)
+      setGuests(res.data)
     }
 
     validate()
     getGuests()
     getAnnouncements().then(fetchedAnnouncements => setAnnouncements(fetchedAnnouncements))
+
+    console.log(guests)
     
     // Implement real time
     const socket = io(domain)
@@ -434,32 +185,17 @@ function Home() {
   }, [guestsCount])
 
   return (
-    <>
-      {/* For Animation Purpose Only */}
-      <Notifications forwardRef={notificationsContRef} />
-      <Announcements forwardRef={announcementsContRef} />
+    <section id='home'>
+      {/* Heading */}
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        {greeting}
+      </h1>
 
-      <section ref={homeContRef} id='home'>
-        <div className='container'>
-          {/* Heading & Button */}
-          <div className='header'>
-            <h1 ref={headingRef} style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-              {greeting}
-            </h1>
-
-            <Link 
-              // to='/announcements'
-              ref={actionRef} 
-              onClick={navigateToAnnouncements}
-              style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-              className='text btn'
-            >
-              See All
-            </Link>
-          </div>
-
+      <div>
+        {/* Guests, Announcements, Guests Booked */}
+        <div className='guestsAnnouncementsGuestsBooked'>
           {/* Guests */}
-          <div ref={guestsStackRef} className='guests stack'>
+          <div className='guests stack'>
             <img src={Guest} alt='Vector' className='vector' />
 
             <div>
@@ -478,6 +214,10 @@ function Home() {
                   </span>
                 </div>
               </div>
+
+              <Link className='text btn'>
+                <span>View Guests</span>
+              </Link>
             </div>
 
             <p>
@@ -493,13 +233,9 @@ function Home() {
 
           {/* Announcements */}
           <div className='announcements'>
-            <Link 
-              to={`/announcement-overview/${announcements[announcements.length - 1]?._id}`}
-              ref={announcementsStack1Ref} 
-              className='stack'
-            >
-              <div ref={announcementsStackHeaderRef} className='header'>
-                <h2 ref={announcementsStackTitleRef} style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+            <Link to={`/announcement-overview/${announcements[announcements.length - 1]?._id}`} className='stack'>
+              <div className='header'>
+                <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
                   Announcement
                   <img src={MegaphoneEmoji} alt='Emoji' />
                 </h2>
@@ -507,14 +243,12 @@ function Home() {
                 <div>
                   {announcements[announcements.length - 1]?.isPin && <Pin color='#5CB950' />}
                   
-                  <span ref={announcementsStackBadgeRef} className='badge'>
+                  <span className='badge'>
                     {announcements.length}
                   </span>
 
                   <button 
-                    ref={announcementsStackButtonRef}
                     style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                    onClick={expandAnnouncements}
                     className='text btn'
                   >
                     See More
@@ -552,237 +286,171 @@ function Home() {
               </div>
             </Link>
 
-            <div ref={announcementsStack2Ref} className='stack'>
-              <div className='content'>
-                <div className='titleAndDate'>
-                  <h3 
-                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                    className='title'
-                  >
-                    {announcements[announcements.length - 2]?.heading.length > 40 ? `${announcements[announcements.length - 2]?.heading.substring(0, 40)}...` : announcements[announcements.length - 2]?.heading}
-                  </h3>
-                  
-                  <p className='date'>
-                    {`${formatDate(announcements[announcements.length - 2]?.datePosted)} at ${formatTime(announcements[announcements.length - 2]?.datePosted)}`}
-                  </p>
-                </div>
-
-                <p>
-                  {announcements[announcements.length - 2]?.body.length > 140 ? `${announcements[announcements.length - 2].body.substring(0, 140)}...` : announcements[announcements.length - 2]?.body}
-                  
-                  {announcements[announcements.length - 2]?.body.length > 140 && (
-                    <button 
-                      to='#' 
-                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                      className='text btn'
-                    >
-                      See more
-                    </button>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            <div ref={announcementsStack3Ref} className='stack'>
-              <div className='content'>
-                <div className='titleAndDate'>
-                  <h3 
-                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                    className='title'
-                  >
-                    {announcements[announcements.length - 3]?.heading.length > 40 ? `${announcements[announcements.length - 3]?.heading.substring(0, 40)}...` : announcements[announcements.length - 3]?.heading}
-                  </h3>
-                  
-                  <p className='date'>
-                    {`${formatDate(announcements[announcements.length - 3]?.datePosted)} at ${formatTime(announcements[announcements.length - 3]?.datePosted)}`}
-                  </p>
-                </div>
-
-                <p>
-                  {announcements[announcements.length - 3]?.body.length > 140 ? `${announcements[announcements.length - 3].body.substring(0, 140)}...` : announcements[announcements.length - 3]?.body}
-                  
-                  {announcements[announcements.length - 3]?.body.length > 140 && (
-                    <button 
-                      to='#' 
-                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                      className='text btn'
-                    >
-                      See more
-                    </button>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            {/* Condense Button */}
-            <button 
-              ref={condenseBtnRef}
-              onClick={condenceAnnouncements} 
-              className='condense btn'
-            >
-              <ChevronUp color='#1E1E1E' />
-            </button>
+            <div className='stack'></div>
+            <div className='stack'></div>
           </div>
 
-          {/* Guests Bookings */}
-          {guests?.length > 0 ? (
-            <div 
-              ref={bookingsStackRef} 
-              className='bookings stack'
-            >
-              <div className='header'>
-                <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-                  Recent Bookings
-                </h2>
+          {/* Guests Booked */}
+          <div className='guestsBooked stack'>
+            <div className='header'>
+              <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                Guests Booked
+              </h2>
 
-                <div>
-                  {notificationsCount > 0 && (
-                    <span className='badge'>
-                      {notificationsCount}
-                    </span>
-                  )}
-                  
-                  <Link 
-                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                    onClick={navigateToNotifications}
-                    className='text btn'
-                  >
-                    See More
-                  </Link>
-                </div>
-              </div>
+              <div>
+                <span className='badge'>
+                  {guests.length}
+                </span>
 
-              <div className='list'>
-                {guests?.length >= 3 && (
-                  <Link 
-                    onClick={(e) => handleBookingClick(e, guests[guests.length - 1]?._id)} 
-                    className='item'
-                  >
-                    <div>
-                      <div className='nameAndHost'>
-                        <h3 
-                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                          className='name'
-                        >
-                          {notifications[notifications.length - 1]?.heading}
-                        </h3>
-
-                        <div className='host'>
-                          <p>
-                            {guests[guests?.length - 1]?.host?.firstName}
-                          </p>
-                        </div>
-                        
-                        <p className='bookedDate'>
-                          {`${formatDate(notifications[notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications.length - 1]?.dateCreated)}`}
-                        </p>
-                      </div>
-                      
-                      <p>
-                        {notifications[notifications.length - 1]?.body.substring(0, 54)}
-                      </p>
-                    </div>
-                  </Link>
-                )}
-
-                {/* {notifications?.length >= 2 && (
-                  <Link onClick={(e) => handleBookingClick(e, notifications[notifications.length - 1]?.notificationId, notifications[notifications.length - 1]?.type, notifications[notifications.length - 1]?.otherDetails)} className='item'>
-                    <span className='badge'>
-                      {notifications[notifications.length - 1]?.type === 'account' && <Security color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'announcement' && <Megaphone color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'guest' && <Users color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'profile' && <UserInfo color='#FFF' />}
-                    </span>
-
-                    <div>
-                      <div className='titleAndDate'>
-                        <h3 
-                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                          className='title'
-                        >
-                          {notifications[notifications.length - 1]?.heading}
-                        </h3>
-
-                        <p className='date'>
-                          {`${formatDate(notifications[notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications.length - 1]?.dateCreated)}`}
-                        </p>
-                      </div>
-                      
-                      <p>
-                        {notifications[notifications.length - 1]?.body.substring(0, 54)}
-                      </p>
-                    </div>
-                  </Link>
-                )} */}
-
-                {guests?.length >= 1 && (
-                  <Link 
-                    onClick={(e) => handleBookingClick(e, guests[guests?.length >= 3 ? guests?.length - 3 : 0]?._id)} 
-                    className='item'
-                  >
-                    <div>
-                      <div className='guestAndHost'>
-                        <h3 
-                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                          className='guest'
-                        >
-                          {guests[guests?.length - 1]?.name}
-                        </h3>
-
-                        <div className='host'>
-                          <div 
-                            style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/raw/upload/v1687096624/${guests[guests?.length - 1]?.host?.picture[0].name}')` }}
-                            className='profilePicture'
-                          >
-                          </div>
-
-                          <p className='name'>
-                            {`${guests[guests?.length >= 3 ? guests?.length - 3 : 0]?.host?.firstName} ${guests[guests?.length >= 3 ? guests?.length - 3 : 0]?.host?.lastName}`}
-                          </p>
-                        </div>
-                      </div>
-
-                      <p className='bookingTime'>
-                        {formatTime(guests[guests?.length - 1]?.dateBooked)}
-                      </p>
-                    </div>
-                  </Link>
-                )}
+                <button 
+                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                  className='text btn'
+                >
+                  See More
+                </button>
               </div>
             </div>
-          ) : (
-            <div 
-              ref={bookingsStackRef} 
-              className='bookings stack'
-            >
-              <div className='header'>
-                <h2 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-                  Recent Bookings
-                </h2>
 
-                <div>
-                  {notificationsCount > 0 && (
-                    <span className='badge'>
-                      {notificationsCount}
-                    </span>
-                  )}
-                </div>
-              </div>
+            <div className='items'>
+              {guests?.length >= 3 && (
+                <Link className='item'>
+                  <div className='nameAndHost'>
+                    <p 
+                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                      className='name'
+                    >
+                      {guests[guests.length - 1]?.name}
+                    </p>
+                    
+                    <div className='host'>
+                      <div 
+                        className='profilePicture'
+                        style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/raw/upload/v1687096624/${guests[guests.length - 1]?.host?.picture[0]?.name}')` }}
+                      ></div>
+                      
+                      <p>{guests[guests.length - 1]?.host?.firstName + ' ' + guests[guests.length - 1]?.host?.lastName}</p>
+                    </div>
+                  </div>
 
-              <div className='status'>
-                {/* Badge */}
-                <img src={BadgeMeh} alt='Badge' />
-                
-                {/* Text */}
-                <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Medium' }}>
-                  No bookings yet
-                </p>
-              </div>
+                  <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} className='date'>
+                    {today === guests[guests.length - 1]?.dateBooked[guests[guests.length - 1]?.dateBooked.length - 1] && guests[guests.length - 1]?.dateBooked[guests[guests.length - 1]?.dateBooked.length - 1] + ' at '}
+                    {formatTime(guests[guests.length - 1]?.dateBooked[guests[guests.length - 1]?.dateBooked.length - 1])}
+                  </p>
+                </Link>
+              )}
+
+              {guests?.length >= 2 && (
+                <Link className='item'>
+                  <div className='nameAndHost'>
+                    <p 
+                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                      className='name'
+                    >
+                      {guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.name}
+                    </p>
+                    
+                    <div className='host'>
+                      <div 
+                        className='profilePicture'
+                        style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/raw/upload/v1687096624/${guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.host?.picture[0]?.name}')` }}
+                      ></div>
+                      
+                      <p>{guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.host?.firstName + ' ' + guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.host?.lastName}</p>
+                    </div>
+                  </div>
+
+                  <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} className='date'>
+                    {today === guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.dateBooked[guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.dateBooked.length - 1] && formatDate(guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.dateBooked[guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.dateBooked.length - 1]) + ' at '}
+                    {formatTime(guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.dateBooked[guests[guests?.length > 2 ? guests.length - 2 : guests.length - 1]?.dateBooked.length - 1])}
+                  </p>
+                </Link>
+              )}
+
+              {guests?.length >= 1 && (
+                <Link className='item'>
+                  <div className='nameAndHost'>
+                    <p 
+                      style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                      className='name'
+                    >
+                      {guests[guests.length >= 3 ? guests.length - 3 : 0]?.name}
+                    </p>
+                    
+                    <div className='host'>
+                      <div 
+                        className='profilePicture'
+                        style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/raw/upload/v1687096624/${guests[guests.length >= 3 ? guests.length - 3 : 0]?.host?.picture[0]?.name}')` }}
+                      ></div>
+                      
+                      <p>{guests[guests.length >= 3 ? guests.length - 3 : 0]?.host?.firstName + ' ' + guests[guests.length >= 3 ? guests.length - 3 : 0]?.host?.lastName}</p>
+                    </div>
+                  </div>
+
+                  <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} className='date'>
+                    {today === guests[guests.length >= 3 ? guests.length - 3 : 0]?.dateBooked[guests[guests.length >= 3 ? guests.length - 3 : 0]?.dateBooked.length - 1] && formatDate(guests[guests.length >= 3 ? guests.length - 3 : 0]?.dateBooked[guests[guests.length >= 3 ? guests.length - 3 : 0]?.dateBooked.length - 1]) + ' at '}
+                    {formatTime(guests[guests.length >= 3 ? guests.length - 3 : 0]?.dateBooked[guests[guests.length >= 3 ? guests.length - 3 : 0]?.dateBooked.length - 1])}
+                  </p>
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Gate Pass Reader */}
+        <div className='gatePassReader'>
+          {/* Tabs */}
+          <div class='tabs'>
+            <p onClick={() => setTabActive('scan')} className={`tab ${tabActive === 'scan' && 'active'}`} >
+              Scan
+            </p>
+
+            <p onClick={() => setTabActive('input')} className={`tab ${tabActive === 'input' && 'active'}`}>
+              Input
+            </p>
+          </div>
+
+          {/* Scanner */}
+          {tabActive === 'scan' && (
+            <div className='scan reader' >
+              <QrReader
+                delay={1000}
+                onError={handleError}
+                onScan={handleScan}
+              />
             </div>
           )}
+
+          {/* Input */}
+          {tabActive === 'input' && (
+            <form className='input reader'>
+              <div className='form-group'>
+                <label>Booking Number</label>
+                <input type='text' placeholder='E.g. 3301666420247' />
+              </div>
+
+              <input type='submit' value='Search' className='solid btn' />
+            </form>
+          )}
+
+          {/* Search Result */}
+          <div className='searchResult'>
+            <div className='profilePictureAndName'>
+              <div className='profilePicture'></div>
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} className='name'>Sonny Carlos</p>
+            </div>
+
+            <div className='addressAndType'>
+              <p className='address'>Phase 1, Block 20, Lot 5, North Village</p>
+              <p className='type'>Resident</p>
+            </div>
+
+            <Link className='solid btn'>
+              Overview
+            </Link>
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
 

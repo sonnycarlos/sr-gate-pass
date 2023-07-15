@@ -39,7 +39,7 @@ import {
   Users
 } from '../../assets/svg'
 
-import '../../css/home.css'
+import '../../css/home_resident.css'
 
 function Home() {
   const homeContRef = useRef(null)
@@ -473,7 +473,7 @@ function Home() {
       <Announcements forwardRef={announcementsContRef} />
       <BookGuest forwardRef={bookGuestContRef} />
 
-      <section ref={homeContRef} id='home'>
+      <section ref={homeContRef} id='home_resident'>
         <div className='container'>
           {/* Heading & Button */}
           <div className='header'>
@@ -731,14 +731,14 @@ function Home() {
 
                 {notifications?.length >= 2 && (
                   <Link 
-                    onClick={(e) => handleNotificationClick(e, notifications[notifications.length - 1]?.notificationId, notifications[notifications.length - 1]?.type, notifications[notifications.length - 1]?.otherDetails)} 
+                    onClick={(e) => handleNotificationClick(e, notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.notificationId, notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.type, notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.otherDetails)} 
                     className='item'
                   >
                     <span className='badge'>
-                      {notifications[notifications.length - 1]?.type === 'account' && <Security color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'announcement' && <Megaphone color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'guest' && <Users color='#FFF' />}
-                      {notifications[notifications.length - 1]?.type === 'profile' && <UserInfo color='#FFF' />}
+                      {notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.type === 'account' && <Security color='#FFF' />}
+                      {notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.type === 'announcement' && <Megaphone color='#FFF' />}
+                      {notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.type === 'guest' && <Users color='#FFF' />}
+                      {notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.type === 'profile' && <UserInfo color='#FFF' />}
                     </span>
 
                     <div>
@@ -749,18 +749,18 @@ function Home() {
                         >
                           {screenWidth <= 375 
                             ? 
-                          `${notifications[notifications.length - 1]?.heading.substring(0, 23)}...`
+                          `${notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.heading.substring(0, 23)}...`
                             : 
-                          notifications[notifications.length - 1]?.heading}
+                          notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.heading}
                         </h3>
 
                         <p className='date'>
-                          {`${formatDate(notifications[notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications.length - 1]?.dateCreated)}`}
+                          {`${formatDate(notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.dateCreated)}`}
                         </p>
                       </div>
                       
                       <p>
-                        {notifications[notifications.length - 1]?.body.substring(0, 54)}
+                        {notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.body.substring(0, 54)}
                       </p>
                     </div>
                   </Link>

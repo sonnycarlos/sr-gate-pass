@@ -9,6 +9,7 @@
     "axios": "^1.4.0",
     "cloudinary-react": "^1.8.1",
     "html2canvas": "^1.4.1",
+    "nfc-react-web": "^0.0.2",
     "qr-code-styling": "^1.6.0-rc.1",
     "react": "^18.2.0",
     "react-countdown": "^2.3.5",

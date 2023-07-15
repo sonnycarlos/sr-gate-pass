@@ -1,138 +1,117 @@
 #home {
-  position: relative;
-  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100vw;
   height: 100vh;
-  padding: 48px 20px 24px;
+  padding: 40px 40px 40px 340px;
   background-color: var(--lavander-mist);
 }
 
-/* Container */
+#home > div {
+  display: flex;
+  margin-top: 24px;
+}
 
-#home > .container {
+/* Guests, Announcements, Guest Booked */
+
+#home > div > .guestsAnnouncementsGuestsBooked {
   display: grid;
   gap: 16px;
-  height: 115vh;
-  margin-top: 40px;
-}
-
-/* Header */
-
-#home > .container > .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: fit-content;
-}
-
-#home > .container > .header > h1 {
-  transition: 350ms ease-in-out;
-  font-family: 'SFProDisplay-Bold';
-  margin-bottom: 8px;
-}
-
-#home > .container > .header > .btn {
-  opacity: 0;
-  transition: 350ms ease-in-out;
+  width: 600px;
+  margin-right: 40px;
 }
 
 /* Guests */
 
-#home > .container > .guests {
-  transition: 1500ms ease-in-out;
-  position: absolute;
-  top: 141px;
-  left: 20px;
-  right: 20px;
+#home > div > .guestsAnnouncementsGuestsBooked > .guests {
+  position: relative;
   overflow: hidden;
   display: grid;
   gap: 40px;
+  height: 250px;
   padding: 24px 16px 60px;
   background: linear-gradient(248.74deg, #5CB950 1.04%, #28A419 101.33%);
 }
 
-#home > .container > .guests > *:not(:first-child) {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > *:not(:first-child) {
   z-index: 1;
 }
 
-#home > .container > .guests > .vector {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > .vector {
   position: absolute;
   top: 13.25%;
   bottom: -54.27%;
-  left: 33.85%;
-  right: -20.26%;
+  right: -17%;
 }
 
-#home > .container > .guests > div {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > div {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#home > .container > .guests > div .input-field {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > div .input-field {
   padding: 4px 16px;
   border-bottom: 0;
   border-radius: 100px;
   background-color: var(--white);
 }
 
-#home > .container > .guests > div .input-field > input {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > div .input-field > input {
   width: 96px;
   background-color: var(--white);
   font-size: 12px;
 }
 
-#home > .container > .guests > div > .btn > span {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > div > .btn > span {
   color: var(--white) !important;
 }
 
-#home > .container > .guests > p {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > p {
   display: grid;
 }
 
-#home > .container > .guests > p > span {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > p > span {
   color: var(--white);
 }
 
-#home > .container > .guests > p > span:first-child {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > p > span:first-child {
   font-family: 'SFProDisplay-Bold';
   font-size: 40px;
 }
 
-#home > .container > .guests > p > span:last-child {
+#home > div > .guestsAnnouncementsGuestsBooked > .guests > p > span:last-child {
   font-size: 24px;
 }
 
 /* Announcements */
 
-#home > .container > .announcements {
-  position: absolute;
-  top: 395px;
-  left: 20px;
-  right: 20px;
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements {
+  position: relative;
+  height: 200px;
   margin-bottom: 64px;
 }
 
-#home > .container > .announcements > .stack {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack {
+  position: absolute;
+  top: 0;
   z-index: 1;
-  transition: 500ms ease-in-out;
   width: 100%;
-  height: 141px;
+  height: 140px;
   padding: 16px 16px 24px;
 }
 
-#home > .container > .announcements > .stack:first-child {
-  position: absolute;
-  top: 22px;
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack:first-child {
+  top: 25px;
   z-index: 2;
-  display: grid;
-  gap: 32px;
-  height: 194px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 237.5px;
   background-color: var(--white);
 }
 
-#home > .container > .announcements > .stack:nth-child(2) {
-  position: absolute;
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack:nth-child(2) {
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
@@ -140,398 +119,240 @@
   background-color: #E8E8E8;
 }
 
-#home > .container > .announcements > .stack:nth-child(3) {
-  position: absolute;
-  top: 0;
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack:nth-child(3) {
   left: 50%;
-  z-index: 0;
   transform: translateX(-50%);
+  z-index: 0;
   width: 90%;
   margin: 0 auto;
   background-color: #D4D4D4;
 }
 
-#home > .container > .announcements > .btn.condense {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  padding: 4px;
-  background-color: transparent;
-}
-
-#home > .container > .announcements > .stack > .header {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 32px;
 }
 
-#home > .container > .announcements > .stack > .header > h2 {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header > h2 {
   display: flex;
   align-items: center;
   font-family: 'SFProDisplay-Bold';
   font-size: 18px;
 }
 
-#home > .container > .announcements > .stack > .header > h2 > img {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header > h2 > img {
   width: 20px;
   margin-left: 8px;
 }
 
-#home > .container > .announcements > .stack > .header > div {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header > div {
   display: flex;
   align-items: center;
 }
 
-#home > .container > .announcements > .stack > .header > div > *:not(:first-child) {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header > div > *:not(:first-child) {
   margin-left: 8px;
 }
 
-#home > .container > .announcements > .stack > .content {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content {
   display: grid;
   gap: 16px;
 }
 
-#home > .container > .announcements > .stack > .content > .titleAndDate {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > .titleAndDate {
   display: grid;
   gap: 4px;
 }
 
-#home > .container > .announcements > .stack > .content > .titleAndDate > .title {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > .titleAndDate > .title {
   font-family: 'SFProDisplay-Bold';
   font-size: 16px;
 }
 
-#home > .container > .announcements > .stack > .content > .titleAndDate > .date {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > .titleAndDate > .date {
   color: var(--carbon-grey);
   font-size: 12px;
   font-weight: 500;
 }
 
-#home > .container > .announcements > .stack > .content > p {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > p {
   color: var(--carbon-grey);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 }
 
-#home > .container > .announcements > .stack > .content > p > button {
+#home > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > p > button {
   display: inline;
   margin-left: 4px;
 }
 
-/* Notifications */
+/* Guests Booked */
 
-#home > .container > .notifications {
-  position: absolute;
-  top: 626px;
-  left: 20px;
-  right: 20px;
-  transition: 1000ms ease-in-out;
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked {
   display: flex;
   flex-direction: column;
-  height: 235px;
+  gap: 32px;
+  height: 264px;
   padding: 16px 16px 24px;
   background-color: var(--white);
 }
 
-#home > .container > .notifications > .header {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
-}
-
-#home > .container > .notifications > .header > h2 {
-  font-family: 'SFProDisplay-Bold';
-  font-size: 18px;
-}
-
-#home > .container > .notifications > .header > div {
-  display: flex;
-  align-items: center;
-}
-
-#home > .container > .notifications > .header > div > .btn {
-  margin-left: 8px;
-}
-
-#home > .container > .notifications > .list {
-  display: grid;
-  gap: 20px;
-  width: 100%;
-}
-
-#home > .container > .notifications > .list > .item {
-  display: flex;
-  width: 100%;
-}
-
-#home > .container > .notifications > .list > .item > .badge {
-  width: 36px;
   height: 32px;
-  margin-right: 8px;
-  padding: 4px;
-  border-radius: 4px;
 }
 
-#home > .container > .notifications > .list > .item > div {
-  display: grid;
-  gap: 4px;
-  width: 100%;
-}
-
-#home > .container > .notifications > .list > .item > div > .titleAndDate {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .header > h2 {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
-}
-
-#home > .container > .notifications > .list > .item > div > .titleAndDate > .title {
-  font-family: 'SFProDisplay-Bold';
-  font-size: 14px;
-  font-weight: 800;
-}
-
-#home > .container > .notifications > .list > .item > div > .titleAndDate > .date {
-  color: var(--carbon-grey);
-  font-size: 12px;
-  font-weight: 500;
-}
-
-#home > .container > .notifications > .list > .item > div > p {
-  color: var(--carbon-grey);
-  font-size: 12px;
-  font-weight: 500;
-}
-
-/* Bookings */
-
-#home > .container > .bookings {
-  position: absolute;
-  top: 626px;
-  left: 20px;
-  right: 20px;
-  transition: 1000ms ease-in-out;
-  display: flex;
-  flex-direction: column;
-  height: 235px;
-  padding: 16px 16px 24px;
-  background-color: var(--white);
-}
-
-#home > .container > .bookings > .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-}
-
-#home > .container > .bookings > .header > h2 {
   font-family: 'SFProDisplay-Bold';
   font-size: 18px;
 }
 
-#home > .container > .bookings > .header > div {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .header > div {
   display: flex;
   align-items: center;
 }
 
-#home > .container > .bookings > .header > div > .btn {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .header > div > *:not(:first-child) {
   margin-left: 8px;
 }
 
-#home > .container > .bookings > .list {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items {
   display: grid;
-  gap: 20px;
-  width: 100%;
+  gap: 16px;
 }
 
-#home > .container > .bookings > .list > .item {
-  display: flex;
-  width: 100%;
-}
-
-#home > .container > .bookings > .list > .item > div {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
-#home > .container > .bookings > .list > .item > div > .guestAndHost {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .nameAndHost {
   display: grid;
   gap: 4px;
-  width: 100%;
 }
 
-#home > .container > .bookings > .list > .item > div > .guestAndHost > .guest {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .nameAndHost > .name {
   font-family: 'SFProDisplay-Bold';
   font-size: 16px;
-  font-weight: 800;
 }
 
-#home > .container > .bookings > .list > .item > div > .guestAndHost > .host {
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .nameAndHost > .host {
   display: flex;
   align-items: center;
 }
 
-#home > .container > .bookings > .list > .item > div > .guestAndHost > .host > .profilePicture {
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .nameAndHost > .host > .profilePicture {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
   border-radius: 100%;
   background-size: cover;
 }
 
-#home > .container > .bookings > .list > .item > div > .bookingTime {
-  width: 64px;
-  color: var(--carbon-grey);
-  font-size: 12px;
-  font-weight: 500;
+#home > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .date {
+  font-family: 'SFProDisplay-Bold';
 }
 
-#home > .container > .bookings > .status {
-  visibility: hidden;
-  animation: showStatus 5s linear 3s forwards;
+/* Gate Pass Reader */
+
+#home > div > .gatePassReader {
+  width: 400px;
+  padding: 20px 24px;
+  box-shadow: 5px 5px 20px 0px rgba(187, 187, 187, 0.25), -5px 5px 20px 0px rgba(187, 187, 187, 0.25);
+  border-radius: 16px;
+  background-color: var(--white);
+}
+
+#home > div > .gatePassReader > .tabs {
+  display: flex;
+  align-items: center;
+}
+
+#home > div > .gatePassReader > .tabs > .tab {
+  width: 80px;
+  color: var(--carbon-grey);
+  text-align: center;
+  cursor: pointer;
+}
+
+#home > div > .gatePassReader > .tabs > .tab.active {
+  padding: 8px 16px;
+  border-radius: 16px;
+  background-color: var(--boring-green);
+  color: var(--white);
+}
+
+#home > div > .gatePassReader > .reader {
+  margin: 24px 0;
+}
+
+#home > div > .gatePassReader > .reader.input {
+  display: flex;
+  flex-direction: column;
+  height: 352px;
+  padding: 16px 0;
+}
+
+#home > div > .gatePassReader > .reader.input > .btn {
+  width: 100%;
+  margin-top: 80px;
+}
+
+#home > div > .gatePassReader > .searchResult {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  box-shadow: 5px 5px 20px 0px rgba(187, 187, 187, 0.25), -5px 5px 20px 0px rgba(187, 187, 187, 0.25);
+  border-radius: 16px;
+}
+
+#home > div > .gatePassReader > .searchResult > .profilePictureAndName {
   display: grid;
   place-content: center;
-  place-items: center;
-  margin-top: 24px;
+  gap: 24px;
 }
 
-#home > .container > .bookings > .status > img {
+#home > div > .gatePassReader > .searchResult > .profilePictureAndName > .profilePicture {
   width: 64px;
   height: 64px;
+  margin: auto;
+  border-radius: 100%;
+  background-image: url('../assets/images/image.png');
 }
 
-#home > .container > .bookings > .status > p {
-  margin-top: 16px;
+#home > div > .gatePassReader > .searchResult > .profilePictureAndName > .name {
+  font-style: 'SFProDisplay-Bold';
+  font-size: 24px;
+}
+
+#home > div > .gatePassReader > .searchResult > .addressAndType {
+  margin: 12px 0 64px;
+}
+
+#home > div > .gatePassReader > .searchResult > .addressAndType > p {
+  font-style: 'SFProDisplay-Medium';
+}
+
+#home > div > .gatePassReader > .searchResult > div > p {
   text-align: center;
-  font-family: 'SFProDisplay-Medium';
-  font-size: 18px;
 }
 
-/* Screen Width: 390px */
-
-@media only screen and (min-width: 390px) {
-  /* Container */
-
-  #home > .container {
-    height: 92.5vh;
-    margin-top: 48px;
-  }
-
-  /* Header */
-
-  #home > .container > .header > h1 {
-    font-size: 26px;
-  }
-
-  /* Guests */
-
-  #home > .container > .guests {
-    top: 151px;
-  }
-
-  #home > .container > .guests > div .input-field {
-    padding: 4px 16px;
-    border-bottom: 0;
-    border-radius: 100px;
-  }
-  
-  #home > .container > .guests > div .input-field > .suffix {
-    margin-right: 4px;
-  }
-
-  #home > .container > .guests > p > span:first-child {
-    font-family: 'SFProDisplay-Bold';
-    font-size: 40px;
-    font-weight: 700;
-  }
-  
-  #home > .container > .guests > p > span:last-child {
-    font-size: 24px;
-    font-weight: 700;
-  }
-
-  /* Announcements */
-
-  #home > .container > .announcements {
-    top: 408px;
-  }
-
-  /* Notifications */
-
-  #home > .container > .notifications {
-    top: 642px;
-  }
-
-  /* Bookings */
-
-  #home > .container > .bookings {
-    top: 642px;
-  }
+#home > div > .gatePassReader > .searchResult > .btn {
+  width: 100%;
 }
 
-/* Screen Width: 410px */
+/* Screen Width: 1920px */
 
-@media only screen and (min-width: 410px) {
-  /* Header */
-
-  #home > .container {
-    height: 90vh;
-  }
-
-  #home > .container > .header > h1 {
-    font-size: 28px;
-  }
-
-  /* Guests */
-
-  #home > .container > .guests {
-    top: 155px;
-  }
-
-  #home > .container > .guests > div .input-field > input {
-    width: 105px;
-  }
-
-  /* Announcements */
-
-  #home > .container > .announcements {
-    top: 413px;
-    margin-bottom: 82px;
-  }
-
-  #home > .container > .announcements > .stack > .header > h2 {
-    font-size: 20px;
-  }
-
-  #home > .container > .announcements > .stack > .header > h2 > img {
-    width: 24px;
-  }
-
-  /* Notifications */
-
-  #home > .container > .notifications {
-    top: 648px;
-    height: 238px;
-  }
-
-  #home > .container > .notifications > .header > h2 {
-    font-size: 20px;
-  }
-
-  /* Bookings */
-
-  #home > .container > .bookings {
-    top: 648px;
-    height: 238px;
-  }
-
-  #home > .container > .bookings > .header > h2 {
-    font-size: 20px;
+@media only screen and (min-width: 1920px) {
+  #home {
+    padding: 40px 40px 40px 390px;
   }
 }

@@ -52,7 +52,7 @@ import {
 const routes = [
   {
     path: '/',
-    component: <GatePassReader />
+    component: <Login />
   },
   {
     path: '/login',

@@ -6,11 +6,13 @@
 import Menu from './Menu'
 import NavigationBar from './NavigationBar'
 import Node from './Node'
+import SideBar from './SideBar'
 import Timer from './Timer'
 
 export {
   Menu,
   NavigationBar,
   Node,
+  SideBar,
   Timer
 }
