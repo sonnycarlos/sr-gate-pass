@@ -9,6 +9,7 @@ import dbConnect from './config/database.js'
 import { 
   announcementRoutes,
   guestRoutes, 
+  profileRoutes, 
   userRoutes 
 } from './routes/index.js'
 
@@ -73,6 +74,9 @@ io.on('connection', (socket) => {
 
 // User Routes
 app.use('/api/user', userRoutes)
+
+// Profile Routes
+app.use('/api/profile', profileRoutes)
 
 // Guest Routes
 app.use('/api/guest', guestRoutes)

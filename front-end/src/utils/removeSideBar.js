@@ -56,7 +56,7 @@ export default function removeSideBar(location, routes) {
       &&
     route.path !== '/my-gate-pass'
       &&
-    route.path !== '/announcement'
+    route.path !== '/my-guests'
       &&
     route.path !== '/guest-overview'
       &&

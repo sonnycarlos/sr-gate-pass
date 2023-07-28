@@ -99,3 +99,31 @@
     font-size: 24px;
   }
 }
+
+/* Screen Width: 1050px */
+
+@media only screen and (min-width: 1050px) {
+  #announcements {
+    padding-left: 340px;
+  }
+
+  /* Container */
+
+  #announcements > .container {
+    margin-top: 0;
+  }
+
+  /* List */
+
+  #announcements > .container > .list {
+    width: 600px;
+  }
+}
+
+/* Screen Width: 1920px */
+
+@media only screen and (min-width: 1920px) {
+  #announcements {
+    padding-left: 390px;
+  }
+}

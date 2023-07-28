@@ -9,6 +9,7 @@ import Notification from './notificationModel.js'
 import ProfileRequest from './profileRequestModel.js'
 import Resident from './residentModel.js'
 import User from './userModel.js'
+import Worker from '.workerModel.js'
 
 export {
   Announcement,
@@ -16,5 +17,6 @@ export {
   Notification,
   ProfileRequest,
   Resident,
-  User
+  User,
+  Worker
 }

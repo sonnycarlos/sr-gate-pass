@@ -6,10 +6,12 @@
 import {
   AccountRegistrationPending,
   AccountRegistrationSuccessfully,
+  AddProfile,
   Announcements,
   AnnouncementOverview,
   BookGuest,
   BookGuestSuccessfully,
+  Dashboard,
   EditApplicationPending,
   EditApplicationStep1,
   EditApplicationStep2,
@@ -38,6 +40,8 @@ import {
   OnBoardingStep3,
   OnBoardingSuccessfully,
   PageNotFound,
+  ProfileOverview,
+  Profiles,
   Registration,
   RegistrationSuccessfully,
   ResetPasswordStep1,
@@ -203,12 +207,28 @@ const routes = [
     component: <BookGuestSuccessfully />
   },
   {
+    path: '/profiles',
+    component: <Profiles />
+  },
+  {
+    path: '/profile-overview/:id',
+    component: <ProfileOverview />
+  },
+  {
+    path: '/add-profile',
+    component: <AddProfile />
+  },
+  {
     path: '/map',
     component: <Map />
   },
   {
     path: '/guest-map',
     component: <GuestMap />
+  },
+  {
+    path: '/dashboard',
+    component: <Dashboard />
   },
   {
     path: '/home-sg',

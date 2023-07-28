@@ -1,0 +1,233 @@
+#profiles {
+  position: relative;
+  overflow-x: hidden;
+  height: 100vh;
+  padding: 48px 20px 24px 340px;
+  background-color: var(--lavander-mist);
+}
+
+/* Header */
+
+#profiles > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 700px;
+}
+
+#profiles > .header > h1 {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 24px;
+  font-weight: 800;
+}
+
+#profiles > .header > .btn {
+  padding: 10px 24px;
+}
+
+#profiles > .header > .btn > span {
+  margin-right: 4px;
+  color: var(--white);
+}
+
+/* Stack */
+
+#profiles > .stack {
+  width: 700px;
+  margin-top: 24px;
+  padding: 20px;
+  box-shadow: 5px 5px 20px 0px rgba(187, 187, 187, 0.25), -5px 5px 20px 0px rgba(187, 187, 187, 0.25);
+  border-radius: 16px;
+  background-color: var(--white);
+}
+
+#profiles > .stack > .chipsAndSearch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#profiles > .stack > .chipsAndSearch > #chips {
+  width: fit-content;
+}
+
+#profiles > .stack > .chipsAndSearch > #chips {
+  margin-top: 16px;
+}
+
+#profiles > .stack > .list {
+  display: grid;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+#profiles > .stack > .list > .items {
+  display: flex;
+  flex-direction: column;
+  height: 384px;
+}
+
+#profiles > .stack > .list .row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#profiles > .stack > .list > .header {
+  padding-left: 16px;
+} 
+
+#profiles > .stack > .list .row > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: .2;
+}
+
+#profiles > .stack > .list > .items > .item {
+  transition: 500ms;
+  padding: 8px 0 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#profiles > .stack > .list > .row > .checkBox,
+#profiles > .stack > .list > .items > .row > .checkBox {
+  flex: .01;
+}
+
+#profiles > .stack > .list > .row > .gender,
+#profiles > .stack > .list > .items > .row > .gender {
+  flex: .175;
+}
+
+#profiles > .stack > .list > .row > .emailAddress {
+  flex: .3;
+}
+
+#profiles > .stack > .list > .row > .address {
+  flex: .25;
+}
+
+#profiles > .stack > .list > .row > .status,
+#profiles > .stack > .list > .items > .row > .status {
+  flex: .1;
+}
+
+#profiles > .stack > .list > .items > .item:hover {
+  background-color: #F3F3F3;
+}
+
+#profiles > .stack > .list > .row > div > p {
+  color: var(--storm-dust);
+  font-size: 14px;
+}
+
+#profiles > .stack > .list > .items > .item > div > p {
+  font-family: 'SFProDisplay-Medium';
+  font-size: 14px;
+}
+
+#profiles > .stack > .list > .items > .item > .resident > .profilePicture {
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  background-size: cover;
+}
+
+#profiles > .stack > .list > .items > .item > .resident > .nameAndUsername {
+  display: grid;
+  gap: 2px;
+  margin-left: 8px;
+}
+
+#profiles > .stack > .list > .items > .item > .resident > .nameAndUsername > .name {
+  font-family: 'SFProDisplay-Bold';
+  font-weight: 800;
+}
+
+#profiles > .stack > .list > .items > .item > .resident > .nameAndUsername > .username {
+  font-family: 'SFProDisplay-Medium';
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#profiles > .stack > .list > .items > .item > .emailAddress {
+  flex: .3;
+}
+
+#profiles > .stack > .list > .items > .item > .address {
+  flex: .25;
+}
+
+#profiles > .stack > .list > .items > .item > .type > p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'SFProDisplay-Medium';
+  font-weight: 500;
+}
+
+#profiles > .stack > .list > .items > .item > .status > p {
+  font-family: 'SFProDisplay-Bold';
+}
+
+#profiles > .stack > #pagination {
+  margin-top: 32px;
+}
+
+/* Screen Width: 1280px */
+
+@media only screen and (min-width: 1280px) {
+  /* Header */
+  #profiles > .header {
+    width: 900px;
+  }
+
+  /* Stack */
+
+  #profiles > .stack {
+    width: 900px;
+  }
+}
+
+/* Screen Width: 1440px */
+
+@media only screen and (min-width: 1440px) {
+  /* Header */
+  
+  #profiles > .header {
+    width: 1000px;
+  }
+
+  /* Stack */
+
+  #profiles > .stack {
+    width: 1000px;
+  }
+}
+
+/* Screen Width: 1920px */
+
+@media only screen and (min-width: 1920px) {
+  #profiles {
+    padding-left: 390px;
+  }
+
+  /* Header */
+
+  #profiles > .header {
+    width: 1200px;
+  }
+
+  /* Stack */
+
+  #profiles > .stack {
+    width: 1200px;
+    height: 800px;
+  }
+
+  #profiles > .stack > .list > .items {
+    height: 570px;
+  }
+}

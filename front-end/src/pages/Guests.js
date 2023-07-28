@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import io from 'socket.io-client'
 
 import { 
@@ -18,38 +18,36 @@ import {
 
 import { domain } from '../constants'
 
-import { Search } from '../assets/svg'
+import { ChevronDown, Search, MoreHorizontal } from '../assets/svg'
 
 import '../css/guests.css'
 
 function GuestsHistory() {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
-  const [tabActive, setTabActive] = useState('bookingHistory')
   const [guests, setGuests] = useState([])
   const guestsCount = initialState.guestsCount
+  const today = new Date().toISOString().split('T')[0]
+  const [selectedDate, setSelectedDate] = useState(today)
   const details = JSON.parse(window.localStorage.getItem('profile'))
-  const [items, setItems] = useState([
-    { date: 'Yesterday', count: 20 },
-    { date: 'September 23', count: 20 },
-    { date: 'September 22', count: 11 },
-    { date: 'September 21', count: 12 },
-    { date: 'September 20', count: 20 },
-    { date: 'September 19', count: 21 },
-    { date: 'September 18', count: 14 },
-    { date: 'September 17', count: 34 },
-    { date: 'September 16', count: 22 },
-    { date: 'September 15', count: 19 },
-    { date: 'September 14', count: 8 },
-    { date: 'September 13', count: 16 },
-    { date: 'September 12', count: 10 },
-    { date: 'September 11', count: 26 },
-    { date: 'September 10', count: 19 }
-  ])
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+
+  // Handle date change
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value)
+  }
+
+  // Handle click
+  const handleClick = (id) => {
+    window.localStorage.setItem('profileType', 'guest')
+    navigate(`/profile-overview/${id}`)
+  }
 
   // Use effect
   useEffect(() => {
-    document.title = 'Guests History'
+    document.title = 'Guests'
+
+    console.log(document.getElementById('items').offsetHeight)
     
     const cookie = document.cookie?.split('; ')?.find((row) => row.startsWith('routeHistory='))?.split('=')[1]
     const routeHistory = cookie?.split(',')
@@ -108,80 +106,127 @@ function GuestsHistory() {
   return (
     <section id='guests'>
       {/* Header */}
-      <header>
-        <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-          Guests
-        </h1>
+      <h1 style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+        Guests
+      </h1>
 
-        <Link className='searchBtn'>
-          <Search color='#1E1E1E' />
-        </Link>
-      </header>
+      {/* Stack */}
+      <div className='stack'>
+        <div className='filterAndSearch'>
+          <div className='filter'>
+            <p>Showing the result in</p>
+            
+            <div className='form-group'>
+              <div className='date input-field'>
+                <input 
+                  type='date' 
+                  value={selectedDate}
+                  placeholder='Today' 
+                  onChange={handleDateChange}
+                  id='logDate'
+                />
 
-      {/* Tabs */}
-      <div id='tabs'>
-        <div 
-          onClick={() => setTabActive('bookingHistory')}
-          className={`tab ${tabActive === 'bookingHistory' && 'active'}`}
-        >
-          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            Booking History
-          </p>
-
-          <span></span>
-        </div>
-
-        <div 
-          onClick={() => setTabActive('loggingHistory')}
-          className={`tab ${tabActive === 'loggingHistory' && 'active'}`}
-        >
-          <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
-            Logging History
-          </p>
-
-          <span></span>
-        </div>
-      </div>
-
-      {/* Booking History List */}
-      <div 
-        style={{ display: `${tabActive === 'bookingHistory' ? 'flex' : 'none'}` }}
-        className={`bookingHistory list ${tabActive === 'bookingHistory' && 'active'}`}
-      >
-        {guests?.map(({ _id, name, dateBooked, host }) => {
-          return (
-            <Link key={_id} className='item'>
-              <div className='nameAndDate'>
-                <h2 
-                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-                  className='name'
-                >
-                  {name}
-                </h2>
-                <p className='date'>{`${formatDate(dateBooked)} at ${formatTime(dateBooked)}`}</p>
+                <span className='suffix'>
+                  <ChevronDown color='#1E1E1E' />
+                </span>
               </div>
+            </div>
+          </div>
 
-              <div className='bookedBy'>
-                <p>Booked By</p>
-                
+          <div className='search'>
+            <div className='form-group'>
+              <div className='input-field'>
+                <span className='prefix'>
+                  <Search />
+                </span>
+
+                <input 
+                  type='text' 
+                  placeholder='Search guest' 
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* List */}
+        <div className='list'>
+          <div className='header row'>
+            <div>
+              <p>Guest Name</p>
+            </div>
+            
+            <div>
+              <p>Phone Number</p>
+            </div>
+
+            <div>
+              <p>Host</p>
+            </div>
+
+            <div>
+              <p>Booking Date</p>
+            </div>
+
+            <div>
+              <p>Arrived Time</p>
+            </div>
+          </div>
+
+          <div id='items' className='items'>
+            {guests?.slice(0, screenWidth >= 1920 ? 12 : 24)?.map(({ _id, name, phoneNumber, dateBooked, timeArrived, host }) => (
+              <div 
+                key={_id} 
+                onClick={() => handleClick(_id)} 
+                className='item row'
+              >
+                <div className='name'>
+                  <p>{name}</p>
+                </div>
+
+                <div className='phoneNumber'>
+                  <p>{phoneNumber}</p>
+                </div>
+
                 <div className='host'>
                   <div 
                     style={{ backgroundImage: `url('https://res.cloudinary.com/dfc3s2kfc/raw/upload/v1687096624/${guests[guests?.length - 1]?.host?.picture[0].name}')` }}
                     className='profilePicture'
-                  >
-                  </div>
+                  ></div>
 
-                  <p 
-                    style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-                    className='name'
-                  >
-                    {`${guests[guests.length >= 3 ? guests.length - 3 : 0]?.host?.firstName} ${guests[guests.length >= 3 ? guests.length - 3 : 0]?.host?.lastName}`}
-                  </p>
+                  <div className='nameAndUsername'>
+                    <p className='name'>{host?.firstName + ' ' + host?.lastName}</p>
+                    <p className='username'>@{host?.username}</p>
+                  </div>
+                </div>
+
+                <div className='dateBooked'>
+                  <p>{formatDate(dateBooked) + ' at ' + formatTime(dateBooked)}</p>
+                </div>
+
+                <div className='timeArrived'>
+                  <p>{timeArrived.length != 0 ? formatTime(timeArrived[0]) : 'Not arrived'}</p>
                 </div>
               </div>
-            </Link>
-          )
-        })}
+            ))}
+          </div>
+        </div>
+
+        {/* Pagination */}
+        <div id='pagination'>
+          <p>Showing 1 out of {guests?.length} results</p>
+
+          <div className='actions'>
+            <button className='text btn'>Previous</button>
+            <button className='active text btn'>1</button>
+            <button className='text btn'>2</button>
+            <button className='text btn'>3</button>
+            <button className='text btn'>4</button>
+            <button className='text btn'><MoreHorizontal color='#606060' /></button>
+            <button className='text btn'>50</button>
+            <button className='text btn'>Next</button>
+          </div>
+        </div>
       </div>
     </section>
   )

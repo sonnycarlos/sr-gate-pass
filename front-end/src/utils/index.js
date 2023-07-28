@@ -11,6 +11,9 @@ import fetchAnnouncement from './fetchAnnouncement'
 import fetchApplication from './fetchApplication'
 import fetchGuest from './fetchGuest'
 import fetchGuests from './fetchGuests'
+import fetchRequests from './fetchRequests'
+import fetchResident from './fetchResident'
+import fetchResidents from './fetchResidents'
 import formatBirthdate from './formatBirthdate'
 import formatBytes from './formatBytes'
 import formatDate from './formatDate'
@@ -40,6 +43,9 @@ export {
   fetchApplication,
   fetchGuest,
   fetchGuests,
+  fetchRequests,
+  fetchResident,
+  fetchResidents,
   formatBirthdate,
   formatBytes,
   formatDate,

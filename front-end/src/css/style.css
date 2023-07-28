@@ -565,6 +565,7 @@ select {
   top: 0;
   bottom: 0;
   left: 0;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -665,7 +666,9 @@ select {
 
 #side_bar > .profile > .profilePictureAndName > .profilePicture > p {
   color: var(--white);
-  font-size: 20px;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-family: 'SFProDisplay-Bold';
 }
 
 #side_bar > .profile > .profilePictureAndName > .nameAndUsername {
@@ -809,6 +812,7 @@ select {
   flex: .5;
   justify-content: center;
   height: 100%;
+  cursor: pointer;
 }
 
 #tabs > .tab > p {
@@ -827,6 +831,75 @@ select {
   color: var(--dark-jungle-green);
   font-family: 'SFProDisplay-Bold';
   font-weight: 800;
+}
+
+/* Chips */
+
+#chips {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#chips > .chip {
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+#chips > .chip > p {
+  color: var(--carbon-grey);
+}
+
+#chips > .chip > p:hover {
+  color: var(--dark-jungle-green);
+}
+
+#chips > .chip.active {
+  border-radius: 100px;
+  background-color: var(--boring-green);
+}
+
+#chips > .chip.active:hover {
+  background-color: #47AF3A;
+}
+
+#chips > .chip.active > p {
+  color: var(--white);
+}
+
+/* Pagination */
+
+#pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#pagination > p {
+  color: var(--carbon-grey);
+  font-size: 14px;
+}
+
+#pagination > .actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+#pagination > .actions > .btn {
+  padding: 6px 12px;
+  border-radius: 12px;
+  color: var(--carbon-grey);
+  font-weight: 500;
+}
+
+#pagination > .actions > .btn.active {
+  background-color: var(--boring-green);
+  color: var(--white);
+  font-family: 'SFProDisplay-Medium';
+  font-size: 12px;
+  font-weight: 600;
 }
 
 /* Mark */
@@ -915,6 +988,24 @@ select {
 
   .info-group > p {
     font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  /* Side Bar */
+
+  #side_bar {
+    z-index: -100;
+  }
+}
+
+/* Screen Width: 1050px */
+
+@media only screen and (min-width: 1050px) {
+  /* Navigation Bar */
+
+  #navigation_bar {
+    z-index: -100;
   }
 }
 

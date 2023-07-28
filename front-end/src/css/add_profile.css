@@ -1,0 +1,170 @@
+#add_profile {
+  position: relative;
+  overflow-x: hidden;
+  height: 100vh;
+  padding: 48px 20px 24px 340px;
+  background-color: var(--lavander-mist);
+}
+
+/* Back Button & Heading */
+
+#add_profile > .backBtnAndHeading {
+  display: grid;
+  gap: 16px;
+}
+
+/* Form */
+
+#add_profile > .stack {
+  overflow-y: scroll;
+  width: 700px;
+  height: 560px;
+  margin-top: 24px;
+  padding: 20px;
+  box-shadow: 5px 5px 20px 0px rgba(187, 187, 187, 0.25), -5px 5px 20px 0px rgba(187, 187, 187, 0.25);
+  border-radius: 16px;
+  background-color: var(--white);
+}
+
+#add_profile > .stack > .headingAndActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#add_profile > .stack > .headingAndActions > h2 {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 20px;
+}
+
+#add_profile > .stack > .headingAndActions > .actions {
+  display: flex;
+  align-items: center;
+}
+
+#add_profile > .stack > .headingAndActions > .actions > .btn {
+  padding: 10px 32px;
+}
+
+#add_profile > .stack > .inputFields {
+  display: grid;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+#add_profile > .stack > .inputFields > .row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+#add_profile > .stack > .inputFields > .row.files {
+  align-items: flex-start;
+  margin-top: 40px;
+}
+
+#add_profile > .stack > .inputFields > .row > .form-group,
+#add_profile > .stack > .inputFields > .row > div {
+  width: 100%;
+}
+
+#add_profile > .stack > .inputFields > .row.files > div {
+  display: grid;
+  gap: 40px;
+}
+
+/* Modal */
+
+#add_profile > .modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: none;
+  place-content: center;
+  place-items: center;
+  background: rgba(99, 100, 102, 0.50);
+}
+
+#add_profile > .modal > .container {
+  width: 400px;
+  height: 700px;
+  border-radius: 16px;
+  background-color: var(--white);
+}
+
+#add_profile > .modal > .container > .gatePass {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+  padding: 40px 40px 80px;
+  background: url('../assets/images/gate_pass_bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#add_profile > .modal > .container > .gatePass > .profilePicture {
+  width: 72px;
+  height: 72px;
+  border: 2px solid var(--lavander-mist);
+  border-radius: 50%;
+  background-size: cover;
+}
+
+#add_profile > .modal > .container > .gatePass > .nameAndAddress {
+  margin: 24px 0 40px;
+}
+
+#add_profile > .modal > .container > .gatePass > .nameAndAddress > * {
+  text-align: center;
+}
+
+#add_profile > .modal > .container > .actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 24px;
+}
+
+#add_profile > .modal > .container > .actions > * {
+  width: 100%;
+}
+
+/* Screen Width: 1280px */
+
+@media only screen and (min-width: 1280px) {
+  /* Header */
+
+  #add_profile > .stack {
+    width: 900px;
+  }
+}
+
+/* Screen Width: 1440px */
+
+@media only screen and (min-width: 1440px) {
+  /* Header */
+  #add_profile > .stack {
+    width: 1000px;
+  }
+}
+
+/* Screen Width: 1920px */
+
+@media only screen and (min-width: 1920px) {
+  #add_profile {
+    padding-left: 390px;
+  }
+
+  /* Header */
+
+  #add_profile > .stack {
+    width: 1200px;
+    height: 750px;
+  }
+}

@@ -5,10 +5,12 @@
 
 import announcementRoutes from './announcementRoutes.js'
 import guestRoutes from './guestRoutes.js'
+import profileRoutes from './profileRoutes.js'
 import userRoutes from './userRoutes.js'
 
 export {
   announcementRoutes,
   guestRoutes,
+  profileRoutes,
   userRoutes
 }

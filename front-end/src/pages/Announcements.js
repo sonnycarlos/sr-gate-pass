@@ -22,6 +22,7 @@ function Announcements({ forwardRef }) {
   const navigate = useNavigate()
   const [initialState, dispatch] = useSrContext()
   const [announcements, setAnnouncements] = useState(initialState.announcements || [])
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   // Use effect
   useEffect(() => {
@@ -63,6 +64,13 @@ function Announcements({ forwardRef }) {
 
     validate()
 
+    // Handle resize
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+
     // Implement real time for announcements
     const socket = io(domain)
     
@@ -73,6 +81,7 @@ function Announcements({ forwardRef }) {
     getAnnouncements().then(fetchedAnnouncements => setAnnouncements(fetchedAnnouncements))
 
     return () => {
+      window.removeEventListener('resize', handleResize)
       socket.close()
     }
   }, [])
@@ -91,7 +100,7 @@ function Announcements({ forwardRef }) {
             {announcements?.slice(0)?.reverse()?.map(({ _id, heading, body, datePosted, isPin }, i) => {
               return (
                 <Link 
-                  to={`/announcement-overview/${_id}`} 
+                  to={screenWidth <= 500 && `/announcement-overview/${_id}`} 
                   key={_id} 
                   className='item'
                 >
@@ -106,7 +115,7 @@ function Announcements({ forwardRef }) {
                       style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
                       className='title'
                     >
-                      {heading.length > 30 ? `${heading.substring(0, 30)}...` : heading}
+                      {screenWidth <= 500 ? heading.length > 30 ? `${heading.substring(0, 30)}...` : heading : heading}
                     </h2>
                     
                     <p className='date'>
@@ -115,9 +124,9 @@ function Announcements({ forwardRef }) {
                   </div>
 
                   <p>
-                    {body.length > 140 ? `${body.substring(0, 140)}...` : body}
+                    {screenWidth <= 500 ? body.length > 140 ? `${body.substring(0, 140)}...` : body : body}
                       
-                    {body.length > 140 && (
+                    {screenWidth <= 500 && body.length > 140 && (
                       <button 
                         style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
                         className='text btn'

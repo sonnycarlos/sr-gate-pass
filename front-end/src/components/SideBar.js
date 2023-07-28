@@ -79,6 +79,7 @@ function SideBar() {
         <div className='links'>
           {profile.type === 'admin' && (
             <Link
+              to='/dashboard'
               onClick={() => { dispatch({ type: SET_ACTIVE_PAGE, payload: 'home' }) }}
               className={`${initialState.activePage === 'home' && 'active'}`}
             >
@@ -92,6 +93,7 @@ function SideBar() {
 
           {profile.type === 'security' && (
             <Link
+              to='/home'
               onClick={() => {   dispatch({ type: SET_ACTIVE_PAGE, payload: 'home' }) }}
               className={`${initialState.activePage === 'home' && 'active'}`}
             >
@@ -104,6 +106,7 @@ function SideBar() {
           )}
 
           <Link
+            to='/announcements'
             onClick={() => { dispatch({ type: SET_ACTIVE_PAGE, payload: 'announcements' }) }}
             className={`${initialState.activePage === 'announcements' && 'active'}`}
           >
@@ -114,18 +117,22 @@ function SideBar() {
             <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Announcements</span>
           </Link>
 
-          <Link
-            onClick={() => { dispatch({ type: SET_ACTIVE_PAGE, payload: 'profiles' }) }}
-            className={`${initialState.activePage === 'profiles' && 'active'}`}
-          >
-            <div className='icon'>
-              <User color={`${initialState.activePage === 'profiles' ? '#5CB950' : '#606060'}`} />
-            </div>
+          {profile.type === 'admin' && (
+            <Link
+              to='/profiles'
+              onClick={() => { dispatch({ type: SET_ACTIVE_PAGE, payload: 'profiles' }) }}
+              className={`${initialState.activePage === 'profiles' && 'active'}`}
+            >
+              <div className='icon'>
+                <User color={`${initialState.activePage === 'profiles' ? '#5CB950' : '#606060'}`} />
+              </div>
 
-            <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Profiles</span>
-          </Link>
+              <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Profiles</span>
+            </Link>
+          )}
           
           <Link
+            to='/guests'
             onClick={() => { dispatch({ type: SET_ACTIVE_PAGE, payload: 'guests' }) }}
             className={`${initialState.activePage === 'guests' && 'active'}`}
           >
@@ -150,12 +157,16 @@ function SideBar() {
       <div ref={profileRef} onClick={openMenu} className='profile'>
         <div className='profilePictureAndName'>
           <div className='profilePicture'>
-            <p>S</p>
+            <p>SR</p>
           </div>
 
           <div className='nameAndUsername'>
-            <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} className='name'>Sonny Carlos</p>
-            <p className='username'>@sonnycarlos</p>
+            <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} className='name'>
+              {profile.type === 'admin' ? 'Administrator' : 'Security'}
+            </p>
+            <p className='username'>
+              @{profile.type === 'admin' ? 'srgatepass' : 'srsecurity'}
+            </p>
           </div>
         </div>
 

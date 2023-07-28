@@ -72,6 +72,14 @@ export default function removeNavBar(location, routes) {
       &&
     route.path !== '/guest-map'
       &&
+    route.path !== '/dashboard'
+      &&
+    route.path !== '/profiles'
+      &&
+    route.path !== '/profile-overview'
+      &&
+    route.path !== '/add-profile'
+      &&
     route.path !== '/home-sg'
       &&
     route.path !== '/approve-user' 

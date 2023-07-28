@@ -2,121 +2,179 @@
   position: relative;
   overflow-x: hidden;
   height: 100vh;
-  padding: 48px 20px 24px;
+  padding: 48px 20px 24px 340px;
+  background-color: var(--lavander-mist);
+}
+
+/* Heading */
+
+#guests > h1 {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 24px;
+  font-weight: 800;
+}
+
+/* Stack */
+
+#guests > .stack {
+  width: 700px;
+  margin-top: 24px;
+  padding: 20px;
+  box-shadow: 5px 5px 20px 0px rgba(187, 187, 187, 0.25), -5px 5px 20px 0px rgba(187, 187, 187, 0.25);
+  border-radius: 16px;
   background-color: var(--white);
 }
 
-/* Header */
-
-#guests > header {
+#guests > .stack > .filterAndSearch {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+#guests > .stack > .filterAndSearch > .filter {
+  display: flex;
+  align-items: center;
+}
+
+#guests > .stack > .filterAndSearch > .filter > p {
+  color: var(--carbon-grey);
+  font-size: 14px;
+}
+
+#guests > .stack > .filterAndSearch > .filter > .form-group .input-field {
+  margin-left: 12px;
+  padding: 0 16px;
+  border-bottom: 0;
+  border: 1px solid var(--romance);
+  border-radius: 100px;
+  background-color: #F3F3F3;
+}
+
+#guests > .stack > .filterAndSearch > .filter > .form-group .input-field > input {
+  width: 96px;
+  background-color: #F3F3F3;
+  font-size: 12px;
+}
+
+#guests > .stack > .list {
+  display: grid;
+  gap: 24px;
   margin-top: 40px;
 }
 
-#guests > header > h1 {
-  font-family: 'SFProDisplay-Bold';
-  font-size: 20px;
-  font-weight: 800;
-}
-
-#guests > header > .searchBtn {
-  transform: scale(1.2);
-}
-
-/* Tabs */
-
-#guests > #tabs {
-  margin: 24px 0 40px;
-}
-
-/* List */
-
-#guests > .list {
-  overflow-y: auto;
-  visibility: hidden;
+#guests > .stack > .list > .items {
+  display: flex;
   flex-direction: column;
-  height: 60vh;
-  padding-bottom: 24px;
+  height: 384px;
 }
 
-#guests > .list.active {
-  visibility: visible;
-}
-
-#guests > .list > .item {
+#guests > .stack > .list .row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  margin-bottom: 16px;
 }
 
-#guests > .list > .item > .nameAndDate {
-  display: grid;
-  gap: 2px;
+#guests > .stack > .list .row > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: .2;
 }
 
-#guests > .list > .item > .nameAndDate > .name {
+#guests > .stack > .list > .items > .item {
+  transition: 500ms;
+  padding: 8px 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#guests > .stack > .list > .items > .item:hover {
+  background-color: #F3F3F3;
+}
+
+#guests > .stack > .list .row > *:nth-child(3),
+#guests > .stack > .list > .items > .item > .host {
+  flex: .4;
+}
+
+#guests > .stack > .list > .row > div > p {
+  color: var(--storm-dust);
+  font-size: 14px;
+}
+
+#guests > .stack > .list > .items > .item > div > p {
+  font-family: 'SFProDisplay-Medium';
+  font-size: 14px;
+}
+
+#guests > .stack > .list > .items > .item > .name > p {
   font-family: 'SFProDisplay-Bold';
-  font-size: 18px;
   font-weight: 800;
 }
 
-#guests > .list > .item > .nameAndDate > .date {
-  font-size: 14px;
+#guests > .stack > .list > .items > .item > .phoneNumber > p {
+  font-family: 'SFProDisplay-Medium';
   font-weight: 500;
 }
 
-#guests > .list > .item > .bookedBy {
-  display: grid;
-  gap: 2px;
-  font-weight: 500;
-}
-
-#guests > .list > .item > .bookedBy > p {
-  font-size: 14px;
-}
-
-#guests > .list > .item > .bookedBy > .host {
-  display: flex;
-  align-items: center;
-}
-
-#guests > .list > .item > .bookedBy > .host > .profilePicture {
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
+#guests > .stack > .list > .items > .item > .host > .profilePicture {
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   background-size: cover;
 }
 
-#guests > .list > .item > .bookedBy > .host > .name {
-  font-family: 'SFProDisplay-Bold';
-  font-size: 14px;
-  font-weight: 800;
+#guests > .stack > .list > .items > .item > .host > .nameAndUsername {
+  display: grid;
+  gap: 2px;
+  margin-left: 8px;
 }
 
-/* Screen Width: 390px */
+#guests > .stack > .list > .items > .item > .host > .nameAndUsername > .username {
+  font-family: 'SFProDisplay-Medium';
+  font-size: 14px;
+  font-weight: 500;
+}
 
-@media only screen and (min-width: 390px) {
-  /* Header */
+#guests > .stack > #pagination {
+  margin-top: 32px;
+}
 
-  #guests > header {
-    margin-top: 48px;
+/* Screen Width: 1280px */
+
+@media only screen and (min-width: 1280px) {
+  /* Stack */
+
+  #guests > .stack {
+    width: 900px;
+  }
+}
+
+/* Screen Width: 1440px */
+
+@media only screen and (min-width: 1440px) {
+  /* Stack */
+
+  #guests > .stack {
+    width: 1000px;
+  }
+}
+
+/* Screen Width: 1920px */
+
+@media only screen and (min-width: 1920px) {
+  #guests {
+    padding-left: 390px;
   }
 
-  #guests > header > h1 {
-    font-size: 24px;
+  /* Stack */
+
+  #guests > .stack {
+    width: 1200px;
+    height: 800px;
   }
 
-  #guests > header > .searchBtn {
-    transform: scale(1.3);
-  }
-
-  /* List */
-  
-  #guests > .list > .item {
-    margin-bottom: 24px;
+  #guests > .stack > .list > .items {
+    height: 580px;
   }
 }

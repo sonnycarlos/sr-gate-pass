@@ -1,0 +1,199 @@
+#profile_overview {
+  position: relative;
+  overflow-x: hidden;
+  height: 100vh;
+  padding: 16px 20px 24px 340px;
+  background-color: var(--lavander-mist);
+}
+
+/* Header */
+
+#profile_overview > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 1024px;
+}
+
+#profile_overview > .header > .backBtnAndHeading {
+  display: grid;
+  gap: 16px;
+}
+
+#profile_overview > div {
+  display: flex;
+  margin-top: 24px;
+}
+
+/* About */
+
+#profile_overview > div > .about {
+  overflow: scroll;
+  width: 600px;
+  height: 570px;
+  margin-right: 24px;
+  padding: 24px 20px;
+  border-radius: 16px;
+  background-color: var(--white);
+}
+
+#profile_overview > div > .stack > h2 {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 20px;
+  font-weight: 800;
+}
+
+#profile_overview > div > .stack > h2:nth-of-type(2) {
+  margin-top: 64px;
+}
+
+#profile_overview > div > .about > .info {
+  display: grid;
+  gap: 40px;
+  margin-top: 32px;
+}
+
+#profile_overview > div > .about > .info > .row {
+  display: flex;
+  align-items: start;
+  gap: 64px;
+}
+
+#profile_overview > div > .about > .info > .row > .info-group {
+  width: 200px;
+}
+
+#profile_overview > div > .about > .info > .row > .info-group > .profilePictureAndName {
+  display: flex;
+  align-items: center;
+}
+
+#profile_overview > div > .about > .info > .row > .info-group > .profilePictureAndName > .profilePicture {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  border-radius: 100%;
+  background-size: cover;
+}
+
+#profile_overview > .about > .info > .row > .info-group > .profilePictureAndName > .nameAndUsername {
+  display: grid;
+  gap: 2px;
+}
+
+#profile_overview > div > .about > .info > .row > .info-group > .profilePictureAndName > .nameAndUsername > .name {
+  font-family: 'SFProDisplay-Bold';
+  font-weight: 800;
+}
+
+#profile_overview > div > .about > .info > .row > .info-group > .profilePictureAndName > .nameAndUsername > .username {
+  font-family: 'SFProDisplay-Medium';
+}
+
+/* History */
+
+#profile_overview > div > .history {
+  width: 400px;
+  padding: 24px 20px;
+  border-radius: 16px;
+  background-color: var(--white);
+}
+
+#profile_overview > div > .history > #tabs {
+  margin: 32px 0 24px;
+}
+
+#profile_overview > div > .history > .list {
+  visibility: hidden;
+  width: 100%;
+}
+
+#profile_overview > div > .history > .list.active {
+  visibility: visible;
+}
+
+#profile_overview > div > .history > .list > div {
+  width: 100%;
+}
+
+#profile_overview > div > .history > .list > div > .item,
+#profile_overview > div > .history > .list > div > .item > .dateAndTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 16px;
+}
+
+#profile_overview > div > .history > .list > div > .item .date {
+  font-family: 'SFProDisplay-Bold';
+  font-weight: 800;
+}
+
+#profile_overview > div > .history > .list > div > .item .time {
+  font-family: 'SFProDisplay-Medium';
+}
+
+#profile_overview > div > .history > .list > div > .item > .action {
+  transition: 350ms;
+}
+
+#profile_overview > div > .history > .logsHistory.list > div > .item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#profile_overview > div > .history > .logsHistory.list > div > .item > .logs {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+#profile_overview > div > .history > .logsHistory.list > div > .item > .logs > .time {
+  justify-self: end;
+  font-family: 'SFProDisplay-Regular';
+}
+
+#profile_overview > div > .history > .list > div > .content.opened {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+#profile_overview > div > .history > .list > div > .content > p {
+  display: none;
+  justify-self: end;
+  font-family: 'SFProDisplay-Medium';
+  font-size: 16px;
+}
+
+#profile_overview > div > .history > .list > div > .content.opened > p {
+  display: block;
+}
+
+/* Screen Width: 1920px */
+
+@media only screen and (min-width: 1920px) {
+  #profile_overview {
+    padding-left: 390px;
+  }
+
+  /* Header */
+  #profile_overview > .header {
+    width: 1224px;
+  }
+
+  /* About */
+
+  #profile_overview > div > .about {
+    width: 800px;
+    height: 750px;
+  }
+
+  #profile_overview > div > .about > .info > .row > .info-group {
+    width: 300px;
+  }
+}

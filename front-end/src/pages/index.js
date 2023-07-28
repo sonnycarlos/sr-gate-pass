@@ -5,10 +5,12 @@
 
 import AccountRegistrationPending from './onboarding/AccountRegistrationPending'
 import AccountRegistrationSuccessfully from './onboarding/AccountRegistrationSuccessfully'
+import AddProfile from './admin/AddProfile'
 import Announcements from './Announcements'
 import AnnouncementOverview from './AnnouncementOverview'
 import BookGuest from './resident/BookGuest'
 import BookGuestSuccessfully from './resident/BookGuestSuccessfully'
+import Dashboard from './admin/Dashboard'
 import EditApplicationPending from './onboarding/EditApplicationPending'
 import EditApplicationStep1 from './onboarding/EditApplicationStep1'
 import EditApplicationStep2 from './onboarding/EditApplicationStep2'
@@ -37,6 +39,8 @@ import OnBoardingStep2 from './onboarding/OnBoardingStep2'
 import OnBoardingStep3 from './onboarding/OnBoardingStep3'
 import OnBoardingSuccessfully from './onboarding/OnBoardingSuccessfully'
 import PageNotFound from './PageNotFound'
+import ProfileOverview from './ProfileOverview'
+import Profiles from './admin/Profiles'
 import Registration from './login_and_registration/Registration'
 import RegistrationSuccessfully from './login_and_registration/RegistrationSuccessfully'
 import ResetPasswordStep1 from './login_and_registration/ResetPasswordStep1'
@@ -50,10 +54,12 @@ import ApproveUser from './admin/ApproveUser'
 export {
   AccountRegistrationPending,
   AccountRegistrationSuccessfully,
+  AddProfile,
   Announcements,
   AnnouncementOverview,
   BookGuest,
   BookGuestSuccessfully,
+  Dashboard,
   EditApplicationPending,
   EditApplicationStep1,
   EditApplicationStep2,
@@ -82,6 +88,8 @@ export {
   OnBoardingStep3,
   OnBoardingSuccessfully,
   PageNotFound,
+  ProfileOverview,
+  Profiles,
   Registration,
   RegistrationSuccessfully,
   ResetPasswordStep1,

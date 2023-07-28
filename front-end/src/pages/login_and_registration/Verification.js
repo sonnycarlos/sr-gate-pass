@@ -65,6 +65,12 @@ function Verification() {
           if (initialState.user?.isApprove) {
             await fetchAnnouncements(dispatch, {})
 
+            // If admin
+            if (initialState.user?.type === 'admin') {
+              window.localStorage.setItem('profile', JSON.stringify({ ...initialState.user, notifications: initialState.user?.notifications }))
+              return navigate('/dashboard')
+            }
+
             // If security
             if (initialState.user?.type === 'security') {
               window.localStorage.setItem('profile', JSON.stringify({ ...initialState.user, notifications: initialState.user?.notifications }))

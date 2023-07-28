@@ -28,6 +28,7 @@ import Home from './icons/Home'
 import Logout from './icons/Logout'
 import Map from './icons/Map'
 import Megaphone from './icons/Megaphone'
+import MoreHorizontal from './icons/MoreHorizontal'
 import Menu from './icons/Menu'
 import PDF from './icons/PDF'
 import Picture from './icons/Picture'
@@ -72,6 +73,7 @@ export {
   Map,
   Megaphone,
   Menu,
+  MoreHorizontal,
   PDF,
   Picture,
   Pin,
