@@ -107,7 +107,9 @@ function BookGuest({ forwardRef }) {
   }, [inputs])
 
   useEffect(() => {
-    document.title = 'Book Guest'
+    if (window.localStorage.getItem('title') === 'Book Guest') {
+      document.title = 'Book Guest'
+    }
 
     window.localStorage.removeItem('bookingDetails')
 

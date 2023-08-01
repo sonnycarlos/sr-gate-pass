@@ -51,6 +51,10 @@
   background: transparent;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 a {
   color: var(--cyan-blue);
   text-decoration: none;

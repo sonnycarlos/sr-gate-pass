@@ -144,6 +144,8 @@ function Home() {
   const navigateToBookGuest = (e) => {
     e.preventDefault()
 
+    window.localStorage.setItem('title', 'Book Guest')
+
     homeContRef.current.style.transform = 'translateX(-150px)'
     homeContRef.current.style.transition = '300ms ease'
     bookGuestContRef.current.style.visibility = 'visible'

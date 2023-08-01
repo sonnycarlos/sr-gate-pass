@@ -1,3 +1,359 @@
 #dashboard {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100vw;
+  height: 100vh;
+  padding: 40px 40px 40px 340px;
   background-color: var(--lavander-mist);
+}
+
+#dashboard > div {
+  display: flex;
+  margin-top: 24px;
+}
+
+/* Guests, Announcements, Guest Booked */
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked {
+  display: grid;
+  gap: 16px;
+  width: 600px;
+  margin-right: 40px;
+}
+
+/* Guests */
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 40px;
+  height: 250px;
+  padding: 24px 16px 60px;
+  background: linear-gradient(248.74deg, #5CB950 1.04%, #28A419 101.33%);
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > *:not(:first-child) {
+  z-index: 1;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > .vector {
+  position: absolute;
+  top: 13.25%;
+  bottom: -54.27%;
+  right: -17%;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > div {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > div .input-field {
+  padding: 4px 16px;
+  border-bottom: 0;
+  border-radius: 100px;
+  background-color: var(--white);
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > div .input-field > input {
+  width: 96px;
+  background-color: var(--white);
+  font-size: 12px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > div > .btn > span {
+  color: var(--white) !important;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > p {
+  display: grid;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > p > span {
+  color: var(--white);
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > p > span:first-child {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 40px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guests > p > span:last-child {
+  font-size: 24px;
+}
+
+/* Announcements */
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements {
+  position: relative;
+  height: 200px;
+  margin-bottom: 64px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 140px;
+  padding: 16px 16px 24px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack:first-child {
+  top: 25px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 237.5px;
+  background-color: var(--white);
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack:nth-child(2) {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  background-color: #E8E8E8;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack:nth-child(3) {
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #D4D4D4;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 32px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header > h2 {
+  display: flex;
+  align-items: center;
+  font-family: 'SFProDisplay-Bold';
+  font-size: 18px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header > h2 > img {
+  width: 20px;
+  margin-left: 8px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header > div {
+  display: flex;
+  align-items: center;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .header > div > *:not(:first-child) {
+  margin-left: 8px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content {
+  display: grid;
+  gap: 16px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > .titleAndDate {
+  display: grid;
+  gap: 4px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > .titleAndDate > .title {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 16px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > .titleAndDate > .date {
+  color: var(--carbon-grey);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > p {
+  color: var(--carbon-grey);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .announcements > .stack > .content > p > button {
+  display: inline;
+  margin-left: 4px;
+}
+
+/* Guests Booked */
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  height: 264px;
+  padding: 16px 16px 24px;
+  background-color: var(--white);
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 32px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .header > h2 {
+  display: flex;
+  align-items: center;
+  font-family: 'SFProDisplay-Bold';
+  font-size: 18px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .header > div {
+  display: flex;
+  align-items: center;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .header > div > *:not(:first-child) {
+  margin-left: 8px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items {
+  display: grid;
+  gap: 16px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .nameAndHost {
+  display: grid;
+  gap: 4px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .nameAndHost > .name {
+  font-family: 'SFProDisplay-Bold';
+  font-size: 16px;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .nameAndHost > .host {
+  display: flex;
+  align-items: center;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .nameAndHost > .host > .profilePicture {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  border-radius: 100%;
+  background-size: cover;
+}
+
+#dashboard > div > .guestsAnnouncementsGuestsBooked > .guestsBooked > .items > .item > .date {
+  font-family: 'SFProDisplay-Bold';
+}
+
+/* Gate Pass Reader */
+
+#dashboard > div > .gatePassReader {
+  width: 400px;
+  padding: 20px 24px;
+  box-shadow: 5px 5px 20px 0px rgba(187, 187, 187, 0.25), -5px 5px 20px 0px rgba(187, 187, 187, 0.25);
+  border-radius: 16px;
+  background-color: var(--white);
+}
+
+#dashboard > div > .gatePassReader > .tabs {
+  display: flex;
+  align-items: center;
+}
+
+#dashboard > div > .gatePassReader > .tabs > .tab {
+  width: 80px;
+  color: var(--carbon-grey);
+  text-align: center;
+  cursor: pointer;
+}
+
+#dashboard > div > .gatePassReader > .tabs > .tab.active {
+  padding: 8px 16px;
+  border-radius: 16px;
+  background-color: var(--boring-green);
+  color: var(--white);
+}
+
+#dashboard > div > .gatePassReader > .reader {
+  margin: 24px 0;
+}
+
+#dashboard > div > .gatePassReader > .reader.input {
+  display: flex;
+  flex-direction: column;
+  height: 352px;
+  padding: 16px 0;
+}
+
+#dashboard > div > .gatePassReader > .reader.input > .btn {
+  width: 100%;
+  margin-top: 80px;
+}
+
+#dashboard > div > .gatePassReader > .searchResult {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  box-shadow: 5px 5px 20px 0px rgba(187, 187, 187, 0.25), -5px 5px 20px 0px rgba(187, 187, 187, 0.25);
+  border-radius: 16px;
+}
+
+#dashboard > div > .gatePassReader > .searchResult > .profilePictureAndName {
+  display: grid;
+  place-content: center;
+  gap: 24px;
+}
+
+#dashboard > div > .gatePassReader > .searchResult > .profilePictureAndName > .profilePicture {
+  width: 64px;
+  height: 64px;
+  margin: auto;
+  border-radius: 100%;
+  background-image: url('../assets/images/image.png');
+}
+
+#dashboard > div > .gatePassReader > .searchResult > .profilePictureAndName > .name {
+  font-style: 'SFProDisplay-Bold';
+  font-size: 24px;
+}
+
+#dashboard > div > .gatePassReader > .searchResult > .addressAndType {
+  margin: 12px 0 64px;
+}
+
+#dashboard > div > .gatePassReader > .searchResult > .addressAndType > p {
+  font-style: 'SFProDisplay-Medium';
+}
+
+#dashboard > div > .gatePassReader > .searchResult > div > p {
+  text-align: center;
+}
+
+#dashboard > div > .gatePassReader > .searchResult > .btn {
+  width: 100%;
+}
+
+/* Screen Width: 1920px */
+
+@media only screen and (min-width: 1920px) {
+  #dashboard {
+    padding: 40px 40px 40px 390px;
+  }
 }

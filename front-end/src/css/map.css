@@ -1,3 +1,7 @@
+#side_bar {
+  visibility: hidden;
+}
+
 #map {
   width: 100vw;
   height: 100vh;
@@ -17,6 +21,7 @@
   align-items: center;
   padding: 16px 0 24px;
   box-shadow: 10px 10px 20px rgba(187, 187, 187, 0.25);
+  background-color: var(--white);
 }
 
 #map > .searchBar > .btn {
@@ -161,6 +166,7 @@
 @media only screen and (min-width: 390px) {
   #map {
     padding-top: 68px;
+    background-color: var(--lavander-mist);
   }
 
   /* Search Bar */
@@ -206,5 +212,37 @@
   
   #map > .bluePrint > .gridWrapper > .roadLabel:nth-child(11) {
     left: 838.5px;
+  }
+}
+
+/* Screen Width: 1280px */
+
+@media only screen and (min-width: 1280px) {
+  #navigation_bar {
+    visibility: hidden;
+  }
+
+  #side_bar {
+    visibility: visible;
+  }
+
+  #map {
+    margin-left: 300px;
+    padding-top: 0;
+  }
+
+  /* Search Bar */
+
+  #map > .searchBar {
+    justify-content: flex-start;
+    padding-left: 40px;
+  }
+}
+
+/* Screen Width: 1920px */
+
+@media only screen and (min-width: 1920px) {
+  #map {
+    margin-left: 350px;
   }
 }

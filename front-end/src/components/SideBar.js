@@ -15,6 +15,7 @@ import {
   Dashboard,
   Home,
   Logout,
+  Map,
   Megaphone,
   User,
   Users,
@@ -141,6 +142,18 @@ function SideBar() {
             </div>
             
             <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Guests</span>
+          </Link>
+          
+          <Link
+            to='/map'
+            onClick={() => { dispatch({ type: SET_ACTIVE_PAGE, payload: 'map' }) }}
+            className={`${initialState.activePage === 'map' && 'active'}`}
+          >
+            <div className='icon'>
+              <Map color={`${initialState.activePage === 'map' ? '#5CB950' : '#606060'}`} />
+            </div>
+            
+            <span style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>Map</span>
           </Link>
 
           <Link
