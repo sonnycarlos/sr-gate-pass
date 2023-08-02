@@ -708,19 +708,36 @@ function Home() {
 
                     <div>
                       <div className='titleAndDate'>
-                        <h3 
-                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                          className='title'
-                        >
-                          {screenWidth <= 375 
-                            ? 
-                          `${notifications[notifications.length - 1]?.heading.substring(0, 23)}...`
-                            : 
-                          notifications[notifications.length - 1]?.heading}
-                        </h3>
+                        {
+                          (() => {
+                            if (screenWidth <= 375) {
+                              const truncatedHeading = notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading.substring(0, 23) + '...'
+
+                              return (
+                                <h3 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                                  className='title'
+                                >
+                                  {truncatedHeading}
+                                </h3>
+                              )
+                            } else {
+                              const fullHeading = notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading
+
+                              return (
+                                <h3 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                                  className='title'
+                                >
+                                  {fullHeading}
+                                </h3>
+                              )
+                            }
+                          })()
+                        }
 
                         <p className='date'>
-                          {`${formatDate(notifications[notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications.length - 1]?.dateCreated)}`}
+                          {`${formatDate(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)}`}
                         </p>
                       </div>
                       
@@ -744,20 +761,37 @@ function Home() {
                     </span>
 
                     <div>
-                      <div className='titleAndDate'>
-                        <h3 
-                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                          className='title'
-                        >
-                          {screenWidth <= 375 
-                            ? 
-                          `${notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.heading.substring(0, 23)}...`
-                            : 
-                          notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.heading}
-                        </h3>
+                    <div className='titleAndDate'>
+                        {
+                          (() => {
+                            if (screenWidth <= 375) {
+                              const truncatedHeading = notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading.substring(0, 23) + '...'
+
+                              return (
+                                <h3 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                                  className='title'
+                                >
+                                  {truncatedHeading}
+                                </h3>
+                              )
+                            } else {
+                              const fullHeading = notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading
+
+                              return (
+                                <h3 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                                  className='title'
+                                >
+                                  {fullHeading}
+                                </h3>
+                              )
+                            }
+                          })()
+                        }
 
                         <p className='date'>
-                          {`${formatDate(notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.dateCreated)} at ${formatTime(notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.dateCreated)}`}
+                          {`${formatDate(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)}`}
                         </p>
                       </div>
                       
@@ -782,19 +816,36 @@ function Home() {
 
                     <div>
                       <div className='titleAndDate'>
-                        <h3 
-                          style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
-                          className='title'
-                        >
-                          {screenWidth <= 375 
-                            ? 
-                          `${notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading.substring(0, 23)}...`
-                            : 
-                          notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading}
-                        </h3>
+                        {
+                          (() => {
+                            if (screenWidth <= 375) {
+                              const truncatedHeading = notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading.substring(0, 23) + '...'
+
+                              return (
+                                <h3 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                                  className='title'
+                                >
+                                  {truncatedHeading}
+                                </h3>
+                              )
+                            } else {
+                              const fullHeading = notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.heading
+
+                              return (
+                                <h3 
+                                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }} 
+                                  className='title'
+                                >
+                                  {fullHeading}
+                                </h3>
+                              )
+                            }
+                          })()
+                        }
 
                         <p className='date'>
-                          {`${formatDate(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)} at ${formatTime(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)}`}
+                          {`${formatDate(notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.dateCreated)}`}
                         </p>
                       </div>
                       

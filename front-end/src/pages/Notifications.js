@@ -125,7 +125,7 @@ function Notifications({ forwardRef }) {
                   </p>
                 </div>
                 
-                <p>{body?.length > 64 ? `${body?.substring(0, 64)}...` : body?.substring(0, 64)}</p>
+                <p>{body}</p>
               </div>
 
               {!isRead && <span className='mark'></span>}

@@ -481,7 +481,7 @@
   /* Header */
 
   #home_resident > .container {
-    height: 90vh;
+    height: 100vh;
   }
 
   #home_resident > .container > .header > h1 {
@@ -517,7 +517,7 @@
 
   #home_resident > .container > .notifications {
     top: 648px;
-    height: 238px;
+    height: 290px;
   }
 
   #home_resident > .container > .notifications > .header > h2 {
@@ -533,5 +533,15 @@
 
   #home_resident > .container > .bookings > .header > h2 {
     font-size: 20px;
+  }
+}
+
+/* Screen Height: 720px */
+
+@media only screen and (min-height: 720px) {
+  /* Guests */
+
+  #home_resident > .container > .guests > div .input-field > input {
+    width: 105px;
   }
 }
