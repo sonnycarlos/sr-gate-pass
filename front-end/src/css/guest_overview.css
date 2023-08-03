@@ -21,6 +21,32 @@
   font-size: 20px;
 }
 
+#guest_overview > header > .dropdown {
+  position: relative;
+}
+
+#guest_overview > header > .dropdown > button {
+  padding: 0;
+  background: none;
+}
+
+#guest_overview > header > .dropdown > .dropdownMenu {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  box-shadow: 5px 5px 5px 0px rgba(187, 187, 187, 0.25), -5px 5px 5px 0px rgba(187, 187, 187, 0.25);
+  border: 1px solid var(--lavander-mist);
+  border-radius: 4px;
+  background-color: var(--white);
+}
+
+#guest_overview > header > div > .dropdownMenu > * {
+  display: block;
+  width: 140px;
+  padding: 12px 16px;
+  border-radius: 0;
+}
+
 /* Info */
 
 #guest_overview > .info {

@@ -74,6 +74,7 @@ const bookGuest = asyncHandler(async (req, res) => {
     bookingNumber,
     name,
     phoneNumber,
+    plateNumber,
     qrCodeImage,
     pin,
     emailAddress
@@ -168,6 +169,7 @@ const bookGuest = asyncHandler(async (req, res) => {
     host,
     name,
     phoneNumber,
+    plateNumber,
     dateBooked: Date.now(),
     qrCodeImage,
     pin

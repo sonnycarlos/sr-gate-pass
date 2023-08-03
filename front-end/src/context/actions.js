@@ -95,13 +95,14 @@ export async function bookGuest(dispatch, payload) {
     bookingNumber,
     name,
     phoneNumber,
+    plateNumber,
     qrCodeImage,
     pin,
     emailAddress
   } = payload
 
   try {
-    const res = await Axios.post('/guest/book-guest', { bookingNumber, name, phoneNumber, qrCodeImage, pin, emailAddress })
+    const res = await Axios.post('/guest/book-guest', { bookingNumber, name, phoneNumber, plateNumber, qrCodeImage, pin, emailAddress })
 
     if (res) {
       dispatch({ type: BOOK_GUEST, payload: res.data })

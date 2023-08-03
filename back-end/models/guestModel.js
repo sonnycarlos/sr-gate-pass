@@ -22,6 +22,10 @@ const guestSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  plateNumber: {
+    type: String,
+    required: false
+  },
   dateBooked: [{
     type: Date
   }],

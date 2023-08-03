@@ -16,7 +16,11 @@ import {
   formatTime
 } from '../utils'
 
-import { Back, Copy } from '../assets/svg'
+import { 
+  Back, 
+  Copy, 
+  MoreHorizontal
+} from '../assets/svg'
 
 import '../css/guest_overview.css'
 
@@ -33,6 +37,7 @@ function GuestOverview() {
     host: '',
     name: '',
     phoneNumber: '',
+    plateNumber: '',
     dateBooked: [],
     timeArrived: [],
     qrCodeImage: '',
@@ -40,6 +45,15 @@ function GuestOverview() {
     urlLink: ''
   })
   const [isBtnActive, setIsBtnActive] = useState(true)
+  const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
+  const dropdownMenuRef = useRef(null)
+
+  // Handle click outside
+  const handleClickOutside = (event) => {
+    if (dropdownMenuRef.current && !dropdownMenuRef.current.contains(event.target) && !event.target.closest('.dropdown')) {
+      setIsDropdownMenuOpen(false)
+    }
+  }
 
   // Navigate to Guest History
   const navigateToGuestHistory = (e) => {
@@ -89,6 +103,7 @@ function GuestOverview() {
     const res = await bookGuest(dispatch, { 
       name: guest.name,
       phoneNumber: guest.phoneNumber,
+      plateNumber: guest.plateNumber,
       pin: guest.pin,
       emailAddress: details?.emailAddress
     })
@@ -119,6 +134,12 @@ function GuestOverview() {
     guestHistoryContRef.current.style.visibility = 'hidden'
     guestHistoryContRef.current.style.transform = 'translateX(100%)'
     guestHistoryContRef.current.style.zIndex = '100'
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
   }, [])
 
   useEffect(() => {
@@ -190,13 +211,30 @@ function GuestOverview() {
             Guest Overview
           </h1>
 
-          <Link 
-            onClick={navigateToGuestHistory}
-            style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
-            className='text btn'
-          >
-            View History
-          </Link>
+          <div className='dropdown'>
+            <button onClick={() => setIsDropdownMenuOpen(!isDropdownMenuOpen)}>
+              <MoreHorizontal color='#1E1E1E' />
+            </button>
+
+            {isDropdownMenuOpen && (
+              <div className='dropdownMenu' ref={dropdownMenuRef}>
+                <Link 
+                  onClick={navigateToGuestHistory}
+                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                  className='text btn'
+                >
+                  View History
+                </Link>
+
+                <Link 
+                  style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}
+                  className='text btn'
+                >
+                  Cancel Booking
+                </Link>
+              </div>
+            )}
+          </div>
         </header>
 
         {/* Info */}
@@ -216,6 +254,24 @@ function GuestOverview() {
               {guest.name}
             </p>
           </div>
+
+          <div className='info-group'>
+            <label>Phone Number</label>
+
+            <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              {guest.phoneNumber}
+            </p>
+          </div>
+
+          {guest.plateNumber !== '' && (
+            <div className='info-group'>
+              <label>Plate Number</label>
+
+              <p style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+                {guest.plateNumber}
+              </p>
+            </div>
+          )}
 
           <div className='info-group'>
             <label>Last Date of Booking</label>

@@ -23,6 +23,7 @@ function BookGuest({ forwardRef }) {
   const [inputs, setInputs] = useState({
     guestName: '',
     guestPhoneNumber: '',
+    guestPlateNumber: '',
     pin: ''
   })
   const [error, setError] = useState({ isError: false, errorMessage: '' })
@@ -72,6 +73,7 @@ function BookGuest({ forwardRef }) {
       bookingNumber,
       name: inputs.guestName,
       phoneNumber: inputs.guestPhoneNumber,
+      plateNumber: inputs.guestPlateNumber,
       qrCodeImage: `${fileRes.data?.public_id}.png`,
       pin: inputs.pin,
       emailAddress: profileDetails?.emailAddress
@@ -209,6 +211,22 @@ function BookGuest({ forwardRef }) {
               value={inputs.guestPhoneNumber}
               onChange={e => setInputs({ ...inputs, guestPhoneNumber: e.target.value })}
               required
+            />
+          </div>
+
+          <div className='form-group'>
+            <label style={{ fontFamily: initialState.isiOSDevice ? '-apple-system, BlinkMacSystemFont, sans-serif' : 'SFProDisplay-Bold' }}>
+              Plate Number of Guest
+              <span className='required-symbol'>*</span>
+              <span className='guide'>(optional)</span>
+            </label>
+
+            <input 
+              type='text'
+              name='guestPlateNumber'
+              placeholder='Plate number of guest here'
+              value={inputs.guestPlateNumber}
+              onChange={e => setInputs({ ...inputs, guestPlateNumber: e.target.value })}
             />
           </div>
 

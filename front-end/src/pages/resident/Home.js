@@ -742,7 +742,7 @@ function Home() {
                       </div>
                       
                       <p>
-                        {notifications[notifications.length - 1]?.body.substring(0, 54)}
+                        {notifications[notifications.length - 1]?.body.substring(0, 55)}
                       </p>
                     </div>
                   </Link>
@@ -796,7 +796,7 @@ function Home() {
                       </div>
                       
                       <p>
-                        {notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.body.substring(0, 54)}
+                        {notifications[notifications?.length > 2 ? notifications.length - 2 : notifications.length - 1]?.body.substring(0, 55)}
                       </p>
                     </div>
                   </Link>
@@ -850,7 +850,7 @@ function Home() {
                       </div>
                       
                       <p>
-                        {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.body.substring(0, 54)}
+                        {notifications[notifications.length >= 3 ? notifications.length - 3 : 0]?.body.substring(0, 55)}
                       </p>
                     </div>
                   </Link>

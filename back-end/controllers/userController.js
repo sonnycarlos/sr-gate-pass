@@ -35,7 +35,11 @@ const signIn = asyncHandler(async (req, res) => {
     userEmailAddress = emailAddress
     const token = generateToken(user._id)
 
-    res.cookie('token', token)
+    res.cookie('token', token, {
+      httpOnly: true, // Only accessible via HTTP requests
+      secure: true, // Set to true in production with HTTPS
+      sameSite: 'none',
+    })
 
     if (user.isApprove && user.type === 'resident') {
       const profileReq = await ProfileRequest.findOne({ userId: user._id })
